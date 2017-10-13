@@ -36,4 +36,14 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  <!-- 配置登陆过滤器 -->
+   <filter>
+           <filter-name>login</filter-name>
+           <filter-class>com.fzl.filter.LoginFilter</filter-class>
+       </filter>
+
+       <filter-mapping>
+           <filter-name>login</filter-name>
+           <url-pattern>/*</url-pattern>
+   </filter-mapping>
 </web-app>

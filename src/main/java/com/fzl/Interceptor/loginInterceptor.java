@@ -20,7 +20,7 @@ public class loginInterceptor extends HandlerInterceptorAdapter {
         request.setCharacterEncoding("UTF-8");
         String url = request.getServletPath();
         System.out.println(" URL："+url);
-        if(!url.equals("")){
+        if(url.endsWith(".css")||url.endsWith(".js")||url.endsWith(".png")){
             //判断是否已经登录
             TAdmin loginUser = (TAdmin)request.getSession().getAttribute("user");
             if(loginUser == null){

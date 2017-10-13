@@ -20,8 +20,12 @@ import javax.servlet.http.HttpSession;
 public class TAdminController {
     @Autowired
     private TAdminMapper tAdminMapper;
+    @RequestMapping( "/")
+    public String login1() {
+        return "login";
+    }
 
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @RequestMapping("login")
     public String login(HttpServletRequest request, HttpServletResponse response, TAdmin tAdmin) {
         HttpSession session = request.getSession();
         TAdmin admin = tAdminMapper.selectByTAdmin(tAdmin);
@@ -40,12 +44,13 @@ public class TAdminController {
     @RequestMapping(value = "loginOut", method = RequestMethod.GET)
     public String loginOut(HttpServletRequest request) {
         HttpSession session = request.getSession();
-            session.setAttribute("user", null);
+        session.setAttribute("user", null);
         return "login";
     }
+
     @RequestMapping(value = "test", method = RequestMethod.GET)
     @ResponseBody
-    public String test(HttpServletRequest request){
+    public String test(HttpServletRequest request) {
         System.err.print("sss");
         return "{\"ss\":\"ss\"}";
     }
