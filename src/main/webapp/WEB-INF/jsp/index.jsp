@@ -13,10 +13,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="../css/index.css" />
 
 <title>移动办公自动化系统</title>
+    <script type="text/javascript">
+        function fn_loginOut(){
+            document.forms[0].submit();
+        }
+    </script>
 </head>
 
 <body>
 <div id="container">
+
 	<div id="hd">
     	<div class="hd-wrap ue-clear">
         	<div class="top-light"></div>
@@ -30,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="toolbar ue-clear">
                 <a href="../../javascript:;" class="home-btn">首页</a>
-                <a href="../../javascript:;" class="quit-btn exit"></a>
+                 <a class="quit-btn exit"></a>
             </div>
         </div>
     </div>
@@ -81,7 +87,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <p class="tips">如果是请点击“确定”，否则点“取消”</p>
             
             <div class="buttons">
-                <input type="button" class="button long2 ok" value="确定" />
+                <form action="/user/loginOut" method="get">
+                    <input type="button"  class="button long2 ok" value="确定" />
+                </form>
+
                 <input type="button" class="button long2 normal" value="取消" />
             </div>
         </div>

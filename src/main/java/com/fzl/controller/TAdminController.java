@@ -31,8 +31,15 @@ public class TAdminController {
         return "login";
     }
 
-    @RequestMapping(value = "home", method = RequestMethod.POST)
-    public String home(HttpServletRequest request, HttpServletResponse response, TAdmin tAdmin) {
+    @RequestMapping(value = "home", method = RequestMethod.GET)
+    public String home(HttpServletRequest request, HttpServletResponse response) {
         return "home";
+    }
+
+    @RequestMapping(value = "loginOut", method = RequestMethod.GET)
+    public String loginOut(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+            session.setAttribute("user", null);
+        return "login";
     }
 }
