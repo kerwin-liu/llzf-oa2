@@ -2,6 +2,8 @@ package com.fzl.controller;
 
 import com.fzl.mapper.TAdminMapper;
 import com.fzl.pojo.TAdmin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import java.util.List;
 @Controller
 @RequestMapping("user")
 public class TAdminController extends BaseController{
+    private static final Logger LOGGER = LoggerFactory.getLogger(TAdminController.class);
     @Autowired
     private TAdminMapper tAdminMapper;
 
@@ -55,7 +58,6 @@ public class TAdminController extends BaseController{
 
     @RequestMapping(value = "test", method = RequestMethod.GET)
     public void test(HttpServletRequest request, HttpServletResponse response) {
-
         TAdmin admin = new TAdmin();
         admin.setName("asds");
         admin.setPassword("123");
