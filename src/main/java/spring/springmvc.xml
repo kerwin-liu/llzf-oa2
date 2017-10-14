@@ -25,7 +25,7 @@
 			<!-- 先匹配所有路径，然后排除不需要检查的路径 -->
 			<mvc:mapping path="/**" />
 			<!-- 与登录相关的请求 -->
-			<mvc:exclude-mapping path="/user/login" />
+			<!--<mvc:exclude-mapping path="login" />-->
 			<!-- 以下是静态资源 -->
 			<mvc:exclude-mapping path="/images/**" />
 			<mvc:exclude-mapping path="/css/**" />

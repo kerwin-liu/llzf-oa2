@@ -2,26 +2,38 @@ package com.fzl.controller;
 
 import com.fzl.mapper.TAdminMapper;
 import com.fzl.pojo.TAdmin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kerwin.liu on 2017/10/13.
  */
 @Controller
 @RequestMapping("user")
-public class TAdminController {
+public class TAdminController extends BaseController{
+    private static final Logger LOGGER = LoggerFactory.getLogger(TAdminController.class);
     @Autowired
     private TAdminMapper tAdminMapper;
 
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @RequestMapping("/")
+    public String login1() {
+        return "login";
+    }
+    @RequestMapping("index")
+    public String index(HttpServletRequest request, HttpServletResponse response, TAdmin tAdmin) {
+        return "index";
+    }
+    @RequestMapping("login")
     public String login(HttpServletRequest request, HttpServletResponse response, TAdmin tAdmin) {
         HttpSession session = request.getSession();
         TAdmin admin = tAdminMapper.selectByTAdmin(tAdmin);
@@ -32,16 +44,31 @@ public class TAdminController {
         return "login";
     }
 
-    @RequestMapping(value = "home", method = RequestMethod.POST)
-    public String home(HttpServletRequest request, HttpServletResponse response, TAdmin tAdmin) {
+    @RequestMapping(value = "home", method = RequestMethod.GET)
+    public String home(HttpServletRequest request, HttpServletResponse response) {
         return "home";
     }
 
+    @RequestMapping(value = "loginOut", method = RequestMethod.GET)
+    public String loginOut(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.setAttribute("user", null);
+        return "login";
+    }
 
     @RequestMapping(value = "test", method = RequestMethod.GET)
-    @ResponseBody
-    public String test(HttpServletRequest request){
-        System.err.print("sss");
-        return "{\"ss\":\"ss\"}";
+    public void test(HttpServletRequest request, HttpServletResponse response) {
+        TAdmin admin = new TAdmin();
+        admin.setName("asds");
+        admin.setPassword("123");
+        List<TAdmin> list=new ArrayList<>();
+        TAdmin admin1 = new TAdmin();
+        admin1.setName("ddddd");
+        admin1.setPassword("3456");
+        list.add(admin);
+        list.add(admin1);
+        writeCommonDataResponse(response, "200", "成功", list);
     }
+
+
 }

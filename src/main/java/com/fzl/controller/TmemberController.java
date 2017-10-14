@@ -11,7 +11,7 @@ import com.fzl.service.TmemberService;
 
 
 @Controller
-public class TmemberController {
+public class TmemberController extends BaseController{
 
 	
 	@Autowired
