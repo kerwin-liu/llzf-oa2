@@ -4,7 +4,6 @@ import com.fzl.pojo.Qo.TClientQo;
 import com.fzl.pojo.TAdmin;
 import com.fzl.pojo.TClient;
 import com.fzl.service.TClientService;
-import org.apache.http.HttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class TClientController extends BaseController {
      */
     @RequestMapping(value = "getAll", method = RequestMethod.GET)
     public void getAll(HttpServletRequest request, HttpServletResponse response, TClientQo tClientQo) {
-//判断查询条件合法性
+        //判断查询条件合法性
         //分页查询数据
         //返回json
     }

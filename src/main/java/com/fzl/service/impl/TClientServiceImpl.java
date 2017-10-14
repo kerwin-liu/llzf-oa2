@@ -4,10 +4,12 @@ import com.fzl.mapper.TClientMapper;
 import com.fzl.pojo.TClient;
 import com.fzl.service.TClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by kerwin.liu on 2017/10/14.
  */
+@Service
 public class TClientServiceImpl implements TClientService{
     @Autowired
     private TClientMapper tClientLogMapper;
