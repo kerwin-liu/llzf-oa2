@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 @RequestMapping("user")
 public class TAdminController extends BaseController{
-    private static final Logger LOGGER = LoggerFactory.getLogger(TAdminController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseController.class);
     @Autowired
     private TAdminMapper tAdminMapper;
 
