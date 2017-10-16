@@ -8,9 +8,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="../css/base.css" />
+<link rel="stylesheet" href="../../css/base.css" />
 <link rel="stylesheet" type="text/css" href="../css/jquery.dialog.css" />
-<link rel="stylesheet" href="../css/index.css" />
+<link rel="stylesheet" href="../../css/index.css" />
 
 <title>移动办公自动化系统</title>
     <script type="text/javascript">
@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <li><a href="../../javascript:;" date-src="info-mgt.html">信息管理</a></li>
                             <li><a href="../../javascript:;" date-src="info-det.html">领导值岗管理</a></li>
                             <li><a href="../../javascript:;">中层领导管理</a></li>
-                            <li><a href="../javascript:;">领导值班记录</a></li>
+                            <li><a href="../../javascript:;">领导值班记录</a></li>
                         </ul>
                     </li>
                     <li class="konwledge"><div class="nav-header"><a href="../javascript:;" class="ue-clear"><span>知识管理</span><i class="icon"></i></a></div></li>
@@ -98,11 +98,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 </body>
-<script type="text/javascript" src="../js/jquery.js"></script>
-<script type="text/javascript" src="../js/common.js"></script>
-<script type="text/javascript" src="../js/core.js"></script>
-<script type="text/javascript" src="../js/jquery.dialog.js"></script>
-<script type="text/javascript" src="../js/index.js"></script>
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/core.js"></script>
+<script type="text/javascript" src="../../js/jquery.dialog.js"></script>
+<script type="text/javascript" src="../../js/index.js"></script>
 <script type="text/javascript" >
     window.onload=function () {
         console.log("1");
