@@ -10,20 +10,22 @@
     <result column="card" property="card" jdbcType="VARCHAR" />
     <result column="qq" property="qq" jdbcType="VARCHAR" />
     <result column="wexin" property="wexin" jdbcType="VARCHAR" />
-    <result column="groups" property="groups" jdbcType="VARCHAR" />
+    <result column="groups" property="groups" jdbcType="INTEGER" />
+    <result column="permissions" property="permissions" jdbcType="INTEGER" />
     <result column="qqnc" property="qqnc" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="TIME" property="time" jdbcType="TIMESTAMP" />
     <result column="OPEN" property="open" jdbcType="VARCHAR" />
     <result column="creat_user_id" property="creatUserId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    member_id, number, NAME, sex, phone, card, qq, wexin, groups, qqnc, address, remark, 
-    TIME, OPEN, creat_user_id
+    member_id, number, NAME, sex, phone, card, qq, wexin, groups, permissions, qqnc,
+    address, remark, TIME, OPEN, creat_user_id, create_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from member
     where member_id = #{memberId,jdbcType=INTEGER}
@@ -33,16 +35,18 @@
     where member_id = #{memberId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.fzl.pojo.Member" >
-    insert into member (member_id, number, NAME, 
-      sex, phone, card, qq, 
-      wexin, groups, qqnc, 
-      address, remark, TIME, 
-      OPEN, creat_user_id)
-    values (#{memberId,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{card,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
-      #{wexin,jdbcType=VARCHAR}, #{groups,jdbcType=VARCHAR}, #{qqnc,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
-      #{open,jdbcType=VARCHAR}, #{creatUserId,jdbcType=INTEGER})
+    insert into member (member_id, number, NAME,
+    sex, phone, card, qq,
+    wexin, groups, permissions,
+    qqnc, address, remark,
+    TIME, OPEN, creat_user_id,
+    create_time)
+    values (#{memberId,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+    #{sex,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{card,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR},
+    #{wexin,jdbcType=VARCHAR}, #{groups,jdbcType=INTEGER}, #{permissions,jdbcType=INTEGER},
+    #{qqnc,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+    #{time,jdbcType=TIMESTAMP}, #{open,jdbcType=VARCHAR}, #{creatUserId,jdbcType=INTEGER},
+    #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.fzl.pojo.Member" >
     insert into member
@@ -74,6 +78,9 @@
       <if test="groups != null" >
         groups,
       </if>
+      <if test="permissions != null" >
+        permissions,
+      </if>
       <if test="qqnc != null" >
         qqnc,
       </if>
@@ -91,6 +98,9 @@
       </if>
       <if test="creatUserId != null" >
         creat_user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -119,7 +129,10 @@
         #{wexin,jdbcType=VARCHAR},
       </if>
       <if test="groups != null" >
-        #{groups,jdbcType=VARCHAR},
+        #{groups,jdbcType=INTEGER},
+      </if>
+      <if test="permissions != null" >
+        #{permissions,jdbcType=INTEGER},
       </if>
       <if test="qqnc != null" >
         #{qqnc,jdbcType=VARCHAR},
@@ -138,6 +151,9 @@
       </if>
       <if test="creatUserId != null" >
         #{creatUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -166,7 +182,10 @@
         wexin = #{wexin,jdbcType=VARCHAR},
       </if>
       <if test="groups != null" >
-        groups = #{groups,jdbcType=VARCHAR},
+        groups = #{groups,jdbcType=INTEGER},
+      </if>
+      <if test="permissions != null" >
+        permissions = #{permissions,jdbcType=INTEGER},
       </if>
       <if test="qqnc != null" >
         qqnc = #{qqnc,jdbcType=VARCHAR},
@@ -186,6 +205,9 @@
       <if test="creatUserId != null" >
         creat_user_id = #{creatUserId,jdbcType=INTEGER},
       </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where member_id = #{memberId,jdbcType=INTEGER}
   </update>
@@ -198,13 +220,15 @@
       card = #{card,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
       wexin = #{wexin,jdbcType=VARCHAR},
-      groups = #{groups,jdbcType=VARCHAR},
+      groups = #{groups,jdbcType=INTEGER},
+      permissions = #{permissions,jdbcType=INTEGER},
       qqnc = #{qqnc,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       TIME = #{time,jdbcType=TIMESTAMP},
       OPEN = #{open,jdbcType=VARCHAR},
-      creat_user_id = #{creatUserId,jdbcType=INTEGER}
+      creat_user_id = #{creatUserId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where member_id = #{memberId,jdbcType=INTEGER}
   </update>
   <select id="queryMemberByuserid" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -226,5 +250,12 @@
     m.creat_user_id
     FROM member m LEFT JOIN user_member um ON m.member_id= um.member_id
     WHERE um.user_id =#{id};
+  </select>
+
+  <select id="queryMemberByNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from member
+    where name = #{name,jdbcType=INTEGER}
   </select>
 </mapper>

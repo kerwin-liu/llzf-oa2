@@ -19,7 +19,9 @@ public class Member {
 
     private String wexin;
 
-    private String groups;
+    private Integer groups;
+
+    private Integer permissions;
 
     private String qqnc;
 
@@ -32,6 +34,8 @@ public class Member {
     private String open;
 
     private Integer creatUserId;
+
+    private Date createTime;
 
     public Integer getMemberId() {
         return memberId;
@@ -97,12 +101,20 @@ public class Member {
         this.wexin = wexin == null ? null : wexin.trim();
     }
 
-    public String getGroups() {
+    public Integer getGroups() {
         return groups;
     }
 
-    public void setGroups(String groups) {
-        this.groups = groups == null ? null : groups.trim();
+    public void setGroups(Integer groups) {
+        this.groups = groups;
+    }
+
+    public Integer getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Integer permissions) {
+        this.permissions = permissions;
     }
 
     public String getQqnc() {
@@ -151,5 +163,13 @@ public class Member {
 
     public void setCreatUserId(Integer creatUserId) {
         this.creatUserId = creatUserId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }
