@@ -1,7 +1,9 @@
 package com.fzl.controller;
 
-import com.fzl.mapper.TAdminMapper;
 import com.fzl.pojo.TAdmin;
+import com.fzl.pojo.User;
+import com.fzl.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,27 +21,25 @@ import java.util.List;
  * Created by kerwin.liu on 2017/10/13.
  */
 @Controller
-@RequestMapping("user")
-public class TAdminController extends BaseController{
-    private static final Logger LOGGER = LoggerFactory.getLogger(TAdminController.class);
+public class LoginController extends BaseController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
     @Autowired
-    private TAdminMapper tAdminMapper;
+    private UserService userService;
 
-    @RequestMapping("/")
-    public String login1() {
-        return "login";
-    }
     @RequestMapping("index")
-    public String index(HttpServletRequest request, HttpServletResponse response, TAdmin tAdmin) {
+    public String index(HttpServletRequest request, HttpServletResponse response) {
         return "index";
     }
+
     @RequestMapping("login")
-    public String login(HttpServletRequest request, HttpServletResponse response, TAdmin tAdmin) {
+    public String login(HttpServletRequest request, HttpServletResponse response, User user) {
         HttpSession session = request.getSession();
-        TAdmin admin = tAdminMapper.selectByTAdmin(tAdmin);
-        if (admin != null) {
-            session.setAttribute("user", admin);
-            return "index";
+        if (StringUtils.isNotEmpty(user.getUserName()) && StringUtils.isNotEmpty(user.getPassword())) {
+            User resultUser = userService.selectUser(user);
+            if (resultUser != null) {
+                session.setAttribute("user", resultUser);
+                return "index";
+            }
         }
         return "login";
     }
@@ -61,7 +61,7 @@ public class TAdminController extends BaseController{
         TAdmin admin = new TAdmin();
         admin.setName("asds");
         admin.setPassword("123");
-        List<TAdmin> list=new ArrayList<>();
+        List<TAdmin> list = new ArrayList<>();
         TAdmin admin1 = new TAdmin();
         admin1.setName("ddddd");
         admin1.setPassword("3456");

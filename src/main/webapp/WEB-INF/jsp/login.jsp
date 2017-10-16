@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </script>
 </head>
 <body>
-<form action="/user/login" method="post">
+<form action="/login" method="post">
     <div id="container">
         <div id="bd">
             <div class="login">
@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="login-input">
                     <p class="user ue-clear">
                         <label>用户名</label>
-                        <input type="text" id="name" name="name"/>
+                        <input type="text" id="userName" name="userName"/>
                     </p>
                     <p class="password ue-clear">
                         <label>密&nbsp;&nbsp;&nbsp;码</label>

@@ -22,27 +22,6 @@ public class TmemberController extends BaseController{
 	public TMember getMemberBymemberId(@PathVariable Integer memberId){
 		
 		return memberService.getTmemberByMemberId(memberId);
-		
-	}
-	
-	
-	@RequestMapping("/oop")
-	public String getMemberBymember(){
-		
-		return "index";
-		
-	}
-	
-	@RequestMapping("/login")
-	public String login(){
-		
-		return "index";
-		
-	}
-	@RequestMapping("/home")
-	public String home(){
-
-		return "home";
 
 	}
 }

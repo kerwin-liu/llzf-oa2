@@ -3,6 +3,7 @@ package com.fzl.controller;
 import com.fzl.pojo.Qo.TClientQo;
 import com.fzl.pojo.TAdmin;
 import com.fzl.pojo.TClient;
+import com.fzl.pojo.User;
 import com.fzl.service.TClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping("client")
 public class TClientController extends BaseController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TAdminController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
     @Autowired
     private TClientService tClientService;
 
@@ -48,7 +49,7 @@ public class TClientController extends BaseController {
     public void save(HttpServletRequest request, HttpServletResponse response, TClient tClient) {
         //校验数据格式正确性
         //通过session获取user信息
-        TAdmin user = (TAdmin) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
         //如果没有权限增加客户信息则返回
         //数据入库
         boolean insert = tClientService.insertTClient(tClient);

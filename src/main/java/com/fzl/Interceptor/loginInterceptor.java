@@ -1,6 +1,6 @@
 package com.fzl.Interceptor;
 
-import com.fzl.pojo.TAdmin;
+import com.fzl.pojo.User;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -19,20 +19,20 @@ public class loginInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         request.setCharacterEncoding("UTF-8");
         String url = request.getServletPath();
-        System.out.println(" URL："+url);
-        if(url.endsWith(".css")||url.endsWith(".js")||url.endsWith(".png")){
+        System.out.println(" URL：" + url);
+        if (url.endsWith(".css") || url.endsWith(".js") || url.endsWith(".png")) {
             return true;
         }
         //判断是否已经登录
-        TAdmin loginUser = (TAdmin)request.getSession().getAttribute("user");
-        if(loginUser == null){
-            if(url.equals("/user/login")){
+        User loginUser = (User) request.getSession().getAttribute("user");
+        if (loginUser == null) {
+            if (url.equals("/login")) {
                 return true;
             }
             //未登录状态
-            response.sendRedirect("user/login");
+            response.sendRedirect("login");
             return false;
-        }else if(url.equals("/user/login")){
+        } else if (url.equals("/login")||url.equals("/")) {
             response.sendRedirect("index");
         }
         return true;

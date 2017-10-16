@@ -27,6 +27,19 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- 加载mybatis的全局配置文件 -->
 		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml" />
+		<!--分页插件-->
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							dialect=mysql
+							reasonable=true
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.fzl.mapper" />
