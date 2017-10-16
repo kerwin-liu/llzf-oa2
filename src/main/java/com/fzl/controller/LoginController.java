@@ -1,6 +1,5 @@
 package com.fzl.controller;
 
-import com.fzl.pojo.TAdmin;
 import com.fzl.pojo.User;
 import com.fzl.service.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -58,12 +57,12 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value = "test", method = RequestMethod.GET)
     public void test(HttpServletRequest request, HttpServletResponse response) {
-        TAdmin admin = new TAdmin();
-        admin.setName("asds");
+        User admin = new User();
+        admin.setUserName("asds");
         admin.setPassword("123");
-        List<TAdmin> list = new ArrayList<>();
-        TAdmin admin1 = new TAdmin();
-        admin1.setName("ddddd");
+        List<User> list = new ArrayList<>();
+        User admin1 = new User();
+        admin1.setUserName("ddddd");
         admin1.setPassword("3456");
         list.add(admin);
         list.add(admin1);

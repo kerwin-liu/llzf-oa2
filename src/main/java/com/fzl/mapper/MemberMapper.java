@@ -16,4 +16,6 @@ public interface MemberMapper {
     int updateByPrimaryKey(Member record);
 
     Member queryMemberByuserid(Integer id);
+
+    Member queryMemberByNo(String name);
 }

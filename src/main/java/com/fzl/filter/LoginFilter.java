@@ -1,6 +1,5 @@
 package com.fzl.filter;
 
-import com.fzl.pojo.TAdmin;
 import com.fzl.pojo.User;
 
 import javax.servlet.*;
