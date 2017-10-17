@@ -157,7 +157,7 @@
         <div class="fitem">
             <span class="item-one">
                 <label>账号:</label>
-                <input name="number" class="easyui-validatebox" required="true" size="20">
+                <input name="number" class="easyui-validatebox textbox" required="true" size="20">
             </span>
             <span class="item-two">
                 <label>组别:</label>
@@ -187,11 +187,11 @@
         <div class="fitem">
            <span class="item-one">
                 <label>姓名:</label>
-                <input name="name" class="easyui-validatebox" required="true">
+                <input name="name" class="easyui-validatebox textbox" required="true">
            </span>
             <span class="item-two">
                  <label>手机:</label>
-                <input name="phone">
+                <input name="phone"  class="easyui-validatebox textbox" required="true">
             </span>
         </div>
         <div class="fitem">
@@ -206,7 +206,7 @@
         </div>
         <div class="fitem">
             <label>身份证:</label>
-            <input name="card" size="53">
+            <input name="card" size="53"  class="easyui-validatebox textbox" required="true">
         </div>
         <div class="fitem">
             <label>住址:</label>
