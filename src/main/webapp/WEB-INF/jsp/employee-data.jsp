@@ -108,48 +108,73 @@
                 productid: $('#productid').val()
             });
         }
+        $(function(){
+            $("#dg").datagrid({
+                title:'员工信息表',
+                singleSelect: false,
+                fitColumns: true,
+                fit: true,
+                rownumbers: true,
+                remoteSort: false,
+                columns: [[
+                    {field: 'memberId', title: 'IDs', checkbox: true, width: 8, align: 'center'},
+                    {field: 'number', title: '编号', width: 100, align: 'center', hidden: 'true'},
+                    {field: 'name', title: '姓名', width: 100, align: 'center'},
+                    {field: 'sex', title: '性别', width: 100, align: 'center'},
+                    {field: 'phone', title: '手机号', width: 100, align: 'center'},
+                    {field: 'wexin', title: '微信号', width: 100, align: 'center'},
+                    {field: 'qq', title: 'QQ号', width: 100, align: 'center'},
+                    {field: 'qqnc', title: 'QQ昵称', width: 100, align: 'center'},
+                    {field: 'card', title: '身份证号', width: 100, align: 'center'},
+                    {field: 'group', title: '管理分组', width: 100, align: 'center'},
+                    {
+                        field: 'obj', title: '操作', align: 'center', width: 28, formatter: function (value, row, index) {
+                        return "<a id='de' onclick=deletes('" + row.ID + "')>删除</a>";
+                    }
+                    }
+                ]]
+            });
+            $(".datagrid-toolbar").insertBefore(".datagrid-view");
+
+        })
     </script>
 </head>
-
 <body>
 <h2>员工信息管理</h2>
-<table id="dg" title="员工信息管理" class="easyui-datagrid" style="width:700px;height:250px"
-       url="/member/getList"
-       toolbar="#toolbar" pagination="true"
-       rownumbers="true" fitColumns="true" singleSelect="true">
-    <thead>
-    <tr>
-        <th field="number" width="50">编号</th>
-        <th field="name" width="50">姓名</th>
-        <th field="sex" width="50">性别</th>
-        <th field="phone" width="50">手机</th>
-        <th field="card" width="50">身份证</th>
-        <th field="qq" width="50">ＱＱ</th>
-        <th field="wexin" width="50">微信账号</th>
-        <th field="groups" width="50">管理分组</th>
-    </tr>
-    </thead>
-</table>
-<div id="tb" style="padding:3px">
-    <span>员工账号:</span>
-    <input id="number" style="line-height:26px;border:1px solid #ccc">
-    <%--    <span>手机:</span>
-        <input id="phone" style="line-height:26px;border:1px solid #ccc">
+<div id="toolbar"　class="datagrid-toolbar" style="width: 100%;border: 0px solid red;">
+
+    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn1" class="easyui-linkbutton" data-options="iconCls:'icon-add'"  onclick="newUser()">添加员工</a>
+    </div>
+    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn2" class="easyui-linkbutton" data-options="iconCls:'icon-edit'"　onclick="editUser()">修改资料</a>
+    </div>
+    </div>
+    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn5"  class="easyui-linkbutton" data-options="iconCls:'icon-add'"　onclick="removeUser()">删除员工</a>
+    </div>
+    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn6" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-add'">数据导出</a>
+    </div>
+
+    <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
+       <span>类型:</span>
+        <input type="text"/>
+        <span>员工账号:</span>
+        <input id="number" style="line-height:26px;border:1px solid #ccc" size="10">
+        <span>手机:</span>
+        <input id="phone" style="line-height:26px;border:1px solid #ccc"  size="10">
         <span>身份证:</span>
-        <input id="card" style="line-height:26px;border:1px solid #ccc">
+        <input id="card" style="line-height:26px;border:1px solid #ccc"  size="10">
         <span>姓名:</span>
-        <input id="name" style="line-height:26px;border:1px solid #ccc">
+        <input id="name" style="line-height:26px;border:1px solid #ccc"  size="10">
         <span>注册日期:</span>
-        <input id="time" class="easyui-datebox" data-options="sharedCalendar:'#cc'">--%>
-    <a href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">查询</a>
-</div>
-<div id="toolbar">
-    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">新增</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">编辑</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="removeUser()">删除</a>
-</div>
+        <input id="time" class="easyui-datetimebox" data-options="sharedCalendar:'#cc'"  size="10" style="line-height:26px;border:1px solid #ccc">
+    </div>
 
 
+</div>
+<div id="dg" style="height: 99%;width: 99%;border: 1px solid red;float: left;margin-left: 0.3%"></div>
 <div id="dlg" class="easyui-dialog" style="width:600px;height:320px;padding:10px 20px"
      closed="true" buttons="#dlg-buttons">
     <div class="ftitle">员工信息</div>
@@ -223,5 +248,4 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 </div>
 </body>
-
 </html>
