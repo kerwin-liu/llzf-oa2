@@ -3,7 +3,7 @@ function newUser() {
     alert(222)
     $('#dlg').dialog('open').dialog('setTitle', '添加用户');
     $('#fm').form('clear');
-    url = 'pages/member/save';
+    url = '/member/save';
 }
 function editUser() {
     alert(333)
