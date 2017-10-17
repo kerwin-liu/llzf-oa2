@@ -6,31 +6,59 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html style="height: 100%">
 <head>
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="http://www.w3cschool.cc/try/jeasyui/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="http://www.w3cschool.cc/try/jeasyui/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="http://www.w3cschool.cc/try/jeasyui/demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/demo/demo.css">
     <script type="text/javascript" src="../../js/jquery.js"></script>
     <%--<script type="text/javascript" src="../../js/jquery.easyui.min.js"></script>--%>
-    <script type="text/javascript" src="http://www.w3cschool.cc/try/jeasyui/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="http://www.w3cschool.cc/try/jeasyui/jquery.edatagrid.js"></script>
+
+    <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
 </head>
 <body>
-<div style="height: 10%;width: 99%;border: 1px solid red;float: left;margin-left: 0.3%">
-    <a id="btn" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
+<div class="datagrid-toolbar" style="height: 60px;width: 100%;border: 0px solid red;float: left;">
+
+        <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+            <a id="btn1" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加客户</a>
+        </div>
+        <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+            <a id="btn2" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改资料</a>
+        </div>
+        <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+            <a id="btn3" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-clear'">拉黑</a>
+        </div>
+        <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+            <a id="btn4" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-large-shapes'">客户经理</a>
+        </div>
+        <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+            <a id="btn5" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-add'">删除客户</a>
+        </div>
+        <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+            <a id="btn6" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-add'">数据导出</a>
+        </div>
+
+        <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
+类型:<input type="text"/>
+        </div>
+
+
 </div>
 <div id="dg" style="height: 99%;width: 99%;border: 1px solid red;float: left;margin-left: 0.3%"></div>
 </body>
 <script type="text/javascript">
     $(function(){
         $("#dg").datagrid({
+            title:'本地客户',
             singleSelect: false,
             fitColumns: true,
             fit: true,
             rownumbers: true,
             remoteSort: false,
+
             columns: [[
                 {field: 'IDs', title: 'IDs', checkbox: true, width: 8, align: 'center'},
                 {field: 'ID', title: '编号', width: 100, align: 'center', hidden: 'true'},
@@ -51,6 +79,8 @@
                 }
             ]]
         });
+        $(".datagrid-toolbar").insertBefore(".datagrid-view");
+
         })
 
 </script>
