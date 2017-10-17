@@ -29,7 +29,11 @@ public class MemberController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "getList", method = RequestMethod.GET)
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public String index(HttpServletRequest request, HttpServletResponse response, MemberQo memberQo) {
+        return "employee-data";
+    }
+    @RequestMapping(value = "getList", method = RequestMethod.POST)
     public void getList(HttpServletRequest request, HttpServletResponse response, MemberQo memberQo) {
         //权限：员工只能查看自己的，主管只能查看本部门的，管理员查看全部的
         User sessionUser = (User) request.getSession().getAttribute("user");
