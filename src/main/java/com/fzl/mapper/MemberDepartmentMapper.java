@@ -3,13 +3,13 @@ package com.fzl.mapper;
 import com.fzl.pojo.MemberDepartment;
 
 public interface MemberDepartmentMapper {
-    int deleteByPrimaryKey(Integer memberId);
+    int deleteByPrimaryKey(Long memberId);
 
     int insert(MemberDepartment record);
 
     int insertSelective(MemberDepartment record);
 
-    MemberDepartment selectByPrimaryKey(Integer memberId);
+    MemberDepartment selectByPrimaryKey(Long memberId);
 
     int updateByPrimaryKeySelective(MemberDepartment record);
 

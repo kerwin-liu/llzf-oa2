@@ -10,19 +10,19 @@ import com.fzl.pojo.User;
 public interface UserService {
     User selectUser(User user);
 
-    Integer selectRole(User sessionUser);
+    Long selectRole(User sessionUser);
 
-    boolean saveUser(Integer memberId,Integer creatId);
+    boolean saveUser(Long memberId,Long creatId);
 
-    boolean selectUserIdbyMemberID(Integer memberId);
+    boolean selectUserIdbyMemberID(Long memberId);
 
     boolean updatePassword(UserUpdateQo userUpdateQo);
 
-    boolean passwordReset(Integer memberId);
+    boolean passwordReset(Long memberId);
 
-    User selectUserbyMemberID(Integer memberId);
+    User selectUserbyMemberID(Long memberId);
 
-    boolean deleteUser(Integer memberId);
+    boolean deleteUser(Long memberId);
 
-    Member queryMember(Integer id);
+    Member queryMember(Long id);
 }

@@ -3,7 +3,7 @@ package com.fzl.pojo;
 import java.util.Date;
 
 public class TClient {
-    private Integer clientId;
+    private Long clientId;
 
     private String name;
 
@@ -29,15 +29,15 @@ public class TClient {
 
     private Date time;
 
-    private Integer memberId;
+    private Long memberId;
 
     private String ip;
 
-    public Integer getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(Integer clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 
@@ -137,11 +137,11 @@ public class TClient {
         this.time = time;
     }
 
-    public Integer getMemberId() {
+    public Long getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(Integer memberId) {
+    public void setMemberId(Long memberId) {
         this.memberId = memberId;
     }
 

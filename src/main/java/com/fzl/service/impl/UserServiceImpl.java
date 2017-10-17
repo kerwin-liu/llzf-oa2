@@ -32,15 +32,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer selectRole(User sessionUser) {
+    public Long selectRole(User sessionUser) {
         return userMapper.selectRole(sessionUser);
     }
 
     @Override
-    public boolean saveUser(Integer memberId, Integer creatId) {
+    public boolean saveUser(Long memberId, Long creatId) {
         //用户信息入库
         User user = new User();
-        user.setId(IDUtils.genItemId());
+        user.setId(IDUtils.getId());
         user.setUserName(RandomStringUtils.randomAlphabetic(6) + RandomStringUtils.randomNumeric(2));
         user.setPassword(RandomStringUtils.randomAlphanumeric(8));
         user.setCreatUserId(creatId);
@@ -53,16 +53,16 @@ public class UserServiceImpl implements UserService {
         //员工信息更改是否开通账号为已开通1
         Member member = new Member();
         member.setOpen("1");
-        int update = memberMapper.updateByPrimaryKeySelective(member);
-        if (insert1 == 1 && insert == 1 && update > 0) {
+        memberMapper.updateByPrimaryKeySelective(member);
+        if (insert1 == 1 && insert == 1) {
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean selectUserIdbyMemberID(Integer memberId) {
-        Integer userId = userMapper.selectUserIdbyMemberID(memberId);
+    public boolean selectUserIdbyMemberID(Long memberId) {
+        Long userId = userMapper.selectUserIdbyMemberID(memberId);
         return (userId == null ? false : true);
     }
 
@@ -72,19 +72,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean passwordReset(Integer memberId) {
+    public boolean passwordReset(Long memberId) {
         UserUpdateQo userUpdateQo = new UserUpdateQo();
         userUpdateQo.setNewPassword(RandomStringUtils.randomAlphanumeric(8));
         return userMapper.updatePassword(userUpdateQo) > 0;
     }
 
     @Override
-    public User selectUserbyMemberID(Integer memberId) {
+    public User selectUserbyMemberID(Long memberId) {
         return userMapper.selectUserbyMemberID(memberId);
     }
 
     @Override
-    public boolean deleteUser(Integer memberId) {
+    public boolean deleteUser(Long memberId) {
         //user 状态
         User user = new User();
         user.setStatus(0);
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Member queryMember(Integer id) {
+    public Member queryMember(Long id) {
         return memberMapper.queryMemberByuserid(id);
     }
 }

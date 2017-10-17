@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.fzl.mapper.TClientMapper" >
   <resultMap id="BaseResultMap" type="com.fzl.pojo.TClient" >
-    <id column="client_id" property="clientId" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
+    <id column="client_id" property="clientId" jdbcType="BIGINT" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
     <result column="card" property="card" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="qq" property="qq" jdbcType="VARCHAR" />
@@ -14,113 +14,35 @@
     <result column="funds" property="funds" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
-    <result column="time" property="time" jdbcType="TIMESTAMP" />
-    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="TIME" property="time" jdbcType="TIMESTAMP" />
+    <result column="member_id" property="memberId" jdbcType="BIGINT" />
     <result column="ip" property="ip" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
   <sql id="Base_Column_List" >
-    client_id, name, card, type, sex, phone, qq, qqqnc, weixin, funds, address, remark, 
-    time, member_id, ip
+    client_id, NAME, card, TYPE, sex, phone, qq, qqqnc, weixin, funds, address, remark, 
+    TIME, member_id, ip
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fzl.pojo.TClientExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from t_client
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from t_client
-    where client_id = #{clientId,jdbcType=INTEGER}
+    where client_id = #{clientId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from t_client
-    where client_id = #{clientId,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.fzl.pojo.TClientExample" >
-    delete from t_client
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
+    where client_id = #{clientId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.fzl.pojo.TClient" >
-    insert into t_client (client_id, name, card, 
-      type, sex, phone, qq, 
+    insert into t_client (client_id, NAME, card, 
+      TYPE, sex, phone, qq, 
       qqqnc, weixin, funds, 
-      address, remark, time, 
+      address, remark, TIME, 
       member_id, ip)
-    values (#{clientId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{card,jdbcType=VARCHAR}, 
+    values (#{clientId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{card,jdbcType=VARCHAR}, 
       #{type,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
       #{qqqnc,jdbcType=VARCHAR}, #{weixin,jdbcType=VARCHAR}, #{funds,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
-      #{memberId,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR})
+      #{memberId,jdbcType=BIGINT}, #{ip,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.fzl.pojo.TClient" >
     insert into t_client
@@ -129,13 +51,13 @@
         client_id,
       </if>
       <if test="name != null" >
-        name,
+        NAME,
       </if>
       <if test="card != null" >
         card,
       </if>
       <if test="type != null" >
-        type,
+        TYPE,
       </if>
       <if test="sex != null" >
         sex,
@@ -162,7 +84,7 @@
         remark,
       </if>
       <if test="time != null" >
-        time,
+        TIME,
       </if>
       <if test="memberId != null" >
         member_id,
@@ -173,7 +95,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="clientId != null" >
-        #{clientId,jdbcType=INTEGER},
+        #{clientId,jdbcType=BIGINT},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -212,104 +134,24 @@
         #{time,jdbcType=TIMESTAMP},
       </if>
       <if test="memberId != null" >
-        #{memberId,jdbcType=INTEGER},
+        #{memberId,jdbcType=BIGINT},
       </if>
       <if test="ip != null" >
         #{ip,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.fzl.pojo.TClientExample" resultType="java.lang.Integer" >
-    select count(*) from t_client
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update t_client
-    <set >
-      <if test="record.clientId != null" >
-        client_id = #{record.clientId,jdbcType=INTEGER},
-      </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.card != null" >
-        card = #{record.card,jdbcType=VARCHAR},
-      </if>
-      <if test="record.type != null" >
-        type = #{record.type,jdbcType=INTEGER},
-      </if>
-      <if test="record.sex != null" >
-        sex = #{record.sex,jdbcType=VARCHAR},
-      </if>
-      <if test="record.phone != null" >
-        phone = #{record.phone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.qq != null" >
-        qq = #{record.qq,jdbcType=VARCHAR},
-      </if>
-      <if test="record.qqqnc != null" >
-        qqqnc = #{record.qqqnc,jdbcType=VARCHAR},
-      </if>
-      <if test="record.weixin != null" >
-        weixin = #{record.weixin,jdbcType=VARCHAR},
-      </if>
-      <if test="record.funds != null" >
-        funds = #{record.funds,jdbcType=VARCHAR},
-      </if>
-      <if test="record.address != null" >
-        address = #{record.address,jdbcType=VARCHAR},
-      </if>
-      <if test="record.remark != null" >
-        remark = #{record.remark,jdbcType=VARCHAR},
-      </if>
-      <if test="record.time != null" >
-        time = #{record.time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.memberId != null" >
-        member_id = #{record.memberId,jdbcType=INTEGER},
-      </if>
-      <if test="record.ip != null" >
-        ip = #{record.ip,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update t_client
-    set client_id = #{record.clientId,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
-      card = #{record.card,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=INTEGER},
-      sex = #{record.sex,jdbcType=VARCHAR},
-      phone = #{record.phone,jdbcType=VARCHAR},
-      qq = #{record.qq,jdbcType=VARCHAR},
-      qqqnc = #{record.qqqnc,jdbcType=VARCHAR},
-      weixin = #{record.weixin,jdbcType=VARCHAR},
-      funds = #{record.funds,jdbcType=VARCHAR},
-      address = #{record.address,jdbcType=VARCHAR},
-      remark = #{record.remark,jdbcType=VARCHAR},
-      time = #{record.time,jdbcType=TIMESTAMP},
-      member_id = #{record.memberId,jdbcType=INTEGER},
-      ip = #{record.ip,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.fzl.pojo.TClient" >
     update t_client
     <set >
       <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+        NAME = #{name,jdbcType=VARCHAR},
       </if>
       <if test="card != null" >
         card = #{card,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
-        type = #{type,jdbcType=INTEGER},
+        TYPE = #{type,jdbcType=INTEGER},
       </if>
       <if test="sex != null" >
         sex = #{sex,jdbcType=VARCHAR},
@@ -336,22 +178,22 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
       <if test="time != null" >
-        time = #{time,jdbcType=TIMESTAMP},
+        TIME = #{time,jdbcType=TIMESTAMP},
       </if>
       <if test="memberId != null" >
-        member_id = #{memberId,jdbcType=INTEGER},
+        member_id = #{memberId,jdbcType=BIGINT},
       </if>
       <if test="ip != null" >
         ip = #{ip,jdbcType=VARCHAR},
       </if>
     </set>
-    where client_id = #{clientId,jdbcType=INTEGER}
+    where client_id = #{clientId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.fzl.pojo.TClient" >
     update t_client
-    set name = #{name,jdbcType=VARCHAR},
+    set NAME = #{name,jdbcType=VARCHAR},
       card = #{card,jdbcType=VARCHAR},
-      type = #{type,jdbcType=INTEGER},
+      TYPE = #{type,jdbcType=INTEGER},
       sex = #{sex,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
@@ -360,9 +202,9 @@
       funds = #{funds,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
-      time = #{time,jdbcType=TIMESTAMP},
-      member_id = #{memberId,jdbcType=INTEGER},
+      TIME = #{time,jdbcType=TIMESTAMP},
+      member_id = #{memberId,jdbcType=BIGINT},
       ip = #{ip,jdbcType=VARCHAR}
-    where client_id = #{clientId,jdbcType=INTEGER}
+    where client_id = #{clientId,jdbcType=BIGINT}
   </update>
 </mapper>

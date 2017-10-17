@@ -4,13 +4,13 @@ import com.fzl.pojo.Qo.UserUpdateQo;
 import com.fzl.pojo.User;
 
 public interface UserMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(User record);
 
     int insertSelective(User record);
 
-    User selectByPrimaryKey(Integer id);
+    User selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(User record);
 
@@ -18,11 +18,11 @@ public interface UserMapper {
 
     User selectByUser(User user);
 
-    int selectRole(User sessionUser);
+    Long selectRole(User sessionUser);
 
     int updatePassword(UserUpdateQo userUpdateQo);
 
-    Integer selectUserIdbyMemberID(Integer memberId);
+    Long selectUserIdbyMemberID(Long memberId);
 
-    User selectUserbyMemberID(Integer memberId);
+    User selectUserbyMemberID(Long memberId);
 }

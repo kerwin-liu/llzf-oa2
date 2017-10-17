@@ -1,23 +1,23 @@
 package com.fzl.pojo;
 
 public class MemberRole {
-    private Integer memberId;
+    private Long memberId;
 
-    private Integer roleId;
+    private Long roleId;
 
-    public Integer getMemberId() {
+    public Long getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(Integer memberId) {
+    public void setMemberId(Long memberId) {
         this.memberId = memberId;
     }
 
-    public Integer getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 }

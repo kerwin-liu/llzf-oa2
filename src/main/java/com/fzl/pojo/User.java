@@ -3,7 +3,7 @@ package com.fzl.pojo;
 import java.util.Date;
 
 public class User {
-    private Integer id;
+    private Long id;
 
     private String userName;
 
@@ -13,13 +13,13 @@ public class User {
 
     private Date creatTime;
 
-    private Integer creatUserId;
+    private Long creatUserId;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -55,12 +55,11 @@ public class User {
         this.creatTime = creatTime;
     }
 
-    public Integer getCreatUserId() {
+    public Long getCreatUserId() {
         return creatUserId;
     }
 
-    public void setCreatUserId(Integer creatUserId) {
+    public void setCreatUserId(Long creatUserId) {
         this.creatUserId = creatUserId;
     }
-
 }
