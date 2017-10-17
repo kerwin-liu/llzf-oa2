@@ -88,11 +88,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <p class="tips">如果是请点击“确定”，否则点“取消”</p>
             
             <div class="buttons">
+                <div style="margin-bottom: 5px;margin-top: -15px;margin-right:10px;margin-left:-10px;float: left">
+
+
                 <form action="/user/layout" method="get">
                     <input type="button"  class="button long2 ok" value="确定" />
                 </form>
+                </div>
+                <div style="margin-bottom: 5px;margin-top: -15px;float: left">
+
 
                 <input type="button" class="button long2 normal" value="取消" />
+                </div>
             </div>
         </div>
         

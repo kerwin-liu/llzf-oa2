@@ -21,7 +21,7 @@
     <script type="text/javascript" src="../../js/tools.js"></script>
 </head>
 <body>
-<div class="datagrid-toolbar" style="height: 60px;width: 100%;border: 0px solid red;float: left;">
+<div class="datagrid-toolbar" style="height: 60px;width: 100%;border: 0px solid red;">
 
         <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
             <a id="btn1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加客户</a>
@@ -43,14 +43,21 @@
         </div>
 
         <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
-类型:<input id="type" type="text"/> 产品：<input id="c" type="text"/> 姓名：<input id="name" type="text"/>
-            手机:<input type="text"/> QQ:<input type="text"/> 日期:<input type="text"/> 至 <input type="text"/>
-           负责人： <a id="btn7" href="" class="easyui-linkbutton" data-options="iconCls:''">点击选择</a>
+            类型:<select id="type" style="width:80px;"></select>
+            产品:<select id="c" style="width:80px;"></select>
+            姓名：<input id="name" type="text" style="width:80px;"/>
+            手机:<input type="text" style="width:80px;"/>
+            QQ:<input type="text" style="width:80px;"/>
+            日期:<input type="text" style="width:80px;"/> 至 <input type="text" style="width:80px;"/>
+            负责人： <a id="btn7" href="" class="easyui-linkbutton" data-options="iconCls:''">点击选择</a>
+            <a id="btn8" href="" class="easyui-linkbutton" data-options="iconCls:'icon-search'">点击选择</a>
         </div>
 
 
 </div>
-<div id="dg" style="height: 99%;width: 98%;border: 1px solid red;float: left;margin-left: 0.3%"></div>
+<div  style="height: 105%;width: 100%;border: 0px solid red;float: left;margin-left: -18px;margin-top: -18px">
+    <table id="dg" style="height: 99%;width: 99%;"></table>
+</div>
 </body>
 <script type="text/javascript">
     $(function(){
@@ -63,15 +70,14 @@
             remoteSort: false,
 
             columns: [[
-                {field: 'IDs', title: 'IDs', checkbox: true, width: 8, align: 'center'},
-                {field: 'ID', title: '编号', width: 100, align: 'center', hidden: 'true'},
-                {field: 'BOOKNAME', title: '姓名', width: 100, align: 'center'},
-                {field: 'AUTHER', title: '性别', width: 100, align: 'center'},
-                {field: 'PRESS', title: '手机号', width: 100, align: 'center'},
-                {field: 'PRICE', title: '微信号', width: 100, align: 'center'},
-                {field: 'TIME', title: '微信名', width: 100, align: 'center'},
-                {field: 'TIME', title: 'QQ号', width: 100, align: 'center'},
-                {field: 'TIME', title: '客户类型', width: 100, align: 'center'},
+                {field: 'CLIENTID', title: '编号', width: 100, align: 'center'},
+                {field: 'NAME', title: '姓名', width: 100, align: 'center'},
+                {field: 'SEX', title: '性别', width: 100, align: 'center'},
+                {field: 'PHONE', title: '手机号', width: 100, align: 'center'},
+                {field: 'WEIXIN', title: '微信号', width: 100, align: 'center'},
+                {field: 'QQQNC', title: '微信名', width: 100, align: 'center'},
+                {field: 'QQ', title: 'QQ号', width: 100, align: 'center'},
+                {field: 'TIME', title: '客户类型', width: 60, align: 'center'},
                 {field: 'TIME', title: '负责人', width: 100, align: 'center'},
                 {field: 'TIME', title: '备注', width: 100, align: 'center'},
                 {field: 'BOOKNUM', title: '归档日期', width: 100, align: 'center'},
