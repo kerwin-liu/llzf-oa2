@@ -32,7 +32,7 @@ public class UserController extends BaseController {
      * @param memberId
      */
     @RequestMapping(value = "creat/{memberId}", method = RequestMethod.POST)
-    public void save(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer memberId ) {
+    public void save(HttpServletRequest request, HttpServletResponse response, @PathVariable Long memberId ) {
         //user数据校验 查看这个员工是不是已经开通用户
         boolean isHave= userService.selectUserIdbyMemberID(memberId);
         if(isHave){
@@ -41,9 +41,9 @@ public class UserController extends BaseController {
         }
         //权限判断 1获取user 通过id查询权限
         User sessionUser = (User) request.getSession().getAttribute("user");
-        Integer role= userService.selectRole(sessionUser);
+        Long role= userService.selectRole(sessionUser);
         //管理员和主管可以增加员工 员工级别的不能添加员工
-        if(role.compareTo(3)==0){
+        if(role.compareTo(3L)==0){
             writeResponse(response, "400", "该用户无创建权限");
             return;
         }
@@ -90,11 +90,11 @@ public class UserController extends BaseController {
      * @param memberId
      */
     @RequestMapping(value = "passwordReset/{memberId}",method = RequestMethod.POST)
-    public void passwordReset(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer memberId){
+    public void passwordReset(HttpServletRequest request, HttpServletResponse response, @PathVariable Long memberId){
         User sessionUser = (User) request.getSession().getAttribute("user");
-        Integer role= userService.selectRole(sessionUser);
+        Long role= userService.selectRole(sessionUser);
         //管理员和主管可以增加员工 员工级别的不能添加员工
-        if(role.compareTo(3)==0){
+        if(role.compareTo(3L)==0){
             writeResponse(response, "400", "该用户无重置密码权限");
             return;
         }
@@ -107,11 +107,11 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping("getOne/{memberId}")
-    public void getOne(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer memberId){
+    public void getOne(HttpServletRequest request, HttpServletResponse response, @PathVariable Long memberId){
         User sessionUser = (User) request.getSession().getAttribute("user");
-        Integer role= userService.selectRole(sessionUser);
+        Long role= userService.selectRole(sessionUser);
         //管理员和主管可以增加员工 员工级别的不能添加员工
-        if(role.compareTo(3)==0){
+        if(role.compareTo(3L)==0){
             writeResponse(response, "400", "该用户无查看密码权限");
             return;
         }
@@ -129,11 +129,11 @@ public class UserController extends BaseController {
      * @param memberId
      */
     @RequestMapping("delete/{memberId}")
-    public void delete(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer memberId){
+    public void delete(HttpServletRequest request, HttpServletResponse response, @PathVariable Long memberId){
         User sessionUser = (User) request.getSession().getAttribute("user");
-        Integer role= userService.selectRole(sessionUser);
+        Long role= userService.selectRole(sessionUser);
         //管理员和主管可以增加员工 员工级别的不能添加员工
-        if(role.compareTo(3)==0){
+        if(role.compareTo(3L)==0){
             writeResponse(response, "400", "该用户无停用用户权限");
             return;
         }

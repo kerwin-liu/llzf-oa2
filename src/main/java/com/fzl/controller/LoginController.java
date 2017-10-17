@@ -31,7 +31,7 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping("login")
-    public String login(HttpServletRequest request, HttpServletResponse response, User user) {
+    public String login(HttpServletRequest request, User user) {
         HttpSession session = request.getSession();
         if (StringUtils.isNotEmpty(user.getUserName()) && StringUtils.isNotEmpty(user.getPassword())) {
             User resultUser = userService.selectUser(user);

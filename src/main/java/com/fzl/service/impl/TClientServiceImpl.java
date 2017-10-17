@@ -201,8 +201,8 @@ public class TClientServiceImpl implements TClientService {
                     client = new TClient();
                     // 客户id
                     Cell cell01 = row.getCell(0);
-                    client.setClientId(Integer.parseInt(cell01
-                            .getStringCellValue()));
+//                    client.setClientId(Long.parseInt(cell01
+//                            .getStringCellValue()));s
                     // 姓名
                     Cell cell02 = row.getCell(1);
                     client.setName(cell02.getStringCellValue());

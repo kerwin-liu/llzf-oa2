@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.fzl.mapper.MemberMapper" >
   <resultMap id="BaseResultMap" type="com.fzl.pojo.Member" >
-    <id column="member_id" property="memberId" jdbcType="INTEGER" />
+    <id column="member_id" property="memberId" jdbcType="BIGINT" />
     <result column="number" property="number" jdbcType="INTEGER" />
     <result column="NAME" property="name" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
@@ -10,43 +10,42 @@
     <result column="card" property="card" jdbcType="VARCHAR" />
     <result column="qq" property="qq" jdbcType="VARCHAR" />
     <result column="wexin" property="wexin" jdbcType="VARCHAR" />
-    <result column="groups" property="groups" jdbcType="INTEGER" />
-    <result column="permissions" property="permissions" jdbcType="INTEGER" />
+    <result column="groups" property="groups" jdbcType="BIGINT" />
+    <result column="permissions" property="permissions" jdbcType="BIGINT" />
     <result column="qqnc" property="qqnc" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="TIME" property="time" jdbcType="TIMESTAMP" />
     <result column="OPEN" property="open" jdbcType="VARCHAR" />
-    <result column="creat_user_id" property="creatUserId" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creat_user_id" property="creatUserId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
     member_id, number, NAME, sex, phone, card, qq, wexin, groups, permissions, qqnc,
-    address, remark, TIME, OPEN, creat_user_id, create_time
+    address, remark, TIME, OPEN, creat_user_id
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select
     <include refid="Base_Column_List" />
     from member
-    where member_id = #{memberId,jdbcType=INTEGER}
+    where member_id = #{memberId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from member
-    where member_id = #{memberId,jdbcType=INTEGER}
+    where member_id = #{memberId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.fzl.pojo.Member" >
     insert into member (member_id, number, NAME,
     sex, phone, card, qq,
     wexin, groups, permissions,
     qqnc, address, remark,
-    TIME, OPEN, creat_user_id,
-    create_time)
-    values (#{memberId,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+    TIME, OPEN, creat_user_id
+    )
+    values (#{memberId,jdbcType=BIGINT}, #{number,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
     #{sex,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{card,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR},
-    #{wexin,jdbcType=VARCHAR}, #{groups,jdbcType=INTEGER}, #{permissions,jdbcType=INTEGER},
+    #{wexin,jdbcType=VARCHAR}, #{groups,jdbcType=BIGINT}, #{permissions,jdbcType=BIGINT},
     #{qqnc,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
-    #{time,jdbcType=TIMESTAMP}, #{open,jdbcType=VARCHAR}, #{creatUserId,jdbcType=INTEGER},
-    #{createTime,jdbcType=TIMESTAMP})
+    #{time,jdbcType=TIMESTAMP}, #{open,jdbcType=VARCHAR}, #{creatUserId,jdbcType=BIGINT}
+    )
   </insert>
   <insert id="insertSelective" parameterType="com.fzl.pojo.Member" >
     insert into member
@@ -99,13 +98,10 @@
       <if test="creatUserId != null" >
         creat_user_id,
       </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="memberId != null" >
-        #{memberId,jdbcType=INTEGER},
+        #{memberId,jdbcType=BIGINT},
       </if>
       <if test="number != null" >
         #{number,jdbcType=INTEGER},
@@ -129,10 +125,10 @@
         #{wexin,jdbcType=VARCHAR},
       </if>
       <if test="groups != null" >
-        #{groups,jdbcType=INTEGER},
+        #{groups,jdbcType=BIGINT},
       </if>
       <if test="permissions != null" >
-        #{permissions,jdbcType=INTEGER},
+        #{permissions,jdbcType=BIGINT},
       </if>
       <if test="qqnc != null" >
         #{qqnc,jdbcType=VARCHAR},
@@ -150,10 +146,7 @@
         #{open,jdbcType=VARCHAR},
       </if>
       <if test="creatUserId != null" >
-        #{creatUserId,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
+        #{creatUserId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -182,10 +175,10 @@
         wexin = #{wexin,jdbcType=VARCHAR},
       </if>
       <if test="groups != null" >
-        groups = #{groups,jdbcType=INTEGER},
+        groups = #{groups,jdbcType=BIGINT},
       </if>
       <if test="permissions != null" >
-        permissions = #{permissions,jdbcType=INTEGER},
+        permissions = #{permissions,jdbcType=BIGINT},
       </if>
       <if test="qqnc != null" >
         qqnc = #{qqnc,jdbcType=VARCHAR},
@@ -203,13 +196,10 @@
         OPEN = #{open,jdbcType=VARCHAR},
       </if>
       <if test="creatUserId != null" >
-        creat_user_id = #{creatUserId,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        creat_user_id = #{creatUserId,jdbcType=BIGINT},
       </if>
     </set>
-    where member_id = #{memberId,jdbcType=INTEGER}
+    where member_id = #{memberId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.fzl.pojo.Member" >
     update member
@@ -220,16 +210,15 @@
       card = #{card,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
       wexin = #{wexin,jdbcType=VARCHAR},
-      groups = #{groups,jdbcType=INTEGER},
-      permissions = #{permissions,jdbcType=INTEGER},
+      groups = #{groups,jdbcType=BIGINT},
+      permissions = #{permissions,jdbcType=BIGINT},
       qqnc = #{qqnc,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       TIME = #{time,jdbcType=TIMESTAMP},
       OPEN = #{open,jdbcType=VARCHAR},
-      creat_user_id = #{creatUserId,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
-    where member_id = #{memberId,jdbcType=INTEGER}
+      creat_user_id = #{creatUserId,jdbcType=BIGINT}
+    where member_id = #{memberId,jdbcType=BIGINT}
   </update>
   <select id="queryMemberByuserid" resultMap="BaseResultMap" parameterType="java.lang.Integer">
   SELECT

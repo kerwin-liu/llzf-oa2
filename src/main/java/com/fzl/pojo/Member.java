@@ -3,7 +3,7 @@ package com.fzl.pojo;
 import java.util.Date;
 
 public class Member {
-    private Integer memberId;
+    private Long memberId;
 
     private Integer number;
 
@@ -19,9 +19,9 @@ public class Member {
 
     private String wexin;
 
-    private Integer groups;
+    private Long groups;
 
-    private Integer permissions;
+    private Long permissions;
 
     private String qqnc;
 
@@ -33,15 +33,13 @@ public class Member {
 
     private String open;
 
-    private Integer creatUserId;
+    private Long creatUserId;
 
-    private Date createTime;
-
-    public Integer getMemberId() {
+    public Long getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(Integer memberId) {
+    public void setMemberId(Long memberId) {
         this.memberId = memberId;
     }
 
@@ -101,19 +99,19 @@ public class Member {
         this.wexin = wexin == null ? null : wexin.trim();
     }
 
-    public Integer getGroups() {
+    public Long getGroups() {
         return groups;
     }
 
-    public void setGroups(Integer groups) {
+    public void setGroups(Long groups) {
         this.groups = groups;
     }
 
-    public Integer getPermissions() {
+    public Long getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(Integer permissions) {
+    public void setPermissions(Long permissions) {
         this.permissions = permissions;
     }
 
@@ -157,19 +155,11 @@ public class Member {
         this.open = open == null ? null : open.trim();
     }
 
-    public Integer getCreatUserId() {
+    public Long getCreatUserId() {
         return creatUserId;
     }
 
-    public void setCreatUserId(Integer creatUserId) {
+    public void setCreatUserId(Long creatUserId) {
         this.creatUserId = creatUserId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
     }
 }

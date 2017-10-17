@@ -24,9 +24,9 @@ public class MemberServiceImpl implements MemberService {
     private MemberDepartmentMapper memberDepartmentMapper;
 
     @Override
-    public boolean saveMember(Member member, Integer UserId) {
+    public boolean saveMember(Member member, Long UserId) {
         //保存员工表
-        member.setMemberId(IDUtils.genItemId());
+        member.setMemberId(IDUtils.getId());
         member.setCreatUserId(UserId);
         int i = memberMapper.insertSelective(member);
         //保存部门表
@@ -71,7 +71,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean deleteByid(Integer memberId) {
+    public boolean deleteByid(Long memberId) {
         memberMapper.deleteByPrimaryKey(memberId);
         memberDepartmentMapper.deleteByPrimaryKey(memberId);
         memberRoleMapper.deleteByPrimaryKey(memberId);

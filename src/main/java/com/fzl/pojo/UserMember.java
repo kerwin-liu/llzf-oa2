@@ -1,23 +1,23 @@
 package com.fzl.pojo;
 
 public class UserMember {
-    private Integer userId;
+    private Long userId;
 
-    private Integer memberId;
+    private Long memberId;
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Integer getMemberId() {
+    public Long getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(Integer memberId) {
+    public void setMemberId(Long memberId) {
         this.memberId = memberId;
     }
 }

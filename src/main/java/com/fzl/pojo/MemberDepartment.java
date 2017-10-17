@@ -1,23 +1,23 @@
 package com.fzl.pojo;
 
 public class MemberDepartment {
-    private Integer memberId;
+    private Long memberId;
 
-    private Integer departmentId;
+    private Long departmentId;
 
-    public Integer getMemberId() {
+    public Long getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(Integer memberId) {
+    public void setMemberId(Long memberId) {
         this.memberId = memberId;
     }
 
-    public Integer getDepartmentId() {
+    public Long getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(Integer departmentId) {
+    public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;
     }
 }
