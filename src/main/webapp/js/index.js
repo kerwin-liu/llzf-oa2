@@ -17,13 +17,17 @@ $(window).resize(function(e) {
 
 $(".nav>li").css({"borderColor":"#dbe9f1"});
 $(".nav>.current").prev().css({"borderColor":"#7ac47f"});
-$(".nav").on("click","li",function(e){
+/*$(".nav").on("click","li",function(e){
 	var aurl = $(this).find("a").attr("date-src");
-	$("#iframe").attr("src",aurl);
+	/!*alert(aurl);*!/
+	/!*$("#iframe").attr("src",aurl);*!/
+	console.log(aurl);
+    $("#iframe").attr("action", aurl);
+    $("#iframe").submit();
 	$(".nav>li").css({"borderColor":"#dbe9f1"});
 	$(".nav>.current").prev().css({"borderColor":"#7ac47f"});
 	return false;
-});
+});*/
 
 $('.exitDialog').Dialog({
 	title:'提示信息',
@@ -43,6 +47,7 @@ $('.exitDialog input[type=button]').click(function(e) {
     $('.exitDialog').Dialog('close');
 	
 	if($(this).hasClass('ok')){
+		alert(1);
 		window.location.href = "login.html"	;
 	}
 });
