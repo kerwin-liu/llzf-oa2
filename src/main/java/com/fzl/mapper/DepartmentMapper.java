@@ -2,6 +2,8 @@ package com.fzl.mapper;
 
 import com.fzl.pojo.Department;
 
+import java.util.List;
+
 public interface DepartmentMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -16,4 +18,6 @@ public interface DepartmentMapper {
     int updateByPrimaryKey(Department record);
 
     Department queryDepartmentByUserId(Long id);
+
+    List<Department> queryAll();
 }
