@@ -1,6 +1,7 @@
 var url;
 function newUser() {
-    $('#dlg').dialog('open').dialog('setTitle', 'New User');
+    alert(222)
+    $('#dlg').dialog('open').dialog('setTitle', '添加用户');
     $('#fm').form('clear');
     url = 'pages/member/save';
 }
@@ -8,14 +9,15 @@ function editUser() {
     alert(333)
     var row = $('#dg').datagrid('getSelected');
     if (row) {
-        $('#dlg').dialog('open').dialog('setTitle', 'Edit User');
+        $('#dlg').dialog('open').dialog('setTitle', '编辑用户');
         $('#fm').form('load', row);
         url = '/member/update?id=' + row.id;
     }
 }
 function saveUser() {
+    alert(4444)
     $('#fm').form('submit', {
-        url: url,
+        url: 'pages/member/save',
         onSubmit: function () {
             return $(this).form('validate');
         },
@@ -34,6 +36,7 @@ function saveUser() {
     });
 }
 function removeUser() {
+    alert(55555)
     var row = $('#dg').datagrid('getSelected');
     if (row) {
         $.messager.confirm('确定', '你确定要删除此员工吗?', function (r) {
