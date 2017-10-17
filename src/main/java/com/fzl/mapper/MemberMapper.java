@@ -1,6 +1,9 @@
 package com.fzl.mapper;
 
 import com.fzl.pojo.Member;
+import com.fzl.pojo.Qo.MemberQo;
+
+import java.util.List;
 
 public interface MemberMapper {
     int deleteByPrimaryKey(Long memberId);
@@ -18,4 +21,6 @@ public interface MemberMapper {
     Member queryMemberByuserid(Long id);
 
     Member queryMemberByNo(String name);
+
+    List<Member> queryListByCondition(MemberQo memberQo);
 }

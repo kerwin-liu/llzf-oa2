@@ -1,5 +1,6 @@
 package com.fzl.controller;
 
+import com.fzl.common.Pages;
 import com.fzl.pojo.Member;
 import com.fzl.pojo.Qo.MemberQo;
 import com.fzl.pojo.User;
@@ -9,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.HttpMediaTypeException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +31,23 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "getList", method = RequestMethod.GET)
     public void getList(HttpServletRequest request, HttpServletResponse response, MemberQo memberQo) {
-
+        //权限：员工只能查看自己的，主管只能查看本部门的，管理员查看全部的
+        User sessionUser = (User) request.getSession().getAttribute("user");
+        Long role = userService.selectRole(sessionUser);
+        //管理员和主管可以增加员工 员工级别的不能添加员工
+        if (role.compareTo(3L) == 0) {
+            Member member = userService.queryMember(sessionUser.getId());
+            writeCommonDataResponse(response, "200", "查询成功",member);
+            return;
+        }
+        if(role.compareTo(2L) == 0){
+            Pages<Member> pages  = memberService.queryMemberByDepartment(memberQo,sessionUser.getId());
+            writeCommonDataResponse(response, "200", "查询成功",pages);
+        }
+        if(role.compareTo(1L) == 0){
+            Pages<Member> pages  = memberService.queryMemberByDepartment(memberQo);
+            writeCommonDataResponse(response, "200", "查询成功",pages);
+        }
     }
 
     /**
@@ -58,7 +74,7 @@ public class MemberController extends BaseController {
             writeResponse(response, "400", "此工号已使用");
             return;
         }
-        boolean save = memberService.saveMember(member,sessionUser.getId());
+        boolean save = memberService.saveMember(member, sessionUser.getId());
         if (save) {
             writeResponse(response, "200", "员工添加成功");
             return;
@@ -68,6 +84,7 @@ public class MemberController extends BaseController {
 
     /**
      * 修改员工信息
+     *
      * @param request
      * @param response
      * @param member
@@ -82,7 +99,7 @@ public class MemberController extends BaseController {
             writeResponse(response, "400", "该用户无修改权限");
             return;
         }
-       boolean update= memberService.update(member);
+        boolean update = memberService.update(member);
         if (update) {
             writeResponse(response, "200", "员工修改成功");
             return;
@@ -92,6 +109,7 @@ public class MemberController extends BaseController {
 
     /**
      * 删除用户
+     *
      * @param request
      * @param response
      * @param memberId
@@ -99,12 +117,12 @@ public class MemberController extends BaseController {
     @RequestMapping(value = "delete/{memberId}", method = RequestMethod.POST)
     public void delete(HttpServletRequest request, HttpServletResponse response, @PathVariable Long memberId) {
         User sessionUser = (User) request.getSession().getAttribute("user");
-        Long role= userService.selectRole(sessionUser);
+        Long role = userService.selectRole(sessionUser);
         //管理员和主管可以增加员工 员工级别的不能添加员工
-        if(role.compareTo(3L)==0){
+        if (role.compareTo(3L) == 0) {
             writeResponse(response, "400", "该用户无删除员工权限");
             return;
         }
-        boolean delete= memberService.deleteByid(memberId);
+        boolean delete = memberService.deleteByid(memberId);
     }
 }

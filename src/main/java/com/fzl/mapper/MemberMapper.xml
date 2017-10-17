@@ -89,9 +89,7 @@
       <if test="remark != null" >
         remark,
       </if>
-      <if test="time != null" >
         TIME,
-      </if>
       <if test="open != null" >
         OPEN,
       </if>
@@ -139,9 +137,7 @@
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="time != null" >
-        #{time,jdbcType=TIMESTAMP},
-      </if>
+        now(),
       <if test="open != null" >
         #{open,jdbcType=VARCHAR},
       </if>
@@ -246,5 +242,34 @@
     <include refid="Base_Column_List" />
     from member
     where name = #{name,jdbcType=INTEGER}
+  </select>
+  <select id="queryListByCondition" resultMap="BaseResultMap" parameterType="com.fzl.pojo.Qo.MemberQo">
+    select
+    <include refid="Base_Column_List"/>
+    from member
+    <where>
+      1=1
+      <if test="number != null and number != ''">
+        AND number =#{number}
+      </if>
+      <if test="name != null and name != ''">
+        AND name like concat('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="phone != null and phone != ''">
+      AND phone =#{phone}
+      </if>
+      <if test="card != null and card != ''">
+        AND card =#{card}
+      </if>
+      <if test="timeStart != null and timeStart != ''">
+        AND TIME >= #{timeStart}
+      </if>
+      <if test="timeEnd != null and timeEnd != ''">
+        AND #{timeEnd} > TIME
+      </if>
+      <if test="departmentId != null and departmentId != ''">
+          AND groups=#{departmentId}
+      </if>
+    </where>
   </select>
 </mapper>

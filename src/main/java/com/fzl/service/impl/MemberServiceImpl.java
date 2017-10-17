@@ -1,15 +1,23 @@
 package com.fzl.service.impl;
 
 import com.fzl.common.IDUtils;
+import com.fzl.common.Pages;
+import com.fzl.mapper.DepartmentMapper;
 import com.fzl.mapper.MemberDepartmentMapper;
 import com.fzl.mapper.MemberMapper;
 import com.fzl.mapper.MemberRoleMapper;
+import com.fzl.pojo.Department;
 import com.fzl.pojo.Member;
 import com.fzl.pojo.MemberDepartment;
 import com.fzl.pojo.MemberRole;
+import com.fzl.pojo.Qo.MemberQo;
 import com.fzl.service.MemberService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/10/16.
@@ -22,6 +30,8 @@ public class MemberServiceImpl implements MemberService {
     private MemberRoleMapper memberRoleMapper;
     @Autowired
     private MemberDepartmentMapper memberDepartmentMapper;
+    @Autowired
+    private DepartmentMapper departmentMapper;
 
     @Override
     public boolean saveMember(Member member, Long UserId) {
@@ -76,5 +86,25 @@ public class MemberServiceImpl implements MemberService {
         memberDepartmentMapper.deleteByPrimaryKey(memberId);
         memberRoleMapper.deleteByPrimaryKey(memberId);
         return true;
+    }
+
+    @Override
+    public Pages<Member> queryMemberByDepartment(MemberQo memberQo, Long id) {
+        PageHelper.startPage(memberQo.getPageIndex(), memberQo.getPageSize());
+        //通过userid查部门
+       Department department= departmentMapper.queryDepartmentByUserId(id);
+        memberQo.setDepartmentId(department.getId());
+        List<Member> list = memberMapper.queryListByCondition(memberQo);
+        Page<Member> page = (Page<Member>) list;
+        return new Pages<>(page.getStartRow(), page.getTotal(), page.getPageSize(), list);
+    }
+
+    @Override
+    public Pages<Member> queryMemberByDepartment(MemberQo memberQo) {
+        PageHelper.startPage(memberQo.getPageIndex(), memberQo.getPageSize());
+        memberQo.setDepartmentId(null);
+        List<Member> list = memberMapper.queryListByCondition(memberQo);
+        Page<Member> page = (Page<Member>) list;
+        return new Pages<>(page.getStartRow(), page.getTotal(), page.getPageSize(), list);
     }
 }

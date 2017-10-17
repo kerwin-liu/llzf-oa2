@@ -55,4 +55,12 @@
     set name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="queryDepartmentByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+SELECT
+d.`id`,
+d.`name`
+FROM user_member um LEFT JOIN member_department md ON um.member_id=md.member_id
+LEFT JOIN department d ON md.`department_id`=d.id
+WHERE um.user_id=#{id}
+  </select>
 </mapper>
