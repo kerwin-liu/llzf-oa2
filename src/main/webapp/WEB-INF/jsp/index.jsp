@@ -13,11 +13,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="../../css/index.css" />
 
 <title>移动办公自动化系统</title>
-    <script type="text/javascript">
-        function fn_loginOut(){
-            document.forms[0].submit();
-        }
-    </script>
 </head>
 
 <body>
@@ -41,13 +36,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	<li class="office current"><div class="nav-header"><a href="/index" date-src="home.html" class="ue-clear"><span>首页</span><i class="icon"></i></a></div></li>
                     <li class="gongwen"><div class="nav-header"><a href="../../javascript:;" class="ue-clear"><span>员工管理</span><i class="icon"></i></a></div>
                         <ul class="subnav">
-                            <li><a href="/member/index" date-src="info-reg.html">员工信息管理</a></li>
+                            <li><a href="/member/index" class="employee">员工信息管理</a></li>
                         </ul>
                     </li>
                     <li class="nav-info">
                     	<div class="nav-header"><a href="../../javascript:;" class="ue-clear"><span>客户管理</span><i class="icon"></i></a></div>
                         <ul class="subnav">
-                        	<li><a href="/turn/Customer-data">客户信息管理</a></li>
+                        	<li><a href="/turn/Customer-data" class="custom">客户信息管理</a></li>
                         </ul>
                     </li>
                   <%--  <li class="konwledge"><div class="nav-header"><a href="../javascript:;" class="ue-clear"><span>客户管理</span><i class="icon"></i></a></div></li>--%>
@@ -101,12 +96,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" >
     window.onload=function () {
         console.log("1");
-        $.ajax({
-            url:'/user/test',
-            dataType:'json',
-            success:function(data) {
-                console.log(data);
-        }
+        $(".employee").click(function (e) {
+            window.location.href="/member/index";
+        });
+        $(".custom").click(function () {
+            window.location.href="/customerController/customer";
         });
     }
 </script>
