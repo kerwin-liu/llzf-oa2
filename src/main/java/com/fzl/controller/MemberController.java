@@ -41,7 +41,7 @@ public class MemberController extends BaseController {
     public @ResponseBody List<Member> getList(HttpServletRequest request, HttpServletResponse response) {
         List<Member> memberList=new ArrayList<>();
         Member member=new Member();
-        member.setMemberId(1);
+        member.setMemberId(1l);
         member.setNumber(1);
         member.setName("123");
         member.setAddress("Wer");
