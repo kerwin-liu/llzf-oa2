@@ -5,7 +5,7 @@ public class Role {
 
     private String name;
 
-    private String describe;
+    private String rdescribe;
 
     public Long getId() {
         return id;
@@ -23,11 +23,11 @@ public class Role {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getRdescribe() {
+        return rdescribe;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setRdescribe(String rdescribe) {
+        this.rdescribe = rdescribe;
     }
 }
