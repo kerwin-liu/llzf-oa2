@@ -158,7 +158,18 @@
     </div>
 
     <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
-        类型:<input type="text"/>
+       <span>类型:</span>
+        <input type="text"/>
+        <span>员工账号:</span>
+        <input id="number" style="line-height:26px;border:1px solid #ccc" size="10">
+        <span>手机:</span>
+        <input id="phone" style="line-height:26px;border:1px solid #ccc"  size="10">
+        <span>身份证:</span>
+        <input id="card" style="line-height:26px;border:1px solid #ccc"  size="10">
+        <span>姓名:</span>
+        <input id="name" style="line-height:26px;border:1px solid #ccc"  size="10">
+        <span>注册日期:</span>
+        <input id="time" class="easyui-datetimebox" data-options="sharedCalendar:'#cc'"  size="10" style="line-height:26px;border:1px solid #ccc">
     </div>
 
 
