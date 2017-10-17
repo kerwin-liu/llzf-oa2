@@ -13,9 +13,12 @@ import org.springframework.web.HttpMediaTypeException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/10/16.
@@ -29,9 +32,21 @@ public class MemberController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "getList", method = RequestMethod.GET)
-    public void getList(HttpServletRequest request, HttpServletResponse response, MemberQo memberQo) {
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public String index(HttpServletRequest request, HttpServletResponse response, MemberQo memberQo) {
+        return "employee-data";
+    }
 
+    @RequestMapping(value = "getList", method = RequestMethod.POST)
+    public @ResponseBody List<Member> getList(HttpServletRequest request, HttpServletResponse response) {
+        List<Member> memberList=new ArrayList<>();
+        Member member=new Member();
+        member.setMemberId(1);
+        member.setNumber(1);
+        member.setName("123");
+        member.setAddress("Wer");
+        memberList.add(member);
+        return memberList;
     }
 
     /**
