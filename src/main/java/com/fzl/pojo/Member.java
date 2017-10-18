@@ -5,7 +5,7 @@ import java.util.Date;
 public class Member {
     private Long memberId;
 
-    private Integer number;
+    private String number;
 
     private String name;
 
@@ -43,12 +43,12 @@ public class Member {
         this.memberId = memberId;
     }
 
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setNumber(String number) {
+        this.number = number == null ? null : number.trim();
     }
 
     public String getName() {

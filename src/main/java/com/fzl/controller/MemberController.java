@@ -75,7 +75,7 @@ public class MemberController extends BaseController {
             return;
         }
         //查询此工号是不是已存在
-        Member memberByNo = memberService.queryMemberByNo(member.getName());
+        Member memberByNo = memberService.queryMemberByNo(member.getNumber());
         if (memberByNo != null) {
             writeResponse(response, "400", "此工号已使用");
             return;

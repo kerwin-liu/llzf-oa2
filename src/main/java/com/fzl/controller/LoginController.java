@@ -26,7 +26,7 @@ public class LoginController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/pages/{page}",method = RequestMethod.POST)
+    @RequestMapping("/pages/{page}")
     public String index(@PathVariable String page) {
         return page;
     }

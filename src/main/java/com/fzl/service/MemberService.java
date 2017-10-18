@@ -10,7 +10,7 @@ import com.fzl.pojo.Qo.MemberQo;
 public interface MemberService {
     boolean saveMember(Member member,Long userId);
 
-    Member queryMemberByNo(String name);
+    Member queryMemberByNo(String number);
 
     boolean update(Member member);
 
