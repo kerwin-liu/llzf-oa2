@@ -110,10 +110,10 @@
                 {field: 'WEIXIN', title: '微信号', width: 100, align: 'center'},
                 {field: 'QQQNC', title: '微信名', width: 100, align: 'center'},
                 {field: 'QQ', title: 'QQ号', width: 100, align: 'center'},
-                {field: 'TIME', title: '客户类型', width: 60, align: 'center'},
-                {field: 'TIME', title: '负责人', width: 100, align: 'center'},
-                {field: 'TIME', title: '备注', width: 100, align: 'center'},
-                {field: 'BOOKNUM', title: '归档日期', width: 100, align: 'center'},
+                {field: 'TYPR', title: '客户类型', width: 60, align: 'center'},
+                {field: 'funds', title: '负责人', width: 100, align: 'center'},
+                {field: 'remark', title: '备注', width: 100, align: 'center'},
+                {field: 'time', title: '归档日期', width: 100, align: 'center'},
                 {
                     field: 'obj', title: '操作', align: 'center', width: 28, formatter: function (value, row, index) {
                     return "<a id='de' onclick=deletes('" + row.ID + "')>删除</a>";

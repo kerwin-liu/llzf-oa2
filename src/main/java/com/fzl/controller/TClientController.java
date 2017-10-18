@@ -58,6 +58,7 @@ public class TClientController extends BaseController {
         // 通过session获取user信息
         // 如果没有权限增加客户信息则返回
         // 数据入库
+        System.err.println(tClient.getName());
         boolean insert = tClientService.insertTClient(tClient);
         if (insert) {
             writeResponse(response, "200", "数据保存成功");
