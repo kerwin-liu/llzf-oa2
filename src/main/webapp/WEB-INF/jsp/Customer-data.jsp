@@ -65,7 +65,7 @@
             <a id="btn3" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-clear'">拉黑</a>
         </div>
         <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-            <a id="btn4" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-large-shapes'">客户经理</a>
+            <a id="btn4" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-large-shapes'">客户追踪</a>
         </div>
         <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
             <a id="btn5" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-add'">删除客户</a>
