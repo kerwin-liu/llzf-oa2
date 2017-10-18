@@ -45,6 +45,8 @@ public class LoginController extends BaseController {
                 session.setAttribute("user", resultUser);
                 return "index";
             }
+            request.setAttribute("userName",user.getUserName());
+            request.setAttribute("msg","帐号密码不能为空");
         }
         return "login";
     }
