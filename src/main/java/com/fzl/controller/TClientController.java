@@ -25,8 +25,7 @@ import java.util.List;
 @Controller
 @RequestMapping("client")
 public class TClientController extends BaseController {
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(TClientController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TClientController.class);
     @Autowired
     private TClientService tClientService;
     /**
@@ -37,9 +36,7 @@ public class TClientController extends BaseController {
      * @param tClientQo
      */
     @RequestMapping(value = "getAll", method = RequestMethod.GET)
-    public void getAll(HttpServletRequest request,
-                       HttpServletResponse response, TClientQo tClientQo) {
-
+    public void getAll(HttpServletRequest request,HttpServletResponse response, TClientQo tClientQo) {
         System.out.println("getAll====");
         // 判断查询条件合法性
         // 分页查询数据
@@ -52,10 +49,10 @@ public class TClientController extends BaseController {
      * @param tClient
      */
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public void save(HttpServletRequest request, HttpServletResponse response,
-                     TClient tClient) {
+    public void save(HttpServletRequest request, HttpServletResponse response, TClient tClient) {
         // 校验数据格式正确性
         // 通过session获取user信息
+
         // 如果没有权限增加客户信息则返回
         // 数据入库
         System.err.println(tClient.getName());

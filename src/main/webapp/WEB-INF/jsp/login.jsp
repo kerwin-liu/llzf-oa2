@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="login-input">
                     <p class="user ue-clear">
                         <label>用户名</label>
-                        <input type="text" id="userName" name="userName"/>
+                        <input type="text" id="userName" name="userName" value="${userName}"/>
                     </p>
                     <p class="password ue-clear">
                         <label>密&nbsp;&nbsp;&nbsp;码</label>

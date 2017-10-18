@@ -34,23 +34,23 @@ import com.fzl.service.TClientService;
 @Service
 public class TClientServiceImpl implements TClientService {
     @Autowired
-    private TClientMapper tClientLogMapper;
+    private TClientMapper tClientMapper;
 
     @Override
     public boolean insertTClient(TClient tClient) {
-        return tClientLogMapper.insert(tClient) > 0;
+        return tClientMapper.insertSelective(tClient) > 0;
     }
 
     @Override
     public boolean updateTClient(TClient tClient) {
-        return tClientLogMapper.updateByPrimaryKey(tClient) > 0;
+        return tClientMapper.updateByPrimaryKey(tClient) > 0;
     }
 
     @Override
     public List<TClient> findObjects(List<Integer> clientId) {
         TClientExample example = new TClientExample();
 
-        List<TClient> listSelectByExample = tClientLogMapper
+        List<TClient> listSelectByExample = tClientMapper
                 .selectByExample(example);
 
         System.out.println("listSelectByExample=====" + listSelectByExample);
@@ -257,7 +257,7 @@ public class TClientServiceImpl implements TClientService {
                     // 最后修改时间
                     client.setTime(new Date());
 
-                    tClientLogMapper.insert(client);
+                    tClientMapper.insert(client);
                 }
             }
         } catch (Exception e) {
@@ -271,7 +271,7 @@ public class TClientServiceImpl implements TClientService {
 
         TClientExample example = new TClientExample();
 
-        List<TClient> list = tClientLogMapper.selectByExample(example);
+        List<TClient> list = tClientMapper.selectByExample(example);
         return list;
     }
 
