@@ -71,22 +71,26 @@
     <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
         <a id="btn6" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-print'">数据导出</a>
     </div>
-    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+  <%--  <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
         <a id="btn9" href="/" class="easyui-linkbutton" data-options="iconCls:'icon-add'">数据导入</a>
+    </div>--%>
+
+    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn7" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">密码重置</a>
     </div>
     <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a id="btn7" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">密码重置</a>
+        <a id="btn9" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">查看密码</a>
     </div>
     <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-save'">查看资料</a>
+        <a id="btn10" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">开通</a>
     </div>
     <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
         姓名：<input id="name" type="text" style="width:80px;"/>
-        手机:<input type="text" style="width:80px;"/>
-        QQ:<input type="text" style="width:80px;"/>
+        手机:<input id="phone" type="text" style="width:80px;"/>
+        QQ:<input id="qq" type="text" style="width:80px;"/>
         身份证号:<select id="card" type="text" style="width:80px;"></select>
-        日期:<input type="text" style="width:80px;"/> 至 <input type="text" style="width:80px;"/>
-        <a id="btn8" href="" class="easyui-linkbutton" data-options="iconCls:'icon-search'">点击选择</a>
+        日期:<input id="time" type="text" style="width:80px;"/> 至 <input type="text" style="width:80px;"/>
+        <a id="btn8" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">点击选择</a>
     </div>
 
 
@@ -106,7 +110,7 @@
             </span>
                 <span class="item-two">
                 <label>组别:</label>
-                <select class="easyui-combobox" name="groups" class="easyui-validatebox group" size="20">
+                <select id="groups" class="easyui-combobox" name="groups" class="easyui-validatebox groups" size="20">
                     <option value="1" selected>一部</option>
                     <option value="2">二部</option>
                 </select>
@@ -115,7 +119,7 @@
             <div class="fitem">
           <span class="item-one">
                  <label>权限:</label>
-                <select class="easyui-combobox" name="permissions" class="easyui-validatebox permissions" size="20">
+                <select id="permissions" class="easyui-combobox" name="permissions" class="easyui-validatebox permissions" size="20">
                     <option value="1">管理员</option>
                     <option value="2">部长</option>
                     <option value="3" selected>员工</option>
@@ -123,7 +127,7 @@
             </span>
                 <span class="item-two">
                 <label>性别:</label>
-                <select class="easyui-combobox" name="sex" class="easyui-validatebox sex" size="20">
+                <select id="sex" class="easyui-combobox" name="sex" class="easyui-validatebox sex" size="20">
                     <option value=0>男</option>
                     <option value=1>女</option>
                 </select>
@@ -168,7 +172,35 @@
             </div>
         </form>
     </div>
-
+</div>
+<div class="info-div" style="display: none;">
+    <div id="info" class="easyui-dialog" style="width:600px;height:320px;padding:10px 20px"
+         closed="true" buttons="#dlg-buttons">
+        <div class="ftitle">用户信息</div>
+        <div class="fitem">
+            <span class="item-one">
+                <label>用户名:</label>
+                <span id="userName"></span>
+            </span>
+        </div>
+        <div class="fitem">
+               <span class="item-one">
+                     <label>密码:</label>
+                     <span id="password"></span>
+                </span>
+        </div>
+        <div class="fitem">
+               <span class="item-one">
+                    <label>创建时间:</label>
+                    <span id="creatTime"></span>
+               </span>
+            </span>
+        </div>
+    </div>
+    <div id="info-buttons">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-cancel"
+           onclick="javascript:$('#info').dialog('close')">关闭</a>
+    </div>
 </div>
 </body>
 
@@ -201,6 +233,63 @@
         });
         $(".datagrid-toolbar").insertBefore(".datagrid-view");
         tbdata();
+        //查询
+        $("#btn8").click(function () {
+            var data={};
+            data["name"]=$("#name").val();
+            data["phone"]=$("#phone").val();
+            data['qq']=$("#qq").val();
+            data["card"]=$("#card").val();
+            data["time"]=$("#time").val();
+            $.post('/member/getList',data , function (result) {
+                if (result.code == 200) {
+                    $('#dg').datagrid('reload');	// reload the user data
+                } else {
+                    $.messager.show({	// show error message
+                        title: '错误',
+                        msg: result.msg
+                    });
+                }
+            }, 'json');
+        });
+        //开通用户
+        $("#btn10").click(function () {
+            var row = $('#dg').datagrid('getSelected');
+            $.post('/user/creat/'+row.memberId,{} , function (result) {
+                alert(JSON.stringify(result));
+                if (result.code == 200) {
+                    $.messager.show({
+                        title: '开通成功',
+                        msg: result.msg
+                    });
+                } else {
+                    $.messager.show({
+                        title: '错误',
+                        msg: result.msg
+                    });
+                }
+            }, 'json');
+        })
+        //查看用户密码
+        $("#btn9").click(function () {
+            alert("查看用户密码");
+            var row = $('#dg').datagrid('getSelected');
+            $.post('/user/getOne/'+row.memberId,{} , function (result) {
+                alert(JSON.stringify(result));
+                if (result.code == 200) {
+                    $('#info').dialog('open').dialog('setTitle', '查看用户密码');
+                    $("#userName").html(result.data.userName);
+                    $("#password").html(result.data.password);
+                    $("#creatTime").html(result.data.creatTime);
+                } else {
+                    $.messager.show({
+                        title: '错误',
+                        msg: result.msg
+                    });
+                }
+            }, 'json');
+        })
+
     });
     function tbdata() {
         $.ajax({
@@ -219,13 +308,11 @@
 
     var url;
     function newUser() {
-        debugger;
         $('#dlg').dialog('open').dialog('setTitle', '添加用户');
         $('#fm').form('clear');
         url = '/member/save';
     }
     function editUser() {
-        debugger;
         var row = $('#dg').datagrid('getSelected');
         if (row) {
             $('#dlg').dialog('open').dialog('setTitle', '编辑用户');
@@ -234,12 +321,11 @@
         }
     }
     function saveUser() {
-        debugger;
         var data = {};
         data["number"] = $(".number").val();
-        data["group"] = $('.group option:selected') .val();
-        data["permissions"]=$('.permissions option:selected') .val();
-        data["sex"]=$('.sex option:selected') .val();
+        data["groups"] = $('#groups').find("option:selected").val();
+        data["permissions"]=$('#permissions').find("option:selected").val();
+        data["sex"]=$('#sex').find("option:selected").val();
         data["name"]=$(".name").val();
         data["phone"]=$(".phone").val();
         data["qq"]=$(".qq").val();
@@ -304,7 +390,5 @@
             }
         });
     }
-
-
 </script>
 </html>
