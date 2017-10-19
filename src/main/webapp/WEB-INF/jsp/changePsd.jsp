@@ -48,7 +48,7 @@
                     data:data,
                     type:"POST",
                     success:function(data) {
-                        alert(JSON.stringify(data));
+                        alert(data.msg);
                     }
                 });
             })

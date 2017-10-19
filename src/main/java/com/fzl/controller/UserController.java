@@ -71,8 +71,7 @@ public class UserController extends BaseController {
     public void update(HttpServletRequest request,HttpServletResponse response, UserUpdateQo userUpdateQo){
         //比较数据的合法性
         User sessionUser = (User) request.getSession().getAttribute("user");
-        if(sessionUser.getId().compareTo(userUpdateQo.getId())!=0||
-                !sessionUser.getUserName().equals(userUpdateQo.getUserName())||
+        if(!sessionUser.getUserName().equals(userUpdateQo.getUserName())||
                 !sessionUser.getPassword().equals(userUpdateQo.getOldPassword())){
             writeResponse(response, "400", "原密码和账号不匹配");
             return;
@@ -81,6 +80,7 @@ public class UserController extends BaseController {
             writeResponse(response, "400", "原密码和新密码相同");
             return;
         }
+        userUpdateQo.setId(sessionUser.getId());
         boolean upadte= userService.updatePassword(userUpdateQo);
         if(upadte){
             writeResponse(response, "200", "密码更新成功");
