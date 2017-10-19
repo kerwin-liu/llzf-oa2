@@ -2,7 +2,9 @@ package com.fzl.mapper;
 
 import com.fzl.pojo.TClient;
 import com.fzl.pojo.TClientExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TClientMapper {
@@ -10,7 +12,7 @@ public interface TClientMapper {
 
     int deleteByExample(TClientExample example);
 
-    int deleteByPrimaryKey(Integer clientId);
+    int deleteByPrimaryKey(Long clientId);
 
     int insert(TClient record);
 
@@ -18,7 +20,7 @@ public interface TClientMapper {
 
     List<TClient> selectByExample(TClientExample example);
 
-    TClient selectByPrimaryKey(Integer clientId);
+    TClient selectByPrimaryKey(Long clientId);
 
     int updateByExampleSelective(@Param("record") TClient record, @Param("example") TClientExample example);
 
@@ -27,4 +29,8 @@ public interface TClientMapper {
     int updateByPrimaryKeySelective(TClient record);
 
     int updateByPrimaryKey(TClient record);
+    
+    List<TClient> selectClientById(Long id);
+
+	List<TClient> selectClientByDepartment(Long id);
 }
