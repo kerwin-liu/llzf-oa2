@@ -274,6 +274,7 @@
       <if test="departmentId != null and departmentId != ''">
           AND groups=#{departmentId}
       </if>
+        ORDER BY name
     </where>
   </select>
 </mapper>
