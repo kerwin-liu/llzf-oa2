@@ -130,5 +130,10 @@ public class MemberController extends BaseController {
             return;
         }
         boolean delete = memberService.deleteByid(memberId);
+        if (delete) {
+            writeResponse(response, "200", "员工删除成功");
+            return;
+        }
+        writeResponse(response, "400", "员工删除失败");
     }
 }
