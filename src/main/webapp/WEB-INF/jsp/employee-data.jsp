@@ -168,7 +168,7 @@
 </div>
 <div class="info-div" style="display: none;">
     <div id="info" class="easyui-dialog" style="width:300px;height:200px;padding:10px 20px"
-         closed="true" buttons="#dlg-buttons">
+         closed="true">
         <div class="ftitle">用户信息</div>
         <div class="fitem">
             <span class="item-one">
@@ -186,7 +186,7 @@
 </div>
 <div class="password-div" style="display: none;">
     <div id="password-info" class="easyui-dialog" style="width:300px;height:200px;padding:10px 20px"
-         closed="true" buttons="#dlg-buttons">
+         closed="true">
         <div class="ftitle">重置密码</div>
         <div class="fitem">
             <label>密码:</label>
