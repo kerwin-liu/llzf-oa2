@@ -69,6 +69,9 @@
         <a id="btn6" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-print'">数据导出</a>
     </div>
     <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn9" href="/" class="easyui-linkbutton" data-options="iconCls:'icon-add'">数据导入</a>
+    </div>
+    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
         <a id="btn7" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">密码重置</a>
     </div>
     <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
@@ -186,7 +189,7 @@
                 {field: 'group', title: '管理分组', width: 100, align: 'center'},
                 {
                     field: 'obj', title: '操作', align: 'center', width: 28, formatter: function (value, row, index) {
-                    return "<a id='de' onclick=deletes('" + row.ID + "')>删除</a>";
+                    return "<a id='de' onclick=deletes('" + row.memberId + "')>删除</a>";
                 }
                 }
             ]]
@@ -270,7 +273,7 @@
     function deletes(id) {
         $.messager.confirm('确定', '你确定要删除此员工吗?', function (r) {
             if (r) {
-                $.post('/member/delete/'+row.memberId, {}, function (result) {
+                $.post('/member/delete/'+id, {}, function (result) {
                     if (result.code==200) {
                         tbdata();
                         $('#dg').datagrid('reload');	// reload the user data
