@@ -47,19 +47,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <a id="index" href="#" target="iframe"  class="ue-clear"><span>首页</span></a>
                         </div></li>
                     <li class="gongwen"><div class="nav-header">
-                        <a href="/pages/employee-data" target="iframe" class="ue-clear"><span>员工管理</span>
+                        <a href="/member/index" target="iframe" class="ue-clear"><span>员工管理</span>
                             </a></div>
+
                     </li>
                     <li class="nav-info">
-                    	<div class="nav-header"><a href="/pages/Customer-data" target="iframe" class="ue-clear"><span>客户管理</span></a></div>
+                    	<div class="nav-header"><a href="/customerController/customer" target="iframe" class="ue-clear"><span>客户管理</span></a></div>
                     </li>
-                    <li class="konwledge">
-                        <div class="nav-header"><a href="/pages/Customer-allot" target="iframe" class="ue-clear"><span>客户分配</span></a></div>
-                    </li>
-                    <li class="agency">
-                        <div class="nav-header"><a href="/pages/Customer-knockdown" target="iframe" class="ue-clear"><span>成交客户</span></a></div>
-                    </li>
-
+                  <%--  <li class="konwledge"><div class="nav-header"><a href="../javascript:;" class="ue-clear"><span>客户管理</span><i class="icon"></i></a></div></li>--%>
 
                 </ul>
             </div>
@@ -74,14 +69,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
 
-        <div id="ft" class="ue-clear">
+    <div id="ft" class="ue-clear">
     	<div class="ft-left">
             <span>某某公司</span>
             <em>Office&nbsp;System</em>
         </div>
         <div class="ft-right">
             <span>Automation</span>
-            <em>V2.0&nbsp;2017</em>
+            <em>V2.0&nbsp;2014</em>
         </div>
     </div>
 </div>
