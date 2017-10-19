@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html style="height: 100%;width: 100%">
 <head>
     <title>Title</title>
@@ -42,13 +42,16 @@
             display: inline-block;
             width: 50px;
         }
-        .item-one{
+
+        .item-one {
             width: 200px;
         }
-        .item-two{
+
+        .item-two {
             width: 200px;
         }
-        select{
+
+        select {
             width: 172px;
         }
     </style>
@@ -81,29 +84,29 @@
         姓名：<input id="name" type="text" style="width:80px;"/>
         手机:<input type="text" style="width:80px;"/>
         QQ:<input type="text" style="width:80px;"/>
-        身份证号:<select id="card"  type="text" style="width:80px;"></select>
+        身份证号:<select id="card" type="text" style="width:80px;"></select>
         日期:<input type="text" style="width:80px;"/> 至 <input type="text" style="width:80px;"/>
         <a id="btn8" href="" class="easyui-linkbutton" data-options="iconCls:'icon-search'">点击选择</a>
     </div>
 
 
 </div>
-<div  style="height: 105%;width: 100%;border: 0px solid red;float: left;margin-left: -18px;margin-top: -18px">
+<div style="height: 105%;width: 100%;border: 0px solid red;float: left;margin-left: -18px;margin-top: -18px">
     <table id="dg" style="height: 100px;width: 100px;"></table>
 </div>
 <div class="dlg-div" style="display: none;">
     <div id="dlg" class="easyui-dialog" style="width:600px;height:320px;padding:10px 20px"
          closed="true" buttons="#dlg-buttons">
         <div class="ftitle">员工信息</div>
-        <form id="fm" method="post" novalidate>
+        <form id="fm" method="post" action="">
             <div class="fitem">
             <span class="item-one">
                 <label>账号:</label>
-                <input name="number" class="easyui-validatebox textbox" required="true" size="20">
+                <input name="number" value="123" class="easyui-validatebox textbox number" required="true" size="20">
             </span>
                 <span class="item-two">
                 <label>组别:</label>
-                <select class="easyui-combobox" name="groups" class="easyui-validatebox" size="20">
+                <select class="easyui-combobox" name="groups" class="easyui-validatebox group" size="20">
                     <option value="1" selected>一部</option>
                     <option value="2">二部</option>
                 </select>
@@ -112,7 +115,7 @@
             <div class="fitem">
           <span class="item-one">
                  <label>权限:</label>
-                <select class="easyui-combobox" name="permissions" class="easyui-validatebox" size="20">
+                <select class="easyui-combobox" name="permissions" class="easyui-validatebox permissions" size="20">
                     <option value="1">管理员</option>
                     <option value="2">部长</option>
                     <option value="3" selected>员工</option>
@@ -120,64 +123,66 @@
             </span>
                 <span class="item-two">
                 <label>性别:</label>
-                <select class="easyui-combobox" name="sex" class="easyui-validatebox" size="20">
-                    <option value="man">男</option>
-                    <option value="woman">女</option>
+                <select class="easyui-combobox" name="sex" class="easyui-validatebox sex" size="20">
+                    <option value=0>男</option>
+                    <option value=1>女</option>
                 </select>
            </span>
             </div>
             <div class="fitem">
            <span class="item-one">
                 <label>姓名:</label>
-                <input name="name" class="easyui-validatebox textbox" required="true">
+                <input value="test" name="name" class="easyui-validatebox textbox name" required="true">
            </span>
                 <span class="item-two">
                  <label>手机:</label>
-                <input name="phone"  class="easyui-validatebox textbox" required="true">
+                <input value="123455" name="phone" class="easyui-validatebox textbox phone" required="true">
             </span>
             </div>
             <div class="fitem">
            <span class="item-one">
                 <label>QQ:</label>
-                <input name="qq">
+                <input name="qq" class="qq">
            </span>
                 <span class="item-two">
                  <label>QQ昵称:</label>
-                <input name="qqnc">
+                <input name="qqnc" class="qqnc">
             </span>
             </div>
             <div class="fitem">
                 <label>身份证:</label>
-                <input name="card" size="53"  class="easyui-validatebox textbox" required="true">
+                <input value="12134356" name="card" size="53" class="easyui-validatebox textbox card" required="true">
             </div>
             <div class="fitem">
                 <label>住址:</label>
-                <input name="address" size="53">
+                <input name="address" class="address" size="53">
             </div>
             <div class="fitem">
                 <label>备注:</label>
-                <input name="remark" size="53">
+                <input name="remark" class="remark" size="53">
+            </div>
+            <div id="dlg-buttons">
+                <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel"
+                   onclick="javascript:$('#dlg').dialog('close')">取消</a>
             </div>
         </form>
     </div>
-    <div id="dlg-buttons">
-        <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
-        <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
-    </div>
+
 </div>
 </body>
 
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         $("#dg").datagrid({
-            title:'员工信息表',
+            title: '员工信息表',
             singleSelect: false,
             fitColumns: true,
             fit: true,
             rownumbers: true,
             remoteSort: false,
             columns: [[
-                {field: 'Ids', title: 'ID', checkbox: true, width: 8, align: 'center',hidden: 'true'},
+                {field: 'Ids', title: 'ID', checkbox: true, width: 8, align: 'center', hidden: 'true'},
                 {field: 'memberId', title: '编号', width: 100, align: 'center'},
                 {field: 'name', title: '姓名', width: 100, align: 'center'},
                 {field: 'sex', title: '性别', width: 100, align: 'center'},
@@ -197,16 +202,16 @@
         $(".datagrid-toolbar").insertBefore(".datagrid-view");
         tbdata();
     });
-    function tbdata(){
+    function tbdata() {
         $.ajax({
-            url:'/member/getList',
-            type:"POST",
-            dataType:'json',
-            success:function(data){
+            url: '/member/getList',
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
                 console.log(data);
-                if(data.code==200){
+                if (data.code == 200) {
                     console.log(data.date.result);
-                    $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
+                    $("#dg").datagrid("loadData", {total: data.date.totalCount, rows: data.date.result});
                 }
             }
         })
@@ -230,33 +235,45 @@
     }
     function saveUser() {
         debugger;
-        $('#fm').form('submit', {
-            url: '',
-            onSubmit: function () {
-                return $(this).form('validate');
-            },
-            success: function (result) {
-                var result = eval('(' + result + ')');
-                if (result.success) {
+        var data = {};
+        data["number"] = $(".number").val();
+        data["group"] = $('.group option:selected') .val();
+        data["permissions"]=$('.permissions option:selected') .val();
+        data["sex"]=$('.sex option:selected') .val();
+        data["name"]=$(".name").val();
+        data["phone"]=$(".phone").val();
+        data["qq"]=$(".qq").val();
+        data["qqnc"]=$(".qqnc").val();
+        data["card"]=$(".card").val();
+        data["address"]=$(".address").val();
+        data["remark"]=$(".remark").val();
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            data: data,
+            type: "POST",
+            success: function (data) {
+                alert(data.msg);
+                if (data.code == 200) {
                     $('#dlg').dialog('close');		// close the dialog
                     $('#dg').datagrid('reload');	// reload the user data
                 } else {
                     $.messager.show({
-                        title: 'Error',
-                        msg: result.msg
+                        title: '错误',
+                        msg: data.msg
                     });
                 }
             }
-        });
+        })
     }
     function removeUser() {
         var row = $('#dg').datagrid('getSelected');
         if (row) {
             $.messager.confirm('确定', '你确定要删除此员工吗?', function (r) {
                 if (r) {
-                    $.post('/member/delete/'+row.memberId, {}, function (result) {
+                    $.post('/member/delete/' + row.memberId, {}, function (result) {
                         //alert(result);
-                        if (result.code==200) {
+                        if (result.code == 200) {
                             tbdata();
                             $('#dg').datagrid('reload');	// reload the user data
                         } else {
@@ -273,8 +290,8 @@
     function deletes(id) {
         $.messager.confirm('确定', '你确定要删除此员工吗?', function (r) {
             if (r) {
-                $.post('/member/delete/'+id, {}, function (result) {
-                    if (result.code==200) {
+                $.post('/member/delete/' + id, {}, function (result) {
+                    if (result.code == 200) {
                         tbdata();
                         $('#dg').datagrid('reload');	// reload the user data
                     } else {
