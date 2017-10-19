@@ -19,4 +19,6 @@ public interface MemberService {
     Pages<Member> queryMemberByDepartment(MemberQo memberQo, Long id);
 
     Pages<Member> queryMemberByDepartment(MemberQo memberQo);
+
+    int countClient(Long memberId);
 }

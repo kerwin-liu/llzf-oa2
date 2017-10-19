@@ -40,7 +40,7 @@ public class TClientController extends BaseController {
 
 	/**
 	 * 分页查询
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param tClientQo
@@ -62,7 +62,7 @@ public class TClientController extends BaseController {
 	 * 导出 Excel
 	 * <p>
 	 * 逻辑：1 查找用户列表 2 导出
-	 * 
+	 *
 	 * @throws IOException
 	 */
 
@@ -89,7 +89,7 @@ public class TClientController extends BaseController {
 
 	/**
 	 * 导入Excel
-	 * 
+	 *
 	 * @param importFile
 	 *            导入的Excel文件路径
 	 * @return null ====这里有可能换为列表页面“list”
@@ -153,17 +153,17 @@ public class TClientController extends BaseController {
 		}
 
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	/**
      * 保存员工数据
      *
      * @param request
      * @param response
-     * @param member
+     * @param client
      */
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public void save(HttpServletRequest request, HttpServletResponse response, TClient client) {
@@ -175,20 +175,20 @@ public class TClientController extends BaseController {
 //          writeResponse(response, "400", "该用户无增加权限");
 //          return;
 //      }
-    	
+
     	User sessionUser = (User) request.getSession().getAttribute("user");
-      
+
         List<TClient> list = tClientService.queryTClientByClientCard(client.getCard());
-        
+
 
         if(list != null){
         	writeResponse(response, "400", "此客户账号已使用");
           return;
         }
-        
-        
+
+
         boolean save = tClientService.saveTClient(client,sessionUser.getId());
-        
+
         if(save){
           writeResponse(response, "200", "客户添加成功");
           return;
@@ -196,20 +196,20 @@ public class TClientController extends BaseController {
         writeResponse(response, "400", "客户添加失败");
     }
 
-	
-	
-	
-	
+
+
+
+
     /**
      * 修改员工信息
      *
      * @param request
      * @param response
-     * @param member
+     * @param
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public void update(HttpServletRequest request, HttpServletResponse response, TClient client) {
-    	
+
 //******  补上：按照权限 来判断是否操作的本部门或者本员工之下的客户、否则不能编辑
 //        //权限判断 1获取user 通过id查询权限
 //        User sessionUser = (User) request.getSession().getAttribute("user");
@@ -218,19 +218,19 @@ public class TClientController extends BaseController {
 //            writeResponse(response, "400", "该用户无修改权限");
 //            return;
 //        }
-    	
-    	
-    	
+
+
+
     	  boolean update = tClientService.update(client);
         if (update) {
         writeResponse(response, "200", "客户修改成功");
         return;
     }
-    	
+
         writeResponse(response, "400", "客户修改失败");
     }
 
-	
-	
+
+
 
 }

@@ -2,14 +2,8 @@ package com.fzl.service.impl;
 
 import com.fzl.common.IDUtils;
 import com.fzl.common.Pages;
-import com.fzl.mapper.DepartmentMapper;
-import com.fzl.mapper.MemberDepartmentMapper;
-import com.fzl.mapper.MemberMapper;
-import com.fzl.mapper.MemberRoleMapper;
-import com.fzl.pojo.Department;
-import com.fzl.pojo.Member;
-import com.fzl.pojo.MemberDepartment;
-import com.fzl.pojo.MemberRole;
+import com.fzl.mapper.*;
+import com.fzl.pojo.*;
 import com.fzl.pojo.Qo.MemberQo;
 import com.fzl.service.MemberService;
 import com.github.pagehelper.Page;
@@ -32,6 +26,10 @@ public class MemberServiceImpl implements MemberService {
     private MemberDepartmentMapper memberDepartmentMapper;
     @Autowired
     private DepartmentMapper departmentMapper;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private UserMemberMapper userMemberMapper;
 
     @Override
     public boolean saveMember(Member member, Long UserId) {
@@ -85,6 +83,10 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.deleteByPrimaryKey(memberId);
         memberDepartmentMapper.deleteByPrimaryKey(memberId);
         memberRoleMapper.deleteByPrimaryKey(memberId);
+        //删除对应用户
+        User user = userMapper.selectUserbyMemberID(memberId);
+        userMemberMapper.deleteByPrimaryKey(user.getId());
+        userMapper.deleteByPrimaryKey(user.getId());
         return true;
     }
 
@@ -106,5 +108,11 @@ public class MemberServiceImpl implements MemberService {
         List<Member> list = memberMapper.queryListByCondition(memberQo);
         Page<Member> page = (Page<Member>) list;
         return new Pages<>(page.getStartRow(), page.getTotal(), page.getPageSize(), list);
+    }
+
+    @Override
+    public int countClient(Long memberId) {
+
+        return memberMapper.countClient(memberId);
     }
 }

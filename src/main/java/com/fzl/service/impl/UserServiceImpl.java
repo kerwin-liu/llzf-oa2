@@ -68,7 +68,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updatePassword(UserUpdateQo userUpdateQo) {
-        return userMapper.updatePassword(userUpdateQo) > 0;
+         userMapper.updatePassword(userUpdateQo) ;
+        return true;
     }
 
     @Override

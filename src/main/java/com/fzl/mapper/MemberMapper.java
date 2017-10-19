@@ -23,4 +23,6 @@ public interface MemberMapper {
     Member queryMemberByNo(String number);
 
     List<Member> queryListByCondition(MemberQo memberQo);
+
+    int countClient(Long memberId);
 }

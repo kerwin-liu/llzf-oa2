@@ -33,6 +33,7 @@ public class MemberController extends BaseController {
     public String index(HttpServletRequest request, HttpServletResponse response, MemberQo memberQo) {
         return "employee-data";
     }
+
     @RequestMapping(value = "getList", method = RequestMethod.POST)
     public void getList(HttpServletRequest request, HttpServletResponse response, MemberQo memberQo) {
         //权限：员工只能查看自己的，主管只能查看本部门的，管理员查看全部的
@@ -41,17 +42,17 @@ public class MemberController extends BaseController {
         //管理员和主管可以增加员工 员工级别的不能添加员工
         if (role.compareTo(3L) == 0) {
             Member member = userService.queryMember(sessionUser.getId());
-            writeCommonDataResponse(response, "200", "查询成功",member);
+            writeCommonDataResponse(response, "200", "查询成功", member);
             return;
         }
-        if(role.compareTo(2L) == 0){
-            Pages<Member> pages  = memberService.queryMemberByDepartment(memberQo,sessionUser.getId());
-            writeCommonDataResponse(response, "200", "查询成功",pages);
+        if (role.compareTo(2L) == 0) {
+            Pages<Member> pages = memberService.queryMemberByDepartment(memberQo, sessionUser.getId());
+            writeCommonDataResponse(response, "200", "查询成功", pages);
             return;
         }
-        if(role.compareTo(1L) == 0){
-            Pages<Member> pages  = memberService.queryMemberByDepartment(memberQo);
-            writeCommonDataResponse(response, "200", "查询成功",pages);
+        if (role.compareTo(1L) == 0) {
+            Pages<Member> pages = memberService.queryMemberByDepartment(memberQo);
+            writeCommonDataResponse(response, "200", "查询成功", pages);
             return;
         }
     }
@@ -114,7 +115,7 @@ public class MemberController extends BaseController {
     }
 
     /**
-     * 删除用户
+     * 删除员工
      *
      * @param request
      * @param response
@@ -129,6 +130,13 @@ public class MemberController extends BaseController {
             writeResponse(response, "400", "该用户无删除员工权限");
             return;
         }
+        //查询员工下边是不是有客户
+        int a = memberService.countClient(memberId);
+        if (a > 0) {
+            writeResponse(response, "400", "该员工下还有"+a+"个客户");
+            return;
+        }
         boolean delete = memberService.deleteByid(memberId);
+        writeResponse(response, "200", "删除成功");
     }
 }
