@@ -69,20 +69,13 @@
         <a id="btn5" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="removeUser()">删除员工</a>
     </div>
     <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a id="btn6" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-print'">数据导出</a>
-    </div>
-  <%--  <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a id="btn9" href="/" class="easyui-linkbutton" data-options="iconCls:'icon-add'">数据导入</a>
-    </div>--%>
-
-    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a id="btn7" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">密码重置</a>
+        <a id="btn10" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">开通</a>
     </div>
     <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
         <a id="btn9" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">查看密码</a>
     </div>
     <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a id="btn10" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">开通</a>
+        <a id="btn7" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">密码重置</a>
     </div>
     <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
         姓名：<input id="name" type="text" style="width:80px;"/>
@@ -165,16 +158,16 @@
                 <label>备注:</label>
                 <input name="remark" class="remark" size="53">
             </div>
-            <div id="dlg-buttons">
-                <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel"
-                   onclick="javascript:$('#dlg').dialog('close')">取消</a>
-            </div>
         </form>
+        <div id="dlg-buttons">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-cancel"
+               onclick="javascript:$('#dlg').dialog('close')">取消</a>
+        </div>
     </div>
 </div>
 <div class="info-div" style="display: none;">
-    <div id="info" class="easyui-dialog" style="width:600px;height:320px;padding:10px 20px"
+    <div id="info" class="easyui-dialog" style="width:300px;height:200px;padding:10px 20px"
          closed="true" buttons="#dlg-buttons">
         <div class="ftitle">用户信息</div>
         <div class="fitem">
@@ -189,17 +182,16 @@
                      <span id="password"></span>
                 </span>
         </div>
-     <%--   <div class="fitem">
-               <span class="item-one">
-                    <label>创建时间:</label>
-                    <span id="creatTime"></span>
-               </span>
-            </span>
-        </div>--%>
     </div>
-    <div id="info-buttons">
-        <a href="#" class="easyui-linkbutton" iconCls="icon-cancel"
-           onclick="javascript:$('#info').dialog('close')">关闭</a>
+</div>
+<div class="password-div" style="display: none;">
+    <div id="password-info" class="easyui-dialog" style="width:300px;height:200px;padding:10px 20px"
+         closed="true" buttons="#dlg-buttons">
+        <div class="ftitle">重置密码</div>
+        <div class="fitem">
+            <label>密码:</label>
+            <span id="revert-password"></span>
+        </div>
     </div>
 </div>
 </body>
@@ -255,39 +247,65 @@
         //开通用户
         $("#btn10").click(function () {
             var row = $('#dg').datagrid('getSelected');
-            $.post('/user/creat/'+row.memberId,{} , function (result) {
-                alert(JSON.stringify(result));
-                if (result.code == 200) {
-                    $.messager.show({
-                        title: '开通成功',
-                        msg: result.msg
-                    });
-                } else {
-                    $.messager.show({
-                        title: '错误',
-                        msg: result.msg
-                    });
-                }
-            }, 'json');
-        })
+            if(row){
+                $.post('/user/creat/'+row.memberId,{} , function (result) {
+                    if (result.code == 200) {
+                        alert(result.msg);
+                    } else {
+                        $.messager.show({
+                            title: '错误',
+                            msg: result.msg
+                        });
+                    }
+                }, 'json');
+            }else{
+                alert("请选中用户")
+            }
+
+        });
         //查看用户密码
         $("#btn9").click(function () {
             alert("查看用户密码");
             var row = $('#dg').datagrid('getSelected');
-            $.post('/user/getOne/'+row.memberId,{} , function (result) {
-                if (result.code == 200) {
-                    $('#info').dialog('open').dialog('setTitle', '查看用户密码');
-                    $("#userName").html(result.date.userName);
-                    $("#password").html(result.date.password);
-                } else {
-                    $.messager.show({
-                        title: '错误',
-                        msg: result.msg
-                    });
-                }
-            }, 'json');
-        })
+            if(row){
+                $.post('/user/getOne/'+row.memberId,{} , function (result) {
+                    if (result.code == 200) {
+                        $('#info').dialog('open').dialog('setTitle', '查看用户密码');
+                        $("#userName").html(result.date.userName);
+                        $("#password").html(result.date.password);
+                    } else {
+                        $.messager.show({
+                            title: '错误',
+                            msg: result.msg
+                        });
+                    }
+                }, 'json');
+            }else{
+                alert("请选中用户");
+            }
 
+        });
+
+        //密码重置
+        $("#btn7").click(function () {
+            alert("密码重置");
+            var row = $('#dg').datagrid('getSelected');
+            if(row){
+                $.post('/user/passwordReset/'+row.memberId,{} , function (result) {
+                    if (result.code == 200) {
+                        $('#password-info').dialog('open').dialog('setTitle', '密码重置');
+                        $("#revert-password").html(result.date.password);
+                    } else {
+                        $.messager.show({
+                            title: '错误',
+                            msg: result.msg
+                        });
+                    }
+                }, 'json');
+            }else{
+                alert("请选中用户");
+            }
+        })
     });
     function tbdata() {
         $.ajax({
