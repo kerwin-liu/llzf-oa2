@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="../../css/base.css" />
 	<link rel="stylesheet" href="../../css/login.css" />
-	<title>客户管理系统</title>
+	<title>移动</title>
     <script type="text/javascript">
         function fn_login(){
             document.forms[0].submit();
@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="login-input">
                     <p class="user ue-clear">
                         <label>用户名</label>
-                        <input type="text" id="userName" name="userName" value="${userName}"/>
+                        <input type="text" id="userName" name="userName"/>
                     </p>
                     <p class="password ue-clear">
                         <label>密&nbsp;&nbsp;&nbsp;码</label>
@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
 </form>
-    <div id="ft">CopyRight&nbsp;2017&nbsp;&nbsp;版权所有&nbsp;&nbsp;专注于ui设计&nbsp;&nbsp;</div>
+    <div id="ft">CopyRight&nbsp;2014&nbsp;&nbsp;版权所有&nbsp;&nbsp;samxinnet.com专注于ui设计&nbsp;&nbsp;皖ICP备09001111号</div>
 </body>
 <script type="text/javascript" src="../../js/jquery.js"></script>
 <script type="text/javascript" src="../../js/common.js"></script>

@@ -19,38 +19,6 @@
     <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../../js/tools.js"></script>
-    <style type="text/css">
-        #from {
-            margin: 0;
-            padding: 10px 30px;
-        }
-
-        .ftitle {
-            font-size: 14px;
-            font-weight: bold;
-            color: #666;
-            padding: 5px 0;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-        .fitem {
-            margin-bottom: 5px;
-        }
-
-        .fitem label {
-            display: inline-block;
-            width: 50px;
-        }
-        .item-one{
-            width: 200px;
-        }
-        .item-two{
-            width: 200px;
-        }
-        select{
-            width: 172px;
-        }
-    </style>
 </head>
 <body>
 <div class="datagrid-toolbar" style="height: 60px;width: 100%;border: 0px solid red;">
@@ -65,7 +33,7 @@
             <a id="btn3" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-clear'">拉黑</a>
         </div>
         <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-            <a id="btn4" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-large-shapes'">客户追踪</a>
+            <a id="btn4" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-large-shapes'">客户经理</a>
         </div>
         <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
             <a id="btn5" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-add'">删除客户</a>
@@ -82,7 +50,7 @@
             QQ:<input type="text" style="width:80px;"/>
             日期:<input type="text" style="width:80px;"/> 至 <input type="text" style="width:80px;"/>
             负责人： <a id="btn7" href="" class="easyui-linkbutton" data-options="iconCls:''">点击选择</a>
-            <a id="btn8" href="" class="easyui-linkbutton" data-options="iconCls:'icon-search'">选择</a>
+            <a id="btn8" href="" class="easyui-linkbutton" data-options="iconCls:'icon-search'">点击选择</a>
         </div>
 
 
@@ -102,7 +70,6 @@
             remoteSort: false,
 
             columns: [[
-                {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
                 {field: 'CLIENTID', title: '编号', width: 100, align: 'center'},
                 {field: 'NAME', title: '姓名', width: 100, align: 'center'},
                 {field: 'SEX', title: '性别', width: 100, align: 'center'},
@@ -110,10 +77,10 @@
                 {field: 'WEIXIN', title: '微信号', width: 100, align: 'center'},
                 {field: 'QQQNC', title: '微信名', width: 100, align: 'center'},
                 {field: 'QQ', title: 'QQ号', width: 100, align: 'center'},
-                {field: 'TYPR', title: '客户类型', width: 60, align: 'center'},
-                {field: 'funds', title: '负责人', width: 100, align: 'center'},
-                {field: 'remark', title: '备注', width: 100, align: 'center'},
-                {field: 'time', title: '归档日期', width: 100, align: 'center'},
+                {field: 'TIME', title: '客户类型', width: 60, align: 'center'},
+                {field: 'TIME', title: '负责人', width: 100, align: 'center'},
+                {field: 'TIME', title: '备注', width: 100, align: 'center'},
+                {field: 'BOOKNUM', title: '归档日期', width: 100, align: 'center'},
                 {
                     field: 'obj', title: '操作', align: 'center', width: 28, formatter: function (value, row, index) {
                     return "<a id='de' onclick=deletes('" + row.ID + "')>删除</a>";
@@ -123,7 +90,7 @@
         });
         $(".datagrid-toolbar").insertBefore(".datagrid-view");
         $("#btn1").click(function(){
-            createwindow("添加客户", "/pages/Customer-add",600,340);
+            createwindow("添加客户", "",400,300);
         });
         tbdata();
         });
@@ -132,7 +99,6 @@ function tbdata(){
         url:'',
         dataType:'json',
         success:function(data){
-            console.log(data);
             $("#dg").datagrid({total:data.length,rows:data.rows});
         }
     })
