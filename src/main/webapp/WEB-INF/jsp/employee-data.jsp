@@ -81,7 +81,7 @@
 
 </div>
 <div  style="height: 105%;width: 100%;border: 0px solid red;float: left;margin-left: -18px;margin-top: -18px">
-    <table id="dg" style="height: 99%;width: 99%;"></table>
+    <table id="dg" style="height: 100px;width: 100px;"></table>
 </div>
 <div class="dlg-div" style="display: none;">
     <div id="dlg" class="easyui-dialog" style="width:600px;height:320px;padding:10px 20px"
@@ -168,10 +168,9 @@
             fit: true,
             rownumbers: true,
             remoteSort: false,
-
             columns: [[
-                {field: 'memberId', title: 'ID', checkbox: true, width: 8, align: 'center',hidden: 'true'},
-                {field: 'number', title: '编号', width: 100, align: 'center'},
+                {field: 'Ids', title: 'ID', checkbox: true, width: 8, align: 'center',hidden: 'true'},
+                {field: 'memberId', title: '编号', width: 100, align: 'center'},
                 {field: 'name', title: '姓名', width: 100, align: 'center'},
                 {field: 'sex', title: '性别', width: 100, align: 'center'},
                 {field: 'phone', title: '手机号', width: 100, align: 'center'},
@@ -188,9 +187,6 @@
             ]]
         });
         $(".datagrid-toolbar").insertBefore(".datagrid-view");
-        $("#btn1").click(function(){
-            createwindow("添加客户", "",400,300);
-        });
         tbdata();
     });
     function tbdata(){
@@ -199,11 +195,12 @@
             type:"POST",
             dataType:'json',
             success:function(data){
-                if(data.code==201){
+                console.log(data);
+                if(data.code==200){
                     console.log(data.date.result);
-                    $("#dg").datagrid({total:data.date.totalCount,rows:data.date.result});
+                    $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
                 }
-             }
+            }
         })
     }
 </script>
