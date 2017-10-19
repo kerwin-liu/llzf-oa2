@@ -143,3 +143,11 @@ function closeObj(obj) {
 		}
 	}
 }
+
+
+function tip(text){
+    $.messager.show({
+        title: '错误',
+        msg: text
+    });
+}

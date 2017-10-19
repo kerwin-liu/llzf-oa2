@@ -17,38 +17,7 @@
 
     <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
-    <style type="text/css">
-        #from {
-            margin: 0;
-            padding: 10px 30px;
-        }
 
-        .ftitle {
-            font-size: 14px;
-            font-weight: bold;
-            color: #666;
-            padding: 5px 0;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-        .fitem {
-            margin-bottom: 5px;
-        }
-
-        .fitem label {
-            display: inline-block;
-            width: 50px;
-        }
-        .item-one{
-            width: 200px;
-        }
-        .item-two{
-            width: 200px;
-        }
-        select{
-            width: 172px;
-        }
-    </style>
 </head>
 <body>
 <form id="from" action="/client/save" method="post" target="hidden_frame">
