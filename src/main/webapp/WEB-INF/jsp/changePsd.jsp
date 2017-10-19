@@ -16,16 +16,16 @@
         <table>
             <tr>
                 <td><label>姓名:</label></td>
-                <td><input name="userName" class="easyui-validatebox textbox" required="true" size="20">
+                <td><input name="userName" class="easyui-validatebox textbox userName" required="true" size="20">
                 </td>
             </tr>
             <tr>
                 <td><label>原密码:</label></td>
-                <td><input name="oldPassword" type="password" class="easyui-validatebox password" required="true" size="20"></td>
+                <td><input name="oldPassword" type="password" class="easyui-validatebox password oldPassword" required="true" size="20"></td>
             </tr>
             <tr>
                 <td><label>新密码:</label></td>
-                <td> <input name="newPassword" type="password" class="easyui-validatebox password" required="true" size="20"></td>
+                <td> <input name="newPassword" type="password" class="easyui-validatebox password newPassword" required="true" size="20"></td>
             </tr>
             <tr>
                 <td></td>
@@ -38,9 +38,14 @@
     <script type="text/javascript" >
         $(function () {
             $(".btn").click(function () {
+                var data={};
+                data['userName']=$(".userName").val();
+                data['oldPassword']=$(".oldPassword").val();
+                data['newPassword']=$(".newPassword").val();
                 $.ajax({
                     url:'/user/updatePassword',
                     dataType:'json',
+                    data:data,
                     type:"POST",
                     success:function(data) {
                         alert(JSON.stringify(data));
