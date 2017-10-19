@@ -19,6 +19,8 @@
     <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../../js/tools.js"></script>
     <script type="text/javascript" src="../../js/employee.js"></script>
+    <script type="text/javascript" src="../../js/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="../../js/dataformat.js"></script>
     <style type="text/css">
         #fm {
             margin: 0;
@@ -82,7 +84,8 @@
         手机:<input id="phone" type="text" style="width:80px;"/>
         QQ:<input id="qq" type="text" style="width:80px;"/>
         身份证号:<select id="card" type="text" style="width:80px;"></select>
-        日期:<input id="time" type="text" style="width:80px;"/> 至 <input type="text" style="width:80px;"/>
+        日期:<input id="historyTime" type="text" name="historySearchTime" readonly="readonly" style="width:80px;"/>
+        至 <input id="nowTime" type="text" name="nowSearchTime" readonly="readonly" style="width:80px;"/>
         <a id="btn8" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">点击选择</a>
     </div>
 
@@ -198,6 +201,17 @@
 
 <script type="text/javascript">
     $(function () {
+        var myDate = new Date();
+        var historyTimeString= date2str(getBeforeTimeByMinute(myDate,-60),'yyyy-MM-dd hh:mm:ss'),
+            nowTimeString= date2str(myDate,'yyyy-MM-dd hh:mm:ss');
+        // $("input[name='historySearchTime']").val(historyTimeString);
+        $("input[name='historySearchTime']").attr("class","Wdate").attr("style","height:20px;width:140px;").click(function(){WdatePicker({
+            dateFmt:'yyyy-MM-dd HH:mm:ss',
+        });});
+        //$("input[name='nowSearchTime']").val(nowTimeString);
+        $("input[name='nowSearchTime']").attr("class","Wdate").attr("style","height:20px;width:140px;").click(function(){WdatePicker({
+            dateFmt:'yyyy-MM-dd HH:mm:ss',
+        });});
         $("#dg").datagrid({
             title: '员工信息表',
             singleSelect: true,
@@ -235,7 +249,8 @@
             data["time"]=$("#time").val();
             $.post('/member/getList',data , function (result) {
                 if (result.code == 200) {
-                    $('#dg').datagrid('reload');	// reload the user data
+                    tbdata();
+//                    $('#dg').datagrid('reload');	// reload the user data
                 } else {
                     $.messager.show({	// show error message
                         title: '错误',
@@ -313,7 +328,6 @@
             type: "POST",
             dataType: 'json',
             success: function (data) {
-                console.log(data);
                 if (data.code == 200) {
                     console.log(data.date.result);
                     $("#dg").datagrid("loadData", {total: data.date.totalCount, rows: data.date.result});
@@ -358,7 +372,8 @@
                 alert(data.msg);
                 if (data.code == 200) {
                     $('#dlg').dialog('close');		// close the dialog
-                    $('#dg').datagrid('reload');	// reload the user data
+//                    $('#dg').datagrid('reload');	// reload the user data
+                    tbdata();
                 } else {
                     $.messager.show({
                         title: '错误',
@@ -377,7 +392,7 @@
                         //alert(result);
                         if (result.code == 200) {
                             tbdata();
-                            $('#dg').datagrid('reload');	// reload the user data
+//                            $('#dg').datagrid('reload');	// reload the user data
                         } else {
                             $.messager.show({	// show error message
                                 title: '错误',
@@ -395,7 +410,7 @@
                 $.post('/member/delete/' + id, {}, function (result) {
                     if (result.code == 200) {
                         tbdata();
-                        $('#dg').datagrid('reload');	// reload the user data
+//                        $('#dg').datagrid('reload');	// reload the user data
                     } else {
                         $.messager.show({	// show error message
                             title: '错误',
