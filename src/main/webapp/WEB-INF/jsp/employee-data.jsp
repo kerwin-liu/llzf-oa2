@@ -189,13 +189,13 @@
                      <span id="password"></span>
                 </span>
         </div>
-        <div class="fitem">
+     <%--   <div class="fitem">
                <span class="item-one">
                     <label>创建时间:</label>
                     <span id="creatTime"></span>
                </span>
             </span>
-        </div>
+        </div>--%>
     </div>
     <div id="info-buttons">
         <a href="#" class="easyui-linkbutton" iconCls="icon-cancel"
@@ -208,7 +208,7 @@
     $(function () {
         $("#dg").datagrid({
             title: '员工信息表',
-            singleSelect: false,
+            singleSelect: true,
             fitColumns: true,
             fit: true,
             rownumbers: true,
@@ -275,12 +275,10 @@
             alert("查看用户密码");
             var row = $('#dg').datagrid('getSelected');
             $.post('/user/getOne/'+row.memberId,{} , function (result) {
-                alert(JSON.stringify(result));
                 if (result.code == 200) {
                     $('#info').dialog('open').dialog('setTitle', '查看用户密码');
-                    $("#userName").html(result.data.userName);
-                    $("#password").html(result.data.password);
-                    $("#creatTime").html(result.data.creatTime);
+                    $("#userName").html(result.date.userName);
+                    $("#password").html(result.date.password);
                 } else {
                     $.messager.show({
                         title: '错误',
