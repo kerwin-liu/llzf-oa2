@@ -75,7 +75,7 @@
             <a id="btn5" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">删除客户</a>
         </div>
         <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-            <a id="btn6" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">数据导出</a>
+            <a id="btn6" href="/client/exportExcel" class="easyui-linkbutton" data-options="iconCls:'icon-add'">数据导出</a>
         </div>
     <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
         <a id="btn9" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">数据导入</a>
@@ -119,8 +119,12 @@
             singleSelect: false,
             fitColumns: true,
             fit: true,
-            rownumbers: true,
             remoteSort: false,
+            pagination: true,
+            pageNumber:1,
+            pageSize:10,
+            pageList : [10,20,30],
+            rownumbers: true,
             columns: [[
                 {field: 'memberId', title: '编号', width: 50, align: 'center'},
                 {field: 'name', title: '姓名', width: 100, align: 'center'},
@@ -157,7 +161,36 @@
                 }
                 }
             ]]
+        }).datagrid("getPager").pagination({
+            onBeforeRefresh : function(pageNumber, pageSize) {
+//				var $getPager = $("#dg").datagrid('getPager');
+//	            var $pagination = $($getPager).pagination("options");
+//            	$pagination.pageNumber = 1;
+            },
+            onRefresh : function(pageNumber, pageSize) {
+
+            },
+            onChangePageSize:function(pageSize){
+                var $getPager = $("#dg").datagrid('getPager');
+                var $pagination = $($getPager).pagination("options");
+
+            },
+            onSelectPage : function(pageNumber, pageSize) {
+                var gridOpts = $('#dg').datagrid('options');
+                gridOpts.pageNumber = pageNumber;
+                gridOpts.pageSize = pageSize;
+                findDataByWhere("dg", pageNumber, pageSize);
+
+            }
         });
+       $('#dg').datagrid('getPager').pagination({
+            beforePageText : '',
+            afterPageText : '/{pages}',
+            displayMsg : '{from}-{to}共{total}条',
+            showPageList : false,
+            showRefresh : true
+        });
+
         $(".datagrid-toolbar").insertBefore(".datagrid-view");
         $("#btn1").click(function(){
             createwindow("添加客户", "/pages/Customer-add",600,320);
@@ -172,9 +205,9 @@
         $("#btn5").click(function(){
             deletes();
         });
-        $("#btn6").click(function(){
+       /* $("#btn6").click(function(){
             exports();
-        });
+        });*/
         $("#btn9").click(function(){
             imports();
         });
@@ -182,9 +215,11 @@
         });
 function tbdata(){
     $.ajax({
-        url:'/client/getList',
+        url:'/client/getList?pageIndex=1&pageSize=10',
+        type: "POST",
         dataType:'json',
         success:function(data){
+            console.log(data);
             $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
         }
     });
@@ -218,17 +253,21 @@ function deletes(){
         }
         id = id.substring(0,id.length-1);
         var url="";
-        $.ajax({
-            url:url,
-            dataType:'json',
-            success:function(data){
-                if(data.code==200){
+        $.messager.confirm('确定', '你确定要删除吗?', function (r) {
+            if (r) {
+                $.ajax({
+                    url: url,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.code == 200) {
 
-                }else{
-                    tip(data.msg);
-                }
+                        } else {
+                            tip(data.msg);
+                        }
+                    }
+                });
             }
-        })
+        });
     }
 }
 
@@ -246,7 +285,31 @@ function exports(){
         }
     })
 }
-
+    function findDataByWhere(id, pageNumber, pageSize) {
+        var content="{";
+        $tbody = $("#"+id+"");
+        $tbody.find(':input, select').each(function(i){
+            var $this = $(this), name = $this.attr('id'), val = $this.val();
+            content += '"'+name+'":"'+val+'",';
+        });
+        content=content.substring(0,content.length-1);
+        content+="}";
+        var pages = '{"page":' +  pageNumber + ', "rows":' + pageSize + '}';
+        if (pageNumber.length == 0 || pageSize == 0) {
+            pages = '';
+        }
+        var url = '/client/getList?pageIndex='+pageNumber+'&pageSize='+pageSize;
+        console.log(url);
+        $.ajax({
+            url:url,
+            type: "POST",
+            dataType:'json',
+            success:function(data){
+                console.log(data);
+                $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
+            }
+        });
+    }
 
 
 </script>

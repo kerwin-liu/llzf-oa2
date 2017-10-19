@@ -16,7 +16,7 @@
 </head>
 
 <body class="">
-	<form id="from" action="/client/impExcel" method="post"
+	<form id="from" action="/client/importExcel" method="post"
 		enctype="multipart/form-data" target="hidden_frame">
 		<table>
 			<tr>

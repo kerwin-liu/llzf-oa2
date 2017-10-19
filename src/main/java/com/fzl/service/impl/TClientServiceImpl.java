@@ -2,8 +2,10 @@ package com.fzl.service.impl;
 
 import java.io.FileInputStream;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletOutputStream;
 
@@ -23,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fzl.common.IDUtils;
 import com.fzl.common.Pages;
 import com.fzl.mapper.TClientMapper;
 import com.fzl.pojo.TClient;
@@ -68,14 +71,15 @@ public class TClientServiceImpl implements TClientService {
 			ServletOutputStream outputStream) {
 
 		/*
-		 * 逻辑如下： 1：创建工作簿 1.1创建合并单元格对象 1.2头标题样式 1.3列标题样式
+		 * 逻辑如下： 1：创建工作簿 1.1创建合并单元格对象 1.2头标题样式 1.3列标题样式 sheet.setColumnWidth(0,
+		 * 3766);
 		 */
 		try {
 			// 1 创建工作薄
 			HSSFWorkbook workbook = new HSSFWorkbook();
 
 			// 1.1创建合并单元格
-			CellRangeAddress rangeAddress = new CellRangeAddress(0, 0, 0, 12);// 起始行号，结束行号，其实列号，结束列号
+			CellRangeAddress rangeAddress = new CellRangeAddress(0, 0, 0, 13);// 起始行号，结束行号，其实列号，结束列号
 
 			// 1.2头标题样式
 			HSSFCellStyle styleTitle = createCellStyle(workbook, (short) 16);
@@ -87,11 +91,11 @@ public class TClientServiceImpl implements TClientService {
 			HSSFSheet sheet = workbook.createSheet("客户信息");
 			// 2.1加载合并单元格对象
 			sheet.addMergedRegion(rangeAddress);
-			// 设置默认列宽
-			sheet.setDefaultColumnWidth(25);
+			// 设置列宽
+			sheet.setDefaultColumnWidth(14); // 设置默认列宽
 
 			// 3 创建行
-			HSSFRow rowTitle = sheet.createRow(0);
+			HSSFRow rowTitle = sheet.createRow(0); // title（第一行）
 			HSSFCell cell = rowTitle.createCell(0);
 
 			// 3.1加载单元格
@@ -99,13 +103,14 @@ public class TClientServiceImpl implements TClientService {
 			cell.setCellValue("客户信息列表");
 
 			// 3.2创建列标题；并设置列标题
-			HSSFRow rowHead = sheet.createRow(1);
+			HSSFRow rowHead = sheet.createRow(1); // 第二行
+
 			String[] titles = { "客户编号", "姓名", "身份证", "类型", "性别", "电话", "qq",
-					"qq昵称", "微信", "资金", "地址", "描述", "最后修改时间" };
+					"qq昵称", "微信", "资金", "地址", "描述", "最后修改时间", "隶属员工" };
 
 			for (int i = 0; i < titles.length; i++) {
 				HSSFCell cellHead = rowHead.createCell(i);
-				// 加载单元格样式
+				// 加载单元格样式 ---------------------------注意改动
 				cellHead.setCellStyle(styleRow);
 				cellHead.setCellValue(titles[i]);
 			}
@@ -140,7 +145,22 @@ public class TClientServiceImpl implements TClientService {
 					HSSFCell cellObject12 = row.createCell(11);
 					cellObject12.setCellValue(clientList.get(j).getRemark());
 					HSSFCell cellObject13 = row.createCell(12);
-					cellObject13.setCellValue(clientList.get(j).getTime());
+
+					// 时间
+					String string = new SimpleDateFormat("yyyy年mm月dd日-hh时mm分ss")
+							.format(new SimpleDateFormat(
+									"EEE MMM dd hh:mm:ss z yyyy", Locale.UK)
+									.parse(clientList.get(j).getTime()
+											.toString()));
+
+					cellObject13.setCellValue(string);
+
+					HSSFCell cellObject14 = row.createCell(13); // 对应客户的员工
+					cellObject14.setCellValue(clientList.get(j).getMemberId());
+
+					// 没有下列需求
+					// HSSFCell cellObject15 = row.createCell(13);//ip 命名为是否被拉黑
+					// cellObject15.setCellValue(clientList.get(j).getIp());
 
 				}
 
@@ -167,7 +187,17 @@ public class TClientServiceImpl implements TClientService {
 	private HSSFCellStyle createCellStyle(HSSFWorkbook workbook, short fontSize) {
 		HSSFCellStyle style = workbook.createCellStyle();
 		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);// 水平居中
+
 		style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);// 垂直居中
+
+		style.setBorderBottom(HSSFCellStyle.BORDER_THIN); // 下边框
+		style.setBorderLeft(HSSFCellStyle.BORDER_THIN);// 左边框
+		style.setBorderTop(HSSFCellStyle.BORDER_THIN);// 上边框
+		style.setBorderRight(HSSFCellStyle.BORDER_THIN);// 右边框
+
+		// 设置背景色
+		// style.setFillForegroundColor((short) 13);
+		// style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 
 		// 创建字体
 		HSSFFont font = workbook.createFont();
@@ -181,7 +211,7 @@ public class TClientServiceImpl implements TClientService {
 	}
 
 	@Override
-	public void importExcel(MultipartFile importFile, String name) {
+	public void importExcel(MultipartFile importFile, String name,Long role,Long id) {
 		try {
 			FileInputStream fileInputStream = new FileInputStream(
 					importFile.toString());
@@ -204,16 +234,13 @@ public class TClientServiceImpl implements TClientService {
 					Row row = sheet.getRow(k);
 					// 创建客户
 					client = new TClient();
-					// 客户id
-					Cell cell01 = row.getCell(0);
-					// client.setClientId(Long.parseInt(cell01
-					// .getStringCellValue()));s
+
 					// 姓名
-					Cell cell02 = row.getCell(1);
+					Cell cell02 = row.getCell(0);
 					client.setName(cell02.getStringCellValue());
 					// 身份证
 					String card = "";
-					Cell cell03 = row.getCell(2);
+					Cell cell03 = row.getCell(1);
 
 					try {
 						card = cell03.getStringCellValue();
@@ -223,14 +250,14 @@ public class TClientServiceImpl implements TClientService {
 					}
 					client.setPhone(card);
 					// 类型
-					Cell cell04 = row.getCell(3);
+					Cell cell04 = row.getCell(2);
 					client.setType(Integer.parseInt(cell04.getStringCellValue()));
 					// 性别
-					Cell cell05 = row.getCell(4);
+					Cell cell05 = row.getCell(3);
 					client.setSex(cell05.getStringCellValue());
 					// 电话
 					String phoneNumber = "";
-					Cell cell06 = row.getCell(5);
+					Cell cell06 = row.getCell(4);
 
 					try {
 						phoneNumber = cell06.getStringCellValue();
@@ -242,25 +269,39 @@ public class TClientServiceImpl implements TClientService {
 					client.setPhone(phoneNumber);
 
 					// qq
-					Cell cell07 = row.getCell(6);
+					Cell cell07 = row.getCell(5);
 					client.setQq(cell07.getStringCellValue());
 					// qq昵称
-					Cell cell08 = row.getCell(7);
+					Cell cell08 = row.getCell(6);
 					client.setQqqnc(cell08.getStringCellValue());
 					// 微信
-					Cell cell09 = row.getCell(8);
+					Cell cell09 = row.getCell(7);
 					client.setWeixin(cell09.getStringCellValue());
 					// 资金
-					Cell cell10 = row.getCell(9);
+					Cell cell10 = row.getCell(8);
 					client.setFunds(cell10.getStringCellValue());
 					// 地址
-					Cell cell11 = row.getCell(10);
+					Cell cell11 = row.getCell(9);
 					client.setAddress(cell11.getStringCellValue());
 					// 描述
-					Cell cell12 = row.getCell(11);
+					Cell cell12 = row.getCell(10);
 					client.setRemark(cell12.getStringCellValue());
 					// 最后修改时间
 					client.setTime(new Date());
+
+					// 剩余的选项添加
+					// 客户id
+					client.setClientId(IDUtils.getId());
+					// 隶属员工
+					if(role.compareTo(1L)== 0 ){
+						client.setMemberId(id);
+					}
+					else if(role.compareTo(2L)== 0){
+						client.setMemberId(id);
+					}
+					else if(role.compareTo(3L)== 0){
+						client.setMemberId(000000l);
+					}
 
 					tClientMapper.insert(client);
 				}
@@ -311,8 +352,7 @@ public class TClientServiceImpl implements TClientService {
 
 	@Override
 	public List<TClient> queryTClientByClientCard(String card) {
-	
-		
+
 		TClientExample example = new TClientExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andCardEqualTo(card);
@@ -324,15 +364,34 @@ public class TClientServiceImpl implements TClientService {
 	public boolean saveTClient(TClient client, Long id) {
 
 		client.setMemberId(id);
-		
-		return tClientMapper.insert(client)== 1?true:false; 
+
+		return tClientMapper.insert(client) == 1 ? true : false;
 	}
 
 	@Override
 	public boolean update(TClient client) {
 
-		return tClientMapper.updateByPrimaryKey(client)==1?true:false;
+		return tClientMapper.updateByPrimaryKey(client) == 1 ? true : false;
 	}
 
+	// excel
+	@Override
+	public List<TClient> findClientListByMemberId(Long id) {
+		return tClientMapper.selectClientById(id);
+	}
+
+	// excel
+	@Override
+	public List<TClient> findClientListByDepartmentId(Long id) {
+		return tClientMapper.selectClientByDepartment(id);
+	}
+
+	// excel
+	@Override
+	public List<TClient> findClientListAll() {
+		TClientExample example = new TClientExample();
+		List<TClient> list = tClientMapper.selectByExample(example);
+		return list;
+	}
 
 }
