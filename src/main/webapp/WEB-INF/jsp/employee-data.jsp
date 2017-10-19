@@ -63,12 +63,17 @@
         <a onclick="editUser()" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改</a>
     </div>
     <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a id="btn5" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="removeUser()">删除员工</a>
+        <a id="btn5" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="removeUser()">删除员工</a>
     </div>
     <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a id="btn6" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-add'">数据导出</a>
+        <a id="btn6" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-print'">数据导出</a>
     </div>
-
+    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn7" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">密码重置</a>
+    </div>
+    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-save'">查看资料</a>
+    </div>
     <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
         姓名：<input id="name" type="text" style="width:80px;"/>
         手机:<input type="text" style="width:80px;"/>

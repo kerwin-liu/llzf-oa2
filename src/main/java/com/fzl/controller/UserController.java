@@ -1,6 +1,7 @@
 package com.fzl.controller;
 
 import com.fzl.pojo.Member;
+import com.fzl.pojo.Qo.MemberQo;
 import com.fzl.pojo.Qo.UserUpdateQo;
 import com.fzl.pojo.User;
 import com.fzl.service.UserService;
@@ -24,6 +25,11 @@ public class UserController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
+
+    @RequestMapping(value = "changePsd", method = RequestMethod.GET)
+    public String index(HttpServletRequest request, HttpServletResponse response, MemberQo memberQo) {
+        return "changePsd";
+    }
 
     /**
      * 创建用户

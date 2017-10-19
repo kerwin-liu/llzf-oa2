@@ -1,12 +1,10 @@
 var url;
 function newUser() {
-    alert(222)
     $('#dlg').dialog('open').dialog('setTitle', '添加用户');
     $('#fm').form('clear');
     url = '/member/save';
 }
 function editUser() {
-    alert(333)
     var row = $('#dg').datagrid('getSelected');
     if (row) {
         $('#dlg').dialog('open').dialog('setTitle', '编辑用户');
@@ -15,7 +13,6 @@ function editUser() {
     }
 }
 function saveUser() {
-    alert(4444)
     $('#fm').form('submit', {
         url: 'pages/member/save',
         onSubmit: function () {
@@ -54,4 +51,8 @@ function removeUser() {
             }
         });
     }
+}
+
+function changePsd() {
+    alert("修改密码。")
 }

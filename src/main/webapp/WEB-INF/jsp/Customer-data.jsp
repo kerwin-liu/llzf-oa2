@@ -96,10 +96,11 @@
         });
 function tbdata(){
     $.ajax({
-        url:'',
+        url:'/client/getList',
+        type:"POST",
         dataType:'json',
         success:function(data){
-            $("#dg").datagrid({total:data.length,rows:data.rows});
+            $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
         }
     })
 }
