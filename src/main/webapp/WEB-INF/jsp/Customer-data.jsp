@@ -71,7 +71,6 @@
             fit: true,
             rownumbers: true,
             remoteSort: false,
-
             columns: [[
                 {field: 'CLIENTID', title: '编号', width: 100, align: 'center'},
                 {field: 'NAME', title: '姓名', width: 100, align: 'center'},
@@ -93,7 +92,7 @@
         });
         $(".datagrid-toolbar").insertBefore(".datagrid-view");
         $("#btn1").click(function(){
-            createwindow("添加客户", "",400,300);
+            createwindow("添加客户", "/pages/Customer-add",400,300);
         });
         tbdata();
         });

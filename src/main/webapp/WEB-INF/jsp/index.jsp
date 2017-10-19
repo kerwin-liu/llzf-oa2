@@ -57,6 +57,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <li class="konwledge">
                         <div class="nav-header"><a href="/user/changePsd" target="iframe" class="ue-clear"><span>密码修改</span></a></div>
                     </li>
+                    <li class="agency">
+                        <div class="nav-header"><a href="/pages/Customer-allot" target="iframe" class="ue-clear"><span>成交客户</span></a></div>
+                    </li>
+                    <li class="email">
+                    <div class="nav-header"><a href="/pages/Customer-knockdown" target="iframe" class="ue-clear"><span>客户移交</span></a></div>
+                </li>
+
                   <%--  <li class="konwledge"><div class="nav-header"><a href="../javascript:;" class="ue-clear"><span>客户管理</span><i class="icon"></i></a></div></li>--%>
 
                 </ul>
