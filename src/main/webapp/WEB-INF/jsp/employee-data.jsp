@@ -267,10 +267,11 @@
                     if (result.code == 200) {
                         alert(result.msg);
                     } else {
-                        $.messager.show({
+                        alert(result.msg);
+                     /*   $.messager.show({
                             title: '错误',
                             msg: result.msg
-                        });
+                        });*/
                     }
                 }, 'json');
             }else{
@@ -280,7 +281,6 @@
         });
         //查看用户密码
         $("#btn9").click(function () {
-            alert("查看用户密码");
             var row = $('#dg').datagrid('getSelected');
             if(row){
                 $.post('/user/getOne/'+row.memberId,{} , function (result) {
@@ -289,10 +289,7 @@
                         $("#userName").html(result.date.userName);
                         $("#password").html(result.date.password);
                     } else {
-                        $.messager.show({
-                            title: '错误',
-                            msg: result.msg
-                        });
+                        alert(result.msg);
                     }
                 }, 'json');
             }else{
@@ -303,7 +300,6 @@
 
         //密码重置
         $("#btn7").click(function () {
-            alert("密码重置");
             var row = $('#dg').datagrid('getSelected');
             if(row){
                 $.post('/user/passwordReset/'+row.memberId,{} , function (result) {
@@ -311,10 +307,7 @@
                         $('#password-info').dialog('open').dialog('setTitle', '密码重置');
                         $("#revert-password").html(result.date.password);
                     } else {
-                        $.messager.show({
-                            title: '错误',
-                            msg: result.msg
-                        });
+                        alert(result.msg);
                     }
                 }, 'json');
             }else{
@@ -369,16 +362,12 @@
             data: data,
             type: "POST",
             success: function (data) {
-                alert(data.msg);
                 if (data.code == 200) {
                     $('#dlg').dialog('close');		// close the dialog
 //                    $('#dg').datagrid('reload');	// reload the user data
                     tbdata();
                 } else {
-                    $.messager.show({
-                        title: '错误',
-                        msg: data.msg
-                    });
+                    alert(data.msg);
                 }
             }
         })
@@ -412,10 +401,7 @@
                         tbdata();
 //                        $('#dg').datagrid('reload');	// reload the user data
                     } else {
-                        $.messager.show({	// show error message
-                            title: '错误',
-                            msg: result.msg
-                        });
+                        alert(result.msg);
                     }
                 }, 'json');
             }
