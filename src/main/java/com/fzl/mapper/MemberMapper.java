@@ -20,7 +20,7 @@ public interface MemberMapper {
 
     Member queryMemberByuserid(Long id);
 
-    Member queryMemberByNo(String name);
+    Member queryMemberByNo(String number);
 
     List<Member> queryListByCondition(MemberQo memberQo);
 }

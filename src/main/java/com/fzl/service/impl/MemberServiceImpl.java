@@ -56,8 +56,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member queryMemberByNo(String name) {
-        return memberMapper.queryMemberByNo(name);
+    public Member queryMemberByNo(String number) {
+        return memberMapper.queryMemberByNo(number);
     }
 
     @Override
