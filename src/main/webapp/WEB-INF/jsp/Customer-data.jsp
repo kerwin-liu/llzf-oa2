@@ -122,19 +122,37 @@
             rownumbers: true,
             remoteSort: false,
             columns: [[
-                {field: 'memberId', title: '编号', width: 100, align: 'center'},
+                {field: 'memberId', title: '编号', width: 50, align: 'center'},
                 {field: 'name', title: '姓名', width: 100, align: 'center'},
                 {field: 'sex', title: '性别', width: 100, align: 'center'},
                 {field: 'phone', title: '手机号', width: 100, align: 'center'},
                 {field: 'weixin', title: '微信号', width: 100, align: 'center'},
                 {field: 'qqqnc', title: '微信名', width: 100, align: 'center'},
                 {field: 'qq', title: 'QQ号', width: 100, align: 'center'},
-                {field: 'type', title: '客户类型', width: 60, align: 'center'},
+                {field: 'type', title: '客户类型', width: 60, align: 'center',formatter:function(value, row, index){
+                  var type="";
+                    if(value==1){
+                        type="一般客户";
+                    }
+                    if(value==2){
+                        type="潜力客户";
+                    }
+                    if(value==3){
+                        type="意客客户";
+                    }
+                    if(value==4){
+                        type="未有兴趣客户";
+                    }
+                    return type;
+                }},
                 {field: 'funds', title: '负责人', width: 100, align: 'center'},
                 {field: 'remark', title: '备注', width: 100, align: 'center'},
-                {field: 'time', title: '归档日期', width: 100, align: 'center'},
+                {field: 'time', title: '归档日期', width: 150, align: 'center',formatter:function(value, row, index){
+                var time = new Date(value);
+                return date2str(time,'yyyy-MM-dd hh:mm:ss');
+                }},
                 {
-                    field: 'obj', title: '操作', align: 'center', width: 28, formatter: function (value, row, index) {
+                    field: 'obj', title: '操作', align: 'center', width: 50, formatter: function (value, row, index) {
                     return "<a id='de' onclick=deletes('" + row.ID + "')>删除</a>";
                 }
                 }
@@ -167,7 +185,6 @@ function tbdata(){
         url:'/client/getList',
         dataType:'json',
         success:function(data){
-            console.log(data);
             $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
         }
     });
@@ -216,11 +233,18 @@ function deletes(){
 }
 
 function imports(){
-
+    createwindow("导入", "/pages/imports",400,300);
 }
 
 function exports(){
-
+    $.ajax({
+        url:'/client/exportExcel',
+        dataType:'json',
+        success:function(data){
+            console.log(data);
+            tip(data.msg);
+        }
+    })
 }
 
 

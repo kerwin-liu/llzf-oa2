@@ -70,12 +70,14 @@ function createwindow(title, addurl,width,height) {
 	    modal: true,
 	    buttons:[{
 			text:'提交',
+            iconCls:'icon-ok',
 			handler:function(){
 				saveObj($(this));
 				
 			}
 		},{
 			text:'关闭',
+            iconCls:'icon-cancel',
 			handler:function(){
 				closeObj($(this));
 			}

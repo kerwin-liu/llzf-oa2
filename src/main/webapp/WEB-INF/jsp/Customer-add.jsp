@@ -59,7 +59,7 @@
            <span class="item-one">
                 <label>客户类型:</label>
                  <select class="easyui-combobox" name="type" class="easyui-validatebox" size="20">
-                    <option value="1">一般管户</option>
+                    <option value="1">一般客户</option>
                     <option value="2">潜力客户</option>
                      <option value="3">意客客户</option>
                      <option value="4">未有兴趣客户</option>
