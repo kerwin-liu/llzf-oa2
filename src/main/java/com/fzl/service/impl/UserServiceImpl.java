@@ -74,9 +74,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean passwordReset(Long memberId) {
-        UserUpdateQo userUpdateQo = new UserUpdateQo();
-        userUpdateQo.setNewPassword(RandomStringUtils.randomAlphanumeric(8));
-        return userMapper.updatePassword(userUpdateQo) > 0;
+        User user = userMapper.selectUserbyMemberID(memberId);
+        user.setPassword(RandomStringUtils.randomNumeric(6));
+        return userMapper.updateByPrimaryKeySelective(user) > 0;
     }
 
     @Override
