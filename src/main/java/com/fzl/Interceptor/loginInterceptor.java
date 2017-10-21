@@ -19,7 +19,7 @@ public class loginInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         request.setCharacterEncoding("UTF-8");
         String url = request.getServletPath();
-//        System.out.println(" URL：" + url);
+        System.out.println(" URL：" + url);
         if (url.endsWith(".css") || url.endsWith(".js") || url.endsWith(".png")) {
             return true;
         }
@@ -30,10 +30,10 @@ public class loginInterceptor extends HandlerInterceptorAdapter {
                 return true;
             }
             //未登录状态
-            response.sendRedirect("login");
+            request.getRequestDispatcher("llzf-oa2/login").forward(request, response);
             return false;
         } else if (url.equals("/login")||url.equals("/")) {
-            request.getRequestDispatcher("index").forward(request, response);
+            request.getRequestDispatcher("llzf-oa2/index").forward(request, response);
         }
         return true;
 //        return super.preHandle(request, response, handler);
