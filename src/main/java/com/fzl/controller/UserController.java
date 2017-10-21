@@ -127,7 +127,7 @@ public class UserController extends BaseController {
         }
         User user= userService.selectUserbyMemberID(memberId);
         if(user==null){
-            writeResponse(response, "400", "密码查看失败");
+            writeResponse(response, "400", "该员工未开通");
         }
         writeCommonDataResponse(response, "200", "密码查看成功",user);
     }
