@@ -238,7 +238,7 @@ function trace(){
     if(rows.length>1||rows.length==0){
         tip("请选择一条数据进行修改");
     }else{
-        createwindow("修改客户", "/pages/Customer-add",600,320);
+        createwindow("客户追踪", "/pages/Customer-log",700,520);
     }
 }
 
