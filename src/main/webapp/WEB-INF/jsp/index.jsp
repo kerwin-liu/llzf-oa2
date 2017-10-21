@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	<div class="top-light"></div>
             <h1 class="logo"></h1>
             <div class="login-info ue-clear">
-                <div class="welcome ue-clear"><span>欢迎您,</span><a href="javascript:;" class="user-name">${user.userName} ${user.userName}</a></div>
+                <div class="welcome ue-clear"><span>欢迎您,</span><a href="javascript:;" class="user-name">${user.userName}</a></div>
 
             </div>
             <div class="toolbar ue-clear">
@@ -78,9 +78,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div style="margin-bottom: 5px;margin-top: -15px;margin-right:10px;margin-left:-10px;float: left">
 
 
-                <form action="/user/layout" method="get">
+                <%--<form action="/loginOut" method="get">
+
+                </form>--%>
                     <input type="button"  class="button long2 ok" value="确定" />
-                </form>
                 </div>
                 <div style="margin-bottom: 5px;margin-top: -15px;float: left">
 
@@ -147,11 +148,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     a.click("return false");
                     $("#index3").href="#";
                 }
-                //
-                if(data.date.id==4){
-
-                }
-
         }
         });
     }
