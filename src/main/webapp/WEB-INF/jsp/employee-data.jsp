@@ -117,8 +117,7 @@
                 <span class="item-two">
                 <label>性别:</label>
                <select id="sex" class="easyui-combobox" name="sex" data-options="required:true"  class="easyui-validatebox sex" size="20">
-                    <option value=0 selected="selected">男</option>
-                    <option value=1>女</option>
+
                 </select>
            </span>
             </div>
@@ -202,21 +201,26 @@
             dataType: 'json',
             success: function (msg) {
                 var map = msg.date;
-                map.forEach(function (value,index,array) {
+                var ss=[];
+             /*   map.forEach(function (value,index,array) {
                     value["text"]=value["name"];
-                    if(index==0){
-                        value["selected"]=true;
-                    }
-                });
-                debugger;
+                    ss.push({"id":value["id"],"name":value["name"]});
+                });*/
+                msg.date[0].selected=true;
                 console.log(map);
                 $('#groups').combobox({
-                    valueField:'ID',
-                    textField:'TEXT',
+                    valueField:'id',
+                    textField:'name',
                     data:map
-                })
+                });
             }
         });
+        var map=[{"id":"0","name":"男","selected":true},{"id":"1","name":"女"}];
+        $("#sex").combobox({
+            valueField:'id',
+            textField:'name',
+            data:map
+        })
         $.ajax({
             url: '/role/getAll',
             dataType:'json',
@@ -229,11 +233,10 @@
                         value["selected"]=true;
                     }
                 });
-                debugger;
                 console.log(map);
                 $('#permissions').combobox({
-                    valueField:'ID',
-                    textField:'TEXT',
+                    valueField:'id',
+                    textField:'rdescribe',
                     data:map
                 })
             }

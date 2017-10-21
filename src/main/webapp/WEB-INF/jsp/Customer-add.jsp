@@ -29,10 +29,17 @@
             </span>
         <span class="item-two">
                 <label>性别:</label>
-                <select class="easyui-combobox" name="sex" class="easyui-validatebox" size="20">
-                    <option value="man">男</option>
-                    <option value="woman">女</option>
+                <select  id="sex" class="easyui-combobox" name="sex" class="easyui-validatebox" size="20">
+
                 </select>
+            <script type="text/javascript">
+                var map=[{"id":"0","name":"男","selected":true},{"id":"1","name":"女"}];
+                $("#sex").combobox({
+                    valueField:'id',
+                    textField:'name',
+                    data:map
+                })
+            </script>
             </span>
     </div>
     <div class="fitem">
@@ -83,6 +90,7 @@
         var j=$.parseJSON(text);
         $.messager.alert('提示',j.msg);
     });
+
 </script>
 </body>
 </html>
