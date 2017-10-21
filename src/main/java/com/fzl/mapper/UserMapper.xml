@@ -106,7 +106,7 @@
     <select id="selectByUser" resultMap="BaseResultMap" parameterType="com.fzl.pojo.User">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM USER
+        FROM user
         WHERE user_name=#{userName}
         AND PASSWORD=#{password}
         AND STATUS=1
@@ -131,7 +131,7 @@
     us.id,
     us.user_name,
     us.password
-    FROM user_member um LEFT JOIN USER us ON um.user_id=us.id
+    FROM user_member um LEFT JOIN user us ON um.user_id=us.id
     WHERE um.member_id=#{memberId}
   </select>
 </mapper>
