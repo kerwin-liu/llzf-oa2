@@ -106,24 +106,27 @@
             </span>
                 <span class="item-two">
                 <label>组别:</label>
-                <select id="groups" class="easyui-combobox easyui-validatebox groups" data-options="required:true"  name="groups" class="" size="20">
-                    <option value="1" selected="selected">一部</option>
-                    <option value="2">二部</option>
-                </select>
+                   <input id="groups" style=""
+                          url=""
+                          valueField="id" textField="text">
+                    </input>
+                    <%--   <select id="groups" class="easyui-combobox easyui-validatebox groups" data-options="required:true"  name="groups" size="20">
+                           <option value="1" selected="selected">一部</option>
+                           <option value="2">二部</option>
+                       </select>--%>
             </span>
             </div>
             <div class="fitem">
           <span class="item-one">
                  <label>权限:</label>
-                <select id="permissions" class="easyui-combobox" data-options="required:true"  name="permissions" class="easyui-validatebox permissions" size="20">
-                    <option value="1">管理员</option>
-                    <option value="2">部长</option>
-                    <option value="3" selected="selected">员工</option>
-                </select>
+                <input id="permissions" style=""
+                       url=""
+                       valueField="id" textField="text">
+              </input>
             </span>
                 <span class="item-two">
                 <label>性别:</label>
-                <select id="sex" class="easyui-combobox" name="sex" data-options="required:true"  class="easyui-validatebox sex" size="20">
+               <select id="sex" class="easyui-combobox" name="sex" data-options="required:true"  class="easyui-validatebox sex" size="20">
                     <option value=0 selected="selected">男</option>
                     <option value=1>女</option>
                 </select>
@@ -201,6 +204,55 @@
 
 <script type="text/javascript">
     $(function () {
+
+        //添加分组的下拉框
+        $.ajax({
+            url: '/department/getAll',
+            processData: false,
+            dataType: 'json',
+            success: function (msg) {
+                var map = msg.date;
+                map.forEach(function (value,index,array) {
+                    value["text"]=value["name"];
+                    if(index==0){
+                        value["selected"]=true;
+                    }
+                });
+                debugger;
+                console.log(map);
+                $('#groups').combobox({
+                    valueField:'ID',
+                    textField:'TEXT',
+                    data:map
+                })
+            }
+        });
+        $.ajax({
+            url: '/role/getAll',
+            dataType:'json',
+            processData: false,
+            success:function(msg){
+                var map = msg.date;
+                map.forEach(function (value,index,array) {
+                    value["text"]=value["name"];
+                    if(index==0){
+                        value["selected"]=true;
+                    }
+                });
+                debugger;
+                console.log(map);
+                $('#permissions').combobox({
+                    valueField:'ID',
+                    textField:'TEXT',
+                    data:map
+                })
+            }
+        });
+
+        $('#sex').combobox('select', '0');
+
+
+
         var myDate = new Date();
         var historyTimeString= date2str(getBeforeTimeByMinute(myDate,-60),'yyyy-MM-dd hh:mm:ss'),
             nowTimeString= date2str(myDate,'yyyy-MM-dd hh:mm:ss');
