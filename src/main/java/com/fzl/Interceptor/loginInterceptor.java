@@ -19,7 +19,7 @@ public class loginInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         request.setCharacterEncoding("UTF-8");
         String url = request.getServletPath();
-        System.out.println(" URL：" + url);
+//        System.out.println(" URL：" + url);
         if (url.endsWith(".css") || url.endsWith(".js") || url.endsWith(".png")) {
             return true;
         }

@@ -26,7 +26,7 @@ public class LoginFilter implements Filter {
 
         // 获得用户请求的URI
         String url = request.getRequestURI();
-        System.out.println("filter url:" + url);
+//        System.out.println("filter url:" + url);
         User user = (User) session.getAttribute("user");
         if (url.endsWith(".css") || url.endsWith(".js") || url.endsWith(".png")) {
             filterChain.doFilter(request, response);
