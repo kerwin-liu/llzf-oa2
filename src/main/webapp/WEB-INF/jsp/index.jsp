@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	<div class="top-light"></div>
             <h1 class="logo"></h1>
             <div class="login-info ue-clear">
-                <div class="welcome ue-clear"><span>欢迎您,</span><a href="javascript:;" class="user-name">${user.userName}</a></div>
+                <div class="welcome ue-clear" ><span >欢迎您,</span><a href="#" style="color: white" id="userName"></a></div>
 
             </div>
             <div class="toolbar ue-clear">
@@ -150,6 +150,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 }
         }
         });
+        $.ajax({
+            url:'/user/get',
+            dataType:'json',
+            success:function (data) {
+                console.log(data);
+                $("#userName").html(data.date.name)
+            }
+        })
     }
 </script>
 </html>

@@ -19,4 +19,5 @@ public interface RoleMapper {
 
     List<Role> queryAll();
 
+    Role selectByUserId(Long id);
 }

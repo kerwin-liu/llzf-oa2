@@ -1,5 +1,6 @@
 package com.fzl.controller;
 
+import com.fzl.pojo.Member;
 import com.fzl.pojo.User;
 import com.fzl.service.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -43,6 +44,8 @@ public class LoginController extends BaseController {
             User resultUser = userService.selectUser(user);
             if (resultUser != null) {
                 session.setAttribute("user", resultUser);
+                Member member = userService.queryMember(resultUser.getId());
+                request.setAttribute("userName",member.getName());
                 return "index";
             }
             request.setAttribute("userName",user.getUserName());

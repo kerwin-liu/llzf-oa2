@@ -220,7 +220,7 @@
       creat_user_id = #{creatUserId,jdbcType=BIGINT}
     where member_id = #{memberId,jdbcType=BIGINT}
   </update>
-  <select id="queryMemberByuserid" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <select id="queryMemberByuserid" resultMap="BaseResultMap" parameterType="java.lang.Long">
   SELECT
     m.member_id,
     m.number,
