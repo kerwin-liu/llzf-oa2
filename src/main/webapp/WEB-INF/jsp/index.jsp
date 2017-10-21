@@ -42,30 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	<div class="sidebar">
             	<h2 class="sidebar-header"><p>菜单栏</p></h2>
                 <ul class="nav">
-                	<li class="office current">
-                        <div class="nav-header">
-                            <a id="index" href="#" target="iframe"  class="ue-clear"><span>首页</span></a>
-                        </div></li>
-                    <li class="gongwen"><div class="nav-header">
-                        <a href="/member/index" target="iframe" class="ue-clear"><span>员工管理</span>
-                            </a></div>
-
-                    </li>
-                    <li class="nav-info">
-                    	<div class="nav-header"><a href="/customerController/customer" target="iframe" class="ue-clear"><span>客户管理</span></a></div>
-                    </li>
-                    <li class="konwledge">
-                        <div class="nav-header"><a href="/user/changePsd" target="iframe" class="ue-clear"><span>密码修改</span></a></div>
-                    </li>
-                    <li class="agency">
-                        <div class="nav-header"><a href="/pages/Customer-allot" target="iframe" class="ue-clear"><span>移交客户</span></a></div>
-                    </li>
-                    <li class="email">
-                    <div class="nav-header"><a href="/pages/Customer-knockdown" target="iframe" class="ue-clear"><span>成交客户</span></a></div>
-                </li>
-
                   <%--  <li class="konwledge"><div class="nav-header"><a href="../javascript:;" class="ue-clear"><span>客户管理</span><i class="icon"></i></a></div></li>--%>
-
                 </ul>
             </div>
             <div class="content">
@@ -124,15 +101,57 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" >
     var b=false;
     window.onload=function () {
-        var a = document.getElementById("index");
-        a.href="/customerController/customer";
-        a.click("return false");
-        $("#index").href="#";
+        var type1 = "<li class=\"office current\"><div class=\"nav-header\"><a id=\"index\" href=\"#\" target=\"iframe\"  class=\"ue-clear\"><span>首页</span></a> </div> </li>",
+            type2 = "<li class=\"gongwen\"><div class=\"nav-header\"><a id=\"index1\" href=\"/member/index\" target=\"iframe\" class=\"ue-clear\"><span>员工管理</span></a></div></li>",
+            type3 = "<li class=\"nav-info\"><div class=\"nav-header\"><a id=\"index3\"  href=\"/customerController/customer\" target=\"iframe\" class=\"ue-clear\"><span>客户管理</span></a></div></li>",
+            type4 = "<li class=\"konwledge\"><div class=\"nav-header\"><a href=\"/user/changePsd\" target=\"iframe\" class=\"ue-clear\"><span>密码修改</span></a></div></li>",
+            type5 = "<li class=\"agency\"><div class=\"nav-header\"><a href=\"/pages/Customer-allot\" target=\"iframe\" class=\"ue-clear\"><span>移交客户</span></a></div></li>",
+            type6 = "<li class=\"email\"><div class=\"nav-header\"><a href=\"/pages/Customer-knockdown\" target=\"iframe\" class=\"ue-clear\"><span>成交客户</span></a></div></li>",
+            type7 = "";
+
+        var classes=$(".nav");
         $.ajax({
-            url:'/user/test',
+            url:'/user/getRole',
+            type:'POST',
             dataType:'json',
             success:function(data) {
-                console.log(data);
+                //管理员
+                if(data.date.id==1){
+                  classes.append(type1);
+                  classes.append(type2);
+                  classes.append(type3);
+                  classes.append(type4);
+                  classes.append(type5);
+                  classes.append(type6);
+                    var a = document.getElementById("index");
+                    a.href="/customerController/customer";
+                    a.click("return false");
+                    $("#index").href="#";
+                }
+                //主管
+                if(data.date.id==2){
+                    classes.append(type2);
+                    classes.append(type3);
+                    classes.append(type5);
+                    classes.append(type6);
+                    var a = document.getElementById("index1");
+                    a.href="/member/index";
+                    a.click("return false");
+                    $("#index1").href="#";
+                }
+                //业务员
+                if(data.date.id==3){
+                    classes.append(type3);
+                    var a = document.getElementById("index3");
+                    a.href="/customerController/customer";
+                    a.click("return false");
+                    $("#index3").href="#";
+                }
+                //
+                if(data.date.id==4){
+
+                }
+
         }
         });
     }

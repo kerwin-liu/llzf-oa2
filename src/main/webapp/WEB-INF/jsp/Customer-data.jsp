@@ -126,7 +126,7 @@
             pageList : [10,20,30],
             rownumbers: true,
             columns: [[
-                {field: 'memberId', title: '编号', width: 50, align: 'center'},
+                {field: 'clientId', title: '编号', width: 50, align: 'center'},
                 {field: 'name', title: '姓名', width: 100, align: 'center'},
                 {field: 'sex', title: '性别', width: 100, align: 'center'},
                 {field: 'phone', title: '手机号', width: 100, align: 'center'},
@@ -238,7 +238,7 @@ function trace(){
     if(rows.length>1||rows.length==0){
         tip("请选择一条数据进行修改");
     }else{
-        createwindow("客户追踪", "/pages/Customer-log",700,520);
+        createnewwindow("客户追踪", "/pages/Customer-log",700,520);
     }
 }
 
