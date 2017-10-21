@@ -224,8 +224,8 @@
             pageList : [10,20,30],
             rownumbers: true,
             columns: [[
-                {field: 'Ids', title: 'ID', checkbox: true, width: 8, align: 'center', hidden: 'true'},
-                {field: 'memberId', title: '编号', width: 100, align: 'center'},
+                {field: 'memberId', title: 'ID', checkbox: true, width: 8, align: 'center', hidden: 'true'},
+                {field: 'number', title: '编号', width: 100, align: 'center'},
                 {field: 'name', title: '姓名', width: 100, align: 'center'},
                 {field: 'sex', title: '性别', width: 100, align: 'center',formatter:function(value, row, index){
                     var sex="";
@@ -241,6 +241,15 @@
                 {field: 'qq', title: 'QQ号', width: 100, align: 'center'},
                 {field: 'qqnc', title: 'QQ昵称', width: 100, align: 'center'},
                 {field: 'card', title: '身份证号', width: 100, align: 'center'},
+                {field: 'open', title: '状态', width: 100, align: 'center',formatter:function(value, row, index){
+                    var open="";
+                    if(row.open==0){
+                        open="未开通";
+                    }else if(row.open==1){
+                        open="已开通";
+                    }
+                    return open;
+                }},
                 {field: 'group', title: '管理分组', width: 100, align: 'center'},
                 {
                     field: 'obj', title: '操作', align: 'center', width: 28, formatter: function (value, row, index) {

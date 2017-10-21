@@ -60,7 +60,7 @@ public class LoginController extends BaseController {
     public String loginOut(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("user", null);
-        return "login";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "test", method = RequestMethod.GET)
