@@ -297,17 +297,18 @@
             data['qq']=$("#qq").val();
             data["card"]=$("#card").val();
             data["time"]=$("#time").val();
-            $.post('/member/getList',data , function (result) {
-                if (result.code == 200) {
-                    tbdata();
-//                    $('#dg').datagrid('reload');	// reload the user data
-                } else {
-                    $.messager.show({	// show error message
-                        title: '错误',
-                        msg: result.msg
-                    });
+            $.ajax({
+                url: '/member/getList?pageIndex=1&pageSize=10',
+                type: "POST",
+                dataType: 'json',
+                data:data,
+                success: function (data) {
+                    if (data.code == 200) {
+                        console.log(data.date.result);
+                        $("#dg").datagrid("loadData", {total: data.date.totalCount, rows: data.date.result});
+                    }
                 }
-            }, 'json');
+            });
         });
         //开通用户
         $("#btn10").click(function () {
