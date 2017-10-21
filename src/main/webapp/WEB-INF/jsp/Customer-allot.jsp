@@ -43,14 +43,14 @@
 <body>
 <div class="left">
     <div class="datagrid-toolbar" style="height: 27px;width: 100%;border: 0px solid red;">
-        员工:<select id="employee1" ></select>
+        员工:<select id="employee1" onselect="select1()"></select>
         客户类型:<select id="type" >
                     <option value="1">一般管户</option>
                     <option value="2">潜力客户</option>
                     <option value="3">意客客户</option>
                     <option value="4">未有兴趣客户</option>
                 </select>
-        <a id="btn5" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-add'">保存</a>
+        <a id="btn5" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">保存</a>
     </div>
     <table id="dg1" style="width: 100%;height: 95%">
 
@@ -60,17 +60,17 @@
     <center>
 
 
-    <a id="btn1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-right'"></a>
+    <a id="btn1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-right'">添加</a>
         <br/>
         <br/>
         <br/>
 
-    <a id="btn2" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-left'"></a>
+    <a id="btn2" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-left'">移除</a>
     </center>
 </div>
 <div class="right">
     <div class="datagrid-toolbar" style="height: 27px;width: 100%;border: 0px solid red;">
-        员工:<select id="employee2"></select>
+        员工:<select id="employee2" onselect="loadEmployee2()"></select>
         客户类型:<select id="type2" >
         <option value="1">一般管户</option>
         <option value="2">潜力客户</option>
@@ -120,9 +120,55 @@
                 {field: 'time', title: '归档日期', width: 100, align: 'center'}
             ]]
         });
-        var ss=$(".datagrid-toolbar");
-        console.log(ss);
+
     })
+
+    //左侧员工下拉框
+    function select1(){
+        var value_1 = $("#employee2").val();
+        //需要进行判断 当value_1是NULL的时候 加载全部 还需要根据当前登录用户的信息进行筛选他所属的 客户
+        var url=""+value_1;
+        $.ajax({
+            url:'',
+            type:'POST',//OR GET
+            dataType:'json',
+            success:function(data){
+                if(data.code==200){
+                    var value = data.date.result;
+                    $("#employee1").children().remove();
+                    for (var i = 0 ; i < value.length ; i++){
+                        $("#employee1").append("<option value='"+value[i].id+"'>"+value[i].name+"</option>");
+                    }
+                }else{
+                    tip(data.msg);
+                }
+
+
+            }
+        })
+    }
+    
+    //联动右侧员工
+    function loadEmployee2(){
+        var value_1 = $("#employee1").val();
+        var url=""+value_1;
+        $.ajax({
+            url:url,
+            type:'POST',//OR GET
+            dataType:'json',
+            success:function (data) {
+                if(data.code==200){
+                    var value = data.date.result;
+                    $("#employee2").children().remove();
+                    for (var i = 0 ; i < value.length ; i++){
+                        $("#employee2").append("<option value='"+value[i].id+"'>"+value[i].name+"</option>");
+                    }
+                }else{
+                    tip(data.msg);
+                }
+            }
+        })
+    }
 
 </script>
 </html>
