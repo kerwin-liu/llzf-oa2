@@ -129,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         a.click("return false");
         $("#index").href="#";
         $.ajax({
-            url:'/user/test',
+            url:'/user/getRole',
             dataType:'json',
             success:function(data) {
                 console.log(data);

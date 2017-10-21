@@ -24,12 +24,14 @@ function createnewwindow(title, addurl,width,height) {
 	    title: title,   
 	    width: width,   
 	    height: height,   
-	    closed: false,   
+	    closed: false,
+        zIndex:100,
 	    cache: false,   
 	    href: addurl,   
 	    modal: true,
 	    buttons:[{
 			text:'关闭',
+            iconCls:'icon-cancel',
 			handler:function(){
 				closeObj($(this));
 			}
@@ -66,7 +68,8 @@ function createwindow(title, addurl,width,height) {
 	    height: height,   
 	    closed: false,   
 	    cache: false,   
-	    href: addurl,   
+	    href: addurl,
+        zIndex:100,
 	    modal: true,
 	    buttons:[{
 			text:'提交',
