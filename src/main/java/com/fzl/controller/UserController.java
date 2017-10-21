@@ -1,8 +1,10 @@
 package com.fzl.controller;
 
+import com.fzl.mapper.RoleMapper;
 import com.fzl.pojo.Member;
 import com.fzl.pojo.Qo.MemberQo;
 import com.fzl.pojo.Qo.UserUpdateQo;
+import com.fzl.pojo.Role;
 import com.fzl.pojo.User;
 import com.fzl.service.UserService;
 import org.slf4j.Logger;
@@ -25,6 +27,8 @@ public class UserController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleMapper roleMapper;
 
     @RequestMapping(value = "changePsd", method = RequestMethod.GET)
     public String index(HttpServletRequest request, HttpServletResponse response, MemberQo memberQo) {
@@ -166,5 +170,16 @@ public class UserController extends BaseController {
             return;
         }
         writeCommonDataResponse(response, "200", "查询成功",member);
+    }
+    @RequestMapping("getRole")
+    public void getRole(HttpServletRequest request, HttpServletResponse response){
+        User sessionUser = (User) request.getSession().getAttribute("user");
+
+        Role role = roleMapper.selectByPrimaryKey(sessionUser.getId());
+        if(role==null){
+            writeResponse(response, "400", "查询失败");
+            return;
+        }
+        writeCommonDataResponse(response, "200", "查询成功",role);
     }
 }

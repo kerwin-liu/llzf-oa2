@@ -33,7 +33,7 @@ public class loginInterceptor extends HandlerInterceptorAdapter {
             response.sendRedirect("login");
             return false;
         } else if (url.equals("/login")||url.equals("/")) {
-            response.sendRedirect("index");
+            request.getRequestDispatcher("index").forward(request, response);
         }
         return true;
 //        return super.preHandle(request, response, handler);

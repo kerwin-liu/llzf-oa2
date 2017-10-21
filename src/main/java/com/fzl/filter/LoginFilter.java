@@ -34,10 +34,10 @@ public class LoginFilter implements Filter {
             if(url.equals("/login")){
                 filterChain.doFilter(request, response);
             }else{
-                response.sendRedirect("login");
+                request.getRequestDispatcher("login").forward(request, response);
             }
         } else if(url.equals("/login")||url.equals("/")){
-            response.sendRedirect("index");
+            request.getRequestDispatcher("index").forward(request, response);
         }else{
             filterChain.doFilter(request, response);
         }

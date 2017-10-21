@@ -5,13 +5,13 @@ import com.fzl.pojo.Role;
 import java.util.List;
 
 public interface RoleMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(Role record);
 
     int insertSelective(Role record);
 
-    Role selectByPrimaryKey(Integer id);
+    Role selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(Role record);
 
