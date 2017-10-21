@@ -106,8 +106,8 @@
             </span>
                 <span class="item-two">
                 <label>组别:</label>
-                <select id="groups" class="easyui-combobox" name="groups" class="easyui-validatebox groups" size="20">
-                    <option value="1" selected>一部</option>
+                <select id="groups" class="easyui-combobox easyui-validatebox groups" data-options="required:true"  name="groups" class="" size="20">
+                    <option value="1" selected="selected">一部</option>
                     <option value="2">二部</option>
                 </select>
             </span>
@@ -115,16 +115,16 @@
             <div class="fitem">
           <span class="item-one">
                  <label>权限:</label>
-                <select id="permissions" class="easyui-combobox" name="permissions" class="easyui-validatebox permissions" size="20">
+                <select id="permissions" class="easyui-combobox" data-options="required:true"  name="permissions" class="easyui-validatebox permissions" size="20">
                     <option value="1">管理员</option>
                     <option value="2">部长</option>
-                    <option value="3" selected>员工</option>
+                    <option value="3" selected="selected">员工</option>
                 </select>
             </span>
                 <span class="item-two">
                 <label>性别:</label>
-                <select id="sex" class="easyui-combobox" name="sex" class="easyui-validatebox sex" size="20">
-                    <option value=0>男</option>
+                <select id="sex" class="easyui-combobox" name="sex" data-options="required:true"  class="easyui-validatebox sex" size="20">
+                    <option value=0 selected="selected">男</option>
                     <option value=1>女</option>
                 </select>
            </span>
@@ -317,12 +317,13 @@
                 $.post('/user/creat/'+row.memberId,{} , function (result) {
                     if (result.code == 200) {
                         alert(result.msg);
+                        tbdata();
                     } else {
                         alert(result.msg);
-                     /*   $.messager.show({
-                            title: '错误',
-                            msg: result.msg
-                        });*/
+                        /*   $.messager.show({
+                         title: '错误',
+                         msg: result.msg
+                         });*/
                     }
                 }, 'json');
             }else{
@@ -358,6 +359,7 @@
 //                        $('#password-info').dialog('open').dialog('setTitle', '密码重置');
 //                        $("#revert-password").html(result.date.password);
                         alert(result.msg);
+                        $("#btn9").click();
                     } else {
                         alert(result.msg);
                     }
@@ -386,6 +388,7 @@
     }
 
     var url;
+
     function newUser() {
         $('#dlg').dialog('open').dialog('setTitle', '添加用户');
         $('#fm').form('clear');
