@@ -131,7 +131,7 @@
     us.id,
     us.user_name,
     us.password
-    FROM user_member um LEFT JOIN USER us ON um.user_id=us.id
+    FROM user_member um LEFT JOIN user us ON um.user_id=us.id
     WHERE um.member_id=#{memberId}
   </select>
 </mapper>

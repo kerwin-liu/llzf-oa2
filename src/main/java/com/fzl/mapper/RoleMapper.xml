@@ -20,9 +20,9 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.fzl.pojo.Role" >
-    insert into role (id, name, describe
+    insert into role (id, name, rdescribe
     )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{rdescribe,jdbcType=VARCHAR}
     )
   </insert>
   <insert id="insertSelective" parameterType="com.fzl.pojo.Role" >
@@ -34,8 +34,8 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="describe != null" >
-        describe,
+      <if test="rdescribe != null" >
+        rdescribe,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -45,8 +45,8 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="describe != null" >
-        #{describe,jdbcType=VARCHAR},
+      <if test="rdescribe != null" >
+        #{rdescribe,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -56,8 +56,8 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="describe != null" >
-        describe = #{describe,jdbcType=VARCHAR},
+      <if test="rdescribe != null" >
+        rdescribe = #{rdescribe,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -65,7 +65,7 @@
   <update id="updateByPrimaryKey" parameterType="com.fzl.pojo.Role" >
     update role
     set name = #{name,jdbcType=VARCHAR},
-    describe = #{describe,jdbcType=VARCHAR}
+      rdescribe = #{rdescribe,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="queryAll" resultMap="BaseResultMap">

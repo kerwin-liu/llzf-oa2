@@ -28,6 +28,6 @@ public class Role {
     }
 
     public void setRdescribe(String rdescribe) {
-        this.rdescribe = rdescribe;
+        this.rdescribe = rdescribe == null ? null : rdescribe.trim();
     }
 }
