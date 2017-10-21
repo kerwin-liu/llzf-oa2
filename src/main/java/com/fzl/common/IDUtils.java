@@ -78,7 +78,7 @@ public class IDUtils {
             str.append("0");
         }
         str.append(intValue);
-        return Long.parseLong(str.toString());
+        return Long.parseLong(str.toString().substring(1,str.toString().length()));
     }
 
     public static void main(String[] args) throws InterruptedException {

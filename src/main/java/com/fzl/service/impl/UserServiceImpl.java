@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService {
         int insert = userMemberMapper.insert(userMember);
         //员工信息更改是否开通账号为已开通1
         Member member = new Member();
+        member.setMemberId(memberId);
         member.setOpen("1");
         memberMapper.updateByPrimaryKeySelective(member);
         if (insert1 == 1 && insert == 1) {
