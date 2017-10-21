@@ -274,8 +274,8 @@
       <if test="departmentId != null and departmentId != ''">
           AND groups=#{departmentId}
       </if>
-        ORDER BY name
     </where>
+      ORDER BY name
   </select>
     <select id="countClient" resultType="java.lang.Integer" parameterType="java.lang.Long">
         SELECT COUNT(1)

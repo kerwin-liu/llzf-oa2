@@ -26,7 +26,7 @@ public class LoginFilter implements Filter {
 
         // 获得用户请求的URI
         String url = request.getRequestURI();
-        System.out.println("filter url:" + url);
+//        System.out.println("filter url:" + url);
         User user = (User) session.getAttribute("user");
         if (url.endsWith(".css") || url.endsWith(".js") || url.endsWith(".png")) {
             filterChain.doFilter(request, response);
@@ -34,10 +34,10 @@ public class LoginFilter implements Filter {
             if(url.equals("/login")){
                 filterChain.doFilter(request, response);
             }else{
-                response.sendRedirect("login");
+                request.getRequestDispatcher("login").forward(request, response);
             }
         } else if(url.equals("/login")||url.equals("/")){
-            response.sendRedirect("index");
+            request.getRequestDispatcher("index").forward(request, response);
         }else{
             filterChain.doFilter(request, response);
         }

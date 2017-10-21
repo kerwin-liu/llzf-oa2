@@ -217,13 +217,25 @@
             singleSelect: true,
             fitColumns: true,
             fit: true,
-            rownumbers: true,
             remoteSort: false,
+            pagination: true,
+            pageNumber:1,
+            pageSize:10,
+            pageList : [10,20,30],
+            rownumbers: true,
             columns: [[
                 {field: 'Ids', title: 'ID', checkbox: true, width: 8, align: 'center', hidden: 'true'},
                 {field: 'memberId', title: '编号', width: 100, align: 'center'},
                 {field: 'name', title: '姓名', width: 100, align: 'center'},
-                {field: 'sex', title: '性别', width: 100, align: 'center'},
+                {field: 'sex', title: '性别', width: 100, align: 'center',formatter:function(value, row, index){
+                    var sex="";
+                    if(row.sex==0){
+                        sex="男";
+                    }else if(row.sex==1){
+                        sex="女";
+                    }
+                    return sex;
+                }},
                 {field: 'phone', title: '手机号', width: 100, align: 'center'},
                 {field: 'wexin', title: '微信号', width: 100, align: 'center'},
                 {field: 'qq', title: 'QQ号', width: 100, align: 'center'},
@@ -236,7 +248,36 @@
                 }
                 }
             ]]
+        }).datagrid("getPager").pagination({
+            onBeforeRefresh : function(pageNumber, pageSize) {
+//				var $getPager = $("#dg").datagrid('getPager');
+//	            var $pagination = $($getPager).pagination("options");
+//            	$pagination.pageNumber = 1;
+            },
+            onRefresh : function(pageNumber, pageSize) {
+
+            },
+            onChangePageSize:function(pageSize){
+                var $getPager = $("#dg").datagrid('getPager');
+                var $pagination = $($getPager).pagination("options");
+
+            },
+            onSelectPage : function(pageNumber, pageSize) {
+                var gridOpts = $('#dg').datagrid('options');
+                gridOpts.pageNumber = pageNumber;
+                gridOpts.pageSize = pageSize;
+                findDataByWhere("dg", pageNumber, pageSize);
+
+            }
         });
+        $('#dg').datagrid('getPager').pagination({
+            beforePageText : '',
+            afterPageText : '/{pages}',
+            displayMsg : '{from}-{to}共{total}条',
+            showPageList : false,
+            showRefresh : true
+        });
+
         $(".datagrid-toolbar").insertBefore(".datagrid-view");
         tbdata();
         //查询
@@ -304,8 +345,9 @@
             if(row){
                 $.post('/user/passwordReset/'+row.memberId,{} , function (result) {
                     if (result.code == 200) {
-                        $('#password-info').dialog('open').dialog('setTitle', '密码重置');
-                        $("#revert-password").html(result.date.password);
+//                        $('#password-info').dialog('open').dialog('setTitle', '密码重置');
+//                        $("#revert-password").html(result.date.password);
+                        alert(result.msg);
                     } else {
                         alert(result.msg);
                     }
@@ -317,7 +359,7 @@
     });
     function tbdata() {
         $.ajax({
-            url: '/member/getList',
+            url: '/member/getList?pageIndex=1&pageSize=10',
             type: "POST",
             dataType: 'json',
             success: function (data) {
@@ -404,6 +446,32 @@
                         alert(result.msg);
                     }
                 }, 'json');
+            }
+        });
+    }
+
+    function findDataByWhere(id, pageNumber, pageSize) {
+        var content="{";
+        $tbody = $("#"+id+"");
+        $tbody.find(':input, select').each(function(i){
+            var $this = $(this), name = $this.attr('id'), val = $this.val();
+            content += '"'+name+'":"'+val+'",';
+        });
+        content=content.substring(0,content.length-1);
+        content+="}";
+        var pages = '{"page":' +  pageNumber + ', "rows":' + pageSize + '}';
+        if (pageNumber.length == 0 || pageSize == 0) {
+            pages = '';
+        }
+        var url = '/member/getList?pageIndex='+pageNumber+'&pageSize='+pageSize;
+        console.log(url);
+        $.ajax({
+            url:url,
+            type: "POST",
+            dataType:'json',
+            success:function(data){
+                console.log(data);
+                $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
             }
         });
     }
