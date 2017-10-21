@@ -106,23 +106,13 @@
             </span>
                 <span class="item-two">
                 <label>组别:</label>
-                   <input id="groups" style=""
-                          url=""
-                          valueField="id" textField="text">
-                    </input>
-                    <%--   <select id="groups" class="easyui-combobox easyui-validatebox groups" data-options="required:true"  name="groups" size="20">
-                           <option value="1" selected="selected">一部</option>
-                           <option value="2">二部</option>
-                       </select>--%>
+                     <input id="groups" name="groups" value="">
             </span>
             </div>
             <div class="fitem">
           <span class="item-one">
                  <label>权限:</label>
-                <input id="permissions" style=""
-                       url=""
-                       valueField="id" textField="text">
-              </input>
+              <input id="permissions" name="permissions" value="">
             </span>
                 <span class="item-two">
                 <label>性别:</label>
