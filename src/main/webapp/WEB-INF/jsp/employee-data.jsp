@@ -234,7 +234,7 @@
             success:function(msg){
                 var map = msg.date;
                 map.forEach(function (value,index,array) {
-                    value["text"]=value["name"];
+                    value["text"]=value["rdescribe"];
                     if(index==0){
                         value["selected"]=true;
                     }
