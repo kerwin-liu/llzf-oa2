@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <title>客户管理系统</title>
     <script type="text/javascript">
-        function fn_loginOut(){
+        function fn_loginOut() {
             document.forms[0].submit();
         }
     </script>
@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	<div class="top-light"></div>
             <h1 class="logo"></h1>
             <div class="login-info ue-clear">
-                <div class="welcome ue-clear"><span>欢迎您,</span><a href="javascript:;" class="user-name">${user.userName}</a></div>
+                <div class="welcome ue-clear"><span>欢迎您,</span><a href="javascript:;" class="user-name">${user.userName} ${user.userName}</a></div>
 
             </div>
             <div class="toolbar ue-clear">
@@ -58,10 +58,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="nav-header"><a href="/user/changePsd" target="iframe" class="ue-clear"><span>密码修改</span></a></div>
                     </li>
                     <li class="agency">
-                        <div class="nav-header"><a href="/pages/Customer-allot" target="iframe" class="ue-clear"><span>成交客户</span></a></div>
+                        <div class="nav-header"><a href="/pages/Customer-allot" target="iframe" class="ue-clear"><span>移交客户</span></a></div>
                     </li>
                     <li class="email">
-                    <div class="nav-header"><a href="/pages/Customer-knockdown" target="iframe" class="ue-clear"><span>客户移交</span></a></div>
+                    <div class="nav-header"><a href="/pages/Customer-knockdown" target="iframe" class="ue-clear"><span>成交客户</span></a></div>
                 </li>
 
                   <%--  <li class="konwledge"><div class="nav-header"><a href="../javascript:;" class="ue-clear"><span>客户管理</span><i class="icon"></i></a></div></li>--%>
