@@ -73,4 +73,12 @@
     <include refid="Base_Column_List" />
     from role
   </select>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select
+    r.id,
+    r.name,
+    r.rdescribe
+    from role r LEFT JOIN member_role mr on r.id=mr.role_id LEFT JOIN user_member um ON mr.member_id=um.member_id
+    where um.user_id =#{id}
+  </select>
 </mapper>

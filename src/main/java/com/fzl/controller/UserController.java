@@ -175,7 +175,7 @@ public class UserController extends BaseController {
     public void getRole(HttpServletRequest request, HttpServletResponse response){
         User sessionUser = (User) request.getSession().getAttribute("user");
 
-        Role role = roleMapper.selectByPrimaryKey(sessionUser.getId());
+        Role role = roleMapper.selectByUserId(sessionUser.getId());
         if(role==null){
             writeResponse(response, "400", "查询失败");
             return;

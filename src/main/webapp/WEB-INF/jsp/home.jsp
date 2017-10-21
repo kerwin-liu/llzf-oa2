@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="../../css/base.css" />
     <link rel="stylesheet" href="../../css/home.css" />
-    <title>移动办公自动化系统</title>
+    <title>客户管理系统</title>
 </head>
 
 <body>

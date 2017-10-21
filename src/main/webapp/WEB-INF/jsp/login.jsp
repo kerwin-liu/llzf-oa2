@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="../../css/base.css" />
 	<link rel="stylesheet" href="../../css/login.css" />
-	<title>移动</title>
+	<title>客户管理系统</title>
     <script type="text/javascript">
         function fn_login(){
             document.forms[0].submit();
