@@ -106,7 +106,7 @@
     <select id="selectByUser" resultMap="BaseResultMap" parameterType="com.fzl.pojo.User">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM USER
+        FROM user
         WHERE user_name=#{userName}
         AND PASSWORD=#{password}
         AND STATUS=1

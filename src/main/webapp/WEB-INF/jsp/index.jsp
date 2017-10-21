@@ -147,11 +147,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     a.click("return false");
                     $("#index3").href="#";
                 }
-                //
-                if(data.date.id==4){
-
-                }
-
         }
         });
     }
