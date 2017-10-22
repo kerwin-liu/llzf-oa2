@@ -205,7 +205,6 @@ public class TClientController extends BaseController {
      *
      * @param request
      * @param response
-     * @param member
      */
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public void save(HttpServletRequest request, HttpServletResponse response, TClient client) {
@@ -222,13 +221,11 @@ public class TClientController extends BaseController {
       
         List<TClient> list = tClientService.queryTClientByClientCard(client.getCard());
         
+		if(list.size()>0){
+			writeResponse(response, "400", "此客户账号已使用");
+			return;
+		}
 
-        if(list != null){
-        	writeResponse(response, "400", "此客户账号已使用");
-          return;
-        }
-        
-        
         boolean save = tClientService.saveTClient(client,sessionUser.getId());
         
         if(save){
@@ -247,7 +244,6 @@ public class TClientController extends BaseController {
      *
      * @param request
      * @param response
-     * @param member
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public void update(HttpServletRequest request, HttpServletResponse response, TClient client) {

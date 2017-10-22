@@ -14,9 +14,10 @@
     <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/demo/demo.css">
     <script type="text/javascript" src="../../js/jquery.js"></script>
     <%--<script type="text/javascript" src="../../js/jquery.easyui.min.js"></script>--%>
-
+    <script type="text/javascript" src="../../js/tools.js"></script>
     <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+
     <style type="text/css">
         .left{
             float: left;
@@ -255,16 +256,17 @@
             delet = $("#dg1").datagrid("getChanges","deleted");
         var url="";
         $.ajax({
-            url:url,
-            type:'POST',//OR GET
-            dataType:'json',
-            success:function(data){
-                if(data.code==200){
+            url: url,
+            type: 'POST',//OR GET
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 200) {
 
-                }else{
+                } else {
 
                 }
             }
+        });
 
     }
 </script>

@@ -362,7 +362,7 @@ public class TClientServiceImpl implements TClientService {
 
 	@Override
 	public boolean saveTClient(TClient client, Long id) {
-
+		client.setClientId(IDUtils.getId());
 		client.setMemberId(id);
 
 		return tClientMapper.insert(client) == 1 ? true : false;

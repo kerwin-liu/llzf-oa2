@@ -3,9 +3,9 @@
 <mapper namespace="com.fzl.mapper.TClientMapper" >
   <resultMap id="BaseResultMap" type="com.fzl.pojo.TClient" >
     <id column="client_id" property="clientId" jdbcType="BIGINT" />
-    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="card" property="card" jdbcType="VARCHAR" />
-    <result column="TYPE" property="type" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="qq" property="qq" jdbcType="VARCHAR" />
@@ -114,10 +114,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.fzl.pojo.TClient" >
-    insert into t_client (client_id, NAME, card, 
-      TYPE, sex, phone, qq, 
+    insert into t_client (client_id, name, card,
+      type, sex, phone, qq,
       qqqnc, weixin, funds, 
-      address, remark, TIME, 
+      address, remark, time,
       member_id, ip)
     values (#{clientId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{card,jdbcType=VARCHAR}, 
       #{type,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 

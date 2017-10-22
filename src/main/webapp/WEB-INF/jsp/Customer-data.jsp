@@ -149,7 +149,7 @@
                     }
                     return type;
                 }},
-                {field: 'funds', title: '负责人', width: 100, align: 'center'},
+                {field: 'memerId', title: '负责人', width: 100, align: 'center'},
                 {field: 'remark', title: '备注', width: 100, align: 'center'},
                 {field: 'time', title: '归档日期', width: 150, align: 'center',formatter:function(value, row, index){
                 var time = new Date(value);
@@ -219,7 +219,6 @@ function tbdata(){
         type: "POST",
         dataType:'json',
         success:function(data){
-            console.log(data);
             $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
         }
     });
@@ -229,7 +228,7 @@ function updata(){
     if(rows.length>1||rows.length==0){
         tip("请选择一条数据进行修改");
     }else{
-        createwindow("修改客户", "/pages/Customer-add",600,320);
+        createwindow("修改客户", "/pages/Customer-update",600,320);
     }
 }
 
@@ -249,7 +248,7 @@ function deletes(){
     }else{
         var id="";
         for (var i=0;i<rows.length;i++){
-            id +=rows[i].CLIENTID+",";
+            id +=rows[i].clientId+",";
         }
         id = id.substring(0,id.length-1);
         var url="";
