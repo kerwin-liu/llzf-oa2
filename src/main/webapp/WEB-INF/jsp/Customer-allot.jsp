@@ -62,7 +62,6 @@
             fit: true,
             rownumbers: true,
             remoteSort: false,
-
             columns: [[
                 {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
                 {field: 'CLIENTID', title: '编号', width: 100, align: 'center'},

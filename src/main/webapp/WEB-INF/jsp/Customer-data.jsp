@@ -213,16 +213,7 @@
         });
         tbdata();
         });
-function tbdata(){
-    $.ajax({
-        url:'/client/getList?pageIndex=1&pageSize=10',
-        type: "POST",
-        dataType:'json',
-        success:function(data){
-            $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
-        }
-    });
-}
+
 function updata(){
     var rows= $("#dg").datagrid("getSelections");
     if(rows.length>1||rows.length==0){
@@ -251,7 +242,7 @@ function deletes(){
             id +=rows[i].clientId+",";
         }
         id = id.substring(0,id.length-1);
-        var url="";
+        var url="/client/delete/"+id;
         $.messager.confirm('确定', '你确定要删除吗?', function (r) {
             if (r) {
                 $.ajax({
@@ -259,7 +250,7 @@ function deletes(){
                     dataType: 'json',
                     success: function (data) {
                         if (data.code == 200) {
-
+                            tbdata();
                         } else {
                             tip(data.msg);
                         }
@@ -309,7 +300,16 @@ function exports(){
             }
         });
     }
-
+    function tbdata(){
+        $.ajax({
+            url:'/client/getList?pageIndex=1&pageSize=10',
+            type: "POST",
+            dataType:'json',
+            success:function(data){
+                $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
+            }
+        });
+    }
 
 </script>
 </html>

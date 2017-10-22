@@ -20,32 +20,57 @@
 
 </head>
 <body>
-<form id="from" action="/client/save" method="post" target="hidden_frame">
+<form id="from" action="/saveLog" target="hidden_frame">
     <div class="ftitle">追踪信息</div>
+    <input id="clientId" type="text" name="clientId" />
     <div class="fitem">
             <span class="item-one">
                 <label>时间:</label>
-                <input type="text" name="historySearchTimes" readonly="readonly" style="width:80px;"/>
+                <input type="text" name="time" readonly="readonly" style="width:80px;"/>
             </span>
     </div>
     <div class="fitem">
          <span class="item-one">
                 <label>内容:</label>
-                <input type="text" style="width:280px;"/>
+                <input name="clientLog" type="text" style="width:280px;"/>
          </span>
     </div>
 </form>
 <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 <script type="text/javascript">
-    $("input[name='historySearchTimes']").attr("class","Wdate").attr("style","height:20px;width:140px;").click(function(){WdatePicker({
+    $("#clientId").val($("#id").val())
+    $("input[name='time']").attr("class","Wdate").attr("style","height:20px;width:140px;").click(function(){WdatePicker({
         dateFmt:'yyyy-MM-dd HH:mm:ss',
     });});
     $('#hidden_frame').load(function(){
         var text=$(this).contents().find("body").text();
         // 根据后台返回值处理结果
-        var j=$.parseJSON(text);
-        $.messager.alert('提示',j.msg);
-        tbdata();
+        try {
+            var j=$.parseJSON(text);
+            $.messager.alert('提示',j.msg);
+            $.ajax({
+                url:'/client/getLog/'+id,
+                dataType:'json',
+                success:function(data){
+                    if(data.code==200){
+                        var list = data.date;
+                        var value = "";
+                        $("#logs").text("");
+                        for(var i=0;i<list.length;i++) {
+                            var time = new Date(list[i].time);
+                            value+=date2str(time,'yyyy-MM-dd hh:mm:ss')+"   "+list[i].clientLog+"\n";
+                        }
+                        $("#logs").text(value);
+                    }else{
+                        tip(data.msg);
+                    }
+                }
+
+            });
+        }catch (e){
+
+        }
+
     });
 
 </script>

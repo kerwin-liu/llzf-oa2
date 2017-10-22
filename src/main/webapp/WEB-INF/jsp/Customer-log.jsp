@@ -18,11 +18,11 @@
         客户信息
     </div>
     <div style="width: 100%;height: 89%;border: 0px solid red">
+        <input id="id" />
         <table border="0" style="height: 80%">
             <tr style="width: 100%">
                 <td style="width: 27%">业务员:</td>
                 <td style="width:25%;" colspan="3"><input id="mem" style="border: 0px; width:230px"></td>
-
             </tr>
             <tr>
                 <td style="width:15%;">客户姓名:</td>
@@ -60,7 +60,7 @@
     服务信息:<textarea cols="36" style="resize: none"  readonly="readonly"></textarea>
 </div>
     <div style="width: 100%;height: 70%">
-        <textarea cols="36" rows="13"  style="resize: none" readonly="readonly"></textarea>
+        <textarea id="logs" cols="36" rows="13"  style="resize: none" readonly="readonly"></textarea>
     </div>
     <div style="width: 30%;height: 6%;margin-left: 40%">
         <a id="add-bt1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加信息</a>
@@ -71,6 +71,7 @@
     var row = $("#dg").datagrid("getSelections");
     var id = row[0].clientId;
     console.log(row);
+    $("#id").val(id);
     $("#names").val(row[0].name);
     $("#phone").val(row[0].phone);
     $("#weixin").val(row[0].weixin);
@@ -95,8 +96,27 @@
             $("#mem").val(data.date.name)
         }
     });
+    $.ajax({
+        url:'/client/getLog/'+id,
+        dataType:'json',
+        success:function(data){
+            if(data.code==200){
+                var list = data.date;
+                var value = "";
+                $("#logs").text("");
+                for(var i=0;i<list.length;i++) {
+                    var time = new Date(list[i].time);
+                   value+=date2str(time,'yyyy-MM-dd hh:mm:ss')+"   "+list[i].clientLog+"\n";
+                }
+                $("#logs").text(value);
+            }else{
+                tip(data.msg);
+            }
+        }
+
+    });
     $("#add-bt1").click(function(){
-        createwindow2("添加客户", "/pages/Customer-log-add",400,220);
+        createwindow2("添加信息", "/pages/Customer-log-add",400,220);
     });
 
     function createwindow2(title, addurl,width,height) {

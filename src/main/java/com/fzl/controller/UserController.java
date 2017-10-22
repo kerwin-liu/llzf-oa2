@@ -171,6 +171,7 @@ public class UserController extends BaseController {
         }
         writeCommonDataResponse(response, "200", "查询成功",member);
     }
+
     @RequestMapping("getRole")
     public void getRole(HttpServletRequest request, HttpServletResponse response){
         User sessionUser = (User) request.getSession().getAttribute("user");

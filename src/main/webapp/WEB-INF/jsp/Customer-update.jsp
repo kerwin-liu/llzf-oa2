@@ -22,7 +22,7 @@
 <body>
 <form id="from" action="/client/update" method="post" target="hidden_frame">
     <div class="ftitle">客户信息</div>
-    <input id="clientId" name="cliendId" style="display: none;">
+    <input id="clientId" name="CliendId" />
     <div class="fitem">
             <span class="item-one">
                 <label>姓名:</label>
@@ -85,7 +85,7 @@
 <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 <script type="text/javascript">
     var rows= $("#dg").datagrid("getSelections");
-    console.log(rows[0].clientId)
+    console.log(rows[0].clientId);
     $("#clientId").val(rows[0].clientId);
     $("#names").val(rows[0].name);
     $("#phone").val(rows[0].phone);
