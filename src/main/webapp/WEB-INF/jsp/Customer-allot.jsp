@@ -31,22 +31,17 @@
 <body>
 <div class="left">
     <div class="datagrid-toolbar" style="height: 27px;width: 100%;border: 0px solid red;">
-        原始员工:<select id="employee1" onselect="select1()"></select>
+        原始员工:<input id="employee1" name="mem" >
+
         客户类型:<select id="type"  onselect="loadData1()">
                     <option value="1">一般客户</option>
                     <option value="2">潜力客户</option>
                     <option value="3">意向客户</option>
                     <option value="4">未有兴趣客户</option>
                 </select>
-        新员工:<select id="employee2" onselect="select1()"></select>
-        客户类型:<select id="type2"  onselect="loadData1()">
-        <option value="1">一般客户</option>
-        <option value="2">潜力客户</option>
-        <option value="3">意向客户</option>
-        <option value="4">未有兴趣客户</option>
-    </select>
-        <a id="btn1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="add();">移交客户</a>
 
+        <a id="btn1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="add();">移交客户</a>
+        新员工:<input id="employee2" name="mem2" >
     </div>
     <table id="dg1" style="width: 100%;height: 95%">
 
@@ -83,19 +78,25 @@
     function select1(){
        // var value_1 = $("#employee2").val(),value_2=$("#type").val();
         //需要进行判断 当value_1是NULL的时候 加载全部 还需要根据当前登录用户的信息进行筛选他所属的 客户
-        var url="/member/getList?pageIndex=1&pageSize=10";
+        var url="/member/getAll";
         $.ajax({
             url:url,
             type:'POST',//OR GET
             dataType:'json',
             success:function(data){
                 if(data.code==200){
-                    var value = data.date.result;
-                    console.log(value);
-                    $("#employee1").children().remove();
-                    for (var i = 0 ; i < value.length ; i++){
-                        $("#employee1").append("<option value='"+value[i].id+"'>"+value[i].name+"</option>");
+                    var value = data.date,
+                        d=[];
+                    for (var i=0;i<value.length;i++){
+                        d.push({"id":value[i].memberId,"text":value[i].name});
                     }
+                    d[1].selected=true;
+
+                    $("#employee1").combobox({
+                        valueField:'id',
+                        textField:'text',
+                        data:d
+                    });
                 }else{
                     tip(data.msg);
                 }
@@ -108,31 +109,45 @@
     //联动右侧员工
     function loadEmployee2(){
         //var value_1 = $("#employee1").val(),value_2=$("#type").val();;
-        var url="/member/getList?pageIndex=1&pageSize=10";
+        var url="/member/getAll";
         $.ajax({
             url:url,
             type:'POST',//OR GET
             dataType:'json',
-            success:function (data) {
+            success:function(data){
                 if(data.code==200){
-                    var value = data.date.result;
-                    $("#employee2").children().remove();
-                    for (var i = 0 ; i < value.length ; i++){
-                        $("#employee2").append("<option value='"+value[i].id+"'>"+value[i].name+"</option>");
+                    var value = data.date,
+                        d=[];
+                    for (var i=0;i<value.length;i++){
+                        d.push({"id":value[i].memberId,"text":value[i].name});
                     }
+                    d[1].selected=true;
+
+                    $("#employee2").combobox({
+                        valueField:'id',
+                        textField:'text',
+                        data:d
+                    });
                 }else{
                     tip(data.msg);
                 }
+
+
             }
         })
     }
     //移动客户
     function add(){
         var rows = $("#dg1").datagrid("getSelections");
+        var name = $("#employee2").val();
         if(rows.length==0){
             tip("请至少选择一条信息");
         }else{
+            $.messager.confirm('确定', '你确定要移动给'+name+'吗?', function (r) {
+                if (r) {
 
+                }
+            });
         }
     }
     //移除客户
