@@ -102,6 +102,19 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public List<Member> queryMemberByDepartmentALl(MemberQo memberQo, Long id) {
+        Department department= departmentMapper.queryDepartmentByUserId(id);
+        memberQo.setDepartmentId(department.getId());
+        return memberMapper.queryListByCondition(memberQo);
+    }
+
+    @Override
+    public List<Member> queryMemberByDepartmentAll(MemberQo memberQo) {
+        memberQo.setDepartmentId(null);
+        return memberMapper.queryListByCondition(memberQo);
+    }
+
+    @Override
     public Pages<Member> queryMemberByDepartment(MemberQo memberQo) {
         PageHelper.startPage(memberQo.getPageIndex(), memberQo.getPageSize());
         memberQo.setDepartmentId(null);
