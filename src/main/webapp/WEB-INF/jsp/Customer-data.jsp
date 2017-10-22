@@ -82,13 +82,18 @@
     </div>
 
         <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
-            客户类型:<select id="type" style="width:80px;"></select>
+            客户类型:<select id="type" style="width:80px;">
+            <option value="1">一般客户</option>
+            <option value="2">潜力客户</option>
+            <option value="3">意客客户</option>
+            <option value="4">未有兴趣客户</option>
+        </select>
             姓名：<input id="name" type="text" style="width:80px;"/>
-            手机:<input type="text" style="width:80px;"/>
-            QQ:<input type="text" style="width:80px;"/>
-            日期:<input type="text" name="historySearchTime" readonly="readonly" style="width:80px;"/>
-            至 <input type="text" name="nowSearchTime" style="width:80px;"/>
-            负责人： <select id="" style="width:80px;"></select>
+            手机:<input id = "phone" type="text" style="width:80px;"/>
+            QQ:<input id="qq" type="text" style="width:80px;"/>
+            日期:<input id="timeStart" type="text" name="historySearchTime" readonly="readonly" style="width:80px;"/>
+            至 <input id="timeEnd" type="text" name="nowSearchTime" style="width:80px;"/>
+            负责人：<input id="employee1" name="mem" />
             <a id="btn8" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
         </div>
 
@@ -223,8 +228,57 @@
         $("#btn9").click(function(){
             imports();
         });
-        tbdata();
+        $("#btn8").click(function(){
+            var name=$("#name").val(),
+                phone=$("#phone").val(),
+                type=$("#type").val(),
+                qq=$("#qq").val(),
+                timeStart=$("#timeStart").val(),
+                timeEnd=$("#timeEnd").val(),
+                clientId=$("#employee1").val();
+            var data={"type":type,"name":name,"type":type,"qq":qq,"timeStart":timeStart,"timeEnd":timeEnd,"clientId":clientId};
+           console.log(data);
+            $.ajax({
+                url:'/client/sqlMoHu',
+                data:data,
+                dataType:'json',
+                success:function(data){
+                    console.log(data);
+                    $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
+                }
+            })
         });
+        tbdata();
+        select1();
+        });
+    function select1(){
+        var url="/member/getAll";
+        $.ajax({
+            url:url,
+            type:'POST',//OR GET
+            dataType:'json',
+            success:function(data){
+                if(data.code==200){
+                    var value = data.date,
+                        d=[];
+                    for (var i=0;i<value.length;i++){
+                        d.push({"id":value[i].memberId,"text":value[i].name});
+                    }
+                    console.log(d);
+                    d[0].selected=true;
+                    $("#employee1").combobox({
+                        valueField:'id',
+                        textField:'text',
+                        data:d
+                    });
+                }else{
+                    tip(data.msg);
+                }
+
+
+            }
+        })
+    }
 
     function truns(){
         var rows= $("#dg").datagrid("getSelections");
