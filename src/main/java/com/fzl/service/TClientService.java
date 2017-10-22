@@ -189,4 +189,5 @@ public interface TClientService {
 	List<TClient>  queryByIp();
 
 
+    List<TClient> getSqlMohu(TClientQo tClientQo);
 }

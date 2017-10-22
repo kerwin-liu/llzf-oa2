@@ -3,7 +3,7 @@ package com.fzl.pojo.Qo;
 import java.util.Date;
 
 public class TClientQo extends BaseQuery{
-    private Integer clientId;
+    private Long clientId;
 
     private String name;
 
@@ -11,13 +11,9 @@ public class TClientQo extends BaseQuery{
 
     private Integer type;
 
-    private String sex;
-
     private String phone;
 
     private String qq;
-
-    private String qqqnc;
 
     private String weixin;
 
@@ -25,19 +21,17 @@ public class TClientQo extends BaseQuery{
 
     private String address;
 
-    private String remark;
+    private String timeStart;
 
-    private Date time;
+    private String timeEnd;
 
-    private Integer memberId;
+    private Long memberId;
 
-    private String ip;
-
-    public Integer getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(Integer clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 
@@ -46,7 +40,7 @@ public class TClientQo extends BaseQuery{
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getCard() {
@@ -54,7 +48,7 @@ public class TClientQo extends BaseQuery{
     }
 
     public void setCard(String card) {
-        this.card = card == null ? null : card.trim();
+        this.card = card;
     }
 
     public Integer getType() {
@@ -65,20 +59,12 @@ public class TClientQo extends BaseQuery{
         this.type = type;
     }
 
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
-    }
-
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+        this.phone = phone;
     }
 
     public String getQq() {
@@ -86,15 +72,7 @@ public class TClientQo extends BaseQuery{
     }
 
     public void setQq(String qq) {
-        this.qq = qq == null ? null : qq.trim();
-    }
-
-    public String getQqqnc() {
-        return qqqnc;
-    }
-
-    public void setQqqnc(String qqqnc) {
-        this.qqqnc = qqqnc == null ? null : qqqnc.trim();
+        this.qq = qq;
     }
 
     public String getWeixin() {
@@ -102,7 +80,7 @@ public class TClientQo extends BaseQuery{
     }
 
     public void setWeixin(String weixin) {
-        this.weixin = weixin == null ? null : weixin.trim();
+        this.weixin = weixin;
     }
 
     public String getFunds() {
@@ -110,7 +88,7 @@ public class TClientQo extends BaseQuery{
     }
 
     public void setFunds(String funds) {
-        this.funds = funds == null ? null : funds.trim();
+        this.funds = funds;
     }
 
     public String getAddress() {
@@ -118,38 +96,30 @@ public class TClientQo extends BaseQuery{
     }
 
     public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+        this.address = address;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getTimeStart() {
+        return timeStart;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+    public void setTimeStart(String timeStart) {
+        this.timeStart = timeStart;
     }
 
-    public Date getTime() {
-        return time;
+    public String getTimeEnd() {
+        return timeEnd;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setTimeEnd(String timeEnd) {
+        this.timeEnd = timeEnd;
     }
 
-    public Integer getMemberId() {
+    public Long getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(Integer memberId) {
+    public void setMemberId(Long memberId) {
         this.memberId = memberId;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip == null ? null : ip.trim();
     }
 }

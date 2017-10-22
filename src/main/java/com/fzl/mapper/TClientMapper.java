@@ -1,5 +1,6 @@
 package com.fzl.mapper;
 
+import com.fzl.pojo.Qo.TClientQo;
 import com.fzl.pojo.TClient;
 import com.fzl.pojo.TClientExample;
 
@@ -33,4 +34,6 @@ public interface TClientMapper {
     List<TClient> selectClientById(Long id);
 
 	List<TClient> selectClientByDepartment(Long id);
+
+    List<TClient> selectClientsByTClientQo(TClientQo tClientQo);
 }
