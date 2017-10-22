@@ -21,69 +21,38 @@
     <style type="text/css">
         .left{
             float: left;
-            width: 45%;
+            width: 100%;
             height: 95%;
             border: 0px solid red;
         }
-        .center{
-            float: left;
-            width: 9%;
-            height: 50%;
-            border: 0px solid red;
-            padding-top: 20%;
-        }
-        .right{
-            float: left;
-            width: 45%;
-            height: 95%;
-            border: 0px solid red;
-                 }
 
     </style>
 </head>
 <body>
 <div class="left">
     <div class="datagrid-toolbar" style="height: 27px;width: 100%;border: 0px solid red;">
-        员工:<select id="employee1" onselect="select1()"></select>
+        原始员工:<select id="employee1" onselect="select1()"></select>
         客户类型:<select id="type"  onselect="loadData1()">
                     <option value="1">一般客户</option>
                     <option value="2">潜力客户</option>
-                    <option value="3">意客客户</option>
+                    <option value="3">意向客户</option>
                     <option value="4">未有兴趣客户</option>
                 </select>
-        <a id="btn5" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">保存</a>
+        新员工:<select id="employee2" onselect="select1()"></select>
+        客户类型:<select id="type2"  onselect="loadData1()">
+        <option value="1">一般客户</option>
+        <option value="2">潜力客户</option>
+        <option value="3">意向客户</option>
+        <option value="4">未有兴趣客户</option>
+    </select>
+        <a id="btn1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="add();">移交客户</a>
+
     </div>
     <table id="dg1" style="width: 100%;height: 95%">
 
     </table>
 </div>
-<div class="center">
-    <center>
 
-
-    <a id="btn1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-right'" onclick="add()">添加</a>
-        <br/>
-        <br/>
-        <br/>
-
-    <a id="btn2" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-left'" onclick="remove()">移除</a>
-    </center>
-</div>
-<div class="right">
-    <div class="datagrid-toolbar" style="height: 27px;width: 100%;border: 0px solid red;">
-        员工:<select id="employee2" onselect="loadEmployee2()"></select>
-        客户类型:<select id="type2"  onselect="loadData2()">
-        <option value="1">一般客户</option>
-        <option value="2">潜力客户</option>
-        <option value="3">意客客户</option>
-        <option value="4">未有兴趣客户</option>
-    </select>
-        <a id="btn6" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-add'">保存</a>
-    </div>
-    <table id="dg2"  style="width: 100%;height: 95%">
-
-    </table>
-</div>
 </body>
 <script type="text/javascript">
     $(function(){
@@ -104,26 +73,10 @@
                 {field: 'time', title: '归档日期', width: 100, align: 'center'}
             ]]
         });
-        $("#dg2").datagrid({
-            singleSelect: false,
-            fitColumns: true,
-            fit: true,
-            rownumbers: true,
-            remoteSort: false,
 
-            columns: [[
-                {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
-                {field: 'CLIENTID', title: '编号', width: 100, align: 'center'},
-                {field: 'NAME', title: '姓名', width: 100, align: 'center'},
-                {field: 'TYPR', title: '客户类型', width: 60, align: 'center'},
-                {field: 'funds', title: '负责人', width: 100, align: 'center'},
-                {field: 'remark', title: '备注', width: 100, align: 'center'},
-                {field: 'time', title: '归档日期', width: 100, align: 'center'}
-            ]]
-        });
         select1();
         loadData1();
-        loadData2();
+        //loadData2();
     })
 
     //左侧员工下拉框
@@ -178,11 +131,7 @@
         if(rows.length==0){
             tip("请至少选择一条信息");
         }else{
-            for (var i=0 ;i<rows.length;i++){
-                $('#dg2').datagrid('insertRow',{row: rows[i]});
-                var index=$("#dg1").datagrid("getRowIndex",rows[i]);
-                $("#dg1").datagrid("deleteRow",index);
-            }
+
         }
     }
     //移除客户

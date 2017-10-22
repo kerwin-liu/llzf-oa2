@@ -49,8 +49,7 @@
             </tr>
             <tr>
                 <td>备注:</td>
-                <td colspan="3"><input style="width: 50px;border: 0px" id="remark" type="text"/> </td>
-
+                <td colspan="3"><input style="width: 50px;border: 0px" id="remark" type="text"/></td>
             </tr>
         </table>
 

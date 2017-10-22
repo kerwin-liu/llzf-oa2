@@ -145,7 +145,7 @@ public class TClientExample {
             return (Criteria) this;
         }
 
-        public Criteria andClientIdIn(List<Integer> values) {
+        public Criteria andClientIdIn(List<Long> values) {
             addCriterion("client_id in", values, "clientId");
             return (Criteria) this;
         }

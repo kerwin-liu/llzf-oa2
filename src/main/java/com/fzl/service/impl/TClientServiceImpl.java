@@ -1,6 +1,6 @@
 package com.fzl.service.impl;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,6 +15,7 @@ import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -27,10 +28,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fzl.common.IDUtils;
 import com.fzl.common.Pages;
+import com.fzl.mapper.TClientLogMapper;
 import com.fzl.mapper.TClientMapper;
 import com.fzl.pojo.TClient;
 import com.fzl.pojo.TClientExample;
 import com.fzl.pojo.TClientExample.Criteria;
+import com.fzl.pojo.TClientLog;
+import com.fzl.pojo.TClientLogExample;
 import com.fzl.pojo.Qo.TClientQo;
 import com.fzl.service.TClientService;
 import com.github.pagehelper.Page;
@@ -43,6 +47,10 @@ import com.github.pagehelper.PageHelper;
 public class TClientServiceImpl implements TClientService {
 	@Autowired
 	private TClientMapper tClientMapper;
+	
+	@Autowired
+	private TClientLogMapper tClientLogMapper;
+	
 
 	@Override
 	public boolean insertTClient(TClient tClient) {
@@ -213,14 +221,17 @@ public class TClientServiceImpl implements TClientService {
 	@Override
 	public void importExcel(MultipartFile importFile, String name,Long role,Long id) {
 		try {
-			FileInputStream fileInputStream = new FileInputStream(
-					importFile.toString());
+//			FileInputStream fileInputStream = new FileInputStream(
+//					importFile.toString());
+			InputStream fileInputStream = importFile.getInputStream();
+			
 
-			boolean is03Excel = name.matches("^.+\\.(?i)(xls)$");
+//			boolean is03Excel = name.matches("^.+\\.(?i)(xls)$");
 
 			// 1读取工作薄
-			Workbook workbook = is03Excel ? new HSSFWorkbook(fileInputStream)
-					: new XSSFWorkbook(fileInputStream);
+//			Workbook workbook = is03Excel ? new HSSFWorkbook(fileInputStream)
+//					: new XSSFWorkbook(fileInputStream);
+			Workbook workbook = new  HSSFWorkbook(fileInputStream);
 
 			// 2读取工作表
 			Sheet sheet = workbook.getSheetAt(0);
@@ -249,9 +260,22 @@ public class TClientServiceImpl implements TClientService {
 						card = BigDecimal.valueOf(dCard).toString();
 					}
 					client.setPhone(card);
+
 					// 类型
+					String typeNumber = "";
 					Cell cell04 = row.getCell(2);
-					client.setType(Integer.parseInt(cell04.getStringCellValue()));
+
+					try {
+						typeNumber = cell04.getStringCellValue();
+					} catch (Exception e) {
+						double dtypeNumber = cell04.getNumericCellValue();
+						typeNumber = BigDecimal.valueOf(dtypeNumber).toString();
+					}
+					client.setType(Integer.valueOf(typeNumber.substring(0, 1)));
+					
+					
+					
+					
 					// 性别
 					Cell cell05 = row.getCell(3);
 					client.setSex(cell05.getStringCellValue());
@@ -268,9 +292,23 @@ public class TClientServiceImpl implements TClientService {
 					}
 					client.setPhone(phoneNumber);
 
-					// qq
+					
+//					qq
+					String qqNumber = "";
 					Cell cell07 = row.getCell(5);
-					client.setQq(cell07.getStringCellValue());
+
+					try {
+						qqNumber = cell07.getStringCellValue();
+					} catch (Exception e) {
+						double dqqNumber = cell07.getNumericCellValue();
+						qqNumber = BigDecimal.valueOf(dqqNumber)
+								.toString();
+					}
+					client.setPhone(qqNumber);
+
+					
+					
+					
 					// qq昵称
 					Cell cell08 = row.getCell(6);
 					client.setQqqnc(cell08.getStringCellValue());
@@ -362,17 +400,21 @@ public class TClientServiceImpl implements TClientService {
 
 	@Override
 	public boolean saveTClient(TClient client, Long id) {
-		client.setClientId(IDUtils.getId());
-		client.setMemberId(id);
 
+		client.setMemberId(id);
+		client.setClientId(IDUtils.getId());
 		return tClientMapper.insert(client) == 1 ? true : false;
 	}
 
 	@Override
 	public boolean update(TClient client) {
 
-		return tClientMapper.updateByPrimaryKey(client) == 1 ? true : false;
+				int a = tClientMapper.updateByPrimaryKey(client) ;
+				boolean flag = a == 1 ? true : false;
+	return flag;
 	}
+	
+	
 
 	// excel
 	@Override
@@ -392,6 +434,48 @@ public class TClientServiceImpl implements TClientService {
 		TClientExample example = new TClientExample();
 		List<TClient> list = tClientMapper.selectByExample(example);
 		return list;
+	}
+
+	@Override
+	public boolean deleteByid(Long clientId) {
+		
+		boolean flag = tClientMapper.deleteByPrimaryKey(clientId) == 1 ? true : false ;
+		
+		return flag;
+	}
+
+	@Override
+	public boolean deleteByids(List<Long> clientIdList) {
+
+	
+		TClientExample example = new TClientExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andClientIdIn(clientIdList);
+		int example2 = tClientMapper.deleteByExample(example);
+		
+		System.out.println("example2===="+example2);
+		return example2>0?true:false;
+	}
+
+	@Override
+	public List<TClientLog> selectClientInfoByClientId(Long id) {
+
+TClientLogExample example = new TClientLogExample();
+ 
+TClientLogExample.Criteria criteria = example.createCriteria();
+criteria.andClientIdEqualTo(id);
+
+		List<TClientLog> list = tClientLogMapper.selectByExample(example);
+		
+		return list;
+	}
+
+	@Override
+	public boolean saveClientLog(TClientLog tLog) {
+		
+		return tClientLogMapper.insert(tLog) == 1 ? true : false ;
+	
+		
 	}
 
 }

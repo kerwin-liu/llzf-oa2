@@ -75,7 +75,7 @@
     </div>
     <div class="fitem">
         <label>身份证:</label>
-        <input id="card" value="12134356" name="card" size="53" class="easyui-validatebox textbox card" required="true">
+        <input id="card" value="12134356" name="card" readonly="readonly" size="53" class="easyui-validatebox textbox card" required="true">
     </div>
     <div class="fitem">
         <label>备注:</label>

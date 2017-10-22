@@ -1,5 +1,6 @@
 package com.fzl.service;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -8,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fzl.common.Pages;
 import com.fzl.pojo.TClient;
+import com.fzl.pojo.TClientLog;
 import com.fzl.pojo.Qo.TClientQo;
 
 /**
@@ -42,7 +44,7 @@ public interface TClientService {
 	 * @param name
 	 *            导入的excel的名字
 	 */
-	void importExcel(MultipartFile importFile, String name, Long role, Long id);
+	void importExcel(MultipartFile file, String name, Long role, Long id);
 
 	/**
 	 * Test==展示所有客户
@@ -128,5 +130,38 @@ public interface TClientService {
 	 * @return
 	 */
 	List<TClient> findClientListAll();
+
+	
+	/**
+	 * 删除客户
+	 * @param clientId
+	 * @return
+	 */
+	boolean deleteByid(Long clientId);
+
+	
+	
+	/**
+	 * 批量删除客户
+	 * @param clientIdList
+	 * @return
+	 */
+	
+	boolean deleteByids(List<Long> clientIdList);
+
+	
+	
+
+	/**
+	 * 根据客戶id查询客户日志
+	 * @return 該客戶對應的所有的日誌
+	 */
+	List<TClientLog> selectClientInfoByClientId(Long id);
+
+	/**
+	 * 添加日誌
+	 * @param tLog
+	 */
+	boolean saveClientLog(TClientLog tLog);
 
 }

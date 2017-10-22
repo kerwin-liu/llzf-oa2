@@ -1,6 +1,8 @@
 package com.fzl.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -11,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fzl.common.Pages;
 import com.fzl.pojo.TClient;
+import com.fzl.pojo.TClientLog;
 import com.fzl.pojo.User;
 import com.fzl.pojo.Qo.TClientQo;
 import com.fzl.service.TClientService;
@@ -131,22 +136,34 @@ public class TClientController extends BaseController {
 	 *            导入的Excel文件路径
 	 * @return null ====这里有可能换为列表页面“list”
 	 */
-	@RequestMapping("importExcel")
-	@ResponseBody
-	public String importFile(HttpServletRequest request,MultipartFile importFile) {
+	@RequestMapping(value = "importExcel" , method = RequestMethod.POST)
+	public void importFile(HttpServletRequest request,HttpServletResponse response,MultipartFile path) {
+		
+		MultipartFile importFile  =  path; 
+		
+		System.out.println("importExcel====1002"+path.toString());
+		System.out.println("importExcel====10022"+path.getOriginalFilename());
+	
+		System.out.println("importFile===="+importFile);
+		
 		User sessionUser = (User) request.getSession().getAttribute("user");
 		Long role = userService.selectRole(sessionUser);
 		Long id = sessionUser.getId();
-		System.err.println(importFile);
+	
 		// 获取excel文件 importFile
 		if (importFile != null) {
-			// 是否为excel文件
-			if (importFile.getName().matches("^.+\\.(?i)((xls)|(xlsx))$")) {
+			System.out.println("importExcel====1003"+importFile.getOriginalFilename());
+			System.out.println("importExcel====100332"+path.getName().matches("^.+\\.(?i)((xls)|(xlsx))$"));
+			System.out.println("importExcel====10066"+importFile.getName().matches("^.+\\.(?i)((xls)|(xlsx))$"));
+			// 是否为excel文件  -- 前台以判断
+//			if (importFile.getOriginalFilename().matches("^.+\\.(?i)((xls)|(xlsx))$")) {
 				// 2导入
+				System.out.println("10033");
 				tClientService.importExcel(importFile, importFile.getName(),role,id);
-			}
+//			}   
+				 writeResponse(response, "200", "0");
 		}
-		return null;
+		 writeResponse(response, "400", "导入失败");
 	}
 
 	@RequestMapping(value = "getList", method = RequestMethod.POST)
@@ -205,34 +222,28 @@ public class TClientController extends BaseController {
      *
      * @param request
      * @param response
+     * @param member
      */
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public void save(HttpServletRequest request, HttpServletResponse response, TClient client) {
-//******  补上：按照权限 来判断是否操作的本部门或者本员工之下的客户、否则不能增加
-//      //权限判断 1获取user 通过id查询权限
-//      User sessionUser = (User) request.getSession().getAttribute("user");
-//      Long role = userService.selectRole(sessionUser);
-//      if (role.compareTo(3L) == 0) {
-//          writeResponse(response, "400", "该用户无增加权限");
-//          return;
-//      }
-    	
+    public String  save(HttpServletRequest request, HttpServletResponse response, TClient client) {
     	User sessionUser = (User) request.getSession().getAttribute("user");
-      
-        List<TClient> list = tClientService.queryTClientByClientCard(client.getCard());
         
-		if(list.size()>0){
-			writeResponse(response, "400", "此客户账号已使用");
-			return;
-		}
-
+    	System.out.println("===1001===save==="+client.toString());
+    	System.out.println("sessionUser.getId()"+sessionUser.getId());
+        
         boolean save = tClientService.saveTClient(client,sessionUser.getId());
         
         if(save){
-          writeResponse(response, "200", "客户添加成功");
-          return;
+//          writeResponse(response, "200", "客户添加成功");
+        	System.out.println("跳转开始------");
+//        	return "redirect:/customerController/customer";
+          return "index";
         }
+        else{
         writeResponse(response, "400", "客户添加失败");
+    
+        }
+        return "index";
     }
 
 	
@@ -244,22 +255,18 @@ public class TClientController extends BaseController {
      *
      * @param request
      * @param response
+     * @param member
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public void update(HttpServletRequest request, HttpServletResponse response, TClient client) {
     	
-//******  补上：按照权限 来判断是否操作的本部门或者本员工之下的客户、否则不能编辑
-//        //权限判断 1获取user 通过id查询权限
-//        User sessionUser = (User) request.getSession().getAttribute("user");
-//        Long role = userService.selectRole(sessionUser);
-//        if (role.compareTo(3L) == 0) {
-//            writeResponse(response, "400", "该用户无修改权限");
-//            return;
-//        }
     	
     	System.out.println("修改ing====");
+    	System.out.println("update====="+client.toString());
+    	System.out.println("update==id==="+client.getClientId());
     	
-        boolean update = tClientService.update(client);
+    	
+        boolean update = tClientService.updateTClient(client);
         if (update) {
         writeResponse(response, "200", "客户修改成功");
         return;
@@ -268,7 +275,107 @@ public class TClientController extends BaseController {
         writeResponse(response, "400", "客户修改失败");
     }
 
+    
+    
+    
+    
+     private  List<Long> getSubClinentIdMethod(String info){
+		
+		
+		List<String> adList = Arrays.asList(info.split(","));
+		
+		List<Long>  clientIdList = new ArrayList<>();
+ 		
+		for(String  str  : adList ){
+			clientIdList.add(Long.valueOf(str));
+		}
+		return clientIdList;
+	}
+    
 	
+    /**
+     * 删除客户
+     *
+     * @param request
+     * @param response
+     * @param clientId
+     */
+    @RequestMapping(value = "delete/{clientId}", method = RequestMethod.GET)
+  
+    public void delete(HttpServletRequest request, HttpServletResponse response, @PathVariable String clientId) {
+
+    	
+    	System.out.println("clientds=="+clientId);
+    	
+    	
+    	if(!clientId.contains(",")){
+    		
+    		boolean delete = tClientService.deleteByid(Long.valueOf(clientId));
+    	
+    		if(delete){
+    			writeResponse(response, "200", "删除成功"); 
+    		}
+    		else{
+    			writeResponse(response, "400", "删除失败"); 
+    		}
+    		
+    	}
+    	
+    	else{
+    		
+    		System.out.println("进入else");
+    		
+    		List<Long> clientIdList = getSubClinentIdMethod(clientId);
+    		
+    		boolean delete = tClientService.deleteByids(clientIdList);
+    		
+    		if(delete){
+    			writeResponse(response, "200", "删除成功"); 
+    		}
+    		else{
+    			writeResponse(response, "400", "删除失败"); 
+    		}
+    		
+    	}
+    
+    }
 	
 
+    
+    /**
+     * 客戶追蹤信息
+     * @param request
+     * @param response
+     * @param clientId
+     */
+    @RequestMapping("getLog/{clientId}")
+    public void getClientLog(HttpServletRequest request, HttpServletResponse response, @PathVariable Long clientId) {
+    	
+    	
+    	 List<TClientLog> list = tClientService.selectClientInfoByClientId(clientId);
+    	
+    		writeCommonDataResponse(response, "200", "成功", list);
+    	
+    }
+
+    
+    @RequestMapping("saveLog")
+    public void saveClientLog(HttpServletRequest request, HttpServletResponse response,TClientLog tLog){
+    	
+    	boolean flag = tClientService.saveClientLog(tLog);
+    	
+    	if(flag){
+    		
+			writeResponse(response, "200", "添加成功"); 
+		}
+		else{
+			writeResponse(response, "400", "添加失败"); 
+		}
+    	
+    }
+    
+    
+    
+    
+    
 }
