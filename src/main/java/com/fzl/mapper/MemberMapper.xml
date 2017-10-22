@@ -18,10 +18,14 @@
         <result column="TIME" property="time" jdbcType="TIMESTAMP" />
         <result column="OPEN" property="open" jdbcType="VARCHAR" />
         <result column="creat_user_id" property="creatUserId" jdbcType="BIGINT" />
+        <result column="w_phone" property="wPhone" jdbcType="VARCHAR" />
+        <result column="jjlxr" property="jjlxr" jdbcType="VARCHAR" />
+        <result column="jjlxrsj" property="jjlxrsj" jdbcType="VARCHAR" />
+        <result column="ssgx" property="ssgx" jdbcType="VARCHAR" />
     </resultMap>
     <sql id="Base_Column_List" >
         member_id, number, NAME, sex, phone, card, qq, wexin, groups, permissions, qqnc,
-        address, remark, TIME, OPEN, creat_user_id
+        address, remark, TIME, OPEN, creat_user_id, w_phone, jjlxr, jjlxrsj, ssgx
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
         select
@@ -38,14 +42,16 @@
         sex, phone, card, qq,
         wexin, groups, permissions,
         qqnc, address, remark,
-        TIME, OPEN, creat_user_id
-        )
+        TIME, OPEN, creat_user_id,
+        w_phone, jjlxr, jjlxrsj,
+        ssgx)
         values (#{memberId,jdbcType=BIGINT}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
         #{sex,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{card,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR},
         #{wexin,jdbcType=VARCHAR}, #{groups,jdbcType=BIGINT}, #{permissions,jdbcType=BIGINT},
         #{qqnc,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
-        #{time,jdbcType=TIMESTAMP}, #{open,jdbcType=VARCHAR}, #{creatUserId,jdbcType=BIGINT}
-        )
+        #{time,jdbcType=TIMESTAMP}, #{open,jdbcType=VARCHAR}, #{creatUserId,jdbcType=BIGINT},
+        #{wPhone,jdbcType=VARCHAR}, #{jjlxr,jdbcType=VARCHAR}, #{jjlxrsj,jdbcType=VARCHAR},
+        #{ssgx,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.fzl.pojo.Member" >
         insert into member
@@ -98,6 +104,18 @@
             <if test="creatUserId != null" >
                 creat_user_id,
             </if>
+            <if test="wPhone != null" >
+                w_phone,
+            </if>
+            <if test="jjlxr != null" >
+                jjlxr,
+            </if>
+            <if test="jjlxrsj != null" >
+                jjlxrsj,
+            </if>
+            <if test="ssgx != null" >
+                ssgx,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="memberId != null" >
@@ -147,6 +165,18 @@
             </if>
             <if test="creatUserId != null" >
                 #{creatUserId,jdbcType=BIGINT},
+            </if>
+            <if test="wPhone != null" >
+                #{wPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="jjlxr != null" >
+                #{jjlxr,jdbcType=VARCHAR},
+            </if>
+            <if test="jjlxrsj != null" >
+                #{jjlxrsj,jdbcType=VARCHAR},
+            </if>
+            <if test="ssgx != null" >
+                #{ssgx,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -198,6 +228,18 @@
             <if test="creatUserId != null" >
                 creat_user_id = #{creatUserId,jdbcType=BIGINT},
             </if>
+            <if test="wPhone != null" >
+                w_phone = #{wPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="jjlxr != null" >
+                jjlxr = #{jjlxr,jdbcType=VARCHAR},
+            </if>
+            <if test="jjlxrsj != null" >
+                jjlxrsj = #{jjlxrsj,jdbcType=VARCHAR},
+            </if>
+            <if test="ssgx != null" >
+                ssgx = #{ssgx,jdbcType=VARCHAR},
+            </if>
         </set>
         where member_id = #{memberId,jdbcType=BIGINT}
     </update>
@@ -217,7 +259,11 @@
       remark = #{remark,jdbcType=VARCHAR},
       TIME = #{time,jdbcType=TIMESTAMP},
       OPEN = #{open,jdbcType=VARCHAR},
-      creat_user_id = #{creatUserId,jdbcType=BIGINT}
+      creat_user_id = #{creatUserId,jdbcType=BIGINT},
+      w_phone = #{wPhone,jdbcType=VARCHAR},
+      jjlxr = #{jjlxr,jdbcType=VARCHAR},
+      jjlxrsj = #{jjlxrsj,jdbcType=VARCHAR},
+      ssgx = #{ssgx,jdbcType=VARCHAR}
     where member_id = #{memberId,jdbcType=BIGINT}
   </update>
   <select id="queryMemberByuserid" resultMap="BaseResultMap" parameterType="java.lang.Long">
@@ -236,7 +282,11 @@
     m.remark,
     m.TIME,
     m.OPEN,
-    m.creat_user_id
+    m.creat_user_id,
+    m.w_phone,
+    m.jjlxr,
+    m.jjlxrsj,
+    m.sugx
     FROM member m LEFT JOIN user_member um ON m.member_id= um.member_id
     WHERE um.user_id =#{id};
   </select>

@@ -35,6 +35,14 @@ public class Member {
 
     private Long creatUserId;
 
+    private String wPhone;
+
+    private String jjlxr;
+
+    private String jjlxrsj;
+
+    private String ssgx;
+
     public Long getMemberId() {
         return memberId;
     }
@@ -161,5 +169,37 @@ public class Member {
 
     public void setCreatUserId(Long creatUserId) {
         this.creatUserId = creatUserId;
+    }
+
+    public String getwPhone() {
+        return wPhone;
+    }
+
+    public void setwPhone(String wPhone) {
+        this.wPhone = wPhone == null ? null : wPhone.trim();
+    }
+
+    public String getJjlxr() {
+        return jjlxr;
+    }
+
+    public void setJjlxr(String jjlxr) {
+        this.jjlxr = jjlxr == null ? null : jjlxr.trim();
+    }
+
+    public String getJjlxrsj() {
+        return jjlxrsj;
+    }
+
+    public void setJjlxrsj(String jjlxrsj) {
+        this.jjlxrsj = jjlxrsj == null ? null : jjlxrsj.trim();
+    }
+
+    public String getSsgx() {
+        return ssgx;
+    }
+
+    public void setSsgx(String ssgx) {
+        this.ssgx = ssgx == null ? null : ssgx.trim();
     }
 }
