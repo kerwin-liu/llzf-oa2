@@ -106,17 +106,17 @@
             </span>
                 <span class="item-two">
                 <label>组别:</label>
-                     <input id="groups" name="groups" value="">
+                     <input id="groups" name="groups" value="" data-options="required:true" >
             </span>
             </div>
             <div class="fitem">
           <span class="item-one">
                  <label>权限:</label>
-              <input id="permissions" name="permissions" value="">
+              <input id="permissions" name="permissions" value="" data-options="required:true" >
             </span>
                 <span class="item-two">
                 <label>性别:</label>
-               <select id="sex" class="easyui-combobox" name="sex" data-options="required:true"  class="easyui-validatebox sex" size="20">
+               <select id="sex" class="easyui-combobox" name="sex" data-options="required:true"  class="easyui-validatebox sex" size="20" select="0">
 
                 </select>
            </span>
