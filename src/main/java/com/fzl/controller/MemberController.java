@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/10/16.
@@ -53,6 +54,28 @@ public class MemberController extends BaseController {
         if (role.compareTo(1L) == 0) {
             Pages<Member> pages = memberService.queryMemberByDepartment(memberQo);
             writeCommonDataResponse(response, "200", "查询成功", pages);
+            return;
+        }
+    }
+    @RequestMapping(value = "getAll", method = RequestMethod.POST)
+    public void getAll(HttpServletRequest request, HttpServletResponse response, MemberQo memberQo) {
+        //权限：员工只能查看自己的，主管只能查看本部门的，管理员查看全部的
+        User sessionUser = (User) request.getSession().getAttribute("user");
+        Long role = userService.selectRole(sessionUser);
+        //管理员和主管可以增加员工 员工级别的不能添加员工
+        if (role.compareTo(3L) == 0) {
+            Member member = userService.queryMember(sessionUser.getId());
+            writeCommonDataResponse(response, "200", "查询成功", member);
+            return;
+        }
+        if (role.compareTo(2L) == 0) {
+            List<Member> members = memberService.queryMemberByDepartmentALl(memberQo, sessionUser.getId());
+            writeCommonDataResponse(response, "200", "查询成功",members );
+            return;
+        }
+        if (role.compareTo(1L) == 0) {
+            List<Member> members = memberService.queryMemberByDepartmentAll(memberQo);
+            writeCommonDataResponse(response, "200", "查询成功", members);
             return;
         }
     }
