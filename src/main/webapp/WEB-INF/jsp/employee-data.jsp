@@ -80,10 +80,10 @@
         <a id="btn7" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">密码重置</a>
     </div>
     <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
+        编号:<input id="number" type="text" style="width:80px;"/>
         姓名：<input id="name" type="text" style="width:80px;"/>
         手机:<input id="phone" type="text" style="width:80px;"/>
-        QQ:<input id="qq" type="text" style="width:80px;"/>
-        身份证号:<select id="card" type="text" style="width:80px;"></select>
+        身份证号:<input id="card" type="text" style="width:80px;"></input>
         日期:<input id="historyTime" type="text" name="historySearchTime" readonly="readonly" style="width:80px;"/>
         至 <input id="nowTime" type="text" name="nowSearchTime" readonly="readonly" style="width:80px;"/>
         <a id="btn8" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">点击选择</a>
@@ -372,7 +372,7 @@
             var data={};
             data["name"]=$("#name").val();
             data["phone"]=$("#phone").val();
-            data['qq']=$("#qq").val();
+            data['number']=$("#number").val();
             data["card"]=$("#card").val();
             data["time"]=$("#time").val();
             $.ajax({
