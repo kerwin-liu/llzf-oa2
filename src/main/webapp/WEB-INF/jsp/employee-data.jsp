@@ -133,6 +133,16 @@
             </div>
             <div class="fitem">
            <span class="item-one">
+                <label>微信号:</label>
+                <input name="wexin" class="wexin">
+           </span>
+                <span class="item-two">
+                 <label>绑定手机:</label>
+                <input name="wPhone" class="wPhone">
+            </span>
+            </div>
+            <div class="fitem">
+           <span class="item-one">
                 <label>QQ:</label>
                 <input name="qq" class="qq">
            </span>
@@ -153,6 +163,21 @@
                 <label>备注:</label>
                 <input name="remark" class="remark" size="53">
             </div>
+            <div class="fitem">
+           <span class="item-one">
+                <label>紧急联系人:</label>
+                <input name="jjlxr" class="jjlxr">
+           </span>
+                <span class="item-two">
+                 <label>手机号:</label>
+                <input name="jjlxrsj" class="jjlxrsj">
+            </span>
+            </div>
+            <div class="fitem">
+                <label>所属关系:</label>
+                <input name="ssgx" class="ssgx" size="53">
+            </div>
+
         </form>
         <div id="dlg-buttons">
             <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
@@ -295,7 +320,15 @@
                     }
                     return open;
                 }},
-                {field: 'group', title: '管理分组', width: 100, align: 'center'},
+                {field: 'groups', title: '管理分组', width: 100, align: 'center',formatter:function(value, row, index){
+                    var groups="";
+                    if(row.groups==1){
+                        groups="部门一";
+                    }else if(row.groups==2){
+                        groups="部门二";
+                    }
+                    return groups;
+                }},
                 {
                     field: 'obj', title: '操作', align: 'center', width: 28, formatter: function (value, row, index) {
                     return "<a id='de' onclick=deletes('" + row.memberId + "')>删除</a>";
@@ -450,9 +483,12 @@
     function saveUser() {
         var data = {};
         data["number"] = $(".number").val();
-        data["groups"] = $('#groups').find("option:selected").val();
-        data["permissions"]=$('#permissions').find("option:selected").val();
-        data["sex"]=$('#sex').find("option:selected").val();
+//        data["groups"] = $('#groups').find("option:selected").val();
+//        data["permissions"]=$('#permissions').find("option:selected").val();
+//        data["sex"]=$('#sex').find("option:selected").val();
+        data["groups"] = $('#groups').val();
+        data["permissions"]=$('#permissions').val();
+        data["sex"]=$('#sex').val();
         data["name"]=$(".name").val();
         data["phone"]=$(".phone").val();
         data["qq"]=$(".qq").val();
@@ -460,6 +496,11 @@
         data["card"]=$(".card").val();
         data["address"]=$(".address").val();
         data["remark"]=$(".remark").val();
+        data["wexin"]=$(".wexin").val();
+        data["wPhone"]=$(".wPhone").val();
+        data["jjlxr"]=$(".jjlxr").val();
+        data["jjlxrsj"]=$(".jjlxrsj").val();
+        data["ssgx"]=$(".ssgx").val();
         $.ajax({
             url: url,
             dataType: 'json',
