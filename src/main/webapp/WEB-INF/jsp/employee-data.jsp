@@ -80,10 +80,10 @@
         <a id="btn7" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">密码重置</a>
     </div>
     <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
+        编号:<input id="number" type="text" style="width:80px;"/>
         姓名：<input id="name" type="text" style="width:80px;"/>
         手机:<input id="phone" type="text" style="width:80px;"/>
-        QQ:<input id="qq" type="text" style="width:80px;"/>
-        身份证号:<select id="card" type="text" style="width:80px;"></select>
+        身份证号:<input id="card" type="text" style="width:80px;"></input>
         日期:<input id="historyTime" type="text" name="historySearchTime" readonly="readonly" style="width:80px;"/>
         至 <input id="nowTime" type="text" name="nowSearchTime" readonly="readonly" style="width:80px;"/>
         <a id="btn8" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">点击选择</a>
@@ -106,17 +106,17 @@
             </span>
                 <span class="item-two">
                 <label>组别:</label>
-                     <input id="groups" name="groups" value="">
+                     <input id="groups" name="groups" value="" data-options="required:true" >
             </span>
             </div>
             <div class="fitem">
           <span class="item-one">
                  <label>权限:</label>
-              <input id="permissions" name="permissions" value="">
+              <input id="permissions" name="permissions" value="" data-options="required:true" >
             </span>
                 <span class="item-two">
                 <label>性别:</label>
-               <select id="sex" class="easyui-combobox" name="sex" data-options="required:true"  class="easyui-validatebox sex" size="20">
+               <select id="sex" class="easyui-combobox" name="sex" data-options="required:true"  class="easyui-validatebox sex" size="20" select="0">
 
                 </select>
            </span>
@@ -129,6 +129,16 @@
                 <span class="item-two">
                  <label>手机:</label>
                 <input value="123455" name="phone" class="easyui-validatebox textbox phone" required="true">
+            </span>
+            </div>
+            <div class="fitem">
+           <span class="item-one">
+                <label>微信号:</label>
+                <input name="wexin" class="wexin">
+           </span>
+                <span class="item-two">
+                 <label>绑定手机:</label>
+                <input name="wPhone" class="wPhone">
             </span>
             </div>
             <div class="fitem">
@@ -153,6 +163,21 @@
                 <label>备注:</label>
                 <input name="remark" class="remark" size="53">
             </div>
+            <div class="fitem">
+           <span class="item-one">
+                <label>紧急联系人:</label>
+                <input name="jjlxr" class="jjlxr">
+           </span>
+                <span class="item-two">
+                 <label>手机号:</label>
+                <input name="jjlxrsj" class="jjlxrsj">
+            </span>
+            </div>
+            <div class="fitem">
+                <label>所属关系:</label>
+                <input name="ssgx" class="ssgx" size="53">
+            </div>
+
         </form>
         <div id="dlg-buttons">
             <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
@@ -295,7 +320,15 @@
                     }
                     return open;
                 }},
-                {field: 'group', title: '管理分组', width: 100, align: 'center'},
+                {field: 'groups', title: '管理分组', width: 100, align: 'center',formatter:function(value, row, index){
+                    var groups="";
+                    if(row.groups==1){
+                        groups="部门一";
+                    }else if(row.groups==2){
+                        groups="部门二";
+                    }
+                    return groups;
+                }},
                 {
                     field: 'obj', title: '操作', align: 'center', width: 28, formatter: function (value, row, index) {
                     return "<a id='de' onclick=deletes('" + row.memberId + "')>删除</a>";
@@ -339,7 +372,7 @@
             var data={};
             data["name"]=$("#name").val();
             data["phone"]=$("#phone").val();
-            data['qq']=$("#qq").val();
+            data['number']=$("#number").val();
             data["card"]=$("#card").val();
             data["time"]=$("#time").val();
             $.ajax({
@@ -450,9 +483,12 @@
     function saveUser() {
         var data = {};
         data["number"] = $(".number").val();
-        data["groups"] = $('#groups').find("option:selected").val();
-        data["permissions"]=$('#permissions').find("option:selected").val();
-        data["sex"]=$('#sex').find("option:selected").val();
+//        data["groups"] = $('#groups').find("option:selected").val();
+//        data["permissions"]=$('#permissions').find("option:selected").val();
+//        data["sex"]=$('#sex').find("option:selected").val();
+        data["groups"] = $('#groups').val();
+        data["permissions"]=$('#permissions').val();
+        data["sex"]=$('#sex').val();
         data["name"]=$(".name").val();
         data["phone"]=$(".phone").val();
         data["qq"]=$(".qq").val();
@@ -460,6 +496,11 @@
         data["card"]=$(".card").val();
         data["address"]=$(".address").val();
         data["remark"]=$(".remark").val();
+        data["wexin"]=$(".wexin").val();
+        data["wPhone"]=$(".wPhone").val();
+        data["jjlxr"]=$(".jjlxr").val();
+        data["jjlxrsj"]=$(".jjlxrsj").val();
+        data["ssgx"]=$(".ssgx").val();
         $.ajax({
             url: url,
             dataType: 'json',
