@@ -18,7 +18,7 @@
         客户信息
     </div>
     <div style="width: 100%;height: 89%;border: 0px solid red">
-        <input id="id" />
+        <input id="id" style="display: none;"/>
         <table border="0" style="height: 80%">
             <tr style="width: 100%">
                 <td style="width: 27%">业务员:</td>

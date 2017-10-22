@@ -164,4 +164,29 @@ public interface TClientService {
 	 */
 	boolean saveClientLog(TClientLog tLog);
 
+
+	/**
+	 * 成交客户-单选
+	 * @param id
+	 * @return
+	 */
+	boolean  updatByClientId(Long id);
+
+
+
+	/**
+	 * 成交客户-多选
+	 * @param ids
+	 * @return
+	 */
+	boolean  updatByClientIds(List<Long> ids);
+
+
+	/**
+	 * 展示所有成交客户
+	 * @return
+	 */
+	List<TClient>  queryByIp();
+
+
 }

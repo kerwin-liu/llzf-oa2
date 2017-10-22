@@ -74,22 +74,24 @@
         });
 
         select1();
+        loadEmployee2();
         loadData1();
         //loadData2();
     })
 
     //左侧员工下拉框
     function select1(){
-        var value_1 = $("#employee2").val(),value_2=$("#type").val();
+       // var value_1 = $("#employee2").val(),value_2=$("#type").val();
         //需要进行判断 当value_1是NULL的时候 加载全部 还需要根据当前登录用户的信息进行筛选他所属的 客户
-        var url=""+value_1+","+value_2;
+        var url="/member/getList?pageIndex=1&pageSize=10";
         $.ajax({
-            url:'',
+            url:url,
             type:'POST',//OR GET
             dataType:'json',
             success:function(data){
                 if(data.code==200){
                     var value = data.date.result;
+                    console.log(value);
                     $("#employee1").children().remove();
                     for (var i = 0 ; i < value.length ; i++){
                         $("#employee1").append("<option value='"+value[i].id+"'>"+value[i].name+"</option>");
@@ -105,8 +107,8 @@
     
     //联动右侧员工
     function loadEmployee2(){
-        var value_1 = $("#employee1").val(),value_2=$("#type").val();;
-        var url=""+value_1+","+value_2;
+        //var value_1 = $("#employee1").val(),value_2=$("#type").val();;
+        var url="/member/getList?pageIndex=1&pageSize=10";
         $.ajax({
             url:url,
             type:'POST',//OR GET

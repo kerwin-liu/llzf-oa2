@@ -22,7 +22,7 @@
 <body>
 <form id="from" action="/saveLog" target="hidden_frame">
     <div class="ftitle">追踪信息</div>
-    <input id="clientId" type="text" name="clientId" />
+    <input id="clientId" type="text" name="clientId" style="display: none;"/>
     <div class="fitem">
             <span class="item-one">
                 <label>时间:</label>

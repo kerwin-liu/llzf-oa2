@@ -461,7 +461,7 @@
 	if(!window.console){
 		window.console = {};
 		window.console.log = function(data){
-			window.alert(data)
+
 		}
 		//add by rbai(增加time和timeEnd性能测试函数) 
 		if(!window.console.time){

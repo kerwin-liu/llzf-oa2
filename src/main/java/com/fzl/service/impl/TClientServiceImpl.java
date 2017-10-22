@@ -478,4 +478,46 @@ criteria.andClientIdEqualTo(id);
 		
 	}
 
+
+	@Override
+	public boolean  updatByClientId(Long ids){
+
+		TClient  client = tClientMapper.selectByPrimaryKey(ids);
+		client.setIp("2");//2表示成交  1表示未成交
+
+		return tClientMapper.updateByPrimaryKey(client) == 1 ? true :false;
+	}
+
+	@Override
+	public boolean  updatByClientIds(List<Long> ids){
+
+
+		for(int i = 0 ; i <ids.size() ; i ++){
+			TClient  client = tClientMapper.selectByPrimaryKey(ids.get(i));
+			client.setIp("2");//2表示成交  1表示未成交
+
+			tClientMapper.updateByPrimaryKey(client) ;
+
+		}
+
+
+		return true;
+	}
+
+
+
+	@Override
+	public  List<TClient>  queryByIp(){
+
+		TClientExample example = new TClientExample();
+		example.createCriteria().andIpEqualTo("2");
+		return   tClientMapper.selectByExample(example);
+
+	}
+
+
+
+
+
+
 }

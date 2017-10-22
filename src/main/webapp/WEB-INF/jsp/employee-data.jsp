@@ -361,7 +361,7 @@
             if(row){
                 $.post('/user/creat/'+row.memberId,{} , function (result) {
                     if (result.code == 200) {
-                        alert(result.msg);
+
                         tbdata();
                     } else {
                         alert(result.msg);

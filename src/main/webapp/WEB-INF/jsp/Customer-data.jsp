@@ -55,35 +55,34 @@
     </style>
 </head>
 <body>
-<div class="datagrid-toolbar" style="height: 80px;width: 100%;border: 0px solid red;">
+<div class="datagrid-toolbar" style="height: 60px;width: 100%;border: 0px solid red;">
 
-        <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
             <a id="btn1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加客户</a>
         </div>
-        <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
             <a id="btn2" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改资料</a>
         </div>
-       <%--
-            <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-            <a id="btn3" href="ss" class="easyui-linkbutton" data-options="iconCls:'icon-clear'">拉黑</a>
-            </div>
-        --%>
-        <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+
+        <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn3" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear'">成交客户</a>
+        </div>
+
+        <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
             <a id="btn4" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-large-shapes'">客户追踪</a>
         </div>
-        <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
             <a id="btn5" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">删除客户</a>
         </div>
-        <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
             <a id="btn6" href="/client/exportExcel" class="easyui-linkbutton" data-options="iconCls:'icon-add'">数据导出</a>
         </div>
-    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+    <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
         <a id="btn9" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">数据导入</a>
     </div>
 
         <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
-            类型:<select id="type" style="width:80px;"></select>
-            产品:<select id="c" style="width:80px;"></select>
+            客户类型:<select id="type" style="width:80px;"></select>
             姓名：<input id="name" type="text" style="width:80px;"/>
             手机:<input type="text" style="width:80px;"/>
             QQ:<input type="text" style="width:80px;"/>
@@ -150,6 +149,17 @@
                     return type;
                 }},
                 {field: 'memerId', title: '负责人', width: 100, align: 'center'},
+                {field: 'ip', title: '是否成交', width: 100, align: 'center',formatter:function(value, row, index){
+                    var type="";
+                    if(value==1){
+                        type="未成交";
+                    }
+                    if(value==2){
+                        type="已成交";
+                    }
+
+                    return type;
+                }},
                 {field: 'remark', title: '备注', width: 100, align: 'center'},
                 {field: 'time', title: '归档日期', width: 150, align: 'center',formatter:function(value, row, index){
                 var time = new Date(value);
@@ -180,7 +190,6 @@
                 gridOpts.pageNumber = pageNumber;
                 gridOpts.pageSize = pageSize;
                 findDataByWhere("dg", pageNumber, pageSize);
-
             }
         });
        $('#dg').datagrid('getPager').pagination({
@@ -199,20 +208,52 @@
         $("#btn2").click(function(){
             updata();
         });
+        $("#btn3").click(function(){
+            truns();
+        });
         $("#btn4").click(function(){
             trace();
         });
         $("#btn5").click(function(){
             deletes();
         });
-       /* $("#btn6").click(function(){
+       $("#btn6").click(function(){
             exports();
-        });*/
+        });
         $("#btn9").click(function(){
             imports();
         });
         tbdata();
         });
+
+    function truns(){
+        var rows= $("#dg").datagrid("getSelections");
+        if(rows.length==0){
+            tip("请选择一条数据进行修改");
+        }else{
+            var id="";
+            for (var i=0;i<rows.length;i++){
+                id +=rows[i].clientId+",";
+            }
+            id = id.substring(0,id.length-1);
+            var url="/client/turnClient/"+id;
+            $.messager.confirm('确定', '你确定要成交吗?', function (r) {
+                if (r) {
+                    $.ajax({
+                        url: url,
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.code == 200) {
+                                tbdata();
+                            } else {
+                                tip(data.msg);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
 
 function updata(){
     var rows= $("#dg").datagrid("getSelections");

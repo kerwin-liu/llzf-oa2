@@ -22,7 +22,7 @@
 <body>
 <form id="from" action="/client/update" method="post" target="hidden_frame">
     <div class="ftitle">客户信息</div>
-    <input id="clientId" name="CliendId" />
+    <input id="clientId" name="clientId" style="display: none;"/>
     <div class="fitem">
             <span class="item-one">
                 <label>姓名:</label>

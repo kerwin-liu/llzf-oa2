@@ -131,8 +131,7 @@ public class TClientController extends BaseController {
 
 	/**
 	 * 导入Excel
-	 * 
-	 * @param importFile
+	 *
 	 *            导入的Excel文件路径
 	 * @return null ====这里有可能换为列表页面“list”
 	 */
@@ -222,7 +221,7 @@ public class TClientController extends BaseController {
      *
      * @param request
      * @param response
-     * @param member
+
      */
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public String  save(HttpServletRequest request, HttpServletResponse response, TClient client) {
@@ -255,7 +254,6 @@ public class TClientController extends BaseController {
      *
      * @param request
      * @param response
-     * @param member
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public void update(HttpServletRequest request, HttpServletResponse response, TClient client) {
@@ -361,7 +359,8 @@ public class TClientController extends BaseController {
     
     @RequestMapping("saveLog")
     public void saveClientLog(HttpServletRequest request, HttpServletResponse response,TClientLog tLog){
-    	
+
+    	System.err.println(tLog.getClientId());
     	boolean flag = tClientService.saveClientLog(tLog);
     	
     	if(flag){
@@ -374,8 +373,54 @@ public class TClientController extends BaseController {
     	
     }
     
-    
-    
-    
-    
+
+
+
+
+
+    @RequestMapping("turnClient/{message}")
+	public void  turnClientInfo(HttpServletRequest request, HttpServletResponse response,@PathVariable String message){
+
+
+    if(!message.contains(",")){
+
+		 boolean  flag = tClientService.updatByClientId(Long.valueOf(message));
+
+		 if(flag){
+			 writeResponse(response, "200", "修改成功");
+		 }else{
+			 writeResponse(response, "400", "修改失败");
+		 }
+
+
+	}
+	else{
+
+
+    	List<Long> list = getSubClinentIdMethod(message);
+
+    	boolean flag =  tClientService.updatByClientIds(list);
+
+		if(flag){
+			writeResponse(response, "200", "修改成功");
+		}else{
+			writeResponse(response, "400", "修改失败");
+		}
+	}
+
+
+	}
+
+
+
+	@RequestMapping("queryAllIpAs2")
+	public void  getClientByIp(HttpServletRequest request, HttpServletResponse response){
+
+
+			List<TClient> list = tClientService.queryByIp();
+
+		writeCommonDataResponse(response, "200", "查询成功", list);
+
+
+		}
 }
