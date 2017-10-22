@@ -41,7 +41,7 @@ public class Member {
 
     private String jjlxrsj;
 
-    private String ssgx;
+    private String sugx;
 
     public Long getMemberId() {
         return memberId;
@@ -195,11 +195,11 @@ public class Member {
         this.jjlxrsj = jjlxrsj == null ? null : jjlxrsj.trim();
     }
 
-    public String getSsgx() {
-        return ssgx;
+    public String getSugx() {
+        return sugx;
     }
 
-    public void setSsgx(String ssgx) {
-        this.ssgx = ssgx == null ? null : ssgx.trim();
+    public void setSugx(String sugx) {
+        this.sugx = sugx;
     }
 }

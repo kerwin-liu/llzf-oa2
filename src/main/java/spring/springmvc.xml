@@ -14,6 +14,7 @@
 	<mvc:resources location="/js/" mapping="/js/**" />
 	<mvc:resources location="/css/" mapping="/css/**" />
 	<mvc:resources location="/images/" mapping="/images/**" />
+
 	<mvc:resources location="/WEB-INF/jsp" mapping="/WEB-INF/jsp/login.jsp" />
 	<!--<mvc:interceptors>-->
 		<!--&lt;!&ndash; <mvc:interceptor>-->

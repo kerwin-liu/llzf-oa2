@@ -28,7 +28,7 @@ public class LoginFilter implements Filter {
         String url = request.getRequestURI();
         System.out.println("filter url:" + url);
         User user = (User) session.getAttribute("user");
-        if (url.endsWith(".css") || url.endsWith(".js") || url.endsWith(".png")) {
+        if (url.endsWith(".css") || url.endsWith(".js") || url.endsWith(".png")||url.endsWith(".gif")||url.endsWith(".jpg")||url.endsWith(".xls")) {
             filterChain.doFilter(request, response);
         } else if (user == null) {
             if(url.equals("/login")){
