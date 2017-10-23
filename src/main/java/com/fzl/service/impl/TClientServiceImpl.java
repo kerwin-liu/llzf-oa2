@@ -508,16 +508,14 @@ criteria.andClientIdEqualTo(id);
 
 	@Override
 	public  List<TClient>  queryByIp(){
-
 		TClientExample example = new TClientExample();
 		example.createCriteria().andIpEqualTo("2");
 		return   tClientMapper.selectByExample(example);
-
 	}
 
+	@Override
+	public List<TClient> getSqlMohu(TClientQo tClientQo) {
+		return 	tClientMapper.selectClientsByTClientQo(tClientQo);
 
-
-
-
-
+	}
 }
