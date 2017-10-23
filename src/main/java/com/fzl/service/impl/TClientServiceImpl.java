@@ -400,7 +400,6 @@ public class TClientServiceImpl implements TClientService {
 
 	@Override
 	public boolean saveTClient(TClient client, Long id) {
-
 		client.setMemberId(id);
 		client.setClientId(IDUtils.getId());
 		return tClientMapper.insert(client) == 1 ? true : false;
@@ -514,8 +513,10 @@ criteria.andClientIdEqualTo(id);
 	}
 
 	@Override
-	public List<TClient> getSqlMohu(TClientQo tClientQo) {
-		return 	tClientMapper.selectClientsByTClientQo(tClientQo);
-
+	public Pages<TClient> getSqlMohu(TClientQo tClientQo) {
+		PageHelper.startPage(tClientQo.getPageIndex(), tClientQo.getPageSize());
+		List<TClient> list = tClientMapper.selectClientsByTClientQo(tClientQo);
+		Page<TClient> page = (Page<TClient>) list;
+		return new Pages<>(page.getStartRow(), page.getTotal(), page.getPageSize(), list);
 	}
 }

@@ -236,10 +236,11 @@
                 timeStart=$("#timeStart").val(),
                 timeEnd=$("#timeEnd").val(),
                 clientId=$("#employee1").val();
-            var data={"type":type,"name":name,"type":type,"qq":qq,"timeStart":timeStart,"timeEnd":timeEnd,"clientId":clientId};
+            var data={"type":type,"name":name,"phone":phone,"type":type,"qq":qq,"timeStart":timeStart,"timeEnd":timeEnd,"memberId":clientId};
            console.log(data);
             $.ajax({
                 url:'/client/sqlMoHu',
+                type:'POST',//OR GET
                 data:data,
                 dataType:'json',
                 success:function(data){

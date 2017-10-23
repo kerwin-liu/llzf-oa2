@@ -166,7 +166,6 @@ public class TClientController extends BaseController {
     @RequestMapping(value = "getList", method = RequestMethod.POST)
     public void getClientList(HttpServletRequest request,
                               HttpServletResponse response, TClientQo tClientQo) {
-
         User sessionUser = (User) request.getSession().getAttribute("user");
         Long role = userService.selectRole(sessionUser);
         System.out.println("1001====");
@@ -203,12 +202,7 @@ public class TClientController extends BaseController {
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public String save(HttpServletRequest request, HttpServletResponse response, TClient client) {
         User sessionUser = (User) request.getSession().getAttribute("user");
-
-        System.out.println("===1001===save===" + client.toString());
-        System.out.println("sessionUser.getId()" + sessionUser.getId());
-
         boolean save = tClientService.saveTClient(client, sessionUser.getId());
-
         if (save) {
 //          writeResponse(response, "200", "客户添加成功");
             System.out.println("跳转开始------");
@@ -216,7 +210,6 @@ public class TClientController extends BaseController {
             return "index";
         } else {
             writeResponse(response, "400", "客户添加失败");
-
         }
         return "index";
     }
@@ -230,36 +223,23 @@ public class TClientController extends BaseController {
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public void update(HttpServletRequest request, HttpServletResponse response, TClient client) {
-
-
-        System.out.println("修改ing====");
-        System.out.println("update=====" + client.toString());
-        System.out.println("update==id===" + client.getClientId());
-
-
         boolean update = tClientService.updateTClient(client);
         if (update) {
             writeResponse(response, "200", "客户修改成功");
             return;
         }
-
         writeResponse(response, "400", "客户修改失败");
     }
 
 
     private List<Long> getSubClinentIdMethod(String info) {
-
-
         List<String> adList = Arrays.asList(info.split(","));
-
         List<Long> clientIdList = new ArrayList<>();
-
         for (String str : adList) {
             clientIdList.add(Long.valueOf(str));
         }
         return clientIdList;
     }
-
 
     /**
      * 删除客户
@@ -271,37 +251,24 @@ public class TClientController extends BaseController {
     @RequestMapping(value = "delete/{clientId}", method = RequestMethod.GET)
 
     public void delete(HttpServletRequest request, HttpServletResponse response, @PathVariable String clientId) {
-
-
         System.out.println("clientds==" + clientId);
-
-
         if (!clientId.contains(",")) {
-
             boolean delete = tClientService.deleteByid(Long.valueOf(clientId));
-
             if (delete) {
                 writeResponse(response, "200", "删除成功");
             } else {
                 writeResponse(response, "400", "删除失败");
             }
-
         } else {
-
             System.out.println("进入else");
-
             List<Long> clientIdList = getSubClinentIdMethod(clientId);
-
             boolean delete = tClientService.deleteByids(clientIdList);
-
             if (delete) {
                 writeResponse(response, "200", "删除成功");
             } else {
                 writeResponse(response, "400", "删除失败");
             }
-
         }
-
     }
 
 
@@ -314,61 +281,40 @@ public class TClientController extends BaseController {
      */
     @RequestMapping("getLog/{clientId}")
     public void getClientLog(HttpServletRequest request, HttpServletResponse response, @PathVariable Long clientId) {
-
-
         List<TClientLog> list = tClientService.selectClientInfoByClientId(clientId);
-
         writeCommonDataResponse(response, "200", "成功", list);
-
     }
 
 
     @RequestMapping("saveLog")
     public void saveClientLog(HttpServletRequest request, HttpServletResponse response, TClientLog tLog) {
-
         System.err.println(tLog.getClientId());
         boolean flag = tClientService.saveClientLog(tLog);
-
         if (flag) {
-
             writeResponse(response, "200", "添加成功");
         } else {
             writeResponse(response, "400", "添加失败");
         }
-
     }
-
 
     @RequestMapping("turnClient/{message}")
     public void turnClientInfo(HttpServletRequest request, HttpServletResponse response, @PathVariable String message) {
-
-
         if (!message.contains(",")) {
-
             boolean flag = tClientService.updatByClientId(Long.valueOf(message));
-
             if (flag) {
                 writeResponse(response, "200", "修改成功");
             } else {
                 writeResponse(response, "400", "修改失败");
             }
-
-
         } else {
-
-
             List<Long> list = getSubClinentIdMethod(message);
-
             boolean flag = tClientService.updatByClientIds(list);
-
             if (flag) {
                 writeResponse(response, "200", "修改成功");
             } else {
                 writeResponse(response, "400", "修改失败");
             }
         }
-
-
     }
 
 
@@ -380,7 +326,7 @@ public class TClientController extends BaseController {
 
     @RequestMapping(value = "sqlMoHu", method = RequestMethod.POST)
     public void getSqlMohu(HttpServletRequest request, HttpServletResponse response, TClientQo tClientQo) {
-        List<TClient> list = tClientService.getSqlMohu(tClientQo);
-        writeCommonDataResponse(response, "200", "查询成功", list);
+        Pages<TClient> pages = tClientService.getSqlMohu(tClientQo);
+        writeCommonDataResponse(response, "200", "查询成功", pages);
     }
 }

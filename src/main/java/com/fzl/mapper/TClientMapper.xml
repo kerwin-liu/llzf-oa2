@@ -416,6 +416,9 @@
         <if test="qq != null and qq != ''">
             AND number =#{number}
         </if>
+        <if test="memberId != null and memberId != ''">
+            AND member_id =#{memberId}
+        </if>
         <if test="timeStart != null and timeStart != ''">
             AND TIME &gt;= #{timeStart}
         </if>

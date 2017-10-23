@@ -1,7 +1,5 @@
 package com.fzl.pojo.Qo;
 
-import java.util.Date;
-
 public class TClientQo extends BaseQuery{
     private Long clientId;
 
