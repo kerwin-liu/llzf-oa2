@@ -198,10 +198,12 @@
             }
         });
        $('#dg').datagrid('getPager').pagination({
+           pageSize:30,
+            pageList:[30,50,100],
             beforePageText : '',
             afterPageText : '/{pages}',
             displayMsg : '{from}-{to}共{total}条',
-            showPageList : false,
+            showPageList : true,
             showRefresh : true
         });
 

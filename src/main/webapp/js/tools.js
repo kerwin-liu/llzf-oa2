@@ -103,8 +103,13 @@ function saveObj(obj) {
 			saveObj($(from[i].parentNode));
 		}else{
 			if(sub(c.children("#from"))){
-				c.children("#from").submit();
-				c.dialog('close');
+                var ss=c.children("#from").form('validate');
+                if(ss){
+                	return;
+				}else{
+                    c.children("#from").submit();
+                    c.dialog('close');
+				}
 			}
 			return;
 		}
