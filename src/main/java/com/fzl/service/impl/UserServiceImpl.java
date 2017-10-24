@@ -42,7 +42,8 @@ public class UserServiceImpl implements UserService {
         //用户信息入库
         User user = new User();
         user.setId(IDUtils.getId());
-        user.setUserName(RandomStringUtils.randomAlphabetic(6));
+        Member member1 = memberMapper.queryMemberByuserid(memberId);
+        user.setUserName(member1.getNumber());
         user.setPassword(RandomStringUtils.randomNumeric(6));
         user.setCreatUserId(creatId);
         int insert1 = userMapper.insertSelective(user);
