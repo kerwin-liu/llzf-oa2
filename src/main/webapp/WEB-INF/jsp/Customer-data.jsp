@@ -244,7 +244,7 @@
             tbdata();
         });
         $("#btn10").click(function(){
-            var rows= $("#dg").datagrid("getSelections");
+            var rows= $("#dg").datagrid("");
             if(rows.length==0){
                 tip("请选择一条数据进行修改");
             }else {
