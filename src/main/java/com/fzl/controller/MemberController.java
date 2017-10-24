@@ -4,6 +4,7 @@ import com.fzl.common.Pages;
 import com.fzl.pojo.Member;
 import com.fzl.pojo.Qo.MemberQo;
 import com.fzl.pojo.User;
+import com.fzl.pojo.Vo.MemberVo;
 import com.fzl.service.MemberService;
 import com.fzl.service.UserService;
 import org.slf4j.Logger;
@@ -42,8 +43,8 @@ public class MemberController extends BaseController {
         Long role = userService.selectRole(sessionUser);
         //管理员和主管可以增加员工 员工级别的不能添加员工
         if (role.compareTo(3L) == 0) {
-            Member member = userService.queryMember(sessionUser.getId());
-            writeCommonDataResponse(response, "200", "查询成功", member);
+            MemberVo memberVo = userService.queryMemberVo(sessionUser.getId());
+            writeCommonDataResponse(response, "200", "查询成功", memberVo);
             return;
         }
         if (role.compareTo(2L) == 0) {

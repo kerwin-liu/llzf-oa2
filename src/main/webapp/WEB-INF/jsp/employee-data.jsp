@@ -42,15 +42,15 @@
 
         .fitem label {
             display: inline-block;
-            width: 50px;
+            width: 70px;
         }
-
         .item-one {
-            width: 200px;
+            width: 300px;
+            padding-left: 10px;
         }
 
         .item-two {
-            width: 200px;
+            width: 300px;
         }
 
         select {
@@ -61,130 +61,39 @@
 <body>
 <div class="datagrid-toolbar" style="height: 60px;width: 100%;border: 0px solid red;">
 
-    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a id="btn1" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="newUser()">添加员工</a>
+    <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn1" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加员工</a>
     </div>
-    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a onclick="editUser()" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改</a>
+    <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn2" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改</a>
     </div>
-    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a id="btn5" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="removeUser()">删除员工</a>
+    <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn3" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="removeUser()">删除员工</a>
     </div>
-    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a id="btn10" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">开通</a>
+    <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn4" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">开通</a>
     </div>
-    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a id="btn9" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">查看密码</a>
+    <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn5" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">查看密码</a>
     </div>
-    <div style="width: 14%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a id="btn7" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">密码重置</a>
+    <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn6" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">密码重置</a>
+    </div>
+    <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <a id="btn11" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">返回</a>
     </div>
     <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
         编号:<input id="number" type="text" style="width:80px;"/>
         姓名：<input id="name" type="text" style="width:80px;"/>
         手机:<input id="phone" type="text" style="width:80px;"/>
         身份证号:<input id="card" type="text" style="width:80px;"></input>
-        日期:<input id="historyTime" type="text" name="historySearchTime" readonly="readonly" style="width:80px;"/>
-        至 <input id="nowTime" type="text" name="nowSearchTime" readonly="readonly" style="width:80px;"/>
-        <a id="btn8" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">点击选择</a>
+        <a id="btn7" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">点击搜索</a>
     </div>
 
 
 </div>
 <div style="height: 105%;width: 100%;border: 0px solid red;float: left;margin-left: -18px;margin-top: -18px">
     <table id="dg" style="height: 100px;width: 100px;"></table>
-</div>
-<div class="dlg-div" style="display: none;">
-    <div id="dlg" class="easyui-dialog" style="width:600px;height:320px;padding:10px 20px"
-         closed="true" buttons="#dlg-buttons">
-        <div class="ftitle">员工信息</div>
-        <form id="fm" method="post" action="">
-            <div class="fitem">
-            <span class="item-one">
-                <label>账号:</label>
-                <input name="number" value="123" class="easyui-validatebox textbox number" required="true" size="20">
-            </span>
-                <span class="item-two">
-                <label>组别:</label>
-                     <input id="groups" name="groups" value="" data-options="required:true" >
-            </span>
-            </div>
-            <div class="fitem">
-          <span class="item-one">
-                 <label>权限:</label>
-              <input id="permissions" name="permissions" value="" data-options="required:true" >
-            </span>
-                <span class="item-two">
-                <label>性别:</label>
-               <select id="sex" class="easyui-combobox" name="sex" data-options="required:true"  class="easyui-validatebox sex" size="20" select="0">
-
-                </select>
-           </span>
-            </div>
-            <div class="fitem">
-           <span class="item-one">
-                <label>姓名:</label>
-                <input value="test" name="name" class="easyui-validatebox textbox name" required="true">
-           </span>
-                <span class="item-two">
-                 <label>手机:</label>
-                <input value="123455" name="phone" class="easyui-validatebox textbox phone" required="true">
-            </span>
-            </div>
-            <div class="fitem">
-           <span class="item-one">
-                <label>微信号:</label>
-                <input name="wexin" class="wexin">
-           </span>
-                <span class="item-two">
-                 <label>绑定手机:</label>
-                <input name="wPhone" class="wPhone">
-            </span>
-            </div>
-            <div class="fitem">
-           <span class="item-one">
-                <label>QQ:</label>
-                <input name="qq" class="qq">
-           </span>
-                <span class="item-two">
-                 <label>QQ昵称:</label>
-                <input name="qqnc" class="qqnc">
-            </span>
-            </div>
-            <div class="fitem">
-                <label>身份证:</label>
-                <input value="12134356" name="card" size="53" class="easyui-validatebox textbox card" required="true">
-            </div>
-            <div class="fitem">
-                <label>住址:</label>
-                <input name="address" class="address" size="53">
-            </div>
-            <div class="fitem">
-                <label>备注:</label>
-                <input name="remark" class="remark" size="53">
-            </div>
-            <div class="fitem">
-           <span class="item-one">
-                <label>紧急联系人:</label>
-                <input name="jjlxr" class="jjlxr">
-           </span>
-                <span class="item-two">
-                 <label>手机号:</label>
-                <input name="jjlxrsj" class="jjlxrsj">
-            </span>
-            </div>
-            <div class="fitem">
-                <label>所属关系:</label>
-                <input name="ssgx" class="ssgx" size="53">
-            </div>
-
-        </form>
-        <div id="dlg-buttons">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-cancel"
-               onclick="javascript:$('#dlg').dialog('close')">取消</a>
-        </div>
-    </div>
 </div>
 <div class="info-div" style="display: none;">
     <div id="info" class="easyui-dialog" style="width:300px;height:200px;padding:10px 20px"
@@ -217,60 +126,8 @@
 </body>
 
 <script type="text/javascript">
+    var data_url= '/member/getList?pageIndex=1&pageSize=10';
     $(function () {
-
-        //添加分组的下拉框
-        $.ajax({
-            url: '/department/getAll',
-            processData: false,
-            dataType: 'json',
-            success: function (msg) {
-                var map = msg.date;
-                var ss=[];
-             /*   map.forEach(function (value,index,array) {
-                    value["text"]=value["name"];
-                    ss.push({"id":value["id"],"name":value["name"]});
-                });*/
-                msg.date[0].selected=true;
-                console.log(map);
-                $('#groups').combobox({
-                    valueField:'id',
-                    textField:'name',
-                    data:map
-                });
-            }
-        });
-        var map=[{"id":"0","name":"男","selected":true},{"id":"1","name":"女"}];
-        $("#sex").combobox({
-            valueField:'id',
-            textField:'name',
-            data:map
-        })
-        $.ajax({
-            url: '/role/getAll',
-            dataType:'json',
-            processData: false,
-            success:function(msg){
-                var map = msg.date;
-                map.forEach(function (value,index,array) {
-                    value["text"]=value["rdescribe"];
-                    if(index==0){
-                        value["selected"]=true;
-                    }
-                });
-                console.log(map);
-                $('#permissions').combobox({
-                    valueField:'id',
-                    textField:'rdescribe',
-                    data:map
-                })
-            }
-        });
-
-        $('#sex').combobox('select', '0');
-
-
-
         var myDate = new Date();
         var historyTimeString= date2str(getBeforeTimeByMinute(myDate,-60),'yyyy-MM-dd hh:mm:ss'),
             nowTimeString= date2str(myDate,'yyyy-MM-dd hh:mm:ss');
@@ -284,7 +141,7 @@
         });});
         $("#dg").datagrid({
             title: '员工信息表',
-            singleSelect: true,
+            singleSelect: false,
             fitColumns: true,
             fit: true,
             remoteSort: false,
@@ -294,6 +151,7 @@
             pageList : [10,20,30],
             rownumbers: true,
             columns: [[
+                {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
                 {field: 'memberId', title: 'ID', checkbox: true, width: 8, align: 'center', hidden: 'true'},
                 {field: 'number', title: '编号', width: 100, align: 'center'},
                 {field: 'name', title: '姓名', width: 100, align: 'center'},
@@ -320,20 +178,7 @@
                     }
                     return open;
                 }},
-                {field: 'groups', title: '管理分组', width: 100, align: 'center',formatter:function(value, row, index){
-                    var groups="";
-                    if(row.groups==1){
-                        groups="部门一";
-                    }else if(row.groups==2){
-                        groups="部门二";
-                    }
-                    return groups;
-                }},
-                {
-                    field: 'obj', title: '操作', align: 'center', width: 28, formatter: function (value, row, index) {
-                    return "<a id='de' onclick=deletes('" + row.memberId + "')>删除</a>";
-                }
-                }
+                {field: 'deparmentName', title: '部门', width: 100, align: 'center'}
             ]]
         }).datagrid("getPager").pagination({
             onBeforeRefresh : function(pageNumber, pageSize) {
@@ -358,17 +203,84 @@
             }
         });
         $('#dg').datagrid('getPager').pagination({
+            pageSize:30,
+            pageList:[30,50,100],
             beforePageText : '',
             afterPageText : '/{pages}',
             displayMsg : '{from}-{to}共{total}条',
-            showPageList : false,
+            showPageList : true,
             showRefresh : true
         });
 
         $(".datagrid-toolbar").insertBefore(".datagrid-view");
-        tbdata();
+        tbdata(data_url);
+        //添加员工
+        $("#btn1").click(function(){
+            createwindow("添加员工", "/pages/employee-add",600,500);
+        });
+        //修改员工
+        $("#btn2").click(function(){
+            updata();
+        });
+        //开通用户
+        $("#btn4").click(function () {
+            var row = $('#dg').datagrid('getSelected');
+            if(row){
+                $.post('/user/creat/'+row.memberId,{} , function (result) {
+                    if (result.code == 200) {
+
+                        tbdata(data_url);
+                    } else {
+                        alert(result.msg);
+                        /*   $.messager.show({
+                         title: '错误',
+                         msg: result.msg
+                         });*/
+                    }
+                }, 'json');
+            }else{
+                alert("请选中用户")
+            }
+
+        });
+        //查看用户密码
+        $("#btn5").click(function () {
+            var row = $('#dg').datagrid('getSelected');
+            if(row){
+                $.post('/user/getOne/'+row.memberId,{} , function (result) {
+                    if (result.code == 200) {
+                        $('#info').dialog('open').dialog('setTitle', '查看用户密码');
+                        $("#userName").html(result.date.userName);
+                        $("#password").html(result.date.password);
+                    } else {
+                        alert(result.msg);
+                    }
+                }, 'json');
+            }else{
+                alert("请选中用户");
+            }
+
+        });
+        //密码重置
+        $("#btn6").click(function () {
+            var row = $('#dg').datagrid('getSelected');
+            if(row){
+                $.post('/user/passwordReset/'+row.memberId,{} , function (result) {
+                    if (result.code == 200) {
+//                        $('#password-info').dialog('open').dialog('setTitle', '密码重置');
+//                        $("#revert-password").html(result.date.password);
+                        alert(result.msg);
+                        $("#btn5").click();
+                    } else {
+                        alert(result.msg);
+                    }
+                }, 'json');
+            }else{
+                alert("请选中用户");
+            }
+        })
         //查询
-        $("#btn8").click(function () {
+        $("#btn7").click(function () {
             var data={};
             data["name"]=$("#name").val();
             data["phone"]=$("#phone").val();
@@ -388,82 +300,12 @@
                 }
             });
         });
-        //开通用户
-        $("#btn10").click(function () {
-            var row = $('#dg').datagrid('getSelected');
-            if(row){
-                $.post('/user/creat/'+row.memberId,{} , function (result) {
-                    if (result.code == 200) {
 
-                        tbdata();
-                    } else {
-                        alert(result.msg);
-                        /*   $.messager.show({
-                         title: '错误',
-                         msg: result.msg
-                         });*/
-                    }
-                }, 'json');
-            }else{
-                alert("请选中用户")
-            }
 
-        });
-        //查看用户密码
-        $("#btn9").click(function () {
-            var row = $('#dg').datagrid('getSelected');
-            if(row){
-                $.post('/user/getOne/'+row.memberId,{} , function (result) {
-                    if (result.code == 200) {
-                        $('#info').dialog('open').dialog('setTitle', '查看用户密码');
-                        $("#userName").html(result.date.userName);
-                        $("#password").html(result.date.password);
-                    } else {
-                        alert(result.msg);
-                    }
-                }, 'json');
-            }else{
-                alert("请选中用户");
-            }
 
-        });
 
-        //密码重置
-        $("#btn7").click(function () {
-            var row = $('#dg').datagrid('getSelected');
-            if(row){
-                $.post('/user/passwordReset/'+row.memberId,{} , function (result) {
-                    if (result.code == 200) {
-//                        $('#password-info').dialog('open').dialog('setTitle', '密码重置');
-//                        $("#revert-password").html(result.date.password);
-                        alert(result.msg);
-                        $("#btn9").click();
-                    } else {
-                        alert(result.msg);
-                    }
-                }, 'json');
-            }else{
-                alert("请选中用户");
-            }
-        })
     });
-    function tbdata() {
-        $.ajax({
-            url: '/member/getList?pageIndex=1&pageSize=10',
-            type: "POST",
-            processData: false,
-            dataType: 'text',
-            success: function (data) {
-                data = data.replace(/id\":(\d+),/g,"id\":\"$1\",");
-                data = JSON.parse(data);
-                console.log(data);
-                if (data.code == 200) {
 
-                    $("#dg").datagrid("loadData", {total: data.date.totalCount, rows: data.date.result});
-                }
-            }
-        })
-    }
 
     var url;
 
@@ -472,12 +314,14 @@
         $('#fm').form('clear');
         url = '/member/save';
     }
-    function editUser() {
-        var row = $('#dg').datagrid('getSelected');
-        if (row) {
-            $('#dlg').dialog('open').dialog('setTitle', '编辑用户');
-            $('#fm').form('load', row);
-            url = '/member/update?id=' + row.memberId;
+    function updata(){
+        var rows= $("#dg").datagrid("getSelections");
+        if(rows.length>1||rows.length==0){
+            tip("请选择一条数据进行修改");
+        }else{
+            debugger;
+            createwindow("修改员工", "/pages/employee-add?id=" + rows.memberId,600,500);
+//            createwindow("修改员工",  '/member/update?id=' + rows.memberId,600,500);
         }
     }
     function saveUser() {
@@ -510,7 +354,7 @@
                 if (data.code == 200) {
                     $('#dlg').dialog('close');		// close the dialog
 //                    $('#dg').datagrid('reload');	// reload the user data
-                    tbdata();
+                    tbdata(data_url);
                 } else {
                     alert(data.msg);
                 }
@@ -525,7 +369,7 @@
                     $.post('/member/delete/' + row.memberId, {}, function (result) {
                         //alert(result);
                         if (result.code == 200) {
-                            tbdata();
+                            tbdata(data_url);
 //                            $('#dg').datagrid('reload');	// reload the user data
                         } else {
                             $.messager.show({	// show error message
@@ -543,7 +387,7 @@
             if (r) {
                 $.post('/member/delete/' + id, {}, function (result) {
                     if (result.code == 200) {
-                        tbdata();
+                        tbdata(data_url);
 //                        $('#dg').datagrid('reload');	// reload the user data
                     } else {
                         alert(result.msg);
