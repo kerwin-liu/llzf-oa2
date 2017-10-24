@@ -48,12 +48,12 @@ public class MemberController extends BaseController {
             return;
         }
         if (role.compareTo(2L) == 0) {
-            Pages<Member> pages = memberService.queryMemberByDepartment(memberQo, sessionUser.getId());
+            Pages<MemberVo> pages = memberService.queryMemberVoByDepartment(memberQo, sessionUser.getId());
             writeCommonDataResponse(response, "200", "查询成功", pages);
             return;
         }
         if (role.compareTo(1L) == 0) {
-            Pages<Member> pages = memberService.queryMemberByDepartment(memberQo);
+            Pages<MemberVo> pages = memberService.queryMemberVoByDepartment(memberQo);
             writeCommonDataResponse(response, "200", "查询成功", pages);
             return;
         }

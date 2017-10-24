@@ -32,6 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
             </div>
             <div class="toolbar ue-clear">
+                <a class="changePsd">修改密码</a>
                 <a href="/index" class="home-btn">首页</a>
                  <a class="quit-btn exit"></a>
             </div>
@@ -157,6 +158,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             success:function (data) {
                 $("#userName").html(data.date.name)
             }
+        });
+        $(".changePsd").click(function () {
+            createwindow("密码修改", "/pages/changePsd",600,500);
         })
     }
 </script>

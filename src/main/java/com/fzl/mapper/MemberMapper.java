@@ -1,5 +1,6 @@
 package com.fzl.mapper;
 
+import com.fzl.common.Pages;
 import com.fzl.pojo.Member;
 import com.fzl.pojo.Qo.MemberQo;
 import com.fzl.pojo.Vo.MemberVo;
@@ -29,4 +30,5 @@ public interface MemberMapper {
 
     MemberVo queryMemberVoByuserid(Long id);
 
+    Pages<MemberVo> queryVoListByCondition(MemberQo memberQo);
 }

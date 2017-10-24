@@ -3,6 +3,7 @@ package com.fzl.service;
 import com.fzl.common.Pages;
 import com.fzl.pojo.Member;
 import com.fzl.pojo.Qo.MemberQo;
+import com.fzl.pojo.Vo.MemberVo;
 
 import java.util.List;
 
@@ -24,4 +25,7 @@ public interface MemberService {
     List<Member> queryMemberByDepartmentAll(MemberQo memberQo);
 
     int countClient(Long memberId);
+
+    Pages<MemberVo> queryMemberVoByDepartment(MemberQo memberQo, Long id);
+    Pages<MemberVo> queryMemberVoByDepartment(MemberQo memberQo);
 }

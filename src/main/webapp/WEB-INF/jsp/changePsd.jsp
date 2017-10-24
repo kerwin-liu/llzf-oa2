@@ -8,11 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <script type="text/javascript" src="../../js/tools.js"></script>
     <title>修改密码</title>
 </head>
 <body>
 <div style="padding:3px 2px;border-bottom:1px solid #ccc">修改密码</div>
-    <form id="ff" action="" method="post">
+    <form id="ff" action="" method="post" target="hidden_frame">
         <table>
             <tr>
                 <td><label>姓名:</label></td>
@@ -33,25 +34,33 @@
             </tr>
         </table>
 </form>
+<iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 <script type="text/javascript" src="../../js/jquery.js"></script>
+
 <srript>
     <script type="text/javascript" >
         $(function () {
-            $(".btn").click(function () {
-                var data={};
-                data['userName']=$(".userName").val();
-                data['oldPassword']=$(".oldPassword").val();
-                data['newPassword']=$(".newPassword").val();
-                $.ajax({
-                    url:'/user/updatePassword',
-                    dataType:'json',
-                    data:data,
-                    type:"POST",
-                    success:function(data) {
-                        alert(data.msg);
-                    }
-                });
-            })
+            $('#hidden_frame').load(function () {
+                var text = $(this).contents().find("body").text();
+                $(".btn").click(function () {
+                    var data={};
+                    data['userName']=$(".userName").val();
+                    data['oldPassword']=$(".oldPassword").val();
+                    data['newPassword']=$(".newPassword").val();
+                    $.ajax({
+                        url:'/user/updatePassword',
+                        dataType:'json',
+                        data:data,
+                        type:"POST",
+                        success:function(data) {
+                            alert(data.msg);
+                        }
+                    });
+                })
+
+            });
+
+
         });
     </script>
 </srript>
