@@ -28,13 +28,13 @@ import java.util.List;
 @Controller
 @RequestMapping("client")
 public class ClientController extends BaseController {
-    private final String FILEPATH = "/home/llzf/.xlsx";
-    private final String UPLOADFILEPATH = "/home/llzf/";
+    private final String FILEPATH = "D://导入客户模板.xls";
+    //private final String UPLOADFILEPATH = "/home/llzf/";
+    private final String UPLOADFILEPATH = "D://";
     @Autowired
     private UserService userService;
     @Autowired
     private ClientService clientService;
-
     /**
      * 下载模板
      */

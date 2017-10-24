@@ -16,16 +16,20 @@
 </head>
 
 <body class="">
-	<form id="from" action="/client/importExcel" method="post"
+	<form id="from" action="/client/upload" method="post"
 		enctype="multipart/form-data" target="hidden_frame">
 		<table>
 			<tr>
-				<td><input type="file" name="path"
-					accept="application/vnd.ms-excel"></td>
+				<td><input type="file" name="file"  accept="application/vnd.ms-excel"></td>
+			</tr>
+			<tr>
+				<td>
+					<a  href="/client/download" class="easyui-linkbutton"  plain="true" data-options="iconCls:'icon-print'">下载导入模板</a>
+				</td>
+
 			</tr>
 		</table>
 	</form>
-
 	<iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 	<script type="text/javascript">
 		$('#hidden_frame').load(function() {
