@@ -91,9 +91,14 @@
     $('#hidden_frame').load(function(){
         var text=$(this).contents().find("body").text();
         // 根据后台返回值处理结果
-        var j=$.parseJSON(text);
-        $.messager.alert('提示',j.msg);
-        tbdata();
+        try {
+            var j=$.parseJSON(text);
+            $.messager.alert('提示',j.msg);
+            tbdata();
+        }catch (e){
+
+        }
+
     });
 
 </script>

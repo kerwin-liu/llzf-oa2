@@ -52,35 +52,49 @@
         select{
             width: 172px;
         }
+        .datagrid-toolbar-a{
+            width: 9%;
+            height: 25px;
+            float: left;
+            margin-left: 2%;
+            border: 0px solid red;
+            margin-top: 0.3%
+        }
+
     </style>
 </head>
 <body>
 <div class="datagrid-toolbar" style="height: 60px;width: 100%;border: 0px solid red;">
 
-        <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <div class="datagrid-toolbar-a" >
             <a id="btn1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加客户</a>
         </div>
-        <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <div class="datagrid-toolbar-a">
             <a id="btn2" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改资料</a>
         </div>
 
-        <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <div class="datagrid-toolbar-a">
         <a id="btn3" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-clear'">成交客户</a>
         </div>
 
-        <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+        <div class="datagrid-toolbar-a">
             <a id="btn4" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-large-shapes'">客户追踪</a>
         </div>
-        <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-            <a id="btn5" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">删除客户</a>
+        <div class="datagrid-toolbar-a">
+            <a id="btn5" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除客户</a>
         </div>
-        <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-            <a id="btn6" href="/client/exportExcel" class="easyui-linkbutton" data-options="iconCls:'icon-add'">数据导出</a>
+        <div class="datagrid-toolbar-a">
+            <a id="btn6" href="/client/exportExcel" class="easyui-linkbutton" data-options="iconCls:'icon-print'">数据导出</a>
         </div>
-    <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
+    <div class="datagrid-toolbar-a">
         <a id="btn9" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">数据导入</a>
     </div>
-
+    <div class="datagrid-toolbar-a">
+        <a id="btn10" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-large-clipart'">客户移交</a>
+    </div>
+    <div class="datagrid-toolbar-a">
+        <a id="btn11" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">返回</a>
+    </div>
         <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
             客户类型:<select id="type" style="width:80px;">
             <option value="1">一般客户</option>
@@ -130,7 +144,8 @@
             pageList : [10,20,30],
             rownumbers: true,
             columns: [[
-                {field: 'clientId', title: '编号', width: 50, align: 'center'},
+                {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
+                {field: 'clientId', title: '编号', width: 50, align: 'center',hidden:true},
                 {field: 'name', title: '姓名', width: 100, align: 'center'},
                 {field: 'sex', title: '性别', width: 100, align: 'center'},
                 {field: 'phone', title: '手机号', width: 100, align: 'center'},
@@ -166,15 +181,10 @@
                     return type;
                 }},
                 {field: 'remark', title: '备注', width: 100, align: 'center'},
-                {field: 'time', title: '归档日期', width: 150, align: 'center',formatter:function(value, row, index){
+                {field: 'time', title: '归档日期', width: 180, align: 'center',formatter:function(value, row, index){
                 var time = new Date(value);
                 return date2str(time,'yyyy-MM-dd hh:mm:ss');
-                }},
-                {
-                    field: 'obj', title: '操作', align: 'center', width: 50, formatter: function (value, row, index) {
-                    return "<a id='de' onclick=deletes('" + row.ID + "')>删除</a>";
-                }
-                }
+                }}
             ]]
         }).datagrid("getPager").pagination({
             onBeforeRefresh : function(pageNumber, pageSize) {
@@ -188,7 +198,7 @@
             onChangePageSize:function(pageSize){
                 var $getPager = $("#dg").datagrid('getPager');
                 var $pagination = $($getPager).pagination("options");
-
+                tbdata(1,pageSize);
             },
             onSelectPage : function(pageNumber, pageSize) {
                 var gridOpts = $('#dg').datagrid('options');
@@ -198,10 +208,12 @@
             }
         });
        $('#dg').datagrid('getPager').pagination({
+           pageSize:30,
+            pageList:[30,50,100],
             beforePageText : '',
             afterPageText : '/{pages}',
             displayMsg : '{from}-{to}共{total}条',
-            showPageList : false,
+            showPageList : true,
             showRefresh : true
         });
 
@@ -228,6 +240,17 @@
         $("#btn9").click(function(){
             imports();
         });
+        $("#btn11").click(function(){
+            tbdata();
+        });
+        $("#btn10").click(function(){
+            var rows= $("#dg").datagrid("getSelections");
+            if(rows.length==0){
+                tip("请选择一条数据进行修改");
+            }else {
+                createnewwindow("移交客户", "/pages/Customer-allot", 800, 500);
+            }
+        });
         $("#btn8").click(function(){
             var name=$("#name").val(),
                 phone=$("#phone").val(),
@@ -236,8 +259,7 @@
                 timeStart=$("#timeStart").val(),
                 timeEnd=$("#timeEnd").val(),
                 clientId=$("#employee1").val();
-            var data={"type":type,"name":name,"phone":phone,"type":type,"qq":qq,"timeStart":timeStart,"timeEnd":timeEnd,"memberId":clientId};
-           console.log(data);
+            var data={"type":type,"name":name,"type":type,"qq":qq,"timeStart":timeStart,"timeEnd":timeEnd,"clientId":clientId};
             $.ajax({
                 url:'/client/sqlMoHu',
                 type:'POST',//OR GET
@@ -249,7 +271,7 @@
                 }
             })
         });
-        tbdata();
+        tbdata(1,30);
         select1();
         });
     function select1(){
@@ -275,8 +297,6 @@
                 }else{
                     tip(data.msg);
                 }
-
-
             }
         })
     }
@@ -384,21 +404,11 @@ function exports(){
         if (pageNumber.length == 0 || pageSize == 0) {
             pages = '';
         }
-        var url = '/client/getList?pageIndex='+pageNumber+'&pageSize='+pageSize;
-        console.log(url);
-        $.ajax({
-            url:url,
-            type: "POST",
-            dataType:'json',
-            success:function(data){
-                console.log(data);
-                $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
-            }
-        });
+        tbdata(pageNumber,pageSize)
     }
-    function tbdata(){
+    function tbdata(pageIndex,pageSize){
         $.ajax({
-            url:'/client/getList?pageIndex=1&pageSize=10',
+            url:'/client/getList?pageIndex='+pageIndex+'&pageSize='+pageSize,
             type: "POST",
             dataType:'json',
             success:function(data){
