@@ -26,13 +26,40 @@
             height: 95%;
             float: left;
         }
+        .ftitle {
+            font-size: 14px;
+            font-weight: bold;
+            color: #666;
+            padding: 5px 0;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .fitem {
+            margin-bottom: 5px;
+        }
+
+        .item-one  label {
+            display: inline-block;
+            width: 70px;
+            font-size: 16px;
+        }
+        .item-one  input {
+            height:27px;
+            font-size: 16px;
+        }
+        .item-one {
+            width: 300px;
+            padding-left: 10px;
+        }
+
     </style>
 </head>
 <body>
 <div class="datagrid-toolbar" style="height: 27px;float: left;width: 100%">
-    <a id="btn1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
-    <a id="btn2" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改客户</a>
-
+    <a id="btn1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加部门</a>
+    <a id="btn2" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改部门</a>
+    <a id="btn3" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">删除</a>
 </div>
 <div class="table">
     <table id="dg"></table>
@@ -41,27 +68,70 @@
 <script type="text/javascript">
 $(function(){
     $("#dg").datagrid({
-        singleSelect: false,
+        singleSelect: true,
         fitColumns: false,
         fit: true,
         remoteSort: false,
+        rownumbers: true,
         columns: [[
-            {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
+            /*{field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},*/
             {field: 'id', title: '编号', width: 50, align: 'center',hidden:true},
             {field: 'name', title: '部门名称', width: 100, align: 'center'}
             ]]
     });
     $(".datagrid-toolbar").insertBefore(".datagrid-view");
+    loadtable();
+    $("#btn1").click(function(){
+        createwindow("添加部门", "/pages/department-add",400,220);
+    });
+
+    $("#btn2").click(function(){
+        updata();
+    });
+    $("#btn3").click(function(){
+        deletes();
+    });
 });
+
+function updata(){
+    var rows= $("#dg").datagrid("getSelections");
+    if(rows.length>1||rows.length==0){
+        tip("请选择一条数据进行修改");
+    }else{
+
+        createwindow("修改部门", "/pages/department-update",400,220);
+    }
+}
+function deletes() {
+    var rows= $("#dg").datagrid("getSelections");
+    if(rows.length>1||rows.length==0){
+        tip("请选择一条数据进行删除");
+    }else{
+        var url="/department/delete/"+rows[0].id;
+        $.ajax({
+            url:url,
+            type:'POST',
+            dataType:'json',
+            success:function(data){
+                tip(data.msg);
+                loadtable();
+            }
+        });
+    }
+}
 
 function loadtable(){
 $.ajax({
-    url:'',
+    url:'/department/getAll',
     dataType:'json',
     success:function(data){
-
+        if(data.code==200){
+            $("#dg").datagrid("loadData",{total:data.date.length,rows:data.date});
+        }else{
+            tip(data.msg);
+        }
     }
-})
+});
 }
 </script>
 </html>
