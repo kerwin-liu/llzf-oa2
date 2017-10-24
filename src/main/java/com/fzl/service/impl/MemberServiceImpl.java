@@ -131,12 +131,19 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Pages<MemberVo> queryMemberVoByDepartment(MemberQo memberQo, Long id) {
+        PageHelper.startPage(memberQo.getPageIndex(), memberQo.getPageSize());
+        //通过userid查部门
         Department department= departmentMapper.queryDepartmentByUserId(id);
         memberQo.setDepartmentId(department.getId());
-        return memberMapper.queryVoListByCondition(memberQo);
+        List<MemberVo> list = memberMapper.queryVoListByCondition(memberQo);
+        Page<MemberVo> page = (Page<MemberVo>) list;
+        return new Pages<>(page.getStartRow(), page.getTotal(), page.getPageSize(), list);
     }
     public Pages<MemberVo> queryMemberVoByDepartment(MemberQo memberQo) {
+        PageHelper.startPage(memberQo.getPageIndex(), memberQo.getPageSize());
         memberQo.setDepartmentId(null);
-        return memberMapper.queryVoListByCondition(memberQo);
+        List<MemberVo> list = memberMapper.queryVoListByCondition(memberQo);
+        Page<MemberVo> page = (Page<MemberVo>) list;
+        return new Pages<>(page.getStartRow(), page.getTotal(), page.getPageSize(), list);
     }
 }

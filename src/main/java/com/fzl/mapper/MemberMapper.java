@@ -30,5 +30,5 @@ public interface MemberMapper {
 
     MemberVo queryMemberVoByuserid(Long id);
 
-    Pages<MemberVo> queryVoListByCondition(MemberQo memberQo);
+    List<MemberVo> queryVoListByCondition(MemberQo memberQo);
 }
