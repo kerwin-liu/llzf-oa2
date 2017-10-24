@@ -4,6 +4,7 @@ import com.fzl.common.ExcelUtils;
 import com.fzl.common.IDUtils;
 import com.fzl.pojo.Client;
 import com.fzl.pojo.User;
+import com.fzl.service.ClientService;
 import com.fzl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +32,8 @@ public class ClientController extends BaseController {
     private final String UPLOADFILEPATH = "/home/llzf/";
     @Autowired
     private UserService userService;
+    @Autowired
+    private ClientService clientService;
 
     /**
      * 下载模板
@@ -69,13 +73,17 @@ public class ClientController extends BaseController {
             File tempFile = new File(filePath);
             if (!tempFile.exists()) {
                 tempFile.mkdirs();
+                List<Client> list = new ArrayList<>();
                 try {
                     file.transferTo(new File(filePath));
-                    List<Client> list = ExcelUtils.getBatchInvoiceDtoList(filePath, sessionUser.getId());
+                    list = ExcelUtils.getBatchInvoiceDtoList(filePath, sessionUser.getId());
                 } catch (IOException e) {
                     writeResponse(response, "400", "保存失败，请重新上传");
                     return;
                 }
+                List<Client> listFalse = clientService.saveExcel(list);
+
+                writeCommonDataResponse(response, "200", "保存【"+list.size()+"】条数据，失败【"+listFalse.size()+"】条",listFalse);
             }
         }
     }
