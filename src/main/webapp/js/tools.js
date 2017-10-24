@@ -105,10 +105,10 @@ function saveObj(obj) {
 			if(sub(c.children("#from"))){
                 var ss=c.children("#from").form('validate');
                 if(ss){
-                	return;
-				}else{
                     c.children("#from").submit();
                     c.dialog('close');
+				}else{
+                    return;
 				}
 			}
 			return;
