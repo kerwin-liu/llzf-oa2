@@ -129,8 +129,8 @@
        //$("input[name='nowSearchTime']").val(nowTimeString);
         $("input[name='nowSearchTime']").attr("class","Wdate").attr("style","height:20px;width:140px;").click(function(){WdatePicker({
             dateFmt:'yyyy-MM-dd HH:mm:ss',
-        });});
-
+        });
+        });
 
         $("#dg").datagrid({
             title:'本地客户',
