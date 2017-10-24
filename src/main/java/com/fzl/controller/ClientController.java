@@ -26,8 +26,8 @@ import java.util.List;
 @Controller
 @RequestMapping("client")
 public class ClientController extends BaseController {
-    private final String FILEPATH = "D:\\test.xlsx";
-    private final String UPLOADFILEPATH = "D:\\daoru\\";
+    private final String FILEPATH = "/home/llzf/.xlsx";
+    private final String UPLOADFILEPATH = "/home/llzf/";
     @Autowired
     private UserService userService;
 
