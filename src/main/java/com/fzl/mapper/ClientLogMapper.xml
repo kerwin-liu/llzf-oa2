@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fzl.mapper.ClientLogMapper" >
+  <resultMap id="BaseResultMap" type="com.fzl.pojo.ClientLog" >
+    <id column="zz_id" property="zzId" jdbcType="BIGINT" />
+    <result column="zznr" property="zznr" jdbcType="VARCHAR" />
+    <result column="cjsj" property="cjsj" jdbcType="TIMESTAMP" />
+    <result column="xgsj" property="xgsj" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    zz_id, zznr, cjsj, xgsj
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_log
+    where zz_id = #{zzId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from client_log
+    where zz_id = #{zzId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.fzl.pojo.ClientLog" >
+    insert into client_log (zz_id, zznr, cjsj, 
+      xgsj)
+    values (#{zzId,jdbcType=BIGINT}, #{zznr,jdbcType=VARCHAR}, #{cjsj,jdbcType=TIMESTAMP}, 
+      #{xgsj,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fzl.pojo.ClientLog" >
+    insert into client_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="zzId != null" >
+        zz_id,
+      </if>
+      <if test="zznr != null" >
+        zznr,
+      </if>
+      <if test="cjsj != null" >
+        cjsj,
+      </if>
+      <if test="xgsj != null" >
+        xgsj,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="zzId != null" >
+        #{zzId,jdbcType=BIGINT},
+      </if>
+      <if test="zznr != null" >
+        #{zznr,jdbcType=VARCHAR},
+      </if>
+      <if test="cjsj != null" >
+        #{cjsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgsj != null" >
+        #{xgsj,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fzl.pojo.ClientLog" >
+    update client_log
+    <set >
+      <if test="zznr != null" >
+        zznr = #{zznr,jdbcType=VARCHAR},
+      </if>
+      <if test="cjsj != null" >
+        cjsj = #{cjsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgsj != null" >
+        xgsj = #{xgsj,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where zz_id = #{zzId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fzl.pojo.ClientLog" >
+    update client_log
+    set zznr = #{zznr,jdbcType=VARCHAR},
+      cjsj = #{cjsj,jdbcType=TIMESTAMP},
+      xgsj = #{xgsj,jdbcType=TIMESTAMP}
+    where zz_id = #{zzId,jdbcType=BIGINT}
+  </update>
+</mapper>
