@@ -20,4 +20,5 @@ public interface DepartmentMapper {
     Department queryDepartmentByUserId(Long id);
 
     List<Department> queryAll();
+
 }

@@ -8,6 +8,7 @@ import com.fzl.pojo.Member;
 import com.fzl.pojo.Qo.UserUpdateQo;
 import com.fzl.pojo.User;
 import com.fzl.pojo.UserMember;
+import com.fzl.pojo.Vo.MemberVo;
 import com.fzl.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,5 +106,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Member queryMember(Long id) {
         return memberMapper.queryMemberByuserid(id);
+    }
+
+    @Override
+    public MemberVo queryMemberVo(Long id) {
+        return memberMapper.queryMemberVoByuserid(id);
     }
 }

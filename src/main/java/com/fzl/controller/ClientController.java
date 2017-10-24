@@ -82,7 +82,6 @@ public class ClientController extends BaseController {
                     return;
                 }
                 List<Client> listFalse = clientService.saveExcel(list);
-
                 writeCommonDataResponse(response, "200", "保存【"+list.size()+"】条数据，失败【"+listFalse.size()+"】条",listFalse);
             }
         }

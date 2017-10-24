@@ -332,4 +332,7 @@
         FROM t_member_client
         WHERE member_id=#{member_id}
     </select>
+    <select id="queryMemberVoByuserid" resultMap="" parameterType="">
+
+    </select>
 </mapper>
