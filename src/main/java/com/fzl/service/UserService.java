@@ -3,6 +3,7 @@ package com.fzl.service;
 import com.fzl.pojo.Member;
 import com.fzl.pojo.Qo.UserUpdateQo;
 import com.fzl.pojo.User;
+import com.fzl.pojo.Vo.MemberVo;
 
 /**
  * Created by Administrator on 2017/10/16.
@@ -25,4 +26,6 @@ public interface UserService {
     boolean deleteUser(Long memberId);
 
     Member queryMember(Long id);
+
+    MemberVo queryMemberVo(Long id);
 }
