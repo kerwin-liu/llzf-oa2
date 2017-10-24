@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             type4 = "<li class=\"konwledge\"><div class=\"nav-header\"><a href=\"/user/changePsd\" target=\"iframe\" class=\"ue-clear\"><span>密码修改</span></a></div></li>",
             type5 = "<li class=\"agency\"><div class=\"nav-header\"><a href=\"/pages/Customer-allot\" target=\"iframe\" class=\"ue-clear\"><span>移交客户</span></a></div></li>",
             type6 = "<li class=\"email\"><div class=\"nav-header\"><a href=\"/pages/Customer-knockdown\" target=\"iframe\" class=\"ue-clear\"><span>成交客户</span></a></div></li>",
-            type7 = "";
+            type7 = "<li class=\"email\"><div class=\"nav-header\"><a href=\"/pages/department\" target=\"iframe\" class=\"ue-clear\"><span>部门管理</span></a></div></li>";
 
         var classes=$(".nav");
         $.ajax({
@@ -125,6 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   classes.append(type4);
                   classes.append(type5);
                   classes.append(type6);
+                  classes.append(type7);
                     var a = document.getElementById("index");
                     a.href="/pages/main";
                     a.click("return false");
@@ -137,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     classes.append(type5);
                     classes.append(type6);
                     var a = document.getElementById("index1");
-                    a.href="/member/index";
+                    a.href="/pages/main";
                     a.click("return false");
                     $("#index1").href="#";
                 }
@@ -145,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 if(data.date.id==3){
                     classes.append(type3);
                     var a = document.getElementById("index3");
-                    a.href="/customerController/customer";
+                    a.href="/pages/main";
                     a.click("return false");
                     $("#index3").href="#";
                 }
@@ -155,7 +156,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             url:'/user/get',
             dataType:'json',
             success:function (data) {
-                console.log(data);
                 $("#userName").html(data.date.name)
             }
         });

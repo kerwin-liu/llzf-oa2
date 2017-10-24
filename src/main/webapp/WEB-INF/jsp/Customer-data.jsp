@@ -129,8 +129,8 @@
        //$("input[name='nowSearchTime']").val(nowTimeString);
         $("input[name='nowSearchTime']").attr("class","Wdate").attr("style","height:20px;width:140px;").click(function(){WdatePicker({
             dateFmt:'yyyy-MM-dd HH:mm:ss',
-        });});
-
+        });
+        });
 
         $("#dg").datagrid({
             title:'本地客户',
@@ -244,7 +244,7 @@
             tbdata();
         });
         $("#btn10").click(function(){
-            var rows= $("#dg").datagrid("getSelections");
+            var rows= $("#dg").datagrid("");
             if(rows.length==0){
                 tip("请选择一条数据进行修改");
             }else {
