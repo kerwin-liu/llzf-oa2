@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </ul>
             </div>
             <div class="content">
-                <iframe  href="/customerController/customer" name="iframe" id="iframe" width="100%" height="100%" frameborder="0"></iframe>
+                <iframe  href="#" name="iframe" id="iframe" width="100%" height="100%" frameborder="0"></iframe>
                <%-- <div class="login-info ue-clear">
                     <div class="welcome ue-clear"style="color: black">
                         <span>${user.userName}</span>
@@ -125,7 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   classes.append(type5);
                   classes.append(type6);
                     var a = document.getElementById("index");
-                    a.href="/customerController/customer";
+                    a.href="/pages/main";
                     a.click("return false");
                     $("#index").href="#";
                 }
