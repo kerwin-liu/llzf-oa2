@@ -58,7 +58,6 @@
         }catch (e){
 
         }
-
     });
 
 </script>
