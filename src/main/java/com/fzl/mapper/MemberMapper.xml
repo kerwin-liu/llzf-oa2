@@ -2,26 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.fzl.mapper.MemberMapper" >
     <resultMap id="BaseResultMap" type="com.fzl.pojo.Member" >
-        <id column="member_id" property="memberId" jdbcType="BIGINT" />
-        <result column="number" property="number" jdbcType="VARCHAR" />
-        <result column="NAME" property="name" jdbcType="VARCHAR" />
-        <result column="sex" property="sex" jdbcType="VARCHAR" />
-        <result column="phone" property="phone" jdbcType="VARCHAR" />
-        <result column="card" property="card" jdbcType="VARCHAR" />
-        <result column="qq" property="qq" jdbcType="VARCHAR" />
-        <result column="wexin" property="wexin" jdbcType="VARCHAR" />
-        <result column="groups" property="groups" jdbcType="BIGINT" />
-        <result column="permissions" property="permissions" jdbcType="BIGINT" />
-        <result column="qqnc" property="qqnc" jdbcType="VARCHAR" />
-        <result column="address" property="address" jdbcType="VARCHAR" />
-        <result column="remark" property="remark" jdbcType="VARCHAR" />
-        <result column="TIME" property="time" jdbcType="TIMESTAMP" />
-        <result column="OPEN" property="open" jdbcType="VARCHAR" />
-        <result column="creat_user_id" property="creatUserId" jdbcType="BIGINT" />
-        <result column="w_phone" property="wPhone" jdbcType="VARCHAR" />
-        <result column="jjlxr" property="jjlxr" jdbcType="VARCHAR" />
-        <result column="jjlxrsj" property="jjlxrsj" jdbcType="VARCHAR" />
-        <result column="sugx" property="sugx" jdbcType="VARCHAR" />
+    <id column="member_id" property="memberId" jdbcType="BIGINT" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="card" property="card" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="wexin" property="wexin" jdbcType="VARCHAR" />
+    <result column="groups" property="groups" jdbcType="BIGINT" />
+    <result column="permissions" property="permissions" jdbcType="BIGINT" />
+    <result column="qqnc" property="qqnc" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="TIME" property="time" jdbcType="TIMESTAMP" />
+    <result column="OPEN" property="open" jdbcType="VARCHAR" />
+    <result column="creat_user_id" property="creatUserId" jdbcType="BIGINT" />
+    <result column="w_phone" property="wPhone" jdbcType="VARCHAR" />
+    <result column="jjlxr" property="jjlxr" jdbcType="VARCHAR" />
+    <result column="jjlxrsj" property="jjlxrsj" jdbcType="VARCHAR" />
+    <result column="sugx" property="sugx" jdbcType="VARCHAR" />
+</resultMap>
+    <resultMap id="MemberVo" type="com.fzl.pojo.Vo.MemberVo" >
     </resultMap>
     <sql id="Base_Column_List" >
         member_id, number, NAME, sex, phone, card, qq, wexin, groups, permissions, qqnc,
@@ -332,7 +334,79 @@
         FROM t_member_client
         WHERE member_id=#{member_id}
     </select>
-    <select id="queryMemberVoByuserid" resultMap="" parameterType="">
-
+    <select id="queryMemberVoByuserid" resultMap="MemberVo" parameterType="java.lang.Long">
+        SELECT
+          m.member_id memberId,
+          m.number,
+          m.NAME name,
+          m.sex,
+          m.phone,
+          m.card,
+          m.qq,
+          m.wexin,
+          m.groups,
+          d.name groupName,
+          m.permissions,
+          m.qqnc,
+          m.address,
+          m.remark,
+          m.TIME time,
+          m.OPEN open,
+          m.creat_user_id creatUrserId,
+          m.w_phone wPhone,
+          m.jjlxr,
+          m.jjlxrsj,
+          m.sugx
+        FROM member m LEFT JOIN	member_department md ON m.member_id = md.member_id LEFT JOIN department d ON md.department_id=d.id
+        WHERE m.member_id = #{id}
+    </select>
+    <select id="queryVoListByCondition" resultMap="MemberVo" parameterType="java.lang.Long">
+        select
+        m.member_id memberId,
+        m.number,
+        m.NAME name,
+        m.sex,
+        m.phone,
+        m.card,
+        m.qq,
+        m.wexin,
+        m.groups,
+        d.name groupName,
+        m.permissions,
+        m.qqnc,
+        m.address,
+        m.remark,
+        m.TIME time,
+        m.OPEN open,
+        m.creat_user_id creatUrserId,
+        m.w_phone wPhone,
+        m.jjlxr,
+        m.jjlxrsj,
+        m.sugx
+        from member m LEFT JOIN	member_department md ON m.member_id = md.member_id LEFT JOIN department d ON md.department_id=d.id
+        <where>
+            1=1
+            <if test="number != null and number != ''">
+                AND m.number =#{number}
+            </if>
+            <if test="name != null and name != ''">
+                AND m.name like concat('%',#{name,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="phone != null and phone != ''">
+                AND m.phone =#{phone}
+            </if>
+            <if test="card != null and card != ''">
+                AND m.card =#{card}
+            </if>
+            <if test="timeStart != null and timeStart != ''">
+                AND m.TIME >= #{timeStart}
+            </if>
+            <if test="timeEnd != null and timeEnd != ''">
+                AND #{timeEnd} > m.TIME
+            </if>
+            <if test="departmentId != null and departmentId != ''">
+                AND m.groups=#{departmentId}
+            </if>
+        </where>
     </select>
 </mapper>

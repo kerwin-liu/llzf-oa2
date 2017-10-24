@@ -42,18 +42,18 @@ public class MemberController extends BaseController {
         User sessionUser = (User) request.getSession().getAttribute("user");
         Long role = userService.selectRole(sessionUser);
         //管理员和主管可以增加员工 员工级别的不能添加员工
-        if (role.compareTo(3L) == 0) {
+        if (role.compareTo(1L) == 0) {
             MemberVo memberVo = userService.queryMemberVo(sessionUser.getId());
             writeCommonDataResponse(response, "200", "查询成功", memberVo);
             return;
         }
         if (role.compareTo(2L) == 0) {
-            Pages<Member> pages = memberService.queryMemberByDepartment(memberQo, sessionUser.getId());
+            Pages<MemberVo> pages = memberService.queryMemberVoByDepartment(memberQo, sessionUser.getId());
             writeCommonDataResponse(response, "200", "查询成功", pages);
             return;
         }
         if (role.compareTo(1L) == 0) {
-            Pages<Member> pages = memberService.queryMemberByDepartment(memberQo);
+            Pages<MemberVo> pages = memberService.queryMemberVoByDepartment(memberQo);
             writeCommonDataResponse(response, "200", "查询成功", pages);
             return;
         }

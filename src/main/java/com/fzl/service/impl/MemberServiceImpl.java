@@ -5,6 +5,7 @@ import com.fzl.common.Pages;
 import com.fzl.mapper.*;
 import com.fzl.pojo.*;
 import com.fzl.pojo.Qo.MemberQo;
+import com.fzl.pojo.Vo.MemberVo;
 import com.fzl.service.MemberService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -125,7 +126,17 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public int countClient(Long memberId) {
-
         return memberMapper.countClient(memberId);
+    }
+
+    @Override
+    public Pages<MemberVo> queryMemberVoByDepartment(MemberQo memberQo, Long id) {
+        Department department= departmentMapper.queryDepartmentByUserId(id);
+        memberQo.setDepartmentId(department.getId());
+        return memberMapper.queryVoListByCondition(memberQo);
+    }
+    public Pages<MemberVo> queryMemberVoByDepartment(MemberQo memberQo) {
+        memberQo.setDepartmentId(null);
+        return memberMapper.queryVoListByCondition(memberQo);
     }
 }
