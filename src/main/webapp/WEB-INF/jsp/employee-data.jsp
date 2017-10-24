@@ -220,18 +220,17 @@
         });
         //修改员工
         $("#btn2").click(function(){
-        $("#btn2").click(function(){
             updata();
         });
         //开通用户
         $("#btn4").click(function () {
+            debugger;
             var row = $('#dg').datagrid('getSelections');
             if(row.length>1){
                 alert("请选中一个用户")
             }else if(row.length==1){
-                $.post('/user/creat/'+row.memberId,{} , function (result) {
+                $.post('/user/creat/'+row[0].memberId,{} , function (result) {
                     if (result.code == 200) {
-
                         tbdata(data_url);
                     } else {
                         alert(result.msg);
@@ -250,7 +249,7 @@
         $("#btn5").click(function () {
             var row = $('#dg').datagrid('getSelections');
             if(row.length==1){
-                $.post('/user/getOne/'+row.memberId,{} , function (result) {
+                $.post('/user/getOne/'+row[0].memberId,{} , function (result) {
                     if (result.code == 200) {
                         $('#info').dialog('open').dialog('setTitle', '查看用户密码');
                         $("#userName").html(result.date.userName);
@@ -270,7 +269,7 @@
         $("#btn6").click(function () {
             var row = $('#dg').datagrid('getSelections');
             if(row.length==1){
-                $.post('/user/passwordReset/'+row.memberId,{} , function (result) {
+                $.post('/user/passwordReset/'+row[0].memberId,{} , function (result) {
                     if (result.code == 200) {
 //                        $('#password-info').dialog('open').dialog('setTitle', '密码重置');
 //                        $("#revert-password").html(result.date.password);
@@ -315,21 +314,14 @@
 
     });
 
-
     var url;
-
-    function newUser() {
-        $('#dlg').dialog('open').dialog('setTitle', '添加用户');
-        $('#fm').form('clear');
-        url = '/member/save';
-    }
     function updata(){
         var rows= $("#dg").datagrid("getSelections");
         if(rows.length>1||rows.length==0){
             tip("请选择一条数据进行修改");
         }else{
             debugger;
-            createwindow("修改员工", "/pages/employee-add?id=" + rows.memberId,600,500);
+            createwindow("修改员工", "/pages/employee-add",600,500);
 //            createwindow("修改员工",  '/member/update?id=' + rows.memberId,600,500);
         }
     }
@@ -397,20 +389,6 @@
             });
         }
     }
-    function deletes(id) {
-        $.messager.confirm('确定', '你确定要删除此员工吗?', function (r) {
-            if (r) {
-                $.post('/member/delete/' + id, {}, function (result) {
-                    if (result.code == 200) {
-                        tbdata(data_url);
-//                        $('#dg').datagrid('reload');	// reload the user data
-                    } else {
-                        alert(result.msg);
-                    }
-                }, 'json');
-            }
-        });
-    }
 
     function findDataByWhere(id, pageNumber, pageSize) {
         var content="{";
@@ -437,6 +415,6 @@
             }
         });
     }
-    })
+
 </script>
 </html>
