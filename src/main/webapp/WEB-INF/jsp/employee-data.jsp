@@ -225,7 +225,9 @@
         //开通用户
         $("#btn4").click(function () {
             var row = $('#dg').datagrid('getSelected');
-            if(row){
+            if(row.length>1){
+                alert("请选中一个用户")
+            }else if(row.length==1){
                 $.post('/user/creat/'+row.memberId,{} , function (result) {
                     if (result.code == 200) {
 
@@ -301,7 +303,9 @@
             });
         });
 
-
+        $("#btn11").click(function(){
+            window.history.go(-1);
+        });
 
 
     });

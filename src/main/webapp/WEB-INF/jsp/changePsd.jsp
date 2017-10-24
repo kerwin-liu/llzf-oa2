@@ -53,7 +53,10 @@
                         data:data,
                         type:"POST",
                         success:function(data) {
-                            alert(data.msg);
+                            if(data.code==200){
+                                alert(data.msg);
+                                window.location.href = "/loginOut";//退出session
+                            }
                         }
                     });
                 })
