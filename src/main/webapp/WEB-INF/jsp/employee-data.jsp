@@ -178,7 +178,7 @@
                     }
                     return open;
                 }},
-                {field: 'deparmentName', title: '部门', width: 100, align: 'center'}
+                {field: 'groupName', title: '部门', width: 100, align: 'center'}
             ]]
         }).datagrid("getPager").pagination({
             onBeforeRefresh : function(pageNumber, pageSize) {
@@ -220,11 +220,12 @@
         });
         //修改员工
         $("#btn2").click(function(){
+        $("#btn2").click(function(){
             updata();
         });
         //开通用户
         $("#btn4").click(function () {
-            var row = $('#dg').datagrid('getSelected');
+            var row = $('#dg').datagrid('getSelections');
             if(row.length>1){
                 alert("请选中一个用户")
             }else if(row.length==1){
@@ -247,8 +248,8 @@
         });
         //查看用户密码
         $("#btn5").click(function () {
-            var row = $('#dg').datagrid('getSelected');
-            if(row){
+            var row = $('#dg').datagrid('getSelections');
+            if(row.length==1){
                 $.post('/user/getOne/'+row.memberId,{} , function (result) {
                     if (result.code == 200) {
                         $('#info').dialog('open').dialog('setTitle', '查看用户密码');
@@ -258,6 +259,8 @@
                         alert(result.msg);
                     }
                 }, 'json');
+            }else if(row.length>1){
+                alert("不支持多选，请选中一个用户");
             }else{
                 alert("请选中用户");
             }
@@ -265,8 +268,8 @@
         });
         //密码重置
         $("#btn6").click(function () {
-            var row = $('#dg').datagrid('getSelected');
-            if(row){
+            var row = $('#dg').datagrid('getSelections');
+            if(row.length==1){
                 $.post('/user/passwordReset/'+row.memberId,{} , function (result) {
                     if (result.code == 200) {
 //                        $('#password-info').dialog('open').dialog('setTitle', '密码重置');
@@ -277,6 +280,8 @@
                         alert(result.msg);
                     }
                 }, 'json');
+            }else if(row.length>1){
+                alert("不支持多选，请选中一个用户");
             }else{
                 alert("请选中用户");
             }
@@ -366,13 +371,19 @@
         })
     }
     function removeUser() {
-        var row = $('#dg').datagrid('getSelected');
-        if (row) {
-            $.messager.confirm('确定', '你确定要删除此员工吗?', function (r) {
+        var row = $('#dg').datagrid('getSelections');
+        if(row.length>0){
+            var ids=[];
+            for(var i=0;i<row.length;i++){
+                ids.push(row[i].memberId)
+            }
+            console.log(ids);
+            $.messager.confirm('确定', '你确定要删除员工吗?', function (r) {
                 if (r) {
-                    $.post('/member/delete/' + row.memberId, {}, function (result) {
+                    $.post('/member/delete', {"ids":ids}, function (result) {
                         //alert(result);
                         if (result.code == 200) {
+                            alert(result.msg);
                             tbdata(data_url);
 //                            $('#dg').datagrid('reload');	// reload the user data
                         } else {
@@ -426,5 +437,6 @@
             }
         });
     }
+    })
 </script>
 </html>
