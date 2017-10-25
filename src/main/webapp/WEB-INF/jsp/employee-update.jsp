@@ -151,7 +151,7 @@
 <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 <script type="text/javascript">
     var rows= $("#dg").datagrid("getSelections");
-    console.log(rows[0].clientId);
+    console.log(rows);
     $("#number").val(rows[0].number);
     $("#groups").val(rows[0].groups);
     $("#permissions").val(rows[0].permissions);
