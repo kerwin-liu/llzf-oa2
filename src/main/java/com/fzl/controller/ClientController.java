@@ -2,7 +2,9 @@ package com.fzl.controller;
 
 import com.fzl.common.ExcelUtils;
 import com.fzl.common.IDUtils;
+import com.fzl.common.Pages;
 import com.fzl.pojo.Client;
+import com.fzl.pojo.Qo.ClientVo;
 import com.fzl.pojo.User;
 import com.fzl.service.ClientService;
 import com.fzl.service.UserService;
@@ -35,6 +37,7 @@ public class ClientController extends BaseController {
     private UserService userService;
     @Autowired
     private ClientService clientService;
+
     /**
      * 下载模板
      */
@@ -82,15 +85,33 @@ public class ClientController extends BaseController {
                     return;
                 }
                 List<Client> listFalse = clientService.saveExcel(list);
-                writeCommonDataResponse(response, "200", "保存【"+list.size()+"】条数据，失败【"+listFalse.size()+"】条",listFalse);
+                writeCommonDataResponse(response, "200", "保存【" + list.size() + "】条数据，失败【" + listFalse.size() + "】条", listFalse);
             }
         }
     }
+
     /**
      * 查询客户列表
      */
-    @RequestMapping(value = "getList",method = RequestMethod.POST)
-    public void getList(HttpServletRequest request, HttpServletResponse response) {
-
+    @RequestMapping(value = "getList", method = RequestMethod.POST)
+    public void getList(HttpServletRequest request, HttpServletResponse response, ClientVo clientVo) {
+        User sessionUser = (User) request.getSession().getAttribute("user");
+        Long role = userService.selectRole(sessionUser);
+        //权限：员工只能查看自己的，主管只能查看本部门的，管理员查看全部的
+        if (role.compareTo(3L) == 0) {
+             Pages<ClientVo> pages= clientService.selectPagesByClientVo(clientVo);
+            writeCommonDataResponse(response, "200", "查询成功",pages);
+            return;
+        }
+        if (role.compareTo(2L) == 0) {
+            Pages<ClientVo> pages= clientService.selectPagesByClientVo(clientVo);
+            writeCommonDataResponse(response, "200", "查询成功", pages);
+            return;
+        }
+        if (role.compareTo(1L) == 0) {
+            Pages<ClientVo> pages= clientService.selectPagesByClientVo(clientVo);
+            writeCommonDataResponse(response, "200", "查询成功", pages);
+            return;
+        }
     }
 }

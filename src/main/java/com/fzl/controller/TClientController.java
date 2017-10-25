@@ -34,7 +34,7 @@ import com.fzl.service.UserService;
  * Created by kerwin.liu on 2017/10/14.
  */
 @Controller
-@RequestMapping("client")
+@RequestMapping("tclient")
 public class TClientController extends BaseController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(TClientController.class);

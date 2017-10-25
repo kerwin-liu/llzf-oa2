@@ -2,7 +2,7 @@ package com.fzl.pojo.Qo;
 
 import java.util.Date;
 
-public class ClientVo {
+public class ClientVo extends BaseQuery{
     private Long khId;
 
     private Long memberId;
@@ -46,6 +46,8 @@ public class ClientVo {
     private String byzd2;
 
     private String byzd3;
+
+    private Long departmentId;
 
     public Long getKhId() {
         return khId;
@@ -221,5 +223,13 @@ public class ClientVo {
 
     public void setByzd3(String byzd3) {
         this.byzd3 = byzd3 == null ? null : byzd3.trim();
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
     }
 }

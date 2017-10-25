@@ -86,8 +86,10 @@ public class MemberServiceImpl implements MemberService {
         memberRoleMapper.deleteByPrimaryKey(memberId);
         //删除对应用户
         User user = userMapper.selectUserbyMemberID(memberId);
-        userMemberMapper.deleteByPrimaryKey(user.getId());
-        userMapper.deleteByPrimaryKey(user.getId());
+        if(user!=null){
+            userMemberMapper.deleteByPrimaryKey(user.getId());
+            userMapper.deleteByPrimaryKey(user.getId());
+        }
         return true;
     }
 

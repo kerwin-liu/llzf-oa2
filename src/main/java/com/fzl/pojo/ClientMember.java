@@ -5,7 +5,7 @@ import java.util.Date;
 public class ClientMember {
     private Long khId;
 
-    private Long meemberId;
+    private Long memberId;
 
     private Date xgsj;
 
@@ -17,12 +17,12 @@ public class ClientMember {
         this.khId = khId;
     }
 
-    public Long getMeemberId() {
-        return meemberId;
+    public Long getMemberId() {
+        return memberId;
     }
 
-    public void setMeemberId(Long meemberId) {
-        this.meemberId = meemberId;
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
     }
 
     public Date getXgsj() {

@@ -1,9 +1,11 @@
 package com.fzl.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.fzl.common.Pages;
 import com.fzl.pojo.Member;
 import com.fzl.pojo.Qo.MemberQo;
 import com.fzl.pojo.User;
+import com.fzl.pojo.Vo.BatchDeleteVo;
 import com.fzl.pojo.Vo.MemberVo;
 import com.fzl.service.MemberService;
 import com.fzl.service.UserService;
@@ -14,9 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
