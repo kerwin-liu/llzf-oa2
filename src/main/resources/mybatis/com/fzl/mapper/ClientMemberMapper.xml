@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fzl.mapper.ClientMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.fzl.pojo.ClientMember" >
+    <id column="kh_id" property="khId" jdbcType="BIGINT" />
+    <result column="member_id" property="memberId" jdbcType="BIGINT" />
+    <result column="xgsj" property="xgsj" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    kh_id, member_id, xgsj
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from client_member
+    where kh_id = #{khId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from client_member
+    where kh_id = #{khId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.fzl.pojo.ClientMember" >
+    insert into client_member (kh_id, member_id, xgsj
+      )
+    values (#{khId,jdbcType=BIGINT}, #{memberId,jdbcType=BIGINT}, #{xgsj,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fzl.pojo.ClientMember" >
+    insert into client_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="khId != null" >
+        kh_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="xgsj != null" >
+        xgsj,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="khId != null" >
+        #{khId,jdbcType=BIGINT},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=BIGINT},
+      </if>
+      <if test="xgsj != null" >
+        #{xgsj,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fzl.pojo.ClientMember" >
+    update client_member
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=BIGINT},
+      </if>
+      <if test="xgsj != null" >
+        xgsj = #{xgsj,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where kh_id = #{khId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fzl.pojo.ClientMember" >
+    update client_member
+    set member_id = #{memberId,jdbcType=BIGINT},
+      xgsj = #{xgsj,jdbcType=TIMESTAMP}
+    where kh_id = #{khId,jdbcType=BIGINT}
+  </update>
+</mapper>
