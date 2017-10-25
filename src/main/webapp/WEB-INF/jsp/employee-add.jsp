@@ -151,13 +151,13 @@
 <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 <script type="text/javascript">
     $('#hidden_frame').load(function () {
-        var data_url='/member/getList?pageIndex=1&pageSize=10';
+        var data_url='/member/getList';
         var text = $(this).contents().find("body").text();
         // 根据后台返回值处理结果
         try {
             var j = $.parseJSON(text);
             $.messager.alert('提示', j.msg);
-            tbdata(data_url);
+            tbdata(data_url,1,30);
         } catch (e) {
 
         }
