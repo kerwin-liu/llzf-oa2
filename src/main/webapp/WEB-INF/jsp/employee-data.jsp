@@ -376,7 +376,7 @@
         if(row.length>0){
             var ids=[];
             for(var i=0;i<row.length;i++){
-                ids.push(row[i].memberId)
+                ids.push(row[i].memberId+"")
             }
             console.log(ids);
             $.messager.confirm('确定', '你确定要删除员工吗?', function (r) {
