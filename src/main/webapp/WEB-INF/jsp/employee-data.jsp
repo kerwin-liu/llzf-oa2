@@ -152,7 +152,7 @@
             rownumbers: true,
             columns: [[
                 {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
-                {field: 'memberId', title: 'ID', checkbox: true, width: 8, align: 'center', hidden: 'true'},
+                {field: 'memberId', title: 'ID', checkbox: true, width: 50, align: 'center', hidden: 'true'},
                 {field: 'number', title: '编号', width: 100, align: 'center'},
                 {field: 'name', title: '姓名', width: 100, align: 'center'},
                 {field: 'sex', title: '性别', width: 100, align: 'center',formatter:function(value, row, index){
@@ -188,7 +188,6 @@
                 {field: 'jjlxr', title: '紧急联系人', align: 'center',hidden: 'true'},
                 {field: 'jjlxrsj', title: '紧急联系人手机号', align: 'center',hidden: 'true'},
                 {field: 'sugx', title: '所属关系', align: 'center',hidden: 'true'}
-
             ]]
         }).datagrid("getPager").pagination({
             onBeforeRefresh : function(pageNumber, pageSize) {

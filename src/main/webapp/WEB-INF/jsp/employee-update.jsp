@@ -118,7 +118,8 @@
 <script type="text/javascript">
     var data_url= '/member/getList';
     var rows= $("#dg").datagrid("getSelections");
-    console.log(rows)
+    console.log(rows);
+    var sugx=rows[0].sugx;
     //添加分组的下拉框
     var groupsMap={};
     $.ajax({
@@ -174,27 +175,25 @@
     $("#address").val(rows[0].address);
     $("#remark").val(rows[0].remark);
     $("#wexin").val(rows[0].wexin);
-    debugger;
     $("#wPhone").val(rows[0].wPhone);
     $("#jjlxr").val(rows[0].jjlxr);
     $("#jjlxrsj").val(rows[0].jjlxrsj);
-//    $("#sugx").val(rows[0].sugx);
-//    $("#sex").val(rows[0].sex);
     if(rows[0].sex==0){
         $('input:radio[name=sex]')[0].checked = true;
     }else{
         $('input:radio[name=sex]')[1].checked = true;
     }
     //配偶关系
-    if(rows[0].sugx="父亲"){
+    debugger;
+    if(sugx=="父亲"){
         $('input:radio[name=sugx]')[0].checked = true;
-    }else if(rows[0].sugx="母亲"){
+    }else if(sugx=="母亲"){
         $('input:radio[name=sugx]')[1].checked = true;
-    }else if(rows[0].sugx="朋友"){
+    }else if(sugx=="朋友"){
         $('input:radio[name=sugx]')[2].checked = true;
-    }else if(rows[0].sugx="子女"){
+    }else if(sugx=="子女"){
         $('input:radio[name=sugx]')[3].checked = true;
-    }else if(rows[0].sugx="配偶"){
+    }else if(sugx=="配偶"){
         $('input:radio[name=sugx]')[4].checked = true;
     }else{
         $('input:radio[name=sugx]')[0].checked = true;
