@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
         <div class="ft-right">
             <span>Automation</span>
-            <em>V2.0&nbsp;2014</em>
+            <em>V2.0&nbsp;2017</em>
         </div>
     </div>
 </div>

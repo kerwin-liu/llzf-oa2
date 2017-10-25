@@ -26,28 +26,13 @@
     <div class="fitem">
             <span class="item-one">
                 <label>账号:</label>
-                <input name="number" class="easyui-validatebox textbox number" required="true" size="20" style="height: 25px;">
+                <input name="number" id="number" class="easyui-validatebox textbox" required="true" size="20" style="height: 25px;">
             </span>
         <span class="item-two">
                 <label>组别:</label>
                      <input id="groups" width="50px;" size="20" name="groups" data-options="required:true" style="height: 25px;">
                 <script type="text/javascript">
-                  //添加分组的下拉框
-                  $.ajax({
-                      url: '/department/getAll',
-                      processData: false,
-                      dataType: 'json',
-                      success: function (msg) {
-                          var map = msg.date;
-                          msg.date[0].selected=true;
-                          console.log(map);
-                          $('#groups').combobox({
-                              valueField:'id',
-                              textField:'name',
-                              data:map
-                          });
-                      }
-                  });
+
                 </script>
             </span>
     </div>
@@ -56,26 +41,7 @@
                  <label>权限:</label>
               <input id="permissions" size="20" name="permissions" data-options="required:true" style="height: 25px;" >
                  <script type="text/javascript">
-                   $.ajax({
-                       url: '/role/getAll',
-                       dataType:'json',
-                       processData: false,
-                       success:function(msg){
-                           var map = msg.date;
-                           map.forEach(function (value,index,array) {
-                               value["text"]=value["rdescribe"];
-                               if(index==0){
-                                   value["selected"]=true;
-                               }
-                           });
-                           console.log(map);
-                           $('#permissions').combobox({
-                               valueField:'id',
-                               textField:'rdescribe',
-                               data:map
-                           })
-                       }
-                   });
+
                 </script>
             </span>
         <span class="item-two">
@@ -127,11 +93,11 @@
     <div class="fitem">
         <label class="item-one">所属关系:</label>
         <%--<input name="ssgx" class="ssgx show-item" size="56">--%>
-        <input type="radio" name="ssgx" class="ssgx" value="父亲" checked>父亲
-        <input type="radio" name="ssgx" class="ssgx" value="母亲" >母亲
-        <input type="radio" name="ssgx" class="ssgx" value="朋友">朋友
-        <input type="radio" name="ssgx" class="ssgx" value="子女">子女
-        <input type="radio" name="ssgx" class="ssgx" value="配偶">配偶
+        <input type="radio" name="sugx" class="sugx" value="父亲" checked>父亲
+        <input type="radio" name="sugx" class="sugx" value="母亲" >母亲
+        <input type="radio" name="sugx" class="sugx" value="朋友">朋友
+        <input type="radio" name="sugx" class="sugx" value="子女">子女
+        <input type="radio" name="sugx" class="sugx" value="配偶">配偶
     </div>
     <div class="fitem">
         <label class="item-one">身份证:</label>
@@ -150,12 +116,56 @@
 </form>
 <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 <script type="text/javascript">
+    var data_url= '/member/getList';
     var rows= $("#dg").datagrid("getSelections");
-    console.log(rows);
+    console.log(rows)
+    //添加分组的下拉框
+    var groupsMap={};
+    $.ajax({
+        url: '/department/getAll',
+        processData: false,
+        dataType: 'json',
+        success: function (msg) {
+            groupsMap = msg.date;
+            groupsMap.forEach(function (value,index,array) {
+                if(rows[0].groups==value.id){
+                    value["selected"]=true;
+                }
+            });
+//            msg.date[0].selected=true;
+            console.log(groupsMap);
+            $('#groups').combobox({
+                valueField:'id',
+                textField:'name',
+                data:groupsMap
+            });
+        }
+    });
+    var permissionsMap={};
+    $.ajax({
+        url: '/role/getAll',
+        dataType:'json',
+        processData: false,
+        success:function(msg){
+            permissionsMap = msg.date;
+            permissionsMap.forEach(function (value,index,array) {
+                value["text"]=value["rdescribe"];
+                if(rows[0].permissions==value.id){
+                    value["selected"]=true;
+                }
+            });
+            console.log(permissionsMap);
+            $('#permissions').combobox({
+                valueField:'id',
+                textField:'rdescribe',
+                data:permissionsMap
+            })
+        }
+    });
+    $("#memberId").val(rows[0].memberId);
     $("#number").val(rows[0].number);
-    $("#groups").val(rows[0].groups);
-    $("#permissions").val(rows[0].permissions);
-    $("#sex").val(rows[0].sex);
+//    $("#groups").val(rows[0].groups);
+//    $("#permissions").val(rows[0].permissions);
     $("#name").val(rows[0].name);
     $("#phone").val(rows[0].phone);
     $("#qq").val(rows[0].qq);
@@ -166,13 +176,27 @@
     $("#wexin").val(rows[0].wexin);
     $("#wPhone").val(rows[0].wPhone);
     $("#jjlxr").val(rows[0].jjlxr);
-    $("#ssgx").val(rows[0].ssgx);
-    if(rows[0].permissions==1){
-        map[0].checked=true;
-    }else if(rows[0].permissions==2){
-        map[1].checked=true;
-    }else if(rows[0].permissions==3){
-        map[2].checked=true;
+    $("#jjlxrsj").val(rows[0].jjlxrsj);
+//    $("#sugx").val(rows[0].sugx);
+//    $("#sex").val(rows[0].sex);
+    if(rows[0].sex==0){
+        $('input:radio[name=sex]')[0].checked = true;
+    }else{
+        $('input:radio[name=sex]')[1].checked = true;
+    }
+    //配偶关系
+    if(rows[0].sugx="父亲"){
+        $('input:radio[name=sugx]')[0].checked = true;
+    }else if(rows[0].sugx="母亲"){
+        $('input:radio[name=sugx]')[1].checked = true;
+    }else if(rows[0].sugx="朋友"){
+        $('input:radio[name=sugx]')[2].checked = true;
+    }else if(rows[0].sugx="子女"){
+        $('input:radio[name=sugx]')[3].checked = true;
+    }else if(rows[0].sugx="配偶"){
+        $('input:radio[name=sugx]')[4].checked = true;
+    }else{
+        $('input:radio[name=sugx]')[0].checked = true;
     }
 
     $('#hidden_frame').load(function(){
@@ -181,7 +205,7 @@
         try {
             var j=$.parseJSON(text);
             $.messager.alert('提示',j.msg);
-            tbdata();
+            tbdata(data_url,1,30);
         }catch (e){
 
         }

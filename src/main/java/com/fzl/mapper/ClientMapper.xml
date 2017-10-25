@@ -7,6 +7,7 @@
     <result column="khmc" property="khmc" jdbcType="VARCHAR" />
     <result column="khsfzh" property="khsfzh" jdbcType="VARCHAR" />
     <result column="khlx" property="khlx" jdbcType="VARCHAR" />
+    <result column="khcjlx" property="khcjlx" jdbcType="VARCHAR" />
     <result column="khxb" property="khxb" jdbcType="VARCHAR" />
     <result column="khsjh" property="khsjh" jdbcType="VARCHAR" />
     <result column="khqq" property="khqq" jdbcType="VARCHAR" />
@@ -25,8 +26,8 @@
     <result column="byzd3" property="byzd3" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    kh_id, member_id, khmc, khsfzh, khlx, khxb, khsjh, khqq, khqqnc, khwx, khwxnc, khzj, 
-    khdz, cjsj, xgsj, cjr_id, bz, byzd, byzd1, byzd2, byzd3
+    kh_id, member_id, khmc, khsfzh, khlx, khcjlx, khxb, khsjh, khqq, khqqnc, khwx, khwxnc, 
+    khzj, khdz, cjsj, xgsj, cjr_id, bz, byzd, byzd1, byzd2, byzd3
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -40,19 +41,21 @@
   </delete>
   <insert id="insert" parameterType="com.fzl.pojo.Client" >
     insert into client (kh_id, member_id, khmc, 
-      khsfzh, khlx, khxb, 
-      khsjh, khqq, khqqnc, 
-      khwx, khwxnc, khzj, 
-      khdz, cjsj, xgsj, 
-      cjr_id, bz, byzd, byzd1, 
-      byzd2, byzd3)
+      khsfzh, khlx, khcjlx, 
+      khxb, khsjh, khqq, 
+      khqqnc, khwx, khwxnc, 
+      khzj, khdz, cjsj, 
+      xgsj, cjr_id, bz, byzd, 
+      byzd1, byzd2, byzd3
+      )
     values (#{khId,jdbcType=BIGINT}, #{memberId,jdbcType=BIGINT}, #{khmc,jdbcType=VARCHAR}, 
-      #{khsfzh,jdbcType=VARCHAR}, #{khlx,jdbcType=VARCHAR}, #{khxb,jdbcType=VARCHAR}, 
-      #{khsjh,jdbcType=VARCHAR}, #{khqq,jdbcType=VARCHAR}, #{khqqnc,jdbcType=VARCHAR}, 
-      #{khwx,jdbcType=VARCHAR}, #{khwxnc,jdbcType=VARCHAR}, #{khzj,jdbcType=VARCHAR}, 
-      #{khdz,jdbcType=VARCHAR}, #{cjsj,jdbcType=TIMESTAMP}, #{xgsj,jdbcType=TIMESTAMP}, 
-      #{cjrId,jdbcType=BIGINT}, #{bz,jdbcType=VARCHAR}, #{byzd,jdbcType=VARCHAR}, #{byzd1,jdbcType=VARCHAR}, 
-      #{byzd2,jdbcType=VARCHAR}, #{byzd3,jdbcType=VARCHAR})
+      #{khsfzh,jdbcType=VARCHAR}, #{khlx,jdbcType=VARCHAR}, #{khcjlx,jdbcType=VARCHAR}, 
+      #{khxb,jdbcType=VARCHAR}, #{khsjh,jdbcType=VARCHAR}, #{khqq,jdbcType=VARCHAR}, 
+      #{khqqnc,jdbcType=VARCHAR}, #{khwx,jdbcType=VARCHAR}, #{khwxnc,jdbcType=VARCHAR}, 
+      #{khzj,jdbcType=VARCHAR}, #{khdz,jdbcType=VARCHAR}, #{cjsj,jdbcType=TIMESTAMP}, 
+      #{xgsj,jdbcType=TIMESTAMP}, #{cjrId,jdbcType=BIGINT}, #{bz,jdbcType=VARCHAR}, #{byzd,jdbcType=VARCHAR}, 
+      #{byzd1,jdbcType=VARCHAR}, #{byzd2,jdbcType=VARCHAR}, #{byzd3,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.fzl.pojo.Client" >
     insert into client
@@ -71,6 +74,9 @@
       </if>
       <if test="khlx != null" >
         khlx,
+      </if>
+      <if test="khcjlx != null" >
+        khcjlx,
       </if>
       <if test="khxb != null" >
         khxb,
@@ -137,6 +143,9 @@
       <if test="khlx != null" >
         #{khlx,jdbcType=VARCHAR},
       </if>
+      <if test="khcjlx != null" >
+        #{khcjlx,jdbcType=VARCHAR},
+      </if>
       <if test="khxb != null" >
         #{khxb,jdbcType=VARCHAR},
       </if>
@@ -202,6 +211,9 @@
       <if test="khlx != null" >
         khlx = #{khlx,jdbcType=VARCHAR},
       </if>
+      <if test="khcjlx != null" >
+        khcjlx = #{khcjlx,jdbcType=VARCHAR},
+      </if>
       <if test="khxb != null" >
         khxb = #{khxb,jdbcType=VARCHAR},
       </if>
@@ -259,6 +271,7 @@
       khmc = #{khmc,jdbcType=VARCHAR},
       khsfzh = #{khsfzh,jdbcType=VARCHAR},
       khlx = #{khlx,jdbcType=VARCHAR},
+      khcjlx = #{khcjlx,jdbcType=VARCHAR},
       khxb = #{khxb,jdbcType=VARCHAR},
       khsjh = #{khsjh,jdbcType=VARCHAR},
       khqq = #{khqq,jdbcType=VARCHAR},

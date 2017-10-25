@@ -1,6 +1,6 @@
-function tbdata(data_url) {
+function tbdata(data_url,pageIndex,pageSize) {
     $.ajax({
-        url:data_url,
+        url:data_url+"?pageIndex="+pageIndex+"&pageSize="+pageSize,
         type: "POST",
         processData: false,
         dataType: 'text',

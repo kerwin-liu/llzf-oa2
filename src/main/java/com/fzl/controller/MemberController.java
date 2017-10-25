@@ -1,9 +1,11 @@
 package com.fzl.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.fzl.common.Pages;
 import com.fzl.pojo.Member;
 import com.fzl.pojo.Qo.MemberQo;
 import com.fzl.pojo.User;
+import com.fzl.pojo.Vo.BatchDeleteVo;
 import com.fzl.pojo.Vo.MemberVo;
 import com.fzl.service.MemberService;
 import com.fzl.service.UserService;
@@ -14,9 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -121,12 +125,11 @@ public class MemberController extends BaseController {
      * @param member
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public void update(HttpServletRequest request, HttpServletResponse response, Member member,Long id) {
+    public void update(HttpServletRequest request, HttpServletResponse response, Member member) {
         //权限判断 1获取user 通过id查询权限
         User sessionUser = (User) request.getSession().getAttribute("user");
         Long role = userService.selectRole(sessionUser);
         //管理员和主管可以增加员工 员工级别的不能添加员工
-        member.setMemberId(id);
         if (role.compareTo(3L) == 0) {
             writeResponse(response, "400", "该用户无修改权限");
             return;
@@ -163,5 +166,54 @@ public class MemberController extends BaseController {
         }
         boolean delete = memberService.deleteByid(memberId);
         writeResponse(response, "200", "删除成功");
+    }
+
+    @RequestMapping(value = "batchDelete", method = RequestMethod.POST)
+    public void batchDelete(HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "ids") String json) {
+        User sessionUser = (User) request.getSession().getAttribute("user");
+        Long role = userService.selectRole(sessionUser);
+        //管理员和主管可以增加员工 员工级别的不能添加员工
+        if (role.compareTo(3L) == 0) {
+            writeResponse(response, "400", "该用户无删除员工权限");
+            return;
+        }
+
+        List<Long> ids =null;
+        try {
+            ids = (List<Long>) JSON.parse(json);
+        } catch (Exception e) {
+            writeResponse(response, "400", "json格式不合法");
+            return;
+        }
+        if (ids == null) {
+            writeResponse(response, "400", "删除内容为空");
+            return;
+        }
+        List<BatchDeleteVo> listfalse = new ArrayList<>();
+        BatchDeleteVo batchDeleteVo = null;
+        for (Long memberId : ids) {
+            //查询员工下边是不是有客户
+            int a = memberService.countClient(memberId);
+            if (a > 0) {
+                batchDeleteVo = new BatchDeleteVo();
+                Member member = memberService.queryMemberByMemberId(memberId);
+                batchDeleteVo.setId(memberId);
+                batchDeleteVo.setName(member.getName());
+                batchDeleteVo.setError("该员工名下还存在客户，请确认");
+                listfalse.add(batchDeleteVo);
+            } else {
+                boolean delete = memberService.deleteByid(memberId);
+                if (!delete) {
+                    batchDeleteVo = new BatchDeleteVo();
+                    Member member = memberService.queryMemberByMemberId(memberId);
+                    batchDeleteVo.setId(memberId);
+                    batchDeleteVo.setName(member.getName());
+                    batchDeleteVo.setError("该员工删除失败，原因未知");
+                    listfalse.add(batchDeleteVo);
+                }
+            }
+
+        }
+        writeCommonDataResponse(response,"200","删除【"+ids.size()+"】名员工，失败【"+listfalse.size()+"】名",listfalse);
     }
 }

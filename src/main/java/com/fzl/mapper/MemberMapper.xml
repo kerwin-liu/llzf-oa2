@@ -331,7 +331,7 @@
   </select>
     <select id="countClient" resultType="java.lang.Integer" parameterType="java.lang.Long">
         SELECT COUNT(1)
-        FROM t_member_client
+        FROM client_member
         WHERE member_id=#{member_id}
     </select>
     <select id="queryMemberVoByuserid" resultMap="MemberVo" parameterType="java.lang.Long">

@@ -1,7 +1,9 @@
 package com.fzl.service.impl;
 
+import com.fzl.common.Pages;
 import com.fzl.mapper.ClientMapper;
 import com.fzl.pojo.Client;
+import com.fzl.pojo.Qo.ClientVo;
 import com.fzl.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,5 +29,10 @@ public class ClientServiceImpl implements ClientService{
             }
         }
         return listFalse;
+    }
+
+    @Override
+    public Pages<ClientVo> selectPagesByClientVo(ClientVo clientVo) {
+        return null;
     }
 }

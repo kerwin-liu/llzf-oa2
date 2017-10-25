@@ -86,8 +86,10 @@ public class MemberServiceImpl implements MemberService {
         memberRoleMapper.deleteByPrimaryKey(memberId);
         //删除对应用户
         User user = userMapper.selectUserbyMemberID(memberId);
-        userMemberMapper.deleteByPrimaryKey(user.getId());
-        userMapper.deleteByPrimaryKey(user.getId());
+        if(user!=null){
+            userMemberMapper.deleteByPrimaryKey(user.getId());
+            userMapper.deleteByPrimaryKey(user.getId());
+        }
         return true;
     }
 
@@ -145,5 +147,10 @@ public class MemberServiceImpl implements MemberService {
         List<MemberVo> list = memberMapper.queryVoListByCondition(memberQo);
         Page<MemberVo> page = (Page<MemberVo>) list;
         return new Pages<>(page.getStartRow(), page.getTotal(), page.getPageSize(), list);
+    }
+
+    @Override
+    public Member queryMemberByMemberId(Long memberId) {
+        return memberMapper.selectByPrimaryKey(memberId);
     }
 }

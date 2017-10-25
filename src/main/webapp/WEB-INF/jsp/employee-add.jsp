@@ -127,11 +127,11 @@
     <div class="fitem">
         <label class="item-one">所属关系:</label>
         <%--<input name="ssgx" class="ssgx show-item" size="56">--%>
-        <input type="radio" name="ssgx" class="ssgx" value="父亲" checked>父亲
-        <input type="radio" name="ssgx" class="ssgx" value="母亲" >母亲
-        <input type="radio" name="ssgx" class="ssgx" value="朋友">朋友
-        <input type="radio" name="ssgx" class="ssgx" value="子女">子女
-        <input type="radio" name="ssgx" class="ssgx" value="配偶">配偶
+        <input type="radio" name="sugx" class="sugx" value="父亲" checked>父亲
+        <input type="radio" name="sugx" class="sugx" value="母亲" >母亲
+        <input type="radio" name="sugx" class="sugx" value="朋友">朋友
+        <input type="radio" name="sugx" class="sugx" value="子女">子女
+        <input type="radio" name="sugx" class="sugx" value="配偶">配偶
     </div>
     <div class="fitem">
         <label class="item-one">身份证:</label>
