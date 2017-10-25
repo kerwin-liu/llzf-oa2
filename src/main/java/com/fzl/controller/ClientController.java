@@ -1,10 +1,13 @@
 package com.fzl.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.fzl.common.ExcelUtils;
-import com.fzl.common.IDUtils;
 import com.fzl.common.Pages;
+import com.fzl.mapper.MemberMapper;
 import com.fzl.pojo.Client;
-import com.fzl.pojo.Qo.ClientVo;
+import com.fzl.pojo.Member;
+import com.fzl.pojo.Qo.ClientQo;
+import com.fzl.pojo.Vo.ClientVo;
 import com.fzl.pojo.User;
 import com.fzl.service.ClientService;
 import com.fzl.service.UserService;
@@ -37,6 +40,8 @@ public class ClientController extends BaseController {
     private UserService userService;
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private MemberMapper memberMapper;
 
     /**
      * 下载模板
@@ -94,24 +99,84 @@ public class ClientController extends BaseController {
      * 查询客户列表
      */
     @RequestMapping(value = "getList", method = RequestMethod.POST)
-    public void getList(HttpServletRequest request, HttpServletResponse response, ClientVo clientVo) {
+    public void getList(HttpServletRequest request, HttpServletResponse response, ClientQo clientQo) {
         User sessionUser = (User) request.getSession().getAttribute("user");
         Long role = userService.selectRole(sessionUser);
         //权限：员工只能查看自己的，主管只能查看本部门的，管理员查看全部的
         if (role.compareTo(3L) == 0) {
-             Pages<ClientVo> pages= clientService.selectPagesByClientVo(clientVo);
-            writeCommonDataResponse(response, "200", "查询成功",pages);
+            Pages<ClientVo> pages = clientService.selectPagesByMemberId(clientQo, sessionUser.getId());
+            writeCommonDataResponse(response, "200", "查询成功", pages);
             return;
         }
         if (role.compareTo(2L) == 0) {
-            Pages<ClientVo> pages= clientService.selectPagesByClientVo(clientVo);
+            Pages<ClientVo> pages = clientService.selectPagesByClientVo(clientQo, sessionUser.getId());
             writeCommonDataResponse(response, "200", "查询成功", pages);
             return;
         }
         if (role.compareTo(1L) == 0) {
-            Pages<ClientVo> pages= clientService.selectPagesByClientVo(clientVo);
+            Pages<ClientVo> pages = clientService.selectPagesByClientVo(clientQo);
             writeCommonDataResponse(response, "200", "查询成功", pages);
             return;
         }
     }
+
+    /**
+     * 保存客户
+     */
+    @RequestMapping(value = "save", method = RequestMethod.POST)
+    public void save(HttpServletRequest request, HttpServletResponse response, Client client) {
+        User sessionUser = (User) request.getSession().getAttribute("user");
+        client.setCjrId(sessionUser.getId());
+        Member member = memberMapper.queryMemberByuserid(sessionUser.getId());
+        client.setMemberId(member.getMemberId());
+        boolean save = clientService.saveClient(client);
+        if (save) {
+            writeResponse(response, "200", "客户添加成功");
+            return;
+        }
+        writeResponse(response, "400", "客户添加失败");
+    }
+
+    /**
+     * 修改客户
+     */
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    public void update(HttpServletRequest request, HttpServletResponse response, Client client) {
+        boolean update = clientService.updateClient(client);
+        if (update) {
+            writeResponse(response, "200", "客户修改成功");
+            return;
+        }
+        writeResponse(response, "400", "客户修改失败");
+    }
+
+    /**
+     * 批量删除客户
+     */
+    @RequestMapping(value = "batchDelete", method = RequestMethod.POST)
+    public void update(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "ids") String json) {
+        User sessionUser = (User) request.getSession().getAttribute("user");
+        Long role = userService.selectRole(sessionUser);
+        //管理员和主管可以删除客户
+        if (role.compareTo(3L) == 0) {
+            writeResponse(response, "400", "该用户无删除客户权限");
+            return;
+        }
+        List<Long> ids = null;
+        try {
+            ids = (List<Long>) JSON.parse(json);
+        } catch (Exception e) {
+            writeResponse(response, "400", "json格式不合法");
+            return;
+        }
+        if (ids == null) {
+            writeResponse(response, "400", "删除内容为空");
+            return;
+        }
+        for (Long id : ids) {
+            clientService.deleteClient(id);
+        }
+        writeResponse(response, "200", "删除成功");
+    }
+
 }

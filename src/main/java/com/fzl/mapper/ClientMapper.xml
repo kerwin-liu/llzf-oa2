@@ -25,6 +25,7 @@
     <result column="byzd2" property="byzd2" jdbcType="VARCHAR" />
     <result column="byzd3" property="byzd3" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="ClientVo" type="com.fzl.pojo.Vo.ClientVo" />
   <sql id="Base_Column_List" >
     kh_id, member_id, khmc, khsfzh, khlx, khcjlx, khxb, khsjh, khqq, khqqnc, khwx, khwxnc, 
     khzj, khdz, cjsj, xgsj, cjr_id, bz, byzd, byzd1, byzd2, byzd3
@@ -290,4 +291,41 @@
       byzd3 = #{byzd3,jdbcType=VARCHAR}
     where kh_id = #{khId,jdbcType=BIGINT}
   </update>
+
+
+  <select id="selectClientVosByclientVo" resultMap="ClientVo" parameterType="com.fzl.pojo.Vo.ClientVo">
+      SELECT
+        c.kh_id khId,
+        c.member_id memberId,
+        m.name,
+        c.khmc,
+        c.khsfzh,
+        c.khlx,
+        c.khcjlx,
+        c.khxb,
+        c.khsjh,
+        c.khqq,
+        c.khqqnc,
+        c.khwx,
+        c.khwxnc,
+        c.khzj,
+        c.khdz,
+        c.cjsj,
+        c.xgsj,
+        c.cjr_id cjrId,
+        c.bz,
+        c.byzd,
+        c.byzd1,
+        c.byzd2,
+        c.byzd3
+      FROM CLIENT c LEFT JOIN member m ON c.member_id=m.member_id LEFT JOIN member_department md on md.member_id=m.member_id
+      WHERE 1=1
+      <if test="memberId != null and memberId !='' ">
+        AND c.member_id = #{memberId}
+      </if>
+      <if test="departmentId != null and departmentId !='' ">
+        AND md.department_id= #{departmentId}
+      </if>
+
+  </select>
 </mapper>

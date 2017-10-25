@@ -90,8 +90,4 @@
       xgsj = #{xgsj,jdbcType=TIMESTAMP}
     where zz_id = #{zzId,jdbcType=BIGINT}
   </update>
-  <delete id="deleteByClientId" parameterType="java.lang.Long">
-    DELETE FROM client_log
-    WHERE kh_id=#{id}
-  </delete>
 </mapper>

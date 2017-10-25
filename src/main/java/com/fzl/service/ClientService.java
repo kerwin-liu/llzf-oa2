@@ -2,7 +2,8 @@ package com.fzl.service;
 
 import com.fzl.common.Pages;
 import com.fzl.pojo.Client;
-import com.fzl.pojo.Qo.ClientVo;
+import com.fzl.pojo.Qo.ClientQo;
+import com.fzl.pojo.Vo.ClientVo;
 
 import java.util.List;
 
@@ -12,5 +13,15 @@ import java.util.List;
 public interface ClientService {
     List<Client> saveExcel(List<Client> list);
 
-    Pages<ClientVo> selectPagesByClientVo(ClientVo clientVo);
+    Pages<ClientVo> selectPagesByClientVo(ClientQo clientQo);
+
+    Pages<ClientVo> selectPagesByMemberId(ClientQo clientQo,Long userId);
+
+    Pages<ClientVo> selectPagesByClientVo(ClientQo clientQo, Long userId);
+
+    boolean saveClient(Client client);
+
+    boolean updateClient(Client client);
+
+    boolean deleteClient(Long id);
 }

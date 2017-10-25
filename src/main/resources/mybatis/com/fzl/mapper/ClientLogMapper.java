@@ -14,6 +14,4 @@ public interface ClientLogMapper {
     int updateByPrimaryKeySelective(ClientLog record);
 
     int updateByPrimaryKey(ClientLog record);
-
-    int deleteByClientId(Long id);
 }
