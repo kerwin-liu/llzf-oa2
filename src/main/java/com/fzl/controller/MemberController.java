@@ -121,12 +121,11 @@ public class MemberController extends BaseController {
      * @param member
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public void update(HttpServletRequest request, HttpServletResponse response, Member member,Long id) {
+    public void update(HttpServletRequest request, HttpServletResponse response, Member member) {
         //权限判断 1获取user 通过id查询权限
         User sessionUser = (User) request.getSession().getAttribute("user");
         Long role = userService.selectRole(sessionUser);
         //管理员和主管可以增加员工 员工级别的不能添加员工
-        member.setMemberId(id);
         if (role.compareTo(3L) == 0) {
             writeResponse(response, "400", "该用户无修改权限");
             return;
