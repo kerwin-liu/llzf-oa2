@@ -9,15 +9,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta charset="utf-8">
 
-<%--    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/demo/demo.css">--%>
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/demo/demo.css">
     <link rel="stylesheet" href="../../css/base.css" />
     <link rel="stylesheet" type="text/css" href="../css/jquery.dialog.css" />
     <link rel="stylesheet" href="../../css/index.css" />
- <%--   <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>--%>
-<script type="text/javascript" src="../../js/tools.js"></script>
+
 <style type="text/css">
     .fitem {
         margin-bottom: 5px;
@@ -52,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
             </div>
             <div class="toolbar ue-clear">
-                <a class="changePsd" style="padding-right: 10px;">修改密码</a>
+                <a class="changePsd" style="padding-right: 10px;font-size: 15px;cursor: pointer;color: white;">修改密码</a>
                 <a href="/index" class="home-btn">首页</a>
                  <a class="quit-btn exit"></a>
             </div>
@@ -88,11 +86,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
 </div>
-<div class="exitDialog">
-	<div class="dialog-content">
-    	<div class="ui-dialog-icon"></div>
-        <div class="ui-dialog-text">
-        	<p class="dialog-content">你确定要退出系统？</p>
+<div class="exitDialogs">
+	<div class="dialog-contents">
+    	<div class="ui-dialog-icons"></div>
+        <div class="ui-dialog-texts">
+        	<p class="dialog-contents">你确定要退出系统？</p>
             <p class="tips">如果是请点击“确定”，否则点“取消”</p>
             
             <div class="buttons">
@@ -118,9 +116,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="../../js/jquery.js"></script>
 <script type="text/javascript" src="../../js/common.js"></script>
 <script type="text/javascript" src="../../js/core.js"></script>
-<script type="text/javascript" src="../../js/jquery.dialog.js"></script>
+<%--<script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.min.js"></script>--%>
+<script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.dialogs.js"></script>
 <script type="text/javascript" src="../../js/index.js"></script>
-
+<script type="text/javascript" src="../../js/tools.js"></script>
 <script type="text/javascript" >
     var b=false;
     window.onload=function () {

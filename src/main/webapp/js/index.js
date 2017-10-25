@@ -29,7 +29,7 @@ $(".nav>.current").prev().css({"borderColor":"#7ac47f"});
 	return false;
 });*/
 
-$('.exitDialog').Dialog({
+$('.exitDialogs').Dialogs({
 	title:'提示信息',
 	autoOpen: false,
 	width:400,
@@ -37,13 +37,11 @@ $('.exitDialog').Dialog({
 });
 
 $('.exit').click(function(){
-	$('.exitDialog').Dialog('open');
+	$('.exitDialogs').Dialogs('open');
 });
 
-
-
-$('.exitDialog input[type=button]').click(function(e) {
-    $('.exitDialog').Dialog('close');
+$('.exitDialogs input[type=button]').click(function(e) {
+    $('.exitDialogs').Dialogs('close');
 	if($(this).hasClass('ok')){
         window.location.href = "/loginOut";
 

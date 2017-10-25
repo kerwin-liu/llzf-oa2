@@ -161,7 +161,7 @@
                         type="潜力客户";
                     }
                     if(value==3){
-                        type="意客客户";
+                        type="意向客户";
                     }
                     if(value==4){
                         type="未有兴趣客户";
@@ -287,7 +287,6 @@
                     for (var i=0;i<value.length;i++){
                         d.push({"id":value[i].memberId,"text":value[i].name});
                     }
-                    console.log(d);
                     d[0].selected=true;
                     $("#employee1").combobox({
                         valueField:'id',
@@ -412,6 +411,7 @@ function exports(){
             type: "POST",
             dataType:'json',
             success:function(data){
+                console.log(data);
                 $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
             }
         });

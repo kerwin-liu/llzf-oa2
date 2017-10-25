@@ -4,7 +4,7 @@
      * @name Dialog
      * @class 弹出框,可拖拽，设置宽和高，有无遮罩，
      */
-    $.uedWidget('ued.Dialog', {
+    $.uedWidget('ued.Dialogs', {
         options : /**@lends Dialog# */
         {
             /**
@@ -114,11 +114,11 @@
        
 	    _createDialogDom : function($el, options, _define){
 			var $farther = _define.$farther = $el.parent(), buttons = options.buttons;
-			var $dialog = _define.$dialog = $('<div class="ui-dialog-panel"><div class="ui-dialog"></div><div class="ui-dialog-leftYY"></div><div class="ui-dialog-rightYY"></div><div class="ui-dialog-bottomLeft"></div><div class="ui-dialog-bottomRight"></div><div class="ui-dialog-bottomCenter"></div></div>');
+			var $dialog = _define.$dialog = $('<div class="ui-dialog-panels"><div class="ui-dialogs"></div><div class="ui-dialog-leftYYs"></div><div class="ui-dialog-rightYYs"></div><div class="ui-dialog-bottomLefts"></div><div class="ui-dialog-bottomRights"></div><div class="ui-dialog-bottomCenters"></div></div>');
 			//创建弹窗头部区域
-			var $dialogHd = _define.$dialogHd = $('<div class="ui-dialog-hd"><h6></h6><a href="javascript:;" class="ui-dialog-close ue-state-default"><i></i></a></div>');
+			var $dialogHd = _define.$dialogHd = $('<div class="ui-dialog-hds"><h6></h6><a href="javascript:;" class="ui-dialog-closes ue-state-defaults"><i></i></a></div>');
 			//创建弹窗内容区域
-			var $dialogContent = _define.$dialogContent = $el.addClass('ui-dialog-content');
+			var $dialogContent = _define.$dialogContent = $el.addClass('ui-dialog-contents');
 			if(options.type){
 				//创建提示型弹窗提示区域
 				this._createMessageDom($el, $dialogContent, options);
@@ -131,18 +131,18 @@
 			}
 			$el.css('display','block');//显示$el内容
 			
-			$dialog.children('.ui-dialog').append($dialogHd).append($dialogContent);
+			$dialog.children('.ui-dialogs').append($dialogHd).append($dialogContent);
 			//创建弹窗底部区域
-			var $dialogFt = _define.$dialogFt = $('<div class="ui-dialog-ft"></div>');
+			var $dialogFt = _define.$dialogFt = $('<div class="ui-dialog-fts"></div>');
 			if(buttons){
 				var buttonArray = [];
 				for(var i = 0, len = buttons.length; i < len; i++){
 					var button = buttons[i], length = this._returnLetterLength(button.label);
 					length = length < 3 ? 3 : length;
 					if(button.recommend){
-						buttonArray.push('<button type="button" class="ue-button-recommend ue-state-default long' + length + '">'+ button.label +'</button>');
+						buttonArray.push('<button type="button" class="ue-button-recommends ue-state-defaults long' + length + 's">'+ button.label +'</button>');
 					}else{
-						buttonArray.push('<button type="button" class="ue-button ue-state-default long' + length + '">'+ button.label +'</button>');
+						buttonArray.push('<button type="button" class="ue-buttons ue-state-defaults long' + length + 's">'+ button.label +'</button>');
 					}
 				}
 				$dialogFt.append(buttonArray.join(''));
@@ -164,10 +164,10 @@
 		_createMessageDom : function($el, $dialogContent, options){
 			var type = options.type, _define = this._define;
 			
-			_define.$dialog.addClass('ui-dialog-'+type);
+			_define.$dialog.addClass('ui-dialog-'+type+'s');
 			//创建节点
-			$dialogContent.empty().append('<div class="ui-dialog-icon"></div><div class="ui-dialog-text"><span class="patch"></span><span class="dialog-text"></span></div>');
-			var $dialogMessage = _define.$dialogMessage = $dialogContent.find('.dialog-text');
+			$dialogContent.empty().append('<div class="ui-dialog-icons"></div><div class="ui-dialog-texts"><span class="patchs"></span><span class="dialog-texts"></span></div>');
+			var $dialogMessage = _define.$dialogMessage = $dialogContent.find('.dialog-texts');
 		},
 		
 		_calDialogAttr : function($el, options, _define){
@@ -212,7 +212,7 @@
 		_bindEvent : function($el, options, _define){
 			var self = this;
 			//绑定关闭按钮事件
-			_define.$dialogHd.children('.ui-dialog-close').click(function(){
+			_define.$dialogHd.children('.ui-dialog-closes').click(function(){
 				self.close();
 			});
 			
@@ -225,7 +225,7 @@
 			if(buttons){
 				_define.$dialogFt.bind('click',function(e){
 					var $target = $(e.target), button = buttons[$target.index()];
-					if($target.is('button')){
+					if($target.is('buttons')){
 						if(!button.setFunc){
 							button.callBack && button.callBack(self.element, $('#__mask',$('body')));
 						}else{
@@ -283,7 +283,7 @@
 		setTitle : function(_title){
 			var _define = this._define, $dialogHd = _define.$dialogHd;
 			if(_title){
-				$dialogHd.find('h6').empty().append('<span class="dialog-hd-lc"></span>' + _title + '<span class="dialog-hd-rc"></span>');
+				$dialogHd.find('h6').empty().append('<span class="dialog-hd-lcs"></span>' + _title + '<span class="dialog-hd-rcs"></span>');
 			}
 		},
 		
@@ -346,7 +346,7 @@
 		
 		open : function(){
 			var _define = this._define, $dialog = _define.$dialog , options = this.options, isMask = options.modal;	
-			isMask &&　$.mask.open('ued-dialog');
+			isMask &&　$.mask.open('ued-dialogs');
 			if(!options.fixed && options.position[1]=='center'){
 				//如果弹窗不是fiexd定位，且top为center时，打开前需要+scrollTop
 				_define.top += $(window).scrollTop();
@@ -357,7 +357,7 @@
 		
 		close : function(){
 			var  _define = this._define, $dialog = _define.$dialog, closeCallback = this.options.closeCallback, isMask = this.options.modal;	
-			isMask &&　$.mask.close('ued-dialog');
+			isMask &&　$.mask.close('ued-dialogs');
 			$dialog.hide();
 			closeCallback &&　closeCallback.call(this.element,this.element,$('#__mask',$('body')));
 		},
@@ -369,7 +369,7 @@
 		},
 		remove : function(){
 			this._define.$dialog.remove();	
-			$.mask.close('ued-dialog');
+			$.mask.close('ued-dialogs');
 			this._define = null;
 		},
 		/*

@@ -68,4 +68,4 @@ h1{ float:left; margin:14px 0 0 24px; width:176px; height:54px; background:url(.
 .ft-right{ float:right; margin:0 11px 0 3px; padding-right:10px; background:url(../images/foot02.png) no-repeat right center;}
 
 /*弹窗内容样式*/
-.dialog-content .buttons{margin-top:30px;}
+.dialog-contents .buttons{margin-top:30px;}
