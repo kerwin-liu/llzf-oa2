@@ -84,7 +84,7 @@
                         姓名：
                     </td>
                     <td>
-                            Admin
+                        Admin
                     </td>
                 </tr>
                 <tr>

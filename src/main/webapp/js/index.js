@@ -34,7 +34,6 @@ $('.exitDialog').Dialog({
 	autoOpen: false,
 	width:400,
 	height:200
-	
 });
 
 $('.exit').click(function(){
