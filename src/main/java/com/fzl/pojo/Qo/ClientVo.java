@@ -1,8 +1,8 @@
-package com.fzl.pojo;
+package com.fzl.pojo.Qo;
 
 import java.util.Date;
 
-public class Client {
+public class ClientVo {
     private Long khId;
 
     private Long memberId;

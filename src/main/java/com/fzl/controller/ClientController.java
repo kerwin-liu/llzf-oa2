@@ -86,4 +86,11 @@ public class ClientController extends BaseController {
             }
         }
     }
+    /**
+     * 查询客户列表
+     */
+    @RequestMapping(value = "getList",method = RequestMethod.POST)
+    public void getList(HttpServletRequest request, HttpServletResponse response) {
+
+    }
 }
