@@ -87,13 +87,13 @@
            </span>
         <span class="item-two">
                  <label>手机号:</label>
-                <input name="jjlxrsj" id="jjlxrsjm" style="height: 25px;">
+                <input name="jjlxrsj" id="jjlxrsj" style="height: 25px;">
             </span>
     </div>
     <div class="fitem">
         <label class="item-one">所属关系:</label>
         <%--<input name="ssgx" class="ssgx show-item" size="56">--%>
-        <input type="radio" name="sugx" class="sugx" value="父亲" checked>父亲
+        <input type="radio" name="sugx" class="sugx" value="父亲">父亲
         <input type="radio" name="sugx" class="sugx" value="母亲" >母亲
         <input type="radio" name="sugx" class="sugx" value="朋友">朋友
         <input type="radio" name="sugx" class="sugx" value="子女">子女
@@ -174,6 +174,7 @@
     $("#address").val(rows[0].address);
     $("#remark").val(rows[0].remark);
     $("#wexin").val(rows[0].wexin);
+    debugger;
     $("#wPhone").val(rows[0].wPhone);
     $("#jjlxr").val(rows[0].jjlxr);
     $("#jjlxrsj").val(rows[0].jjlxrsj);
