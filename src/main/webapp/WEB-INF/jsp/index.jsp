@@ -5,15 +5,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html style="width: 100%;height: 100%" >
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="../../css/base.css" />
-<link rel="stylesheet" type="text/css" href="../css/jquery.dialog.css" />
-<link rel="stylesheet" href="../../css/index.css" />
+
     <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/demo/demo.css">
+    <link rel="stylesheet" href="../../css/base.css" />
+    <link rel="stylesheet" type="text/css" href="../css/jquery.dialog.css" />
+    <link rel="stylesheet" href="../../css/index.css" />
 <script type="text/javascript" src="../../js/tools.js"></script>
 <style type="text/css">
     .fitem {

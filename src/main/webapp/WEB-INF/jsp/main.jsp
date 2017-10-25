@@ -31,7 +31,7 @@
             width: 39.5%;
             height: 100%;
             float: left;
-            border: 1px solid red;
+            border: 0px solid red;
         }
         .right-top{
             width: 60%;
@@ -62,7 +62,54 @@
 <body>
 <div class="content">
     <div class="left">
+        <div style="float: left;width: 10%;height: 45px;border: 0px solid red;"></div>
+        <div style="float: left;width: 78%;height: 45px;border-bottom: 3px solid #949494;font-size: 30px;font-weight: 900;text-align: center;font-family: 'Microsoft Yahei', '微软雅黑';color: #949494">个人信息</div>
+        <div style="float: left;width: 10%;height: 45px;border: 0px solid red;"></div>
+        <div style="float: left;width: 99%;height: 80%;margin-top: 0.5%;border: 1px solid red">
+            <table border="1" width="100%" style="height: 100%">
+                <tr>
+                    <td style="width: 45%">
+                        姓名：
+                    </td>
+                    <td>
 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        手机号：
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        微信号：
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        QQ：
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                       职位：
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            </table>
+
+        </div>
     </div>
     <div class="right-top">
         <div class="right-top-top" id="day-bar"></div>
