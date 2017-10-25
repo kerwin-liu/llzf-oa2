@@ -28,4 +28,6 @@ public interface MemberService {
 
     Pages<MemberVo> queryMemberVoByDepartment(MemberQo memberQo, Long id);
     Pages<MemberVo> queryMemberVoByDepartment(MemberQo memberQo);
+
+    Member queryMemberByMemberId(Long memberId);
 }

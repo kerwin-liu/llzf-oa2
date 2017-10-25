@@ -146,4 +146,9 @@ public class MemberServiceImpl implements MemberService {
         Page<MemberVo> page = (Page<MemberVo>) list;
         return new Pages<>(page.getStartRow(), page.getTotal(), page.getPageSize(), list);
     }
+
+    @Override
+    public Member queryMemberByMemberId(Long memberId) {
+        return memberMapper.selectByPrimaryKey(memberId);
+    }
 }
