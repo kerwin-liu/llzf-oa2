@@ -145,10 +145,20 @@
             rownumbers: true,
             columns: [[
                 {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
-                {field: 'kh_Id', title: '编号', width: 50, align: 'center',hidden:true},
+                {field: 'khId', title: '编号', width: 50, align: 'center',hidden:true},
                 {field: 'khmc', title: '姓名', width: 100, align: 'center'},
-                {field: 'khxb', title: '性别', width: 100, align: 'center'},
+                {field: 'khxb', title: '性别', width: 100, align: 'center',formatter:function(value, row, index){
+                    var type="";
+                    if(value==0){
+                        type="男";
+                    }
+                    if(value==1){
+                        type="女";
+                    }
+
+                    return type;}},
                 {field: 'khsjh', title: '手机号', width: 100, align: 'center'},
+                {field: 'khsfzh', title: '身份证号', width: 100, align: 'center'},
                 {field: 'khwx', title: '微信号', width: 100, align: 'center'},
                 {field: 'khwxnc', title: '微信名', width: 100, align: 'center'},
                 {field: 'khqq', title: 'QQ号', width: 100, align: 'center'},
@@ -168,7 +178,8 @@
                     }
                     return type;
                 }},
-                {field: 'memer_Id', title: '负责人', width: 100, align: 'center'},
+                {field: 'memberId', title: '负责人', width: 100, align: 'center',hidden:true},
+                {field: 'name', title: '负责人', width: 100, align: 'center'},
                 {field: 'ip', title: '是否成交', width: 100, align: 'center',formatter:function(value, row, index){
                     var type="";
                     if(value==1){

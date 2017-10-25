@@ -22,45 +22,42 @@
 <body>
 <form id="from" action="/client/update" method="post" target="hidden_frame">
     <div class="ftitle">客户信息</div>
-    <input id="clientId" name="clientId" style="display: none;"/>
+    <input id="khId" name="khId" style="display: none;"/>
     <div class="fitem">
             <span class="item-one">
                 <label>姓名:</label>
-                <input id="names" name="name" class="easyui-validatebox textbox" required="true" size="20" style="height: 25px;">
+                <input id="khmc" name="khmc" class="easyui-validatebox textbox" required="true" size="20" style="height: 25px;">
             </span>
         <span class="item-two">
                   <label>性别:</label>
-                <input type="radio" class="sex" id="sex0" name="sex" value="0" checked>男
-                <input type="radio" class="sex" id="sex1" name="sex" value="1">女
-            <script type="text/javascript">
-
-            </script>
+                <input type="radio" class="sex" id="sex0" name="khxb" value="0" checked>男
+                <input type="radio" class="sex" id="sex1" name="khxb" value="1">女
             </span>
     </div>
     <div class="fitem">
           <span class="item-one">
                  <label>手机:</label>
-              <input id="phone" name="phone"  class="easyui-validatebox textbox" required="true" style="height: 25px;">
+              <input id="khsjh" name="khsjh"  class="easyui-validatebox textbox" required="true" style="height: 25px;">
             </span>
         <span class="item-two">
                 <label>微信号:</label>
-               <input id="weixin" name="weixin"  class="easyui-validatebox textbox" required="true" style="height: 25px;">
+               <input id="khwx" name="khwx"  class="easyui-validatebox textbox" required="true" style="height: 25px;">
            </span>
     </div>
     <div class="fitem">
            <span class="item-one">
                 <label>微信名:</label>
-                <input id="qqqnc" name="qqqnc" class="easyui-validatebox textbox" required="true" style="height: 25px;">
+                <input id="khwxnc" name="khwxnc" class="easyui-validatebox textbox" required="true" style="height: 25px;">
            </span>
         <span class="item-two">
                  <label>QQ号:</label>
-                <input id="qq" name="qq"  class="easyui-validatebox textbox" required="true" style="height: 25px;">
+                <input id="khqq" name="khqq"  class="easyui-validatebox textbox" required="true" style="height: 25px;">
             </span>
     </div>
     <div class="fitem">
            <span class="item-one">
                 <label>客户类型:</label>
-                 <select class="easyui-combobox" name="type" class="easyui-validatebox" size="20">
+                 <select class="easyui-combobox" name="khlx" class="easyui-validatebox" size="20">
                     <option value="1">一般客户</option>
                     <option value="2">潜力客户</option>
                      <option value="3">意客客户</option>
@@ -69,31 +66,32 @@
            </span>
         <span class="item-two">
                  <label>负责人:</label>
-                <input name="funds" style="height: 25px;">
+                <input id="name"  style="height: 25px;">
+                <input id="memberId" name="memberId" style="display: none;">
         </span>
     </div>
     <div class="fitem">
         <label>身份证:</label>
-        <input id="card" value="12134356" name="card" readonly="readonly" size="55"  required="true" style="height: 25px;">
+        <input id="khsfzh" value="" name="khsfzh" readonly="readonly" size="55"  required="true" style="height: 25px;">
     </div>
     <div class="fitem">
         <label>备注:</label>
-        <input id="remark" name="remark" size="55" style="height: 25px;">
+        <input id="bz" name="bz" size="55" style="height: 25px;">
     </div>
 </form>
 <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 <script type="text/javascript">
     var rows= $("#dg").datagrid("getSelections");
-    console.log(rows[0].clientId);
-    $("#clientId").val(rows[0].clientId);
-    $("#names").val(rows[0].name);
-    $("#phone").val(rows[0].phone);
-    $("#weixin").val(rows[0].weixin);
-    $("#qq").val(rows[0].qq);
-    $("#qqqnc").val(rows[0].qqqnc);
-    $("#card").val(rows[0].card);
-    $("#remark").val(rows[0].remark);
-    if(rows[0].sex==0){
+    console.log(rows[0].khId);
+    $("#khId").val(rows[0].khId);
+    $("#khmc").val(rows[0].khmc);
+    $("#khsjh").val(rows[0].khsjh);
+    $("#khwx").val(rows[0].khwx);
+    $("#khqq").val(rows[0].khqq);
+    $("#khqqnc").val(rows[0].khqqnc);
+    $("#khsfzh").val(rows[0].khsfzh);
+    $("#bz").val(rows[0].bz);
+    if(rows[0].khxb==0){
         $('input:radio[name=sex]')[0].checked = true;
     }else{
         $('input:radio[name=sex]')[1].checked = true;
