@@ -1,12 +1,9 @@
 package com.fzl.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.fzl.common.Pages;
 import com.fzl.pojo.Member;
 import com.fzl.pojo.Qo.MemberQo;
 import com.fzl.pojo.User;
-import com.fzl.pojo.Vo.BatchDeleteVo;
 import com.fzl.pojo.Vo.MemberVo;
 import com.fzl.service.MemberService;
 import com.fzl.service.UserService;
@@ -14,13 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2017/10/16.
@@ -61,7 +58,6 @@ public class MemberController extends BaseController {
             return;
         }
     }
-
     @RequestMapping(value = "getAll", method = RequestMethod.POST)
     public void getAll(HttpServletRequest request, HttpServletResponse response, MemberQo memberQo) {
         //权限：员工只能查看自己的，主管只能查看本部门的，管理员查看全部的
@@ -75,7 +71,7 @@ public class MemberController extends BaseController {
         }
         if (role.compareTo(2L) == 0) {
             List<Member> members = memberService.queryMemberByDepartmentALl(memberQo, sessionUser.getId());
-            writeCommonDataResponse(response, "200", "查询成功", members);
+            writeCommonDataResponse(response, "200", "查询成功",members );
             return;
         }
         if (role.compareTo(1L) == 0) {
@@ -125,12 +121,11 @@ public class MemberController extends BaseController {
      * @param member
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public void update(HttpServletRequest request, HttpServletResponse response, Member member, Long id) {
+    public void update(HttpServletRequest request, HttpServletResponse response, Member member) {
         //权限判断 1获取user 通过id查询权限
         User sessionUser = (User) request.getSession().getAttribute("user");
         Long role = userService.selectRole(sessionUser);
         //管理员和主管可以增加员工 员工级别的不能添加员工
-        member.setMemberId(id);
         if (role.compareTo(3L) == 0) {
             writeResponse(response, "400", "该用户无修改权限");
             return;
@@ -162,7 +157,7 @@ public class MemberController extends BaseController {
         //查询员工下边是不是有客户
         int a = memberService.countClient(memberId);
         if (a > 0) {
-            writeResponse(response, "400", "该员工下还有" + a + "个客户");
+            writeResponse(response, "400", "该员工下还有"+a+"个客户");
             return;
         }
         boolean delete = memberService.deleteByid(memberId);

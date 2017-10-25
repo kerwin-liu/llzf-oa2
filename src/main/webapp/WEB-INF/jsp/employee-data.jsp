@@ -83,10 +83,10 @@
         <a id="btn11" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">返回</a>
     </div>
     <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
-        编号:<input id="number" type="text" style="width:80px;"/>
-        姓名：<input id="name" type="text" style="width:80px;"/>
-        手机:<input id="phone" type="text" style="width:80px;"/>
-        身份证号:<input id="card" type="text" style="width:80px;"></input>
+        编号:<input id="number-search" type="text" style="width:80px;"/>
+        姓名：<input id="name-search" type="text" style="width:80px;"/>
+        手机:<input id="phone-search" type="text" style="width:80px;"/>
+        身份证号:<input id="card-search" type="text" style="width:80px;"></input>
         <a id="btn7" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">点击搜索</a>
     </div>
 
@@ -126,7 +126,7 @@
 </body>
 
 <script type="text/javascript">
-    var data_url= '/member/getList?pageIndex=1&pageSize=10';
+    var data_url= '/member/getList';
     $(function () {
         var myDate = new Date();
         var historyTimeString= date2str(getBeforeTimeByMinute(myDate,-60),'yyyy-MM-dd hh:mm:ss'),
@@ -178,7 +178,17 @@
                     }
                     return open;
                 }},
-                {field: 'groupName', title: '部门', width: 100, align: 'center'}
+                {field: 'groupName', title: '部门', width: 100, align: 'center'},
+                {field: 'permissions', title: '权限',align: 'center',hidden: 'true'},
+                {field: 'groups', title: '部门id', align: 'center',hidden: 'true'},
+                {field: 'address', title: '地址', align: 'center',hidden: 'true'},
+                {field: 'remark', title: '备注', align: 'center',hidden: 'true'},
+                {field: 'wexin', title: '微信', align: 'center',hidden: 'true'},
+                {field: 'wPhone', title: '绑定手机', align: 'center',hidden: 'true'},
+                {field: 'jjlxr', title: '紧急联系人', align: 'center',hidden: 'true'},
+                {field: 'jjlxrsj', title: '紧急联系人手机号', align: 'center',hidden: 'true'},
+                {field: 'sugx', title: '所属关系', align: 'center',hidden: 'true'}
+
             ]]
         }).datagrid("getPager").pagination({
             onBeforeRefresh : function(pageNumber, pageSize) {
@@ -192,7 +202,7 @@
             onChangePageSize:function(pageSize){
                 var $getPager = $("#dg").datagrid('getPager');
                 var $pagination = $($getPager).pagination("options");
-
+                tbdata(data_url,1,pageSize);
             },
             onSelectPage : function(pageNumber, pageSize) {
                 var gridOpts = $('#dg').datagrid('options');
@@ -213,7 +223,7 @@
         });
 
         $(".datagrid-toolbar").insertBefore(".datagrid-view");
-        tbdata(data_url);
+        tbdata(data_url,1,30);
         //添加员工
         $("#btn1").click(function(){
             createwindow("添加员工", "/pages/employee-add",600,500);
@@ -231,7 +241,7 @@
             }else if(row.length==1){
                 $.post('/user/creat/'+row[0].memberId,{} , function (result) {
                     if (result.code == 200) {
-                        tbdata(data_url);
+                        tbdata(data_url,1,30);
                     } else {
                         alert(result.msg);
                         /*   $.messager.show({
@@ -288,13 +298,13 @@
         //查询
         $("#btn7").click(function () {
             var data={};
-            data["name"]=$("#name").val();
-            data["phone"]=$("#phone").val();
-            data['number']=$("#number").val();
-            data["card"]=$("#card").val();
-            data["time"]=$("#time").val();
+            data["name"]=$("#name-search").val();
+            data["phone"]=$("#phone-search").val();
+            data['number']=$("#number-search").val();
+            data["card"]=$("#card-search").val();
+            data["time"]=$("#time-search").val();
             $.ajax({
-                url: '/member/getList?pageIndex=1&pageSize=10',
+                url: '/member/getList?pageIndex=1&pageSize=30',
                 type: "POST",
                 dataType: 'json',
                 data:data,
@@ -320,8 +330,7 @@
         if(rows.length>1||rows.length==0){
             tip("请选择一条数据进行修改");
         }else{
-            debugger;
-            createwindow("修改员工", "/pages/employee-add",600,500);
+            createwindow("修改员工", "/pages/employee-update",600,500);
 //            createwindow("修改员工",  '/member/update?id=' + rows.memberId,600,500);
         }
     }
@@ -345,7 +354,7 @@
         data["wPhone"]=$(".wPhone").val();
         data["jjlxr"]=$(".jjlxr").val();
         data["jjlxrsj"]=$(".jjlxrsj").val();
-        data["ssgx"]=$(".ssgx").val();
+        data["sugx"]=$(".sugx").val();
         $.ajax({
             url: url,
             dataType: 'json',
@@ -355,7 +364,7 @@
                 if (data.code == 200) {
                     $('#dlg').dialog('close');		// close the dialog
 //                    $('#dg').datagrid('reload');	// reload the user data
-                    tbdata(data_url);
+                    tbdata(data_url,1,30);
                 } else {
                     alert(data.msg);
                 }
@@ -367,7 +376,7 @@
         if(row.length>0){
             var ids=[];
             for(var i=0;i<row.length;i++){
-                ids.push(row[i].memberId)
+                ids.push(row[i].memberId+"")
             }
             console.log(ids);
             $.messager.confirm('确定', '你确定要删除员工吗?', function (r) {
@@ -376,7 +385,7 @@
                         //alert(result);
                         if (result.code == 200) {
                             alert(result.msg);
-                            tbdata(data_url);
+                            tbdata(data_url,1,30);
 //                            $('#dg').datagrid('reload');	// reload the user data
                         } else {
                             $.messager.show({	// show error message
