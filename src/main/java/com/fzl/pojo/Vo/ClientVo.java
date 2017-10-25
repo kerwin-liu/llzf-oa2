@@ -9,6 +9,8 @@ public class ClientVo {
 
     private Long memberId;
 
+    private String name;
+
     private String khmc;
 
     private String khsfzh;
@@ -233,5 +235,13 @@ public class ClientVo {
 
     public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

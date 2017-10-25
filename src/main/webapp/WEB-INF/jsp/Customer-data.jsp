@@ -145,14 +145,24 @@
             rownumbers: true,
             columns: [[
                 {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
-                {field: 'clientId', title: '编号', width: 50, align: 'center',hidden:true},
-                {field: 'name', title: '姓名', width: 100, align: 'center'},
-                {field: 'sex', title: '性别', width: 100, align: 'center'},
-                {field: 'phone', title: '手机号', width: 100, align: 'center'},
-                {field: 'weixin', title: '微信号', width: 100, align: 'center'},
-                {field: 'qqqnc', title: '微信名', width: 100, align: 'center'},
-                {field: 'qq', title: 'QQ号', width: 100, align: 'center'},
-                {field: 'type', title: '客户类型', width: 60, align: 'center',formatter:function(value, row, index){
+                {field: 'khId', title: '编号', width: 50, align: 'center',hidden:true},
+                {field: 'khmc', title: '姓名', width: 100, align: 'center'},
+                {field: 'khxb', title: '性别', width: 100, align: 'center',formatter:function(value, row, index){
+                    var type="";
+                    if(value==0){
+                        type="男";
+                    }
+                    if(value==1){
+                        type="女";
+                    }
+
+                    return type;}},
+                {field: 'khsjh', title: '手机号', width: 100, align: 'center'},
+                {field: 'khsfzh', title: '身份证号', width: 100, align: 'center'},
+                {field: 'khwx', title: '微信号', width: 100, align: 'center'},
+                {field: 'khwxnc', title: '微信名', width: 100, align: 'center'},
+                {field: 'khqq', title: 'QQ号', width: 100, align: 'center'},
+                {field: 'khlx', title: '客户类型', width: 60, align: 'center',formatter:function(value, row, index){
                   var type="";
                     if(value==1){
                         type="一般客户";
@@ -161,14 +171,15 @@
                         type="潜力客户";
                     }
                     if(value==3){
-                        type="意客客户";
+                        type="意向客户";
                     }
                     if(value==4){
                         type="未有兴趣客户";
                     }
                     return type;
                 }},
-                {field: 'memerId', title: '负责人', width: 100, align: 'center'},
+                {field: 'memberId', title: '负责人', width: 100, align: 'center',hidden:true},
+                {field: 'name', title: '负责人', width: 100, align: 'center'},
                 {field: 'ip', title: '是否成交', width: 100, align: 'center',formatter:function(value, row, index){
                     var type="";
                     if(value==1){
@@ -180,8 +191,8 @@
 
                     return type;
                 }},
-                {field: 'remark', title: '备注', width: 100, align: 'center'},
-                {field: 'time', title: '归档日期', width: 180, align: 'center',formatter:function(value, row, index){
+                {field: 'bz', title: '备注', width: 100, align: 'center'},
+                {field: 'cjsj', title: '归档日期', width: 180, align: 'center',formatter:function(value, row, index){
                 var time = new Date(value);
                 return date2str(time,'yyyy-MM-dd hh:mm:ss');
                 }}
@@ -287,7 +298,6 @@
                     for (var i=0;i<value.length;i++){
                         d.push({"id":value[i].memberId,"text":value[i].name});
                     }
-                    console.log(d);
                     d[0].selected=true;
                     $("#employee1").combobox({
                         valueField:'id',
@@ -386,7 +396,6 @@ function exports(){
         url:'/client/exportExcel',
         dataType:'json',
         success:function(data){
-            console.log(data);
             tip(data.msg);
         }
     })
@@ -412,6 +421,7 @@ function exports(){
             type: "POST",
             dataType:'json',
             success:function(data){
+                console.log(data);
                 $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
             }
         });
