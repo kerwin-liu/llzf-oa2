@@ -26,23 +26,19 @@
     <div class="fitem">
             <span class="item-one">
                 <label>账号:</label>
-                <input name="number" id="number" class="easyui-validatebox textbox" required="true" size="20" style="height: 25px;">
+                <input name="number" id="number" class="easyui-validatebox textbox" missingMessage="不能为空" validType="CHS" required="true" size="20" style="height: 25px;">
             </span>
         <span class="item-two">
                 <label>组别:</label>
-                     <input id="groups" width="50px;" size="20" name="groups" data-options="required:true" style="height: 25px;">
-                <script type="text/javascript">
+                     <input id="groups" width="50px;" size="20" name="groups" missingMessage="不能为空" validType="CHS" data-options="required:true" style="height: 25px;">
 
-                </script>
             </span>
     </div>
     <div class="fitem">
           <span class="item-one">
                  <label>权限:</label>
-              <input id="permissions" size="20" name="permissions" data-options="required:true" style="height: 25px;" >
-                 <script type="text/javascript">
+              <input id="permissions" size="20" name="permissions" missingMessage="不能为空" validType="CHS"  data-options="required:true" style="height: 25px;" >
 
-                </script>
             </span>
         <span class="item-two">
                 <label>性别:</label>
@@ -53,11 +49,11 @@
     <div class="fitem">
            <span class="item-one">
                 <label>姓名:</label>
-                <input name="name" id="name"class="easyui-validatebox textbox" required="true" style="height: 25px;">
+                <input name="name" id="name"class="easyui-validatebox textbox" missingMessage="不能为空" validType="CHS" required="true" style="height: 25px;">
            </span>
         <span class="item-two">
                  <label>手机:</label>
-                <input  name="phone" id="phone" class="easyui-validatebox textbox" required="true" style="height: 25px;">
+                <input  name="phone" id="phone" class="easyui-validatebox textbox" missingMessage="不能为空" validType="CHS" required="true" style="height: 25px;">
             </span>
     </div>
     <div class="fitem">
@@ -101,7 +97,7 @@
     </div>
     <div class="fitem">
         <label class="item-one">身份证:</label>
-        <input name="card" size="56" id="card" class="easyui-validatebox textbox" required="true" style="height: 25px;">
+        <input name="card" size="56" id="card" class="easyui-validatebox textbox" missingMessage="不能为空" validType="CHS" required="true" style="height: 25px;">
     </div>
     <div class="fitem">
         <label class="item-one">住址:</label>

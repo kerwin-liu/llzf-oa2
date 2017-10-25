@@ -240,7 +240,11 @@
             }else if(row.length==1){
                 $.post('/user/creat/'+row[0].memberId,{} , function (result) {
                     if (result.code == 200) {
-                        tbdata(data_url,1,30);
+                        alert(result.msg);
+                        setTimeout(function () {
+                            tbdata(data_url,1,30);
+                        },500);
+
                     } else {
                         alert(result.msg);
                         /*   $.messager.show({

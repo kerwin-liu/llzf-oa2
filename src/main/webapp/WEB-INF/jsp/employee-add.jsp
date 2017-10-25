@@ -26,11 +26,11 @@
     <div class="fitem">
             <span class="item-one">
                 <label>账号:</label>
-                <input name="number" class="easyui-validatebox textbox number" required="true" size="20" style="height: 25px;">
+                <input name="number" class="easyui-validatebox textbox number"  missingMessage="不能为空" validType="CHS" required="true" size="20" style="height: 25px;">
             </span>
             <span class="item-two">
                 <label>组别:</label>
-                     <input id="groups" width="50px;" size="20" name="groups" data-options="required:true" style="height: 25px;">
+                     <input id="groups" width="50px;" size="20" name="groups"  missingMessage="不能为空" validType="CHS" data-options="required:true" style="height: 25px;">
                 <script type="text/javascript">
                   //添加分组的下拉框
                   $.ajax({
@@ -87,11 +87,11 @@
     <div class="fitem">
            <span class="item-one">
                 <label>姓名:</label>
-                <input name="name" class="easyui-validatebox textbox name" required="true" style="height: 25px;">
+                <input name="name" class="easyui-validatebox textbox name"  missingMessage="不能为空" validType="CHS" required="true" style="height: 25px;">
            </span>
             <span class="item-two">
                  <label>手机:</label>
-                <input  name="phone" class="easyui-validatebox textbox phone" required="true" style="height: 25px;">
+                <input  name="phone" class="easyui-validatebox textbox phone" missingMessage="不能为空" validType="CHS"  required="true" style="height: 25px;">
             </span>
     </div>
     <div class="fitem">
@@ -135,7 +135,7 @@
     </div>
     <div class="fitem">
         <label class="item-one">身份证:</label>
-        <input name="card" size="56" class="easyui-validatebox textbox card" required="true" style="height: 25px;">
+        <input name="card" size="56" class="easyui-validatebox textbox card"  missingMessage="不能为空" validType="CHS" required="true" style="height: 25px;">
     </div>
     <div class="fitem">
         <label class="item-one">住址:</label>
