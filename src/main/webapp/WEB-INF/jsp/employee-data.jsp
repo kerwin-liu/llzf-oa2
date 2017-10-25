@@ -152,7 +152,7 @@
             rownumbers: true,
             columns: [[
                 {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
-                {field: 'memberId', title: 'ID', checkbox: true, width: 8, align: 'center', hidden: 'true'},
+                {field: 'memberId', title: 'ID', checkbox: true, width: 50, align: 'center', hidden: 'true'},
                 {field: 'number', title: '编号', width: 100, align: 'center'},
                 {field: 'name', title: '姓名', width: 100, align: 'center'},
                 {field: 'sex', title: '性别', width: 100, align: 'center',formatter:function(value, row, index){
@@ -188,7 +188,6 @@
                 {field: 'jjlxr', title: '紧急联系人', align: 'center',hidden: 'true'},
                 {field: 'jjlxrsj', title: '紧急联系人手机号', align: 'center',hidden: 'true'},
                 {field: 'sugx', title: '所属关系', align: 'center',hidden: 'true'}
-
             ]]
         }).datagrid("getPager").pagination({
             onBeforeRefresh : function(pageNumber, pageSize) {
@@ -345,7 +344,23 @@
                     $.post('/member/batchDelete', {"ids":JSON.stringify(ids)}, function (result) {
                         //alert(result);
                         if (result.code == 200) {
-                            alert(result.msg);
+                            console.log(result);
+                            var str=result.msg+"\r"+"删除失败列表："+"\r";
+                            if(result.date!=null && result.date.length>0){
+                                var json={};
+                                for(var i=0;i<result.date.length;i++){
+                                    var nameList=json[result.date[i].error];
+                                    if(typeof(nameList)=="undefined"){
+                                        nameList=[];
+                                    }
+                                    nameList.push(result.date[i].name);
+                                    var s="原因："+result.date[i].error+"\r"+"删除失败人员："+nameList+"\r";
+                                    str+=s
+                                }
+                                alert(str);
+                            }else{
+                                alert(result.msg);
+                            }
                             tbdata(data_url,1,30);
 //                            $('#dg').datagrid('reload');	// reload the user data
                         } else {

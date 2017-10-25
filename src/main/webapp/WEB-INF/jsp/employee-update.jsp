@@ -87,13 +87,13 @@
            </span>
         <span class="item-two">
                  <label>手机号:</label>
-                <input name="jjlxrsj" id="jjlxrsjm" style="height: 25px;">
+                <input name="jjlxrsj" id="jjlxrsj" style="height: 25px;">
             </span>
     </div>
     <div class="fitem">
         <label class="item-one">所属关系:</label>
         <%--<input name="ssgx" class="ssgx show-item" size="56">--%>
-        <input type="radio" name="sugx" class="sugx" value="父亲" checked>父亲
+        <input type="radio" name="sugx" class="sugx" value="父亲">父亲
         <input type="radio" name="sugx" class="sugx" value="母亲" >母亲
         <input type="radio" name="sugx" class="sugx" value="朋友">朋友
         <input type="radio" name="sugx" class="sugx" value="子女">子女
@@ -118,7 +118,8 @@
 <script type="text/javascript">
     var data_url= '/member/getList';
     var rows= $("#dg").datagrid("getSelections");
-    console.log(rows)
+    console.log(rows);
+    var sugx=rows[0].sugx;
     //添加分组的下拉框
     var groupsMap={};
     $.ajax({
@@ -177,23 +178,22 @@
     $("#wPhone").val(rows[0].wPhone);
     $("#jjlxr").val(rows[0].jjlxr);
     $("#jjlxrsj").val(rows[0].jjlxrsj);
-//    $("#sugx").val(rows[0].sugx);
-//    $("#sex").val(rows[0].sex);
     if(rows[0].sex==0){
         $('input:radio[name=sex]')[0].checked = true;
     }else{
         $('input:radio[name=sex]')[1].checked = true;
     }
     //配偶关系
-    if(rows[0].sugx="父亲"){
+    debugger;
+    if(sugx=="父亲"){
         $('input:radio[name=sugx]')[0].checked = true;
-    }else if(rows[0].sugx="母亲"){
+    }else if(sugx=="母亲"){
         $('input:radio[name=sugx]')[1].checked = true;
-    }else if(rows[0].sugx="朋友"){
+    }else if(sugx=="朋友"){
         $('input:radio[name=sugx]')[2].checked = true;
-    }else if(rows[0].sugx="子女"){
+    }else if(sugx=="子女"){
         $('input:radio[name=sugx]')[3].checked = true;
-    }else if(rows[0].sugx="配偶"){
+    }else if(sugx=="配偶"){
         $('input:radio[name=sugx]')[4].checked = true;
     }else{
         $('input:radio[name=sugx]')[0].checked = true;

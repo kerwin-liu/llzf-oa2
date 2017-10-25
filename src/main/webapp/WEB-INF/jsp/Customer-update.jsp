@@ -26,13 +26,12 @@
     <div class="fitem">
             <span class="item-one">
                 <label>姓名:</label>
-                <input id="names" name="name" class="easyui-validatebox textbox" required="true" size="20">
+                <input id="names" name="name" class="easyui-validatebox textbox" required="true" size="20" style="height: 25px;">
             </span>
         <span class="item-two">
-                <label>性别:</label>
-                <select  id="sex" class="easyui-combobox" name="sex" class="easyui-validatebox" size="20">
-
-                </select>
+                  <label>性别:</label>
+                <input type="radio" class="sex" id="sex0" name="sex" value="0" checked>男
+                <input type="radio" class="sex" id="sex1" name="sex" value="1">女
             <script type="text/javascript">
 
             </script>
@@ -41,21 +40,21 @@
     <div class="fitem">
           <span class="item-one">
                  <label>手机:</label>
-              <input id="phone" name="phone"  class="easyui-validatebox textbox" required="true">
+              <input id="phone" name="phone"  class="easyui-validatebox textbox" required="true" style="height: 25px;">
             </span>
         <span class="item-two">
                 <label>微信号:</label>
-               <input id="weixin" name="weixin"  class="easyui-validatebox textbox" required="true">
+               <input id="weixin" name="weixin"  class="easyui-validatebox textbox" required="true" style="height: 25px;">
            </span>
     </div>
     <div class="fitem">
            <span class="item-one">
                 <label>微信名:</label>
-                <input id="qqqnc" name="qqqnc" class="easyui-validatebox textbox" required="true">
+                <input id="qqqnc" name="qqqnc" class="easyui-validatebox textbox" required="true" style="height: 25px;">
            </span>
         <span class="item-two">
                  <label>QQ号:</label>
-                <input id="qq" name="qq"  class="easyui-validatebox textbox" required="true">
+                <input id="qq" name="qq"  class="easyui-validatebox textbox" required="true" style="height: 25px;">
             </span>
     </div>
     <div class="fitem">
@@ -70,16 +69,16 @@
            </span>
         <span class="item-two">
                  <label>负责人:</label>
-                <input name="funds">
+                <input name="funds" style="height: 25px;">
         </span>
     </div>
     <div class="fitem">
         <label>身份证:</label>
-        <input id="card" value="12134356" name="card" readonly="readonly" size="53" class="easyui-validatebox textbox card" required="true">
+        <input id="card" value="12134356" name="card" readonly="readonly" size="55"  required="true" style="height: 25px;">
     </div>
     <div class="fitem">
         <label>备注:</label>
-        <input id="remark" name="remark" size="53">
+        <input id="remark" name="remark" size="55" style="height: 25px;">
     </div>
 </form>
 <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
@@ -94,17 +93,11 @@
     $("#qqqnc").val(rows[0].qqqnc);
     $("#card").val(rows[0].card);
     $("#remark").val(rows[0].remark);
-    var map=[{"id":"0","name":"男"},{"id":"1","name":"女"}];
     if(rows[0].sex==0){
-        map[0].selected=true;
+        $('input:radio[name=sex]')[0].checked = true;
     }else{
-        map[1].selected=true;
+        $('input:radio[name=sex]')[1].checked = true;
     }
-    $("#sex").combobox({
-        valueField:'id',
-        textField:'name',
-        data:map
-    });
 
     $('#hidden_frame').load(function(){
         var text=$(this).contents().find("body").text();

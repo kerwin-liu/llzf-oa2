@@ -25,44 +25,103 @@
         .content{
             width: 100%;
             height: 99%;
-            border: 1px solid red;
+            border: 0px solid red;
         }
         .left{
             width: 39.5%;
             height: 100%;
             float: left;
-            border: 1px solid red;
+            border: 0px solid red;
         }
         .right-top{
             width: 60%;
             height: 49.7%;
             float: left;
-            border: 1px solid red;
+            border: 0px solid red;
         }
         .right-bottom{
             width: 60%;
             height: 49.7%;
             float: left;
-            border: 1px solid red;
+            border: 0px solid red;
         }
         .right-top-top{
             width: 49.7%;
             height: 100%;
             float: left;
-            border: 1px solid red;
+            border: 0px solid red;
         }
         .right-top-bottom{
             width: 49.7%;
             height: 100%;
             float: left;
-            border: 1px solid red;
+            border: 0px solid red;
+        }
+        table tr td{
+            color: #949494;
+            font-family: 'Microsoft Yahei', '微软雅黑';
+            font-size: 18px;
+            text-align: left;
+        }
+        table tr td:first-child{
+            color: #949494;
+            font-family: 'Microsoft Yahei', '微软雅黑';
+            font-size: 18px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 <div class="content">
     <div class="left">
+        <div style="float: left;width: 10%;height: 45px;border: 0px solid red;"></div>
+        <div style="float: left;width: 78%;height: 45px;border-bottom: 3px solid #949494;font-size: 30px;font-weight: 900;text-align: center;font-family: 'Microsoft Yahei', '微软雅黑';color: #949494">个人信息</div>
+        <div style="float: left;width: 10%;height: 45px;border: 0px solid red;"></div>
+        <div style="float: left;width: 99%;height: 80%;margin-top: 0.5%;border: 0px solid red">
+            <table border="0" width="100%" style="height: 100%">
+                <tr>
+                    <td style="width: 45%">
+                        姓名：
+                    </td>
+                    <td>
+                        Admin
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        手机号：
+                    </td>
+                    <td>
 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        微信号：
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        QQ：
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                       职位：
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            </table>
+
+        </div>
     </div>
     <div class="right-top">
         <div class="right-top-top" id="day-bar"></div>
@@ -242,8 +301,11 @@ option03 = {
     tooltip: {
         trigger: 'axis',
         formatter: function(params) {
-            return params[0].name + '<br/>'
-                + params[0].seriesName + ' : ' + params[0].value + '%'
+            var value=params[0].name + '<br/>';
+            for(var i=0;i<params.length;i++){
+                value +=params[i].seriesName + ' : ' + params[i].value + '个<br/>';
+            }
+            return value;
         }
     },
     title : {
@@ -255,6 +317,11 @@ option03 = {
             fontWeight: 'bolder',
             color: '#00c5fd'
         }
+    },
+    legend: {
+        show: true,
+        x:'right',
+        data:['新加客户数','新加追踪数']
     },
     backgroundColor:'rgba(20,67,111,0.0)',
     xAxis : [
@@ -277,9 +344,6 @@ option03 = {
             },
             axisLabel : {
                 show : true,
-                formatter: function(params) {
-                    return params.substring(11, 16);
-                },
                 textStyle: {
                     color:'#00c5fd'
                 }
@@ -290,7 +354,7 @@ option03 = {
                     color:'rgba(2,60,81,0.3)',
                 }
             },
-            data : ['']
+            data : ['2017-10-00','2017-10-01','2017-10-02']
         }
     ],
     yAxis : [
@@ -305,12 +369,7 @@ option03 = {
             axisLabel : {
                 show: true,
                 formatter: function(data){
-                    if((data*10)%2==0){
-                        return data+"%";
-
-                    }else{
-                        return "";
-                    }
+                        return data+"个";
                 },
                 textStyle: {
                     color:'#00c5fd'
@@ -332,47 +391,77 @@ option03 = {
         {
             type : 'value',
             name:'新加追踪数',
-            max : 100,
-            axisLine : {
-                show : true,
-                lineStyle : {
-                    color : '#023c51',
-                },
-            },
-            axisTick : {
-                show : true
-            },
-            splitLine : {
-                show : false
+            position : "top",
+            splitNumber :10,
+            nameTextStyle : {
+                color : '#fddc00'
             },
             axisLabel : {
-                show : false
+                show: true,
+                formatter: function(data){
+
+                        return data+"个";
+
+                },
+                textStyle: {
+                    color:'#fddc00'
+                }
+            },
+            splitLine : {
+            show : false,
+            lineStyle:{
+                color:'rgba(2,60,81,0.3)',
+            }
+        },
+            axisLine: {
+                show : true,
+                lineStyle:{
+                    color:'#023c51',
+                }
             }
         }
     ],
     grid : {
         y2 : 30,
-        y : 40,
+        y : 50,
         x:40,
-        x2:20,
+        x2:50,
         borderWidth : 0
     },
     series : [
         {
-            name:'CPU利用率',
+            name:'新加客户数',
             type:'line',
+            yAxisIndex: 0,
             symbol : "circle",
             smooth : false,
             showAllSymbol:true,
             symbolSize:1,
-            data:[0],
+            data:[5,43,28],
             itemStyle : {
                 normal : {
                     color : "#00c5fd",
-                    areaStyle: {type: 'default',color:'rgba(2,60,81,0.5)'}
+                    //areaStyle: {type: 'default',color:'rgba(2,60,81,1)'}
+                }
+            }
+        },
+        {
+            name:'新加追踪数',
+            type:'line',
+            yAxisIndex: 1,
+            symbol : "circle",
+            smooth : false,
+            showAllSymbol:true,
+            symbolSize:1,
+            data:[10,31,24],
+            itemStyle : {
+                normal : {
+                    color : "#fddc00",
+                    //areaStyle: {type: 'default',color:'rgba(253,220,0,0.7)'}
                 }
             }
         }
+
     ]
 };
 

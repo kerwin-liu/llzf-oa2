@@ -8,64 +8,57 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/demo/demo.css">
     <script type="text/javascript" src="../../js/tools.js"></script>
     <title>修改密码</title>
+    <script type="text/javascript" src="../../js/jquery.js"></script>
+    <%--<script type="text/javascript" src="../../js/jquery.easyui.min.js"></script>--%>
+
+    <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
 </head>
 <body>
-<div style="padding:3px 2px;border-bottom:1px solid #ccc">修改密码</div>
-    <form id="ff" action="" method="post" target="hidden_frame">
-        <table>
-            <tr>
-                <td><label>姓名:</label></td>
-                <td><input name="userName" class="easyui-validatebox textbox userName" required="true" size="20">
-                </td>
-            </tr>
-            <tr>
-                <td><label>原密码:</label></td>
-                <td><input name="oldPassword" type="password" class="easyui-validatebox password oldPassword" required="true" size="20"></td>
-            </tr>
-            <tr>
-                <td><label>新密码:</label></td>
-                <td> <input name="newPassword" type="password" class="easyui-validatebox password newPassword" required="true" size="20"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="button" value="保存" class="btn"/></td>
-            </tr>
-        </table>
+<form id="from" action="/user/updatePassword" method="post" target="hidden_frame">
+    <div class="fitem" style="padding-top: 20px;">
+        <label class="item-one">姓名:</label>
+        <input name="userName" style="height: 25px;" class="easyui-validatebox textbox" required="true" size="20">
+    </div>
+    <div class="fitem">
+        <label class="item-one">原密码:</label>
+        <input name="oldPassword" style="height: 25px;" type="password" class="easyui-validatebox" required="true" size="20">
+    </div>
+    <div class="fitem">
+        <label class="item-one">新密码:</label>
+        <input name="newPassword" style="height: 25px;" type="password" class="easyui-validatebox password" required="true" size="20">
+    </div>
+
 </form>
 <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
-<script type="text/javascript" src="../../js/jquery.js"></script>
 
-<srript>
-    <script type="text/javascript" >
-        $(function () {
-            $('#hidden_frame').load(function () {
-                var text = $(this).contents().find("body").text();
-                $(".btn").click(function () {
-                    var data={};
-                    data['userName']=$(".userName").val();
-                    data['oldPassword']=$(".oldPassword").val();
-                    data['newPassword']=$(".newPassword").val();
-                    $.ajax({
-                        url:'/user/updatePassword',
-                        dataType:'json',
-                        data:data,
-                        type:"POST",
-                        success:function(data) {
-                            if(data.code==200){
-                                alert(data.msg);
-                                window.location.href = "/loginOut";//退出session
-                            }
-                        }
-                    });
-                })
+<script type="text/javascript" >
+    $(function () {
+        $('#hidden_frame').load(function () {
+//            var data_url='/member/getList?pageIndex=1&pageSize=10';
+            var text = $(this).contents().find("body").text();
+            // 根据后台返回值处理结果
+            try {
+                var data = $.parseJSON(text);
+                if(data.code==200){
+                    alert(data.msg);
+                    window.location.href = "/loginOut";//退出session
+                }else{
+                    $.messager.alert('提示', data.msg);
+                }
+//                tbdata(data_url);
+            } catch (e) {
 
-            });
-
+            }
 
         });
-    </script>
-</srript>
+
+    });
+</script>
 </body>
 </html>
