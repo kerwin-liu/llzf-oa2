@@ -103,9 +103,7 @@
       <if test="khdz != null" >
         khdz,
       </if>
-      <if test="cjsj != null" >
         cjsj,
-      </if>
       <if test="xgsj != null" >
         xgsj,
       </if>
@@ -171,9 +169,7 @@
       <if test="khdz != null" >
         #{khdz,jdbcType=VARCHAR},
       </if>
-      <if test="cjsj != null" >
-        #{cjsj,jdbcType=TIMESTAMP},
-      </if>
+        now(),
       <if test="xgsj != null" >
         #{xgsj,jdbcType=TIMESTAMP},
       </if>
@@ -318,7 +314,7 @@
         c.byzd1,
         c.byzd2,
         c.byzd3
-      FROM CLIENT c LEFT JOIN member m ON c.member_id=m.member_id LEFT JOIN member_department md on md.member_id=m.member_id
+      FROM client c LEFT JOIN member m ON c.member_id=m.member_id LEFT JOIN member_department md on md.member_id=m.member_id
       WHERE 1=1
       <if test="memberId != null and memberId !='' ">
         AND c.member_id = #{memberId}
