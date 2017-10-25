@@ -94,4 +94,13 @@
     DELETE FROM client_log
     WHERE kh_id=#{id}
   </delete>
+
+
+
+  <select id="selectByClientId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select
+    <include refid="Base_Column_List" />
+    from client_log
+    where kh_id = #{id,jdbcType=BIGINT}
+  </select>
 </mapper>

@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         //用户信息入库
         User user = new User();
         user.setId(IDUtils.getId());
-        Member member1 = memberMapper.queryMemberByuserid(memberId);
+        Member member1 = memberMapper.selectByPrimaryKey(memberId);
         user.setUserName(member1.getNumber());
         user.setPassword(RandomStringUtils.randomNumeric(6));
         user.setCreatUserId(creatId);

@@ -25,7 +25,7 @@
     <div class="fitem">
             <span class="item-one">
                 <label>姓名:</label>
-                <input name="name" class="easyui-validatebox textbox" required="true" size="20" style="height: 25px;">
+                <input name="name" class="easyui-validatebox textbox " missingMessage="不能为空" validType="CHS" required="true" size="20" style="height: 25px;">
             </span>
         <span class="item-two">
                 <label>性别:</label>
@@ -36,7 +36,7 @@
     <div class="fitem">
           <span class="item-one">
                  <label>手机:</label>
-              <input name="phone"  class="easyui-validatebox textbox" required="true" style="height: 25px;" size="20">
+              <input name="phone"  class="easyui-validatebox textbox"  missingMessage="不能为空" validType="CHS" required="true" style="height: 25px;" size="20">
             </span>
         <span class="item-two">
                 <label>微信号:</label>
@@ -56,7 +56,7 @@
     <div class="fitem">
            <span class="item-one">
                 <label>客户类型:</label>
-                 <select class="easyui-combobox" name="type" class="easyui-validatebox" size="20">
+                 <select class="easyui-combobox" name="type" class="easyui-validatebox" size="20" width="50">
                     <option value="1" selected>一般客户</option>
                     <option value="2">潜力客户</option>
                      <option value="3">意客客户</option>
