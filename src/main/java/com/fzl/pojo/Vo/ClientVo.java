@@ -1,8 +1,10 @@
-package com.fzl.pojo.Qo;
+package com.fzl.pojo.Vo;
+
+import com.fzl.pojo.Qo.BaseQuery;
 
 import java.util.Date;
 
-public class ClientVo extends BaseQuery{
+public class ClientVo {
     private Long khId;
 
     private Long memberId;
