@@ -4,15 +4,15 @@ package com.fzl.pojo.Vo;
  * Created by kerwin.liu on 2017/10/25.
  */
 public class BatchDeleteVo {
-    private String id;
+    private Long id;
     private String  name;
     private String  error;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

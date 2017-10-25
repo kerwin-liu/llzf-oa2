@@ -147,7 +147,7 @@
             remoteSort: false,
             pagination: true,
             pageNumber:1,
-            pageSize:10,
+            pageSize:30,
             pageList : [10,20,30],
             rownumbers: true,
             columns: [[
@@ -294,7 +294,7 @@
             }else{
                 alert("请选中用户");
             }
-        })
+        });
         //查询
         $("#btn7").click(function () {
             var data={};
@@ -324,64 +324,25 @@
 
     });
 
-    var url;
     function updata(){
         var rows= $("#dg").datagrid("getSelections");
         if(rows.length>1||rows.length==0){
             tip("请选择一条数据进行修改");
         }else{
             createwindow("修改员工", "/pages/employee-update",600,500);
-//            createwindow("修改员工",  '/member/update?id=' + rows.memberId,600,500);
         }
-    }
-    function saveUser() {
-        var data = {};
-        data["number"] = $(".number").val();
-//        data["groups"] = $('#groups').find("option:selected").val();
-//        data["permissions"]=$('#permissions').find("option:selected").val();
-//        data["sex"]=$('#sex').find("option:selected").val();
-        data["groups"] = $('#groups').val();
-        data["permissions"]=$('#permissions').val();
-        data["sex"]=$('#sex').val();
-        data["name"]=$(".name").val();
-        data["phone"]=$(".phone").val();
-        data["qq"]=$(".qq").val();
-        data["qqnc"]=$(".qqnc").val();
-        data["card"]=$(".card").val();
-        data["address"]=$(".address").val();
-        data["remark"]=$(".remark").val();
-        data["wexin"]=$(".wexin").val();
-        data["wPhone"]=$(".wPhone").val();
-        data["jjlxr"]=$(".jjlxr").val();
-        data["jjlxrsj"]=$(".jjlxrsj").val();
-        data["sugx"]=$(".sugx").val();
-        $.ajax({
-            url: url,
-            dataType: 'json',
-            data: data,
-            type: "POST",
-            success: function (data) {
-                if (data.code == 200) {
-                    $('#dlg').dialog('close');		// close the dialog
-//                    $('#dg').datagrid('reload');	// reload the user data
-                    tbdata(data_url,1,30);
-                } else {
-                    alert(data.msg);
-                }
-            }
-        })
     }
     function removeUser() {
         var row = $('#dg').datagrid('getSelections');
         if(row.length>0){
             var ids=[];
             for(var i=0;i<row.length;i++){
-                ids.push(row[i].memberId+"")
+                ids.push(row[i].memberId)
             }
             console.log(ids);
             $.messager.confirm('确定', '你确定要删除员工吗?', function (r) {
                 if (r) {
-                    $.post('/member/delete', {"ids":ids}, function (result) {
+                    $.post('/member/batchDelete', {"ids":JSON.stringify(ids)}, function (result) {
                         //alert(result);
                         if (result.code == 200) {
                             alert(result.msg);

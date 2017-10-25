@@ -1,11 +1,9 @@
 package com.fzl.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.fzl.common.Pages;
 import com.fzl.pojo.Member;
 import com.fzl.pojo.Qo.MemberQo;
 import com.fzl.pojo.User;
-import com.fzl.pojo.Vo.BatchDeleteVo;
 import com.fzl.pojo.Vo.MemberVo;
 import com.fzl.service.MemberService;
 import com.fzl.service.UserService;
@@ -14,15 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2017/10/16.
@@ -170,7 +165,7 @@ public class MemberController extends BaseController {
     }
 
     @RequestMapping(value = "batchDelete", method = RequestMethod.POST)
-    public void batchDelete(HttpServletRequest request, HttpServletResponse response, @RequestBody String json) {
+    public void batchDelete(HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "ids") String json) {
         User sessionUser = (User) request.getSession().getAttribute("user");
         Long role = userService.selectRole(sessionUser);
         //管理员和主管可以增加员工 员工级别的不能添加员工
@@ -179,28 +174,26 @@ public class MemberController extends BaseController {
             return;
         }
 
-        Map<String, Object> map = null;
+        List<Long> ids =null;
         try {
-            map = (Map<String, Object>) JSON.parse(json);
+            ids = (List<Long>) JSON.parse(json);
         } catch (Exception e) {
             writeResponse(response, "400", "json格式不合法");
             return;
         }
-        List<String> ids = (List<String>) map.get("ids");
         if (ids == null) {
             writeResponse(response, "400", "删除内容为空");
             return;
         }
         List<BatchDeleteVo> listfalse = new ArrayList<>();
         BatchDeleteVo batchDeleteVo = null;
-        for (String id : ids) {
-            Long memberId = Long.valueOf(id);
+        for (Long memberId : ids) {
             //查询员工下边是不是有客户
             int a = memberService.countClient(memberId);
             if (a > 0) {
                 batchDeleteVo = new BatchDeleteVo();
                 Member member = memberService.queryMemberByMemberId(memberId);
-                batchDeleteVo.setId(id);
+                batchDeleteVo.setId(memberId);
                 batchDeleteVo.setName(member.getName());
                 batchDeleteVo.setError("该员工名下还存在客户，请确认");
                 listfalse.add(batchDeleteVo);
@@ -209,7 +202,7 @@ public class MemberController extends BaseController {
                 if (!delete) {
                     batchDeleteVo = new BatchDeleteVo();
                     Member member = memberService.queryMemberByMemberId(memberId);
-                    batchDeleteVo.setId(id);
+                    batchDeleteVo.setId(memberId);
                     batchDeleteVo.setName(member.getName());
                     batchDeleteVo.setError("该员工删除失败，原因未知");
                     listfalse.add(batchDeleteVo);
