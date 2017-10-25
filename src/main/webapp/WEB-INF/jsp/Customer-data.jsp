@@ -41,7 +41,7 @@
 
         .fitem label {
             display: inline-block;
-            width: 50px;
+            width: 60px;
         }
         .item-one{
             width: 200px;
@@ -219,7 +219,7 @@
 
         $(".datagrid-toolbar").insertBefore(".datagrid-view");
         $("#btn1").click(function(){
-            createwindow("添加客户", "/pages/Customer-add",600,320);
+            createwindow("添加客户", "/pages/Customer-add",600,350);
         });
 
         $("#btn2").click(function(){
@@ -248,7 +248,7 @@
             if(rows.length==0){
                 tip("请选择一条数据进行修改");
             }else {
-                createnewwindow("移交客户", "/pages/Customer-allot", 800, 500);
+                createnewwindow("移交客户", "/pages/Customer-allot", 600, 350);
             }
         });
         $("#btn8").click(function(){
