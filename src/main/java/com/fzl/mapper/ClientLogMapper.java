@@ -2,6 +2,8 @@ package com.fzl.mapper;
 
 import com.fzl.pojo.ClientLog;
 
+import java.util.List;
+
 public interface ClientLogMapper {
     int deleteByPrimaryKey(Long zzId);
 
@@ -16,4 +18,6 @@ public interface ClientLogMapper {
     int updateByPrimaryKey(ClientLog record);
 
     int deleteByClientId(Long id);
+
+    List<ClientLog> selectByClientId(Long id);
 }
