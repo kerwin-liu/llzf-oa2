@@ -15,6 +15,8 @@ public class Client {
 
     private String khcjlx;
 
+    private Date khcjsj;
+
     private String khxb;
 
     private String khsjh;
@@ -93,6 +95,14 @@ public class Client {
 
     public void setKhcjlx(String khcjlx) {
         this.khcjlx = khcjlx == null ? null : khcjlx.trim();
+    }
+
+    public Date getKhcjsj() {
+        return khcjsj;
+    }
+
+    public void setKhcjsj(Date khcjsj) {
+        this.khcjsj = khcjsj;
     }
 
     public String getKhxb() {
