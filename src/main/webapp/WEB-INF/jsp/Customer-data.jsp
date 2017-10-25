@@ -64,7 +64,7 @@
     </style>
 </head>
 <body>
-<div class="datagrid-toolbar" style="height: 60px;width: 100%;border: 0px solid red;">
+<div class="datagrid-toolbar" style="height: 65px;width: 100%;border: 0px solid red;">
 
         <div class="datagrid-toolbar-a" >
             <a id="btn1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加客户</a>
@@ -155,14 +155,13 @@
                     if(value==1){
                         type="女";
                     }
-
                     return type;}},
                 {field: 'khsjh', title: '手机号', width: 100, align: 'center'},
                 {field: 'khsfzh', title: '身份证号', width: 100, align: 'center'},
                 {field: 'khwx', title: '微信号', width: 100, align: 'center'},
                 {field: 'khwxnc', title: '微信名', width: 100, align: 'center'},
                 {field: 'khqq', title: 'QQ号', width: 100, align: 'center'},
-                {field: 'khlx', title: '客户类型', width: 60, align: 'center',formatter:function(value, row, index){
+                {field: 'khlx', title: '客户类型', width: 80, align: 'center',formatter:function(value, row, index){
                   var type="";
                     if(value==1){
                         type="一般客户";
@@ -255,7 +254,7 @@
             tbdata();
         });
         $("#btn10").click(function(){
-            var rows= $("#dg").datagrid("");
+            var rows= $("#dg").datagrid("getSelections");
             if(rows.length==0){
                 tip("请选择一条数据进行修改");
             }else {
@@ -270,7 +269,8 @@
                 timeStart=$("#timeStart").val(),
                 timeEnd=$("#timeEnd").val(),
                 clientId=$("#employee1").val();
-            var data={"type":type,"name":name,"type":type,"qq":qq,"timeStart":timeStart,"timeEnd":timeEnd,"clientId":clientId};
+            var data={"khlx":type,"khmc":name,"khsjh":phone,"khqq":qq,"timeStart":timeStart,"timeEnd":timeEnd,"clientId":clientId};
+            console.log(data);
             $.ajax({
                 url:'/client/sqlMoHu',
                 type:'POST',//OR GET
@@ -361,14 +361,14 @@ function trace(){
 function deletes(){
     var rows= $("#dg").datagrid("getSelections");
     if(rows.length==0){
-        tip("请至少选择一条数据进行修改");
+        tip("请至少选择一条数据进行删除");
     }else{
         var id="";
         for (var i=0;i<rows.length;i++){
             id +=rows[i].clientId+",";
         }
         id = id.substring(0,id.length-1);
-        var url="/client/delete/"+id;
+        var url="/client/batchDelete/"+id;
         $.messager.confirm('确定', '你确定要删除吗?', function (r) {
             if (r) {
                 $.ajax({
