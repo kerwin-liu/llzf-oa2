@@ -11,7 +11,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="../../css/base.css" />
 <link rel="stylesheet" type="text/css" href="../css/jquery.dialog.css" />
 <link rel="stylesheet" href="../../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/demo/demo.css">
+<script type="text/javascript" src="../../js/tools.js"></script>
+<style type="text/css">
+    .fitem {
+        margin-bottom: 5px;
+    }
 
+    .fitem label {
+        display: inline-block;
+        width: 70px;
+    }
+    .item-one {
+        width: 300px;
+        padding-left: 10px;
+    }
+</style>
 <title>客户管理系统</title>
     <script type="text/javascript">
         function fn_loginOut() {
@@ -32,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
             </div>
             <div class="toolbar ue-clear">
-                <a class="changePsd">修改密码</a>
+                <a class="changePsd" style="padding-right: 10px;">修改密码</a>
                 <a href="/index" class="home-btn">首页</a>
                  <a class="quit-btn exit"></a>
             </div>
@@ -100,13 +117,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="../../js/core.js"></script>
 <script type="text/javascript" src="../../js/jquery.dialog.js"></script>
 <script type="text/javascript" src="../../js/index.js"></script>
+<script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
 <script type="text/javascript" >
     var b=false;
     window.onload=function () {
         var type1 = "<li class=\"office current\"><div class=\"nav-header\"><a id=\"index\" href=\"#\" target=\"iframe\"  class=\"ue-clear\"><span>首页</span></a> </div> </li>",
             type2 = "<li class=\"gongwen\"><div class=\"nav-header\"><a id=\"index1\" href=\"/member/index\" target=\"iframe\" class=\"ue-clear\"><span>员工管理</span></a></div></li>",
             type3 = "<li class=\"nav-info\"><div class=\"nav-header\"><a id=\"index3\"  href=\"/customerController/customer\" target=\"iframe\" class=\"ue-clear\"><span>客户管理</span></a></div></li>",
-            type4 = "<li class=\"konwledge\"><div class=\"nav-header\"><a href=\"/user/changePsd\" target=\"iframe\" class=\"ue-clear\"><span>密码修改</span></a></div></li>",
+            type4 = "<li style='display: none;' class=\"konwledge\"><div class=\"nav-header\"><a href=\"/user/changePsd\" target=\"iframe\" class=\"ue-clear\"><span>密码修改</span></a></div></li>",
             type5 = "<li class=\"agency\"><div class=\"nav-header\"><a href=\"/pages/Customer-allot\" target=\"iframe\" class=\"ue-clear\"><span>移交客户</span></a></div></li>",
             type6 = "<li class=\"email\"><div class=\"nav-header\"><a href=\"/pages/Customer-knockdown\" target=\"iframe\" class=\"ue-clear\"><span>成交客户</span></a></div></li>",
             type7 = "<li class=\"email\"><div class=\"nav-header\"><a href=\"/pages/department\" target=\"iframe\" class=\"ue-clear\"><span>部门管理</span></a></div></li>";
@@ -159,9 +178,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 $("#userName").html(data.date.name)
             }
         });
+        //密码修改
         $(".changePsd").click(function () {
-            createwindow("密码修改", "/pages/changePsd",600,500);
-        })
+            createwindow("密码修改", "/user/changePsd",300,200);
+        });
     }
 </script>
 </html>
