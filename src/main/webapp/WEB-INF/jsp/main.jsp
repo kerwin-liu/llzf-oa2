@@ -57,6 +57,18 @@
             float: left;
             border: 0px solid red;
         }
+        table tr td{
+            color: #949494;
+            font-family: 'Microsoft Yahei', '微软雅黑';
+            font-size: 18px;
+            text-align: left;
+        }
+        table tr td:first-child{
+            color: #949494;
+            font-family: 'Microsoft Yahei', '微软雅黑';
+            font-size: 18px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -65,14 +77,14 @@
         <div style="float: left;width: 10%;height: 45px;border: 0px solid red;"></div>
         <div style="float: left;width: 78%;height: 45px;border-bottom: 3px solid #949494;font-size: 30px;font-weight: 900;text-align: center;font-family: 'Microsoft Yahei', '微软雅黑';color: #949494">个人信息</div>
         <div style="float: left;width: 10%;height: 45px;border: 0px solid red;"></div>
-        <div style="float: left;width: 99%;height: 80%;margin-top: 0.5%;border: 1px solid red">
-            <table border="1" width="100%" style="height: 100%">
+        <div style="float: left;width: 99%;height: 80%;margin-top: 0.5%;border: 0px solid red">
+            <table border="0" width="100%" style="height: 100%">
                 <tr>
                     <td style="width: 45%">
                         姓名：
                     </td>
                     <td>
-
+                            Admin
                     </td>
                 </tr>
                 <tr>
