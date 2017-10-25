@@ -90,46 +90,6 @@ function createwindow(title, addurl,width,height) {
 
 
 }
-/*function createwindow(title, addurl,width,height) {
-    width = width?width:700;
-    height = height?height:400;
-    if(width=="100%" || height=="100%"){
-        width = window.top.document.body.offsetWidth;
-        height =window.top.document.body.offsetHeight-100;
-    }
-    var dd = $("#iframe");
-    if(dd.length==0){
-        $("body").append("<div id='dd'></div>");
-        dd = $("#dd");
-    }
-
-    dd.dialog({
-        title: title,
-        width: width,
-        height: height,
-        closed: false,
-        cache: false,
-        href: addurl,
-        zIndex:100,
-        modal: true,
-        buttons:[{
-            text:'提交',
-            iconCls:'icon-ok',
-            handler:function(){
-                saveObj($(this));
-
-            }
-        },{
-            text:'关闭',
-            iconCls:'icon-cancel',
-            handler:function(){
-                closeObj($(this));
-            }
-        }]
-    });
-}*/
-
-
 /**
  * 执行保存
  * 
