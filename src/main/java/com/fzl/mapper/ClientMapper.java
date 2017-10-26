@@ -29,5 +29,7 @@ public interface ClientMapper {
 
     Statistics countToday(CountQo countQo);
 
-    List<Statistics> counttodayListByUserId(CountQo countQo);
+    List<Statistics> counttodayListByUserIdKh(CountQo countQo);
+
+    List<Statistics> counttodayListByUserIdZh(CountQo countQo);
 }

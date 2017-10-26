@@ -154,7 +154,13 @@ public class ClientController extends BaseController {
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public void update(HttpServletRequest request, HttpServletResponse response, Client client) {
-        boolean update = clientService.updateClient(client);
+        boolean update = false;
+        try {
+            update = clientService.updateClient(client);
+        } catch (Exception e) {
+            writeResponse(response, "400", "手机号重复");
+            return;
+        }
         if (update) {
             writeResponse(response, "200", "客户修改成功");
             return;

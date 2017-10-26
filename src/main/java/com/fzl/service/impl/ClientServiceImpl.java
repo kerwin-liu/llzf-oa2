@@ -18,7 +18,9 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -26,6 +28,8 @@ import java.util.List;
  */
 @Service
 public class ClientServiceImpl implements ClientService {
+    private final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+
     @Autowired
     private ClientMapper clientMapper;
     @Autowired
@@ -84,12 +88,12 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean saveClient(Client client) throws Exception{
+    public boolean saveClient(Client client) throws Exception {
         return clientMapper.insertSelective(client) > 0;
     }
 
     @Override
-    public boolean updateClient(Client client) {
+    public boolean updateClient(Client client) throws Exception{
         return clientMapper.updateByPrimaryKeySelective(client) > 0;
     }
 
@@ -180,19 +184,25 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<Statistics> counttodayListByUserId(Long id) {
         CountQo countQo = new CountQo();
+        Member member = memberMapper.queryMemberByuserid(id);
         countQo.setStart(DateUtils.getBeginDayOfWeek());
         countQo.setEnd(DateUtils.getEndDayOfWeek());
-
-        return clientMapper.counttodayListByUserId(countQo);
+        countQo.setMemberId(member.getMemberId());
+        List<Statistics> khlist = clientMapper.counttodayListByUserIdKh(countQo);
+        List<Statistics> zzlist = clientMapper.counttodayListByUserIdZh(countQo);
+        return convert(khlist,zzlist);
     }
 
     @Override
     public List<Statistics> counttodayListByDepartmentId(Long id) {
         CountQo countQo = new CountQo();
+        Department department = departmentMapper.queryDepartmentByUserId(id);
         countQo.setStart(DateUtils.getBeginDayOfWeek());
         countQo.setEnd(DateUtils.getEndDayOfWeek());
-
-        return null;
+        countQo.setDepartmentId(department.getId());
+        List<Statistics> khlist = clientMapper.counttodayListByUserIdKh(countQo);
+        List<Statistics> zzlist = clientMapper.counttodayListByUserIdZh(countQo);
+        return convert(khlist,zzlist);
     }
 
     @Override
@@ -200,7 +210,36 @@ public class ClientServiceImpl implements ClientService {
         CountQo countQo = new CountQo();
         countQo.setStart(DateUtils.getBeginDayOfWeek());
         countQo.setEnd(DateUtils.getEndDayOfWeek());
-
-        return null;
+        List<Statistics> khlist = clientMapper.counttodayListByUserIdKh(countQo);
+        List<Statistics> zzlist = clientMapper.counttodayListByUserIdZh(countQo);
+        return convert(khlist,zzlist);
     }
+
+    private List<Statistics> convert(List<Statistics> khlist, List<Statistics> zzlist) {
+        List<Statistics> list = new ArrayList<>();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(DateUtils.getBeginDayOfWeek());
+        for (int i = 0; i < 7; i++) {
+            cal.add(Calendar.DATE, 1);
+            Statistics statistics = new Statistics();
+            statistics.setTjrq(FORMAT.format(cal.getTime()));
+            statistics.setKhCount(0);
+            statistics.setZzCount(0);
+            for (Statistics statistics1 : khlist) {
+                if (statistics.getTjrq().equals(statistics1.getTjrq())) {
+                    statistics.setKhCount(statistics1.getKhCount());
+                    break;
+                }
+            }
+            for (Statistics statistics1 : zzlist) {
+                if (statistics.getTjrq().equals(statistics1.getTjrq())) {
+                    statistics.setZzCount(statistics1.getZzCount());
+                    break;
+                }
+            }
+
+        }
+        return list;
+    }
+
 }
