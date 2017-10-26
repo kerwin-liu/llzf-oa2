@@ -26,7 +26,10 @@
             margin: 0;
             padding: 10px 30px;
         }
-
+        #from {
+            margin: 0;
+            padding: 10px 30px;
+        }
         .ftitle {
             font-size: 14px;
             font-weight: bold;
@@ -65,7 +68,7 @@
         <a id="btn1" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加员工</a>
     </div>
     <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
-        <a id="btn2" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改</a>
+        <a id="btn2" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改资料</a>
     </div>
     <div style="width: 12%;height: 25px;float: left;margin-left: 2%;border: 0px solid red;margin-top: 0.3%">
         <a id="btn3" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="removeUser()">删除员工</a>
@@ -87,7 +90,7 @@
         姓名：<input id="name-search" type="text" style="width:80px;"/>
         手机:<input id="phone-search" type="text" style="width:80px;"/>
         身份证号:<input id="card-search" type="text" style="width:80px;"></input>
-        <a id="btn7" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">点击搜索</a>
+        <a id="btn7" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
     </div>
 
 
@@ -225,7 +228,7 @@
         tbdata(data_url,1,30);
         //添加员工
         $("#btn1").click(function(){
-            createwindow("添加员工", "/pages/employee-add",600,500);
+            createwindow("添加员工", "/pages/employee-add",600,450);
         });
         //修改员工
         $("#btn2").click(function(){
@@ -332,7 +335,7 @@
         if(rows.length>1||rows.length==0){
             tip("请选择一条数据进行修改");
         }else{
-            createwindow("修改员工", "/pages/employee-update",600,500);
+            createwindow("修改员工", "/pages/employee-update",600,450);
         }
     }
     function removeUser() {

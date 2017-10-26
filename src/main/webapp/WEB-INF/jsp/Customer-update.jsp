@@ -26,52 +26,72 @@
     <div class="fitem">
             <span class="item-one">
                 <label>姓名:</label>
-                <input id="khmc" name="khmc" class="easyui-validatebox textbox" required="true" size="20" style="height: 25px;">
+                <input id="khmc" name="khmc" class="easyui-validatebox textbox " missingMessage="不能为空" validType="CHS" required="true" size="20" style="height: 25px;">
             </span>
         <span class="item-two">
-                  <label>性别:</label>
-                <input type="radio" class="sex" id="sex0" name="khxb" value="0" checked>男
+                <label>性别:</label>
+                <input type="radio" class="sex" id="sex0" name="khxb" value="0">男
                 <input type="radio" class="sex" id="sex1" name="khxb" value="1">女
+                <input type="radio" class="sex" id="sex2" name="khxb" value="2" checked>未知
             </span>
-    </div>
-    <div class="fitem">
-          <span class="item-one">
-                 <label>手机:</label>
-              <input id="khsjh" name="khsjh"  class="easyui-validatebox textbox" required="true" style="height: 25px;">
-            </span>
-        <span class="item-two">
-                <label>微信号:</label>
-               <input id="khwx" name="khwx"  class="easyui-validatebox textbox" required="true" style="height: 25px;">
-           </span>
-    </div>
-    <div class="fitem">
-           <span class="item-one">
-                <label>微信名:</label>
-                <input id="khwxnc" name="khwxnc" class="easyui-validatebox textbox" required="true" style="height: 25px;">
-           </span>
-        <span class="item-two">
-                 <label>QQ号:</label>
-                <input id="khqq" name="khqq"  class="easyui-validatebox textbox" required="true" style="height: 25px;">
-            </span>
-    </div>
-    <div class="fitem">
-           <span class="item-one">
-                <label>客户类型:</label>
-               <input name="khlx" id="khlx" />
-           </span>
-
     </div>
     <div class="fitem">
         <label>身份证:</label>
-        <input id="khsfzh" value="" name="khsfzh" readonly="readonly" size="55"  required="true" style="height: 25px;">
+        <input id="khsfzh" value="" name="khsfzh" size="54" class="easyui-validatebox textbox" style="height: 25px;">
+    </div>
+
+    <div class="fitem">
+         <span class="item-one">
+                <label>客户类型:</label>
+               <input name="khlx" id="khlx" class="easyui-combobox" missingMessage="不能为空" validType="CHS" required="true" size="20" width="50"/>
+           </span>
+        <span class="item-two">
+                 <label>手机:</label>
+              <input id="khsjh" name="khsjh"  class="easyui-validatebox textbox"  missingMessage="不能为空" validType="CHS" required="true" style="height: 25px;" size="20">
+            </span>
+    </div>
+    <div class="fitem">
+        <span class="item-one">
+                 <label>QQ:</label>
+                <input id="khqq" name="khqq"  class="easyui-validatebox textbox" required="true"missingMessage="不能为空" validType="CHS"  style="height: 25px;" size="20">
+            </span>
+        <span class="item-two">
+                <label>QQ昵称:</label>
+                <input id="qqnc" name="qqnc" class="easyui-validatebox textbox" style="height: 25px;" size="20">
+           </span>
+    </div>
+    <div class="fitem">
+            <span class="item-one">
+                    <label>微信:</label>
+                   <input id="khwx" name="khwx"  class="easyui-validatebox textbox" style="height: 25px;" size="20">
+               </span>
+             <span class="item-two">
+                    <label>资金:</label>
+                   <input id="zj" name="zj"  class="easyui-validatebox textbox" style="height: 25px;" size="20">
+               </span>
+    </div>
+    <div class="fitem">
+        <label class="item-one">住址:</label>
+        <input id="address" name="address" class="easyui-validatebox textbox address" size="54" style="height: 25px;">
     </div>
     <div class="fitem">
         <label>备注:</label>
-        <input id="bz" name="bz" size="55" style="height: 25px;">
+        <input id="bz" name="bz" size="54" class="easyui-validatebox textbox" style="height: 25px;">
     </div>
+
 </form>
 <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 <script type="text/javascript">
+    $.extend($.fn.validatebox.defaults.rules, {
+        //验证汉字
+        CHS: {
+            validator: function (value) {
+                return /^[\u0391-\uFFE5]+$/.test(value);
+            },
+            message: '只能输入汉字'
+        }
+    })
+
     var rows= $("#dg").datagrid("getSelections"),
         map=[{"id":1,"text":"一般客户"},
              {"id":2,"text":"潜力客户"},
@@ -83,12 +103,23 @@
         textField:'text',
         data:map
     });
+    if(rows[0].khxb==0){
+        $('input:radio[name=khxb]')[0].checked = true;
+    }else if(rows[0].sex==1){
+        $('input:radio[name=khxb]')[1].checked = true;
+    }else{
+        $('input:radio[name=khxb]')[2].checked = true;
+    }
     $("#khId").val(rows[0].khId);
     $("#khmc").val(rows[0].khmc);
     $("#khsjh").val(rows[0].khsjh);
     $("#khwx").val(rows[0].khwx);
+    $("#zj").val(rows[0].zj);
+    $("#address").val(row[0].address);
     $("#khwxnc").val(rows[0].khwxnc);
     $("#khqq").val(rows[0].khqq);
+    $("#qqnc").val(rows[0].qqnc);
+
     $("#khqqnc").val(rows[0].khqqnc);
     $("#khsfzh").val(rows[0].khsfzh);
     $("#bz").val(rows[0].bz);

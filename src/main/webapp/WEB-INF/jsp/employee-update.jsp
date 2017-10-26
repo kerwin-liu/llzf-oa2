@@ -59,31 +59,31 @@
     <div class="fitem">
            <span class="item-one">
                 <label>QQ:</label>
-                <input name="qq" id="qq" style="height: 25px;">
+                <input name="qq" id="qq" class="easyui-validatebox textbox" style="height: 25px;">
            </span>
         <span class="item-two">
                  <label>QQ昵称:</label>
-                <input name="qqnc" id="qqnc" style="height: 25px;">
+                <input name="qqnc" id="qqnc" class="easyui-validatebox textbox" style="height: 25px;">
             </span>
     </div>
     <div class="fitem">
            <span class="item-one">
                 <label>微信号:</label>
-                <input name="wexin" id="wexin" style="height: 25px;">
+                <input name="wexin" id="wexin" class="easyui-validatebox textbox" style="height: 25px;">
            </span>
         <span class="item-two">
                  <label>绑定手机:</label>
-                <input name="wPhone" id="wPhone" style="height: 25px;">
+                <input name="wPhone" id="wPhone" class="easyui-validatebox textbox" style="height: 25px;">
             </span>
     </div>
     <div class="fitem">
              <span class="item-one">
                 <label>紧急联系人:</label>
-                <input name="jjlxr" id="jjlxr" style="height: 25px;">
+                <input name="jjlxr" id="jjlxr" class="easyui-validatebox textbox" style="height: 25px;">
            </span>
         <span class="item-two">
                  <label>手机号:</label>
-                <input name="jjlxrsj" id="jjlxrsj" style="height: 25px;">
+                <input name="jjlxrsj" id="jjlxrsj" class="easyui-validatebox textbox" style="height: 25px;">
             </span>
     </div>
     <div class="fitem">
@@ -101,17 +101,27 @@
     </div>
     <div class="fitem">
         <label class="item-one">住址:</label>
-        <input name="address" id="address" size="56" style="height: 25px;">
+        <input name="address" id="address" class="easyui-validatebox textbox" size="56" style="height: 25px;">
     </div>
     <div class="fitem">
         <label class="item-one">备注:</label>
-        <input name="remark" id="remark" size="56" style="height: 25px;">
+        <input name="remark" id="remark" size="56" class="easyui-validatebox textbox" style="height: 25px;">
     </div>
 
 
 </form>
 <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 <script type="text/javascript">
+    $.extend($.fn.validatebox.defaults.rules, {
+        //验证汉字
+        CHS: {
+            validator: function (value) {
+                return /^[\u0391-\uFFE5]+$/.test(value);
+            },
+            message: '只能输入汉字'
+        }
+    })
+
     var data_url= '/member/getList';
     var rows= $("#dg").datagrid("getSelections");
     console.log(rows);
