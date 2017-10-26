@@ -411,8 +411,30 @@
           ) b
     </select>
 
-    <select id="counttodayListByUserId" resultMap="Statistics" parameterType="com.fzl.pojo.Qo.CountQo">
-        SELECT COUNT(*) AS zzCount,DATE_FORMAT(cjsj,'%Y-%m-%d') AS tjrq FROM client_log
+    <select id="counttodayListByUserIdZz" resultMap="Statistics" parameterType="com.fzl.pojo.Qo.CountQo">
+        SELECT COUNT(*) AS zzCount,DATE_FORMAT(cjsj,'%Y-%m-%d') AS tjrq FROM client_log cl left join client_member cm on cl.kh_id=cm.kh_id
+        left join member_department md on md.member_id = cm.member_id
+        WHERE
+        cjsj>=#{start} AND #{end}> cjsj
+        <if test="memberId != null and memberId !='' ">
+            AND cm.member_id = #{memberId}
+        </if>
+        <if test="departmentId != null and departmentId !='' ">
+            AND md.department_id = #{departmentId}
+        </if>
+        GROUP BY tjrq
+    </select>
+    <select id="counttodayListByUserIdZh" resultMap="Statistics" parameterType="com.fzl.pojo.Qo.CountQo">
+        SELECT COUNT(*) AS zzCount,DATE_FORMAT(cjsj,'%Y-%m-%d') AS tjrq FROM client c
+        left join member_department md on md.member_id = c.member_id
+        WHERE
+        cjsj>=#{start} AND #{end}> cjsj
+        <if test="memberId != null and memberId !='' ">
+            AND cm.member_id = #{memberId}
+        </if>
+        <if test="departmentId != null and departmentId !='' ">
+            AND md.department_id = #{departmentId}
+        </if>
         GROUP BY tjrq
     </select>
 </mapper>

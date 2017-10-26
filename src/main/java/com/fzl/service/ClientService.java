@@ -23,7 +23,7 @@ public interface ClientService {
 
     boolean saveClient(Client client) throws Exception;
 
-    boolean updateClient(Client client);
+    boolean updateClient(Client client) throws Exception;
 
     boolean deleteClient(Long id);
 
