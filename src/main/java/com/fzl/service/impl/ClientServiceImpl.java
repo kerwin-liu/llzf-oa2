@@ -4,13 +4,10 @@ import com.fzl.common.DateUtils;
 import com.fzl.common.ExcelUtils;
 import com.fzl.common.Pages;
 import com.fzl.mapper.*;
-import com.fzl.pojo.Client;
-import com.fzl.pojo.Department;
-import com.fzl.pojo.Member;
+import com.fzl.pojo.*;
 import com.fzl.pojo.Qo.ClientZyQo;
 import com.fzl.pojo.Qo.ClientQo;
 import com.fzl.pojo.Qo.CountQo;
-import com.fzl.pojo.Statistics;
 import com.fzl.pojo.Vo.ClientVo;
 import com.fzl.service.ClientService;
 import com.github.pagehelper.Page;
@@ -89,6 +86,10 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public boolean saveClient(Client client) throws Exception {
+        ClientMember clientMember =new ClientMember();
+        clientMember.setKhId(client.getKhId());
+        clientMember.setMemberId(client.getMemberId());
+        clientMemberMapper.insertSelective(clientMember);
         return clientMapper.insertSelective(client) > 0;
     }
 

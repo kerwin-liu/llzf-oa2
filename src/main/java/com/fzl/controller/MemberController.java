@@ -62,6 +62,13 @@ public class MemberController extends BaseController {
             return;
         }
     }
+    @RequestMapping(value = "getOne", method = RequestMethod.POST)
+    public void getOne(HttpServletRequest request, HttpServletResponse response) {
+        User sessionUser = (User) request.getSession().getAttribute("user");
+        Long role = userService.selectRole(sessionUser);
+        Member member = userService.queryMember(sessionUser.getId());
+        writeCommonDataResponse(response, "200", "查询成功", member);
+    }
     @RequestMapping(value = "getAll", method = RequestMethod.POST)
     public void getAll(HttpServletRequest request, HttpServletResponse response, MemberQo memberQo) {
         //权限：员工只能查看自己的，主管只能查看本部门的，管理员查看全部的
