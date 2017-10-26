@@ -9,4 +9,8 @@ import java.util.List;
  */
 public interface ClientLogService {
     List<ClientLog> getAllById(Long id);
+
+    void deleteClientLog(Long id);
+
+    void deleteAllClientLog(Long clientId);
 }

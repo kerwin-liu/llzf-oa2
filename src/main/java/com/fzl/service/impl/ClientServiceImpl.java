@@ -5,7 +5,7 @@ import com.fzl.mapper.*;
 import com.fzl.pojo.Client;
 import com.fzl.pojo.Department;
 import com.fzl.pojo.Member;
-import com.fzl.pojo.Qo.ClientCJLXQo;
+import com.fzl.pojo.Qo.ClientZyQo;
 import com.fzl.pojo.Qo.ClientQo;
 import com.fzl.pojo.Vo.ClientVo;
 import com.fzl.service.ClientService;
@@ -105,7 +105,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void batchZy(ClientCJLXQo clientCJLXQo) {
+    public void batchZy(ClientZyQo clientCJLXQo) {
         Client client = new Client();
         client.setMemberId(clientCJLXQo.getMemberId());
         client.setKhId(clientCJLXQo.getClientId());

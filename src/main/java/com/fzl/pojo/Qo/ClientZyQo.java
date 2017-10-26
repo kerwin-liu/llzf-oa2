@@ -3,7 +3,7 @@ package com.fzl.pojo.Qo;
 /**
  * Created by kerwin.liu on 2017/10/25.
  */
-public class ClientCJLXQo {
+public class ClientZyQo {
     private Long clientId;
     private Long memberId;
 

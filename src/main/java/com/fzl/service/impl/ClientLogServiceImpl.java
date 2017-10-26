@@ -19,4 +19,14 @@ public class ClientLogServiceImpl implements ClientLogService {
     public List<ClientLog> getAllById(Long id) {
         return clientLogMapper.selectByClientId(id);
     }
+
+    @Override
+    public void deleteClientLog(Long id) {
+        clientLogMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void deleteAllClientLog(Long clientId) {
+        clientLogMapper.deleteByClientId(clientId);
+    }
 }

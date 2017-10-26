@@ -2,7 +2,7 @@ package com.fzl.service;
 
 import com.fzl.common.Pages;
 import com.fzl.pojo.Client;
-import com.fzl.pojo.Qo.ClientCJLXQo;
+import com.fzl.pojo.Qo.ClientZyQo;
 import com.fzl.pojo.Qo.ClientQo;
 import com.fzl.pojo.Vo.ClientVo;
 
@@ -26,5 +26,5 @@ public interface ClientService {
 
     boolean deleteClient(Long id);
 
-    void batchZy(ClientCJLXQo clientCJLXQo);
+    void batchZy(ClientZyQo clientCJLXQo);
 }

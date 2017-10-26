@@ -6,7 +6,7 @@ import com.fzl.common.Pages;
 import com.fzl.mapper.MemberMapper;
 import com.fzl.pojo.Client;
 import com.fzl.pojo.Member;
-import com.fzl.pojo.Qo.ClientCJLXQo;
+import com.fzl.pojo.Qo.ClientZyQo;
 import com.fzl.pojo.Qo.ClientQo;
 import com.fzl.pojo.Vo.ClientVo;
 import com.fzl.pojo.User;
@@ -183,8 +183,8 @@ public class ClientController extends BaseController {
      * 批量客户转移
      */
     @RequestMapping(value = "batchZy",method = RequestMethod.POST)
-    public void batchZy(HttpServletRequest request, HttpServletResponse response, List<ClientCJLXQo> qoList) {
-        for (ClientCJLXQo clientCJLXQo : qoList) {
+    public void batchZy(HttpServletRequest request, HttpServletResponse response, List<ClientZyQo> qoList) {
+        for (ClientZyQo clientCJLXQo : qoList) {
             clientService.batchZy(clientCJLXQo);
         }
         writeResponse(response, "200", "转移成功");
