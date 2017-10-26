@@ -57,18 +57,9 @@
     <div class="fitem">
            <span class="item-one">
                 <label>客户类型:</label>
-                 <select class="easyui-combobox" name="khlx" class="easyui-validatebox" size="20">
-                    <option value="1">一般客户</option>
-                    <option value="2">潜力客户</option>
-                     <option value="3">意客客户</option>
-                     <option value="4">未有兴趣客户</option>
-                </select>
+               <input name="khlx" id="khlx" />
            </span>
-        <span class="item-two">
-                 <label>负责人:</label>
-                <input id="name"  style="height: 25px;">
-                <input id="memberId" name="memberId" style="display: none;">
-        </span>
+
     </div>
     <div class="fitem">
         <label>身份证:</label>
@@ -81,20 +72,30 @@
 </form>
 <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 <script type="text/javascript">
-    var rows= $("#dg").datagrid("getSelections");
-    console.log(rows[0].khId);
+    var rows= $("#dg").datagrid("getSelections"),
+        map=[{"id":1,"text":"一般客户"},
+             {"id":2,"text":"潜力客户"},
+             {"id":3,"text":"意向客户"},
+             {"id":4,"text":"未有兴趣客户"}];
+    map[(rows[0].khlx)*1-1].selected=true;
+    $('#khlx').combobox({
+        valueField:'id',
+        textField:'text',
+        data:map
+    });
     $("#khId").val(rows[0].khId);
     $("#khmc").val(rows[0].khmc);
     $("#khsjh").val(rows[0].khsjh);
     $("#khwx").val(rows[0].khwx);
+    $("#khwxnc").val(rows[0].khwxnc);
     $("#khqq").val(rows[0].khqq);
     $("#khqqnc").val(rows[0].khqqnc);
     $("#khsfzh").val(rows[0].khsfzh);
     $("#bz").val(rows[0].bz);
     if(rows[0].khxb==0){
-        $('input:radio[name=sex]')[0].checked = true;
+        $('input:radio[name=khxb]')[0].checked = true;
     }else{
-        $('input:radio[name=sex]')[1].checked = true;
+        $('input:radio[name=khxb]')[1].checked = true;
     }
 
     $('#hidden_frame').load(function(){
@@ -103,7 +104,7 @@
         try {
             var j=$.parseJSON(text);
             $.messager.alert('提示',j.msg);
-            tbdata();
+            tbdata(1,30);
         }
         catch (e){
 
