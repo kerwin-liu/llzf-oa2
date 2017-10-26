@@ -72,7 +72,7 @@ public class DateUtils {
         if (dayofweek == 1) {
             dayofweek += 7;
         }
-        cal.add(Calendar.DATE, 2 - dayofweek);
+        cal.add(Calendar.DATE, 1 - dayofweek);
         return getDayStartTime(cal.getTime());
     }
 
