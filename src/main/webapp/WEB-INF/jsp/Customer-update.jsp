@@ -82,6 +82,16 @@
 </form>
 <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 <script type="text/javascript">
+    $.extend($.fn.validatebox.defaults.rules, {
+        //验证汉字
+        CHS: {
+            validator: function (value) {
+                return /^[\u0391-\uFFE5]+$/.test(value);
+            },
+            message: '只能输入汉字'
+        }
+    })
+
     var rows= $("#dg").datagrid("getSelections"),
         map=[{"id":1,"text":"一般客户"},
              {"id":2,"text":"潜力客户"},
