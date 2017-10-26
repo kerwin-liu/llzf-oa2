@@ -1,16 +1,12 @@
 package com.fzl.pojo.Vo;
 
-import com.fzl.pojo.Qo.BaseQuery;
-
 import java.util.Date;
 
 public class ClientVo {
     private Long khId;
 
     private Long memberId;
-
     private String name;
-
     private String khmc;
 
     private String khsfzh;
@@ -18,6 +14,10 @@ public class ClientVo {
     private String khlx;
 
     private String khcjlx;
+
+    private Date khcjsj;
+
+    private String strkhcjsj;
 
     private String khxb;
 
@@ -37,6 +37,8 @@ public class ClientVo {
 
     private Date cjsj;
 
+    private String strcjsj;
+
     private Date xgsj;
 
     private Long cjrId;
@@ -51,7 +53,13 @@ public class ClientVo {
 
     private String byzd3;
 
-    private Long departmentId;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Long getKhId() {
         return khId;
@@ -99,6 +107,14 @@ public class ClientVo {
 
     public void setKhcjlx(String khcjlx) {
         this.khcjlx = khcjlx == null ? null : khcjlx.trim();
+    }
+
+    public Date getKhcjsj() {
+        return khcjsj;
+    }
+
+    public void setKhcjsj(Date khcjsj) {
+        this.khcjsj = khcjsj;
     }
 
     public String getKhxb() {
@@ -229,19 +245,19 @@ public class ClientVo {
         this.byzd3 = byzd3 == null ? null : byzd3.trim();
     }
 
-    public Long getDepartmentId() {
-        return departmentId;
+    public String getStrkhcjsj() {
+        return strkhcjsj;
     }
 
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
+    public void setStrkhcjsj(String strkhcjsj) {
+        this.strkhcjsj = strkhcjsj;
     }
 
-    public String getName() {
-        return name;
+    public String getStrcjsj() {
+        return strcjsj;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStrcjsj(String strcjsj) {
+        this.strcjsj = strcjsj;
     }
 }

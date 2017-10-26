@@ -1,47 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.fzl.mapper.ClientMapper" >
-  <resultMap id="ClientVo" type="com.fzl.pojo.Vo.ClientVo" />
-    <resultMap id="BaseResultMap" type="com.fzl.pojo.Client" >
-      <id column="kh_id" property="khId" jdbcType="BIGINT" />
-      <result column="member_id" property="memberId" jdbcType="BIGINT" />
-      <result column="khmc" property="khmc" jdbcType="VARCHAR" />
-      <result column="khsfzh" property="khsfzh" jdbcType="VARCHAR" />
-      <result column="khlx" property="khlx" jdbcType="VARCHAR" />
-      <result column="khcjlx" property="khcjlx" jdbcType="VARCHAR" />
-      <result column="khcjsj" property="khcjsj" jdbcType="TIMESTAMP" />
-      <result column="khxb" property="khxb" jdbcType="VARCHAR" />
-      <result column="khsjh" property="khsjh" jdbcType="VARCHAR" />
-      <result column="khqq" property="khqq" jdbcType="VARCHAR" />
-      <result column="khqqnc" property="khqqnc" jdbcType="VARCHAR" />
-      <result column="khwx" property="khwx" jdbcType="VARCHAR" />
-      <result column="khwxnc" property="khwxnc" jdbcType="VARCHAR" />
-      <result column="khzj" property="khzj" jdbcType="VARCHAR" />
-      <result column="khdz" property="khdz" jdbcType="VARCHAR" />
-      <result column="cjsj" property="cjsj" jdbcType="TIMESTAMP" />
-      <result column="xgsj" property="xgsj" jdbcType="TIMESTAMP" />
-      <result column="cjr_id" property="cjrId" jdbcType="BIGINT" />
-      <result column="bz" property="bz" jdbcType="VARCHAR" />
-      <result column="byzd" property="byzd" jdbcType="VARCHAR" />
-      <result column="byzd1" property="byzd1" jdbcType="VARCHAR" />
-      <result column="byzd2" property="byzd2" jdbcType="VARCHAR" />
-      <result column="byzd3" property="byzd3" jdbcType="VARCHAR" />
+<mapper namespace="com.fzl.mapper.ClientMapper">
+    <resultMap id="ClientVo" type="com.fzl.pojo.Vo.ClientVo"/>
+    <resultMap id="Statistics" type="com.fzl.pojo.Statistics"/>
+    <resultMap id="BaseResultMap" type="com.fzl.pojo.Client">
+        <id column="kh_id" property="khId" jdbcType="BIGINT"/>
+        <result column="member_id" property="memberId" jdbcType="BIGINT"/>
+        <result column="khmc" property="khmc" jdbcType="VARCHAR"/>
+        <result column="khsfzh" property="khsfzh" jdbcType="VARCHAR"/>
+        <result column="khlx" property="khlx" jdbcType="VARCHAR"/>
+        <result column="khcjlx" property="khcjlx" jdbcType="VARCHAR"/>
+        <result column="khcjsj" property="khcjsj" jdbcType="TIMESTAMP"/>
+        <result column="khxb" property="khxb" jdbcType="VARCHAR"/>
+        <result column="khsjh" property="khsjh" jdbcType="VARCHAR"/>
+        <result column="khqq" property="khqq" jdbcType="VARCHAR"/>
+        <result column="khqqnc" property="khqqnc" jdbcType="VARCHAR"/>
+        <result column="khwx" property="khwx" jdbcType="VARCHAR"/>
+        <result column="khwxnc" property="khwxnc" jdbcType="VARCHAR"/>
+        <result column="khzj" property="khzj" jdbcType="VARCHAR"/>
+        <result column="khdz" property="khdz" jdbcType="VARCHAR"/>
+        <result column="cjsj" property="cjsj" jdbcType="TIMESTAMP"/>
+        <result column="xgsj" property="xgsj" jdbcType="TIMESTAMP"/>
+        <result column="cjr_id" property="cjrId" jdbcType="BIGINT"/>
+        <result column="bz" property="bz" jdbcType="VARCHAR"/>
+        <result column="byzd" property="byzd" jdbcType="VARCHAR"/>
+        <result column="byzd1" property="byzd1" jdbcType="VARCHAR"/>
+        <result column="byzd2" property="byzd2" jdbcType="VARCHAR"/>
+        <result column="byzd3" property="byzd3" jdbcType="VARCHAR"/>
     </resultMap>
-    <sql id="Base_Column_List" >
+    <sql id="Base_Column_List">
       kh_id, member_id, khmc, khsfzh, khlx, khcjlx, khcjsj, khxb, khsjh, khqq, khqqnc,
       khwx, khwxnc, khzj, khdz, cjsj, xgsj, cjr_id, bz, byzd, byzd1, byzd2, byzd3
     </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-      select
-      <include refid="Base_Column_List" />
-      from client
-      where kh_id = #{khId,jdbcType=BIGINT}
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from client
+        where kh_id = #{khId,jdbcType=BIGINT}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
       delete from client
       where kh_id = #{khId,jdbcType=BIGINT}
     </delete>
-    <insert id="insert" parameterType="com.fzl.pojo.Client" >
+    <insert id="insert" parameterType="com.fzl.pojo.Client">
       insert into client (kh_id, member_id, khmc,
       khsfzh, khlx, khcjlx,
       khcjsj, khxb, khsjh,
@@ -59,220 +60,220 @@
       #{bz,jdbcType=VARCHAR}, #{byzd,jdbcType=VARCHAR}, #{byzd1,jdbcType=VARCHAR}, #{byzd2,jdbcType=VARCHAR},
       #{byzd3,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" parameterType="com.fzl.pojo.Client" >
-      insert into client
-      <trim prefix="(" suffix=")" suffixOverrides="," >
-        <if test="khId != null" >
-          kh_id,
-        </if>
-        <if test="memberId != null" >
-          member_id,
-        </if>
-        <if test="khmc != null" >
-          khmc,
-        </if>
-        <if test="khsfzh != null" >
-          khsfzh,
-        </if>
-        <if test="khlx != null" >
-          khlx,
-        </if>
-        <if test="khcjlx != null" >
-          khcjlx,
-        </if>
-        <if test="khcjsj != null" >
-          khcjsj,
-        </if>
-        <if test="khxb != null" >
-          khxb,
-        </if>
-        <if test="khsjh != null" >
-          khsjh,
-        </if>
-        <if test="khqq != null" >
-          khqq,
-        </if>
-        <if test="khqqnc != null" >
-          khqqnc,
-        </if>
-        <if test="khwx != null" >
-          khwx,
-        </if>
-        <if test="khwxnc != null" >
-          khwxnc,
-        </if>
-        <if test="khzj != null" >
-          khzj,
-        </if>
-        <if test="khdz != null" >
-          khdz,
-        </if>
-          cjsj,
-        <if test="xgsj != null" >
-          xgsj,
-        </if>
-        <if test="cjrId != null" >
-          cjr_id,
-        </if>
-        <if test="bz != null" >
-          bz,
-        </if>
-        <if test="byzd != null" >
-          byzd,
-        </if>
-        <if test="byzd1 != null" >
-          byzd1,
-        </if>
-        <if test="byzd2 != null" >
-          byzd2,
-        </if>
-        <if test="byzd3 != null" >
-          byzd3,
-        </if>
-      </trim>
-      <trim prefix="values (" suffix=")" suffixOverrides="," >
-        <if test="khId != null" >
-          #{khId,jdbcType=BIGINT},
-        </if>
-        <if test="memberId != null" >
-          #{memberId,jdbcType=BIGINT},
-        </if>
-        <if test="khmc != null" >
-          #{khmc,jdbcType=VARCHAR},
-        </if>
-        <if test="khsfzh != null" >
-          #{khsfzh,jdbcType=VARCHAR},
-        </if>
-        <if test="khlx != null" >
-          #{khlx,jdbcType=VARCHAR},
-        </if>
-        <if test="khcjlx != null" >
-          #{khcjlx,jdbcType=VARCHAR},
-        </if>
-        <if test="khcjsj != null" >
-          #{khcjsj,jdbcType=TIMESTAMP},
-        </if>
-        <if test="khxb != null" >
-          #{khxb,jdbcType=VARCHAR},
-        </if>
-        <if test="khsjh != null" >
-          #{khsjh,jdbcType=VARCHAR},
-        </if>
-        <if test="khqq != null" >
-          #{khqq,jdbcType=VARCHAR},
-        </if>
-        <if test="khqqnc != null" >
-          #{khqqnc,jdbcType=VARCHAR},
-        </if>
-        <if test="khwx != null" >
-          #{khwx,jdbcType=VARCHAR},
-        </if>
-        <if test="khwxnc != null" >
-          #{khwxnc,jdbcType=VARCHAR},
-        </if>
-        <if test="khzj != null" >
-          #{khzj,jdbcType=VARCHAR},
-        </if>
-        <if test="khdz != null" >
-          #{khdz,jdbcType=VARCHAR},
-        </if>
-          now(),
-        <if test="xgsj != null" >
-          #{xgsj,jdbcType=TIMESTAMP},
-        </if>
-        <if test="cjrId != null" >
-          #{cjrId,jdbcType=BIGINT},
-        </if>
-        <if test="bz != null" >
-          #{bz,jdbcType=VARCHAR},
-        </if>
-        <if test="byzd != null" >
-          #{byzd,jdbcType=VARCHAR},
-        </if>
-        <if test="byzd1 != null" >
-          #{byzd1,jdbcType=VARCHAR},
-        </if>
-        <if test="byzd2 != null" >
-          #{byzd2,jdbcType=VARCHAR},
-        </if>
-        <if test="byzd3 != null" >
-          #{byzd3,jdbcType=VARCHAR},
-        </if>
-      </trim>
+    <insert id="insertSelective" parameterType="com.fzl.pojo.Client">
+        insert into client
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="khId != null">
+                kh_id,
+            </if>
+            <if test="memberId != null">
+                member_id,
+            </if>
+            <if test="khmc != null">
+                khmc,
+            </if>
+            <if test="khsfzh != null">
+                khsfzh,
+            </if>
+            <if test="khlx != null">
+                khlx,
+            </if>
+            <if test="khcjlx != null">
+                khcjlx,
+            </if>
+            <if test="khcjsj != null">
+                khcjsj,
+            </if>
+            <if test="khxb != null">
+                khxb,
+            </if>
+            <if test="khsjh != null">
+                khsjh,
+            </if>
+            <if test="khqq != null">
+                khqq,
+            </if>
+            <if test="khqqnc != null">
+                khqqnc,
+            </if>
+            <if test="khwx != null">
+                khwx,
+            </if>
+            <if test="khwxnc != null">
+                khwxnc,
+            </if>
+            <if test="khzj != null">
+                khzj,
+            </if>
+            <if test="khdz != null">
+                khdz,
+            </if>
+            cjsj,
+            <if test="xgsj != null">
+                xgsj,
+            </if>
+            <if test="cjrId != null">
+                cjr_id,
+            </if>
+            <if test="bz != null">
+                bz,
+            </if>
+            <if test="byzd != null">
+                byzd,
+            </if>
+            <if test="byzd1 != null">
+                byzd1,
+            </if>
+            <if test="byzd2 != null">
+                byzd2,
+            </if>
+            <if test="byzd3 != null">
+                byzd3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="khId != null">
+                #{khId,jdbcType=BIGINT},
+            </if>
+            <if test="memberId != null">
+                #{memberId,jdbcType=BIGINT},
+            </if>
+            <if test="khmc != null">
+                #{khmc,jdbcType=VARCHAR},
+            </if>
+            <if test="khsfzh != null">
+                #{khsfzh,jdbcType=VARCHAR},
+            </if>
+            <if test="khlx != null">
+                #{khlx,jdbcType=VARCHAR},
+            </if>
+            <if test="khcjlx != null">
+                #{khcjlx,jdbcType=VARCHAR},
+            </if>
+            <if test="khcjsj != null">
+                #{khcjsj,jdbcType=TIMESTAMP},
+            </if>
+            <if test="khxb != null">
+                #{khxb,jdbcType=VARCHAR},
+            </if>
+            <if test="khsjh != null">
+                #{khsjh,jdbcType=VARCHAR},
+            </if>
+            <if test="khqq != null">
+                #{khqq,jdbcType=VARCHAR},
+            </if>
+            <if test="khqqnc != null">
+                #{khqqnc,jdbcType=VARCHAR},
+            </if>
+            <if test="khwx != null">
+                #{khwx,jdbcType=VARCHAR},
+            </if>
+            <if test="khwxnc != null">
+                #{khwxnc,jdbcType=VARCHAR},
+            </if>
+            <if test="khzj != null">
+                #{khzj,jdbcType=VARCHAR},
+            </if>
+            <if test="khdz != null">
+                #{khdz,jdbcType=VARCHAR},
+            </if>
+            now(),
+            <if test="xgsj != null">
+                #{xgsj,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cjrId != null">
+                #{cjrId,jdbcType=BIGINT},
+            </if>
+            <if test="bz != null">
+                #{bz,jdbcType=VARCHAR},
+            </if>
+            <if test="byzd != null">
+                #{byzd,jdbcType=VARCHAR},
+            </if>
+            <if test="byzd1 != null">
+                #{byzd1,jdbcType=VARCHAR},
+            </if>
+            <if test="byzd2 != null">
+                #{byzd2,jdbcType=VARCHAR},
+            </if>
+            <if test="byzd3 != null">
+                #{byzd3,jdbcType=VARCHAR},
+            </if>
+        </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.fzl.pojo.Client" >
-      update client
-      <set >
-        <if test="memberId != null" >
-          member_id = #{memberId,jdbcType=BIGINT},
-        </if>
-        <if test="khmc != null" >
-          khmc = #{khmc,jdbcType=VARCHAR},
-        </if>
-        <if test="khsfzh != null" >
-          khsfzh = #{khsfzh,jdbcType=VARCHAR},
-        </if>
-        <if test="khlx != null" >
-          khlx = #{khlx,jdbcType=VARCHAR},
-        </if>
-        <if test="khcjlx != null" >
-          khcjlx = #{khcjlx,jdbcType=VARCHAR},
-        </if>
-        <if test="khcjsj != null" >
-          khcjsj = #{khcjsj,jdbcType=TIMESTAMP},
-        </if>
-        <if test="khxb != null" >
-          khxb = #{khxb,jdbcType=VARCHAR},
-        </if>
-        <if test="khsjh != null" >
-          khsjh = #{khsjh,jdbcType=VARCHAR},
-        </if>
-        <if test="khqq != null" >
-          khqq = #{khqq,jdbcType=VARCHAR},
-        </if>
-        <if test="khqqnc != null" >
-          khqqnc = #{khqqnc,jdbcType=VARCHAR},
-        </if>
-        <if test="khwx != null" >
-          khwx = #{khwx,jdbcType=VARCHAR},
-        </if>
-        <if test="khwxnc != null" >
-          khwxnc = #{khwxnc,jdbcType=VARCHAR},
-        </if>
-        <if test="khzj != null" >
-          khzj = #{khzj,jdbcType=VARCHAR},
-        </if>
-        <if test="khdz != null" >
-          khdz = #{khdz,jdbcType=VARCHAR},
-        </if>
-        <if test="cjsj != null" >
-          cjsj = #{cjsj,jdbcType=TIMESTAMP},
-        </if>
-        <if test="xgsj != null" >
-          xgsj = #{xgsj,jdbcType=TIMESTAMP},
-        </if>
-        <if test="cjrId != null" >
-          cjr_id = #{cjrId,jdbcType=BIGINT},
-        </if>
-        <if test="bz != null" >
-          bz = #{bz,jdbcType=VARCHAR},
-        </if>
-        <if test="byzd != null" >
-          byzd = #{byzd,jdbcType=VARCHAR},
-        </if>
-        <if test="byzd1 != null" >
-          byzd1 = #{byzd1,jdbcType=VARCHAR},
-        </if>
-        <if test="byzd2 != null" >
-          byzd2 = #{byzd2,jdbcType=VARCHAR},
-        </if>
-        <if test="byzd3 != null" >
-          byzd3 = #{byzd3,jdbcType=VARCHAR},
-        </if>
-      </set>
-      where kh_id = #{khId,jdbcType=BIGINT}
+    <update id="updateByPrimaryKeySelective" parameterType="com.fzl.pojo.Client">
+        update client
+        <set>
+            <if test="memberId != null">
+                member_id = #{memberId,jdbcType=BIGINT},
+            </if>
+            <if test="khmc != null">
+                khmc = #{khmc,jdbcType=VARCHAR},
+            </if>
+            <if test="khsfzh != null">
+                khsfzh = #{khsfzh,jdbcType=VARCHAR},
+            </if>
+            <if test="khlx != null">
+                khlx = #{khlx,jdbcType=VARCHAR},
+            </if>
+            <if test="khcjlx != null">
+                khcjlx = #{khcjlx,jdbcType=VARCHAR},
+            </if>
+            <if test="khcjsj != null">
+                khcjsj = #{khcjsj,jdbcType=TIMESTAMP},
+            </if>
+            <if test="khxb != null">
+                khxb = #{khxb,jdbcType=VARCHAR},
+            </if>
+            <if test="khsjh != null">
+                khsjh = #{khsjh,jdbcType=VARCHAR},
+            </if>
+            <if test="khqq != null">
+                khqq = #{khqq,jdbcType=VARCHAR},
+            </if>
+            <if test="khqqnc != null">
+                khqqnc = #{khqqnc,jdbcType=VARCHAR},
+            </if>
+            <if test="khwx != null">
+                khwx = #{khwx,jdbcType=VARCHAR},
+            </if>
+            <if test="khwxnc != null">
+                khwxnc = #{khwxnc,jdbcType=VARCHAR},
+            </if>
+            <if test="khzj != null">
+                khzj = #{khzj,jdbcType=VARCHAR},
+            </if>
+            <if test="khdz != null">
+                khdz = #{khdz,jdbcType=VARCHAR},
+            </if>
+            <if test="cjsj != null">
+                cjsj = #{cjsj,jdbcType=TIMESTAMP},
+            </if>
+            <if test="xgsj != null">
+                xgsj = #{xgsj,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cjrId != null">
+                cjr_id = #{cjrId,jdbcType=BIGINT},
+            </if>
+            <if test="bz != null">
+                bz = #{bz,jdbcType=VARCHAR},
+            </if>
+            <if test="byzd != null">
+                byzd = #{byzd,jdbcType=VARCHAR},
+            </if>
+            <if test="byzd1 != null">
+                byzd1 = #{byzd1,jdbcType=VARCHAR},
+            </if>
+            <if test="byzd2 != null">
+                byzd2 = #{byzd2,jdbcType=VARCHAR},
+            </if>
+            <if test="byzd3 != null">
+                byzd3 = #{byzd3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where kh_id = #{khId,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.fzl.pojo.Client" >
+    <update id="updateByPrimaryKey" parameterType="com.fzl.pojo.Client">
     update client
     set member_id = #{memberId,jdbcType=BIGINT},
       khmc = #{khmc,jdbcType=VARCHAR},
@@ -300,8 +301,8 @@
   </update>
 
 
-  <select id="selectClientVosByclientVo" resultMap="ClientVo" parameterType="com.fzl.pojo.Vo.ClientVo">
-      SELECT
+    <select id="selectClientVosByclientQo" resultMap="ClientVo" parameterType="com.fzl.pojo.Qo.ClientQo">
+        SELECT
         c.kh_id khId,
         c.member_id memberId,
         m.name,
@@ -326,14 +327,92 @@
         c.byzd1,
         c.byzd2,
         c.byzd3
-      FROM client c LEFT JOIN member m ON c.member_id=m.member_id LEFT JOIN member_department md on md.member_id=m.member_id
-      WHERE 1=1
-      <if test="memberId != null and memberId !='' ">
-        AND c.member_id = #{memberId}
-      </if>
-      <if test="departmentId != null and departmentId !='' ">
-        AND md.department_id= #{departmentId}
-      </if>
+        FROM client c LEFT JOIN member m ON c.member_id=m.member_id LEFT JOIN member_department md on
+        md.member_id=m.member_id
+        WHERE 1=1
+        <if test="memberId != null and memberId !='' ">
+            AND c.member_id = #{memberId}
+        </if>
+        <if test="departmentId != null and departmentId !='' ">
+            AND md.department_id= #{departmentId}
+        </if>
+        <if test="khmc != null and khmc !='' ">
+            AND c.khmc= #{khmc}
+        </if>
+        <if test="khlx != null and khlx !='' ">
+            AND c.khlx= #{khlx}
+        </if>
+        <if test="khcjlx != null and khcjlx !='' ">
+            AND c.khcjlx= #{khcjlx}
+        </if>
+        <if test="khsjh != null and khsjh !='' ">
+            AND c.khsjh= #{khsjh}
+        </if>
+        <if test="khqq != null and khqq !='' ">
+            AND c.khqq= #{khqq}
+        </if>
+        <if test="khwx != null and khwx !='' ">
+            AND c.department_id= #{departmentId}
+        </if>
+        <if test="cjsjQ != null and cjsjQ !='' ">
+            AND c.cjsj >= #{cjsjQ}
+        </if>
+        <if test="cjsjZ != null and cjsjZ !='' ">
+            AND #{cjsjZ} >c.cjsjZ
+        </if>
+        <if test="byzd != null and byzd !='' ">
+            AND c.byzd = #{byzd}
+        </if>
 
+    </select>
+
+
+    <select id="countTodayByUserId" resultMap="Statistics" parameterType="com.fzl.pojo.Qo.CountQo">
+      SELECT * FROM
+      (SELECT COUNT(1) khCount
+          FROM client
+          WHERE member_id=#{memberId}
+            AND cjsj>=#{start}
+            AND #{end}>=cjsj
+          ) a ,
+      (SELECT COUNT(1) zzCount
+          FROM client_log cl LEFT JOIN client c ON c.kh_id =cl.kh_id
+          WHERE c.member_id=#{memberId}
+          AND cl.cjsj >= #{start}
+            AND #{end} >= cl.cjsj
+          ) b
   </select>
+    <select id="countTodayByDepartmentId" resultMap="Statistics" parameterType="com.fzl.pojo.Qo.CountQo">
+       SELECT * FROM
+      (SELECT COUNT(1) khCount
+          FROM `client` c LEFT JOIN `member_department` md ON c.member_id = md.member_id
+          WHERE md.department_id=#{departmentId}
+            AND cjsj>=#{start}
+            AND #{end}>=cjsj
+          ) a ,
+      (SELECT COUNT(1) zzCount
+          FROM client_log cl LEFT JOIN `client` c ON c.kh_id =cl.kh_id LEFT JOIN `member_department` md ON c.member_id = md.member_id
+          WHERE md.department_id=#{departmentId}
+          AND cl.cjsj >= #{start}
+            AND #{end} >= cl.cjsj
+          ) b
+    </select>
+    <select id="countToday"resultMap="Statistics" parameterType="com.fzl.pojo.Qo.CountQo">
+               SELECT * FROM
+      (SELECT COUNT(1) khCount
+          FROM `client` c LEFT JOIN `member_department` md ON c.member_id = md.member_id
+          WHERE cjsj>=#{start}
+            AND #{end}>=cjsj
+          ) a ,
+      (SELECT COUNT(1) zzCount
+          FROM client_log cl LEFT JOIN `client` c ON c.kh_id =cl.kh_id LEFT JOIN `member_department` md ON c.member_id = md.member_id
+          WHERE cl.cjsj >= #{start}
+            AND #{end} >= cl.cjsj
+          ) b
+    </select>
+
+    <select id="counttodayListByUserId" resultMap="Statistics" parameterType="com.fzl.pojo.Qo.CountQo">
+        SELECT COUNT(*) AS zzCount,DATE_FORMAT(cjsj,'%Y-%m-%d') AS tjrq FROM client_log
+        GROUP BY tjrq
+    </select>
 </mapper>

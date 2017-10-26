@@ -9,6 +9,7 @@ import com.fzl.pojo.ClientLog;
 import com.fzl.pojo.ClientMember;
 import com.fzl.pojo.Qo.ClientLogQo;
 import com.fzl.service.ClientLogService;
+import org.apache.poi.ss.formula.functions.Now;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -86,6 +88,9 @@ public class ClientLogController extends BaseController {
             Client client = new Client();
             client.setKhId(clientLogQo.getKhId());
             client.setKhcjlx(clientLogQo.getKhcjlx());
+            if("1".equals(clientLogQo.getKhcjlx())){
+                client.setCjsj(new Date());
+            }
             client.setByzd(clientLogQo.getByzd());
             clientMapper.updateByPrimaryKeySelective(client);
         }
