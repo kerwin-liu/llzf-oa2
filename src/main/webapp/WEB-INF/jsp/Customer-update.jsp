@@ -59,11 +59,7 @@
                 <label>客户类型:</label>
                <input name="khlx" id="khlx" />
            </span>
-        <span class="item-two">
-                 <label>负责人:</label>
-                <input id="name" name="names" type="text" class="easyui-validatebox textbox" required="true" style="height: 25px;">
-                <input id="memberId" name="memberId" style="display: none;">
-        </span>
+
     </div>
     <div class="fitem">
         <label>身份证:</label>
@@ -87,9 +83,6 @@
         textField:'text',
         data:map
     });
-    $("#memberId").val(rows[0].memberId);
-    $("#name").val(rows[0].name);
-    alert( $("#name").val());
     $("#khId").val(rows[0].khId);
     $("#khmc").val(rows[0].khmc);
     $("#khsjh").val(rows[0].khsjh);

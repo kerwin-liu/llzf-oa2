@@ -53,10 +53,10 @@
             width: 172px;
         }
         .datagrid-toolbar-a{
-            width: 9%;
+            width: 8.1%;
             height: 25px;
             float: left;
-            margin-left: 2%;
+            margin-left: 1%;
             border: 0px solid red;
             margin-top: 0.3%
         }
@@ -93,7 +93,10 @@
         <a id="btn10" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-large-clipart'">客户移交</a>
     </div>
     <div class="datagrid-toolbar-a">
-        <a id="btn11" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">返回</a>
+        <a id="btn11" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">转入客户</a>
+    </div>
+    <div class="datagrid-toolbar-a">
+        <a id="btn12" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">返回</a>
     </div>
         <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
             客户类型:<select id="type" style="width:80px;">
@@ -251,12 +254,17 @@
             imports();
         });
         $("#btn11").click(function(){
-            tbdata();
+
         });
+        $("#btn12").click(function(){
+            tbdata(1,30);
+            $("#dg").datagrid("load");
+        });
+
         $("#btn10").click(function(){
             var rows= $("#dg").datagrid("getSelections");
             if(rows.length==0){
-                tip("请选择一条数据进行修改");
+                tip("请选择至少一条数据进行移交");
             }else {
                 createnewwindow("移交客户", "/pages/Customer-allot", 600, 350);
             }
@@ -421,7 +429,6 @@ function exports(){
             type: "POST",
             dataType:'json',
             success:function(data){
-                console.log(data);
                 $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
             }
         });

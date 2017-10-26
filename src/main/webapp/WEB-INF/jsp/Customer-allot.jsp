@@ -75,8 +75,9 @@
             rownumbers: true,
             remoteSort: false,
             columns: [[
-                {field: 'name', title: '姓名', width: 100, align: 'center'},
-                {field: 'type', title: '客户类型', width: 60, align: 'center',formatter:function(value, row, index){
+                {field: 'khId', title: '编号', width: 50, align: 'center',hidden:true},
+                {field: 'khmc', title: '姓名', width: 100, align: 'center'},
+                {field: 'khlx', title: '客户类型', width: 60, align: 'center',formatter:function(value, row, index){
                     var type="";
                     if(value==1){
                         type="一般客户";
@@ -92,7 +93,7 @@
                     }
                     return type;
                 }},
-                {field: 'funds', title: '负责人', width: 100, align: 'center'}
+                {field: 'name', title: '负责人', width: 100, align: 'center'}
             ]],
             onClickCell:function(rowIndex, field, value){
                 $("#dg1").datagrid("unselectAll");
@@ -104,11 +105,10 @@
             fit: true,
             rownumbers: true,
             remoteSort: false,
-
             columns: [[
-
-                {field: 'name', title: '姓名', width: 100, align: 'center'},
-                {field: 'type', title: '客户类型', width: 60, align: 'center',formatter:function(value, row, index){
+                {field: 'khId', title: '编号', width: 50, align: 'center',hidden:true},
+                {field: 'khmc', title: '姓名', width: 100, align: 'center'},
+                {field: 'khlx', title: '客户类型', width: 60, align: 'center',formatter:function(value, row, index){
                     var type="";
                     if(value==1){
                         type="一般客户";
@@ -124,7 +124,7 @@
                     }
                     return type;
                 }},
-                {field: 'funds', title: '负责人', width: 100, align: 'center'}
+                {field: 'name', title: '负责人', width: 100, align: 'center'}
             ]]
         });
         var url="/member/getAll";
@@ -139,7 +139,6 @@
                     for (var i=0;i<value.length;i++){
                         d.push({"id":value[i].memberId,"text":value[i].name});
                     }
-                    console.log(d);
                     d[0].selected=true;
                     $("#employee3").combobox({
                         valueField:'id',
@@ -155,12 +154,26 @@
             $("#dg2").datagrid({data:$("#dg1").datagrid("getRows")});
         });
         $("#btns2").click(function(){
+            var value=$("#employee3").val();
            var url="";
-           $.ajax({
-               url:url,
+           var rows=$("#dg2").datagrid("getRows");
+            var data=[];
+            if(rows.length==0){
+                tip("请先移交客户");
+                return;
+            }
+            for (var i=0;i<rows.length;i++){
+                var da = {"clientId":rows[i].khId,"memberId":value};
+                data.push(da);
+            }
+            $.ajax({
+               url:'/client/batchZy',
+               type:'POST',
                dataType:'json',
-               success:function(data){
-
+               data:JSON.stringify(data),
+                // //data:data,
+               success:function(datas){
+                console.log(datas);
                }
            })
         });

@@ -184,6 +184,7 @@ public class ClientController extends BaseController {
      */
     @RequestMapping(value = "batchZy",method = RequestMethod.POST)
     public void batchZy(HttpServletRequest request, HttpServletResponse response, List<ClientCJLXQo> qoList) {
+        System.err.println(11);
         for (ClientCJLXQo clientCJLXQo : qoList) {
             clientService.batchZy(clientCJLXQo);
         }
