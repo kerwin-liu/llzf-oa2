@@ -41,6 +41,53 @@ function createnewwindow(title, addurl,width,height) {
 
 
 }
+/**
+* 创建带下一步窗口
+*
+* @param title
+* @param addurl
+* @param saveurl
+*/
+function createTrunWindow(title, addurl,width,height) {
+    width = width?width:700;
+    height = height?height:400;
+    if(width=="100%" || height=="100%"){
+        width = window.top.document.body.offsetWidth;
+        height =window.top.document.body.offsetHeight-100;
+    }
+    var dd = $("#dd");
+    if(dd.length==0){
+        $("body").append("<div id='dd'></div>");
+        dd = $("#dd");
+    }
+    dd.dialog({
+        title: title,
+        width: width,
+        height: height,
+        closed: false,
+        zIndex:100,
+        cache: false,
+        href: addurl,
+        modal: true,
+        buttons:[{
+            text:'下一步',
+            iconCls:'icon-ok',
+            handler:function(){
+                saveObj($(this));
+
+            }
+        },{
+            text:'关闭',
+            iconCls:'icon-cancel',
+            handler:function(){
+                closeObj($(this));
+            }
+        }]
+
+    });
+
+
+}
 
 /**
  * 创建添加或编辑窗口

@@ -122,6 +122,7 @@
                 {field: 'khwx', title: '微信号', width: 100, align: 'center'},
                 {field: 'khwxnc', title: '微信名', width: 100, align: 'center',hidden:true},
                 {field: 'khqq', title: 'QQ号', width: 100, align: 'center'},
+                {field: 'qqnc', title: 'QQ昵称', width: 100, align: 'center'},
                 {field: 'khlx', title: '客户类型', width: 80, align: 'center',formatter:function(value, row, index){
                     var type="";
                     if(value==1){
@@ -141,13 +142,14 @@
                 {field: 'memberId', title: '负责人', width: 100, align: 'center',hidden:true},
                 {field: 'name', title: '负责人', width: 100, align: 'center'},
                 {field: 'bz', title: '备注', width: 100, align: 'center'},
+                {field: 'khzj', title: '资金', width: 100, align: 'center'},
+                {field: 'khdz', title: '地址', width: 100, align: 'center'},
                 {field: 'cjsj', title: '归档日期', width: 180, align: 'center',formatter:function(value, row, index){
                     var time = new Date(value);
                     return date2str(time,'yyyy-MM-dd hh:mm:ss');
-                }},
-                {field: 'qqnc', title: 'QQ昵称', width: 100, align: 'center',hidden:true},
-                {field: 'zj', title: '资金', width: 100, align: 'center',hidden:true},
-                {field: 'address', title: '地址', width: 100, align: 'center',hidden:true}
+                }}
+
+
             ]]
         }).datagrid("getPager").pagination({
             onBeforeRefresh : function(pageNumber, pageSize) {

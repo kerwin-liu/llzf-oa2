@@ -26,7 +26,7 @@
     <div class="fitem">
             <span class="item-one">
                 <label>姓名:</label>
-                <input id="khmc" name="khmc" class="easyui-validatebox textbox " missingMessage="不能为空" required="true" size="20" style="height: 25px;">
+                <input id="khmc" name="khmc" class="easyui-validatebox textbox " missingMessage="不能为空" validType="CHS"  required="true" size="20" style="height: 25px;">
             </span>
         <span class="item-two">
                 <label>性别:</label>
@@ -53,30 +53,30 @@
     <div class="fitem">
         <span class="item-one">
                  <label>QQ:</label>
-                <input id="khqq" name="khqq"  class="easyui-validatebox textbox" required="true" missingMessage="不能为空" validType="qq"  style="height: 25px;" size="20">
+                <input id="khqq" name="khqq"  class="easyui-validatebox textbox" required="false" missingMessage="不能为空" validType="qq"  style="height: 25px;" size="20">
             </span>
         <span class="item-two">
                 <label>QQ昵称:</label>
-                <input id="qqnc" name="khqqnc" class="easyui-validatebox textbox" style="height: 25px;" size="20">
+                <input id="qqnc" name="khqqnc" class="easyui-validatebox textbox" required="false" missingMessage="不能为空"  style="height: 25px;" size="20">
            </span>
     </div>
     <div class="fitem">
             <span class="item-one">
                     <label>微信:</label>
-                   <input id="khwx" name="khwx"  class="easyui-validatebox textbox" style="height: 25px;" size="20">
+                   <input id="khwx" name="khwx"  class="easyui-validatebox textbox" required="false" missingMessage="不能为空"  style="height: 25px;" size="20">
                </span>
              <span class="item-two">
                     <label>资金:</label>
-                   <input id="zj" name="khzj"  class="easyui-validatebox textbox" style="height: 25px;" size="20">
+                   <input id="khzj" name="khzj"  class="easyui-validatebox textbox" required="false" missingMessage="不能为空"  style="height: 25px;" size="20">
                </span>
     </div>
     <div class="fitem">
         <label class="item-one">住址:</label>
-        <input id="address" name="khdz" class="easyui-validatebox textbox address" size="54" style="height: 25px;">
+        <input id="address" name="khdz" class="easyui-validatebox textbox address" required="false"  missingMessage="不能为空" size="54" style="height: 25px;">
     </div>
     <div class="fitem">
         <label>备注:</label>
-        <input id="bz" name="bz" size="54" class="easyui-validatebox textbox" style="height: 25px;">
+        <input id="bz" name="bz" size="54" class="easyui-validatebox textbox" required="true"   style="height: 25px;">
     </div>
 
 </form>
@@ -135,13 +135,15 @@
     }else{
         $('input:radio[name=khxb]')[2].checked = true;
     }
+
     $("#khId").val(rows[0].khId);
     $("#khmc").val(rows[0].khmc);
     $("#khsjh").val(rows[0].khsjh);
     $("#khwx").val(rows[0].khwx);
-    $("#zj").val(rows[0].khzj);
-    $("#address").val(rows[0].khdz);
+    $("#zj").val(rows[0].zj);
+    $("#address").val(rows[0].address);
     $("#khwxnc").val(rows[0].khwxnc);
+
     $("#khqq").val(rows[0].khqq);
     $("#qqnc").val(rows[0].qqnc);
 
@@ -159,8 +161,29 @@
         // 根据后台返回值处理结果
         try {
             var j=$.parseJSON(text);
-            $.messager.alert('提示',j.msg);
-            tbdata(1,30);
+
+            if(j.code==200){
+                $.messager.confirm('确定', '你确定要成交吗?', function (r) {
+                    if (r) {
+                        var  d = {"khId": $("#khId").val(),"khcjlx":1};
+                        $.ajax({
+                            url: "/client/update",
+                            type:'POST',
+                            dataType: 'json',
+                            data:d,
+                            success: function (data) {
+                                console.log(data);
+                                if (data.code == 200) {
+                                    tbdata();
+                                } else {
+                                    tip(data.msg);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+
         }
         catch (e){
 

@@ -84,7 +84,7 @@
             <a id="btn5" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除客户</a>
         </div>
         <div class="datagrid-toolbar-a">
-            <a id="btn6" href="/client/exportExcel" class="easyui-linkbutton" data-options="iconCls:'icon-print'">数据导出</a>
+            <a id="btn6" href="/client/queryToExcel" class="easyui-linkbutton" data-options="iconCls:'icon-print'">数据导出</a>
         </div>
     <div class="datagrid-toolbar-a">
         <a id="btn9" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">数据导入</a>
@@ -164,8 +164,9 @@
                 {field: 'khwx', title: '微信号', width: 100, align: 'center'},
                 {field: 'khwxnc', title: '微信名', width: 100, align: 'center',hidden:true},
                 {field: 'khqq', title: 'QQ号', width: 100, align: 'center'},
+                {field: 'qqnc', title: 'QQ昵称', width: 100, align: 'center'},
                 {field: 'khlx', title: '客户类型', width: 80, align: 'center',formatter:function(value, row, index){
-                  var type="";
+                    var type="";
                     if(value==1){
                         type="一般客户";
                     }
@@ -183,13 +184,12 @@
                 {field: 'memberId', title: '负责人', width: 100, align: 'center',hidden:true},
                 {field: 'name', title: '负责人', width: 100, align: 'center'},
                 {field: 'bz', title: '备注', width: 100, align: 'center'},
+                {field: 'khzj', title: '资金', width: 100, align: 'center'},
+                {field: 'khdz', title: '地址', width: 100, align: 'center'},
                 {field: 'cjsj', title: '归档日期', width: 180, align: 'center',formatter:function(value, row, index){
-                var time = new Date(value);
-                return date2str(time,'yyyy-MM-dd hh:mm:ss');
-                }},
-                {field: 'qqnc', title: 'QQ昵称', width: 100, align: 'center',hidden:true},
-                {field: 'zj', title: '资金', width: 100, align: 'center',hidden:true},
-                {field: 'address', title: '地址', width: 100, align: 'center',hidden:true}
+                    var time = new Date(value);
+                    return date2str(time,'yyyy-MM-dd hh:mm:ss');
+                }}
             ]]
         }).datagrid("getPager").pagination({
             onBeforeRefresh : function(pageNumber, pageSize) {
@@ -235,7 +235,7 @@
         $("#btn3").click(function(){
             truns();
         });
-        //
+        //客户追踪
         $("#btn4").click(function(){
             trace();
         });
@@ -244,9 +244,9 @@
             deletes();
         });
         //导出
-       $("#btn6").click(function(){
+      /* $("#btn6").click(function(){
             exports();
-        });
+        });*/
        //导入
         $("#btn9").click(function(){
             imports();
@@ -346,7 +346,7 @@
                     tip(data.msg);
                 }
             }
-        })
+        });
     }
 
     function truns(){
@@ -354,16 +354,21 @@
         if(rows.length==0){
             tip("请选择一条数据进行修改");
         }else{
-            var id="";
+            createTrunWindow('成交客户','/pages/Customer-trun-update',600,350);
+
+          /*  var id=[];
             for (var i=0;i<rows.length;i++){
                 id +=rows[i].clientId+",";
             }
+
             id = id.substring(0,id.length-1);
-            var url="/client/turnClient/"+id;
+
+            var url="/client/update";
             $.messager.confirm('确定', '你确定要成交吗?', function (r) {
                 if (r) {
                     $.ajax({
                         url: url,
+                        type:'POST',
                         dataType: 'json',
                         success: function (data) {
                             if (data.code == 200) {
@@ -374,7 +379,7 @@
                         }
                     });
                 }
-            });
+            });*/
         }
     }
 
