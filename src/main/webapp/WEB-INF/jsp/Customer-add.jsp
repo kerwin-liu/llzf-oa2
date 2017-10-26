@@ -125,7 +125,7 @@
         try {
             var j=$.parseJSON(text);
             $.messager.alert('提示',j.msg);
-            tbdata();
+            tbdata(1,30);
         }catch (e){
 
         }

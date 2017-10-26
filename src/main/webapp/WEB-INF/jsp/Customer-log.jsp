@@ -72,7 +72,9 @@
     服务信息:<textarea id="servermsg" cols="36" style="resize: none" ></textarea>
 </div>
     <div style="width: 100%;height: 70%">
-        <textarea id="logs" cols="36" rows="13"  style="resize: none" readonly="readonly"></textarea>
+       <table id="zztb" style="width: 100%;height: 100%">
+
+       </table>
     </div>
     <div style="width: 30%;height: 6%;margin-left: 40%">
         <a id="add-bt1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加信息</a>
@@ -121,25 +123,31 @@
             $("#mem").val(data.date.name)
         }
     });
-    $.ajax({
-        url:'/client/getLog/'+id,
-        dataType:'json',
-        success:function(data){
-            if(data.code==200){
-                var list = data.date;
-                var value = "";
-                $("#logs").text("");
-                for(var i=0;i<list.length;i++) {
-                    var time = new Date(list[i].time);
-                   value+=date2str(time,'yyyy-MM-dd hh:mm:ss')+"   "+list[i].clientLog+"\n";
-                }
-                $("#logs").text(value);
-            }else{
-                tip(data.msg);
-            }
-        }
-
+    $("#zztb").datagrid({
+        singleSelect: false,
+        fitColumns: true,
+        fit: true,
+        remoteSort: false,
+        rownumbers: true,
+        columns: [[
+            {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
+            {field: 'czsj', title: '时间', width: 50, align: 'center',formatter:function(value, row, index){
+                var time = new Date(value);
+                return date2str(time,'yyyy-MM-dd hh:mm:ss');
+            }},
+            {field: 'zznr', title: '追踪信息', width: 100, align: 'center'}
+            ]]
     });
+   $.ajax({
+       url:'/clientLog/getAll/'+$("#ids").val(),
+       type:'POST',
+       dataType:'json',
+       success:function(data){
+           console.log(data);
+           $("#zztb").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
+       }
+    });
+
     $("#add-bt1").click(function(){
         var value = $("#servermsg").val();
         var khId = $("#ids").val();
@@ -160,90 +168,7 @@
         }else {
             tip("请在服务信息框中,添加服务信息！！！");
         }
-
-
-        //createwindow2("添加信息", "/pages/Customer-log-add",400,220);
     });
-
-    function createwindow2(title, addurl,width,height) {
-        width = width?width:700;
-        height = height?height:400;
-        if(width=="100%" || height=="100%"){
-            width = window.top.document.body.offsetWidth;
-            height =window.top.document.body.offsetHeight-100;
-        }
-        var dd = $("#dds");
-        if(dd.length==0){
-            $("body").append("<div id='dds'></div>");
-            dd = $("#dds");
-        }
-
-        dd.dialog({
-            title: title,
-            width: width,
-            height: height,
-            zIndex:500,
-            closed: false,
-            cache: false,
-            href: addurl,
-            modal: true,
-            buttons:[{
-                text:'提交',
-                iconCls:'icon-ok',
-                handler:function(){
-
-                    saveObj1($(this));
-
-                }
-            },{
-                text:'关闭',
-                iconCls:'icon-cancel',
-                handler:function(){
-                    closeObj1($(this));
-                }
-            }]
-
-        });
-
-
-    }
-    /**
-     * 执行保存
-     *
-     */
-    function saveObj1(obj) {
-        var from = obj;
-        console.log(from);
-        for(var i=0;i<from.length;i++){
-            var c = $(from[i]).children("#dds");
-            if(c.length==0){
-                saveObj1($(from[i].parentNode));
-            }else{
-                if(sub(c.children("#from"))){
-                    c.children("#from").submit();
-                    c.dialog('close');
-                }
-                return;
-            }
-        }
-    }
-
-    /**
-     * 执行关闭
-     */
-    function closeObj1(obj) {
-        var from = obj;
-        for(var i=0;i<from.length;i++){
-            var c = $(from[i]).children("#dds");
-            if(c.length==0){
-                closeObj1($(from[i].parentNode));
-            }else{
-                c.dialog('close');
-                return;
-            }
-        }
-    }
-
 </script>
 </body>
 </html>
