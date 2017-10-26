@@ -194,7 +194,7 @@ public class ClientServiceImpl implements ClientService {
         countQo.setEnd(DateUtils.getEndDayOfWeek());
         countQo.setMemberId(member.getMemberId());
         List<Statistics> khlist = clientMapper.counttodayListByUserIdKh(countQo);
-        List<Statistics> zzlist = clientMapper.counttodayListByUserIdZh(countQo);
+        List<Statistics> zzlist = clientMapper.counttodayListByUserIdZz(countQo);
         return convert(khlist,zzlist);
     }
 
@@ -206,7 +206,7 @@ public class ClientServiceImpl implements ClientService {
         countQo.setEnd(DateUtils.getEndDayOfWeek());
         countQo.setDepartmentId(department.getId());
         List<Statistics> khlist = clientMapper.counttodayListByUserIdKh(countQo);
-        List<Statistics> zzlist = clientMapper.counttodayListByUserIdZh(countQo);
+        List<Statistics> zzlist = clientMapper.counttodayListByUserIdZz(countQo);
         return convert(khlist,zzlist);
     }
 
@@ -216,7 +216,7 @@ public class ClientServiceImpl implements ClientService {
         countQo.setStart(DateUtils.getBeginDayOfWeek());
         countQo.setEnd(DateUtils.getEndDayOfWeek());
         List<Statistics> khlist = clientMapper.counttodayListByUserIdKh(countQo);
-        List<Statistics> zzlist = clientMapper.counttodayListByUserIdZh(countQo);
+        List<Statistics> zzlist = clientMapper.counttodayListByUserIdZz(countQo);
         return convert(khlist,zzlist);
     }
 

@@ -424,7 +424,7 @@
         </if>
         GROUP BY tjrq
     </select>
-    <select id="counttodayListByUserIdZh" resultMap="Statistics" parameterType="com.fzl.pojo.Qo.CountQo">
+    <select id="counttodayListByUserIdKh" resultMap="Statistics" parameterType="com.fzl.pojo.Qo.CountQo">
         SELECT COUNT(*) AS zzCount,DATE_FORMAT(cjsj,'%Y-%m-%d') AS tjrq FROM client c
         left join member_department md on md.member_id = c.member_id
         WHERE
