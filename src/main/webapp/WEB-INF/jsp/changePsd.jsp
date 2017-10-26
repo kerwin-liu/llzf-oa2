@@ -27,11 +27,11 @@
     </div>
     <div class="fitem">
         <label class="item-one">原密码:</label>
-        <input name="oldPassword" style="height: 25px;" type="password" class="easyui-validatebox" required="true" size="20">
+        <input name="oldPassword" id="oldPassword" style="height: 25px;" type="password" class="easyui-validatebox" missingMessage="不能为空" validType="number" required="true" size="20">
     </div>
     <div class="fitem">
         <label class="item-one">新密码:</label>
-        <input name="newPassword" style="height: 25px;" type="password" class="easyui-validatebox password" required="true" size="20">
+        <input name="newPassword" style="height: 25px;" type="password" class="easyui-validatebox password" required="required" validType="equals['#oldPassword']" size="20">
     </div>
 
 </form>

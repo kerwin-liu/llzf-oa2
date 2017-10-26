@@ -26,7 +26,7 @@
     <div class="fitem">
             <span class="item-one">
                 <label>账号:</label>
-                <input name="number" class="easyui-validatebox textbox number"  missingMessage="不能为空" validType="CHS" required="true" size="20" style="height: 25px;">
+                <input name="number" class="easyui-validatebox textbox number"  missingMessage="不能为空" required="true" size="20" style="height: 25px;">
             </span>
             <span class="item-two">
                 <label>组别:</label>
@@ -87,17 +87,17 @@
     <div class="fitem">
            <span class="item-one">
                 <label>姓名:</label>
-                <input name="name" class="easyui-validatebox textbox name"  missingMessage="不能为空" validType="CHS" required="true" style="height: 25px;">
+                <input name="name" class="easyui-validatebox textbox name"  missingMessage="不能为空" required="true" style="height: 25px;">
            </span>
             <span class="item-two">
                  <label>手机:</label>
-                <input  name="phone" class="easyui-validatebox textbox phone" missingMessage="不能为空" validType="CHS"  required="true" style="height: 25px;">
+                <input  name="phone" class="easyui-validatebox textbox phone" missingMessage="不能为空" validType="mobile"  required="true" style="height: 25px;">
             </span>
     </div>
     <div class="fitem">
            <span class="item-one">
                 <label>QQ:</label>
-                <input name="qq" class="easyui-validatebox textbox" style="height: 25px;">
+                <input name="qq" class="easyui-validatebox textbox" validType="qq" style="height: 25px;">
            </span>
         <span class="item-two">
                  <label>QQ昵称:</label>
@@ -121,7 +121,7 @@
            </span>
         <span class="item-two">
                  <label>手机号:</label>
-                <input name="jjlxrsj" class="easyui-validatebox textbox jjlxrsjm" style="height: 25px;">
+                <input name="jjlxrsj" class="easyui-validatebox textbox jjlxrsjm" validType="mobile" style="height: 25px;">
             </span>
     </div>
     <div class="fitem">
@@ -135,7 +135,7 @@
     </div>
     <div class="fitem">
         <label class="item-one">身份证:</label>
-        <input name="card" size="56" class="easyui-validatebox textbox card"  missingMessage="不能为空" validType="CHS" required="true" style="height: 25px;">
+        <input name="card" size="56" class="easyui-validatebox textbox card"  missingMessage="不能为空" validType="idcard" required="true" style="height: 25px;">
     </div>
     <div class="fitem">
         <label class="item-one">住址:</label>
@@ -157,8 +157,32 @@
                 return /^[\u0391-\uFFE5]+$/.test(value);
             },
             message: '只能输入汉字'
+        },
+        idcard: {// 验证身份证
+            validator: function (value) {
+                return /^\d{15}(\d{2}[A-Za-z0-9])?$/i.test(value);
+            },
+            message: '身份证号码格式不正确'
+        },
+        length: { validator: function (value, param) {
+            var len = $.trim(value).length;
+            return len >= param[0] && len <= param[1];
+        },
+            message: "输入内容长度必须介于{0}和{1}之间."
+        },
+        mobile: {// 验证手机号码
+            validator: function (value) {
+                return /^(13|15|18|17)\d{9}$/i.test(value);
+            },
+            message: '手机号码格式不正确'
+        },
+        qq: {// 验证QQ,从10000开始
+            validator: function (value) {
+                return /^[1-9]\d{4,9}$/i.test(value);
+            },
+            message: 'QQ号码格式不正确'
         }
-    })
+    });
     $('#hidden_frame').load(function () {
         var data_url='/member/getList';
         var text = $(this).contents().find("body").text();
