@@ -158,6 +158,9 @@
                     if(value==1){
                         type="女";
                     }
+                    if(value==2){
+                        type="未知";
+                    }
                     return type;}},
                 {field: 'khsjh', title: '手机号', width: 100, align: 'center'},
                 {field: 'khsfzh', title: '身份证号', width: 100, align: 'center'},

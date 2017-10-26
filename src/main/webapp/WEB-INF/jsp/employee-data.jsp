@@ -246,7 +246,7 @@
                         alert(result.msg);
                         setTimeout(function () {
                             tbdata(data_url,1,30);
-                        },500);
+                        },100);
 
                     } else {
                         alert(result.msg);
@@ -308,7 +308,6 @@
             data["phone"]=$("#phone-search").val();
             data['number']=$("#number-search").val();
             data["card"]=$("#card-search").val();
-            data["time"]=$("#time-search").val();
             $.ajax({
                 url: '/member/getList?pageIndex=1&pageSize=30',
                 type: "POST",

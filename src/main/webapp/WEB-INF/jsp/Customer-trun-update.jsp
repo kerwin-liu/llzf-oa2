@@ -26,7 +26,7 @@
     <div class="fitem">
             <span class="item-one">
                 <label>姓名:</label>
-                <input id="khmc" name="khmc" class="easyui-validatebox textbox " missingMessage="不能为空" validType="CHS"  required="true" size="20" style="height: 25px;">
+                <input id="khmc" name="khmc" class="easyui-validatebox textbox " missingMessage="不能为空"  required="true" size="20" style="height: 25px;">
             </span>
         <span class="item-two">
                 <label>性别:</label>
@@ -53,30 +53,30 @@
     <div class="fitem">
         <span class="item-one">
                  <label>QQ:</label>
-                <input id="khqq" name="khqq"  class="easyui-validatebox textbox" required="false" missingMessage="不能为空" validType="qq"  style="height: 25px;" size="20">
+                <input id="khqq" name="khqq"  class="easyui-validatebox textbox" required="true" missingMessage="不能为空" validType="qq"  style="height: 25px;" size="20">
             </span>
         <span class="item-two">
                 <label>QQ昵称:</label>
-                <input id="qqnc" name="khqqnc" class="easyui-validatebox textbox" required="false" missingMessage="不能为空"  style="height: 25px;" size="20">
+                <input id="qqnc" name="khqqnc" class="easyui-validatebox textbox" required="true" missingMessage="不能为空"  style="height: 25px;" size="20">
            </span>
     </div>
     <div class="fitem">
             <span class="item-one">
                     <label>微信:</label>
-                   <input id="khwx" name="khwx"  class="easyui-validatebox textbox" required="false" missingMessage="不能为空"  style="height: 25px;" size="20">
+                   <input id="khwx" name="khwx"  class="easyui-validatebox textbox" required="true" missingMessage="不能为空"  style="height: 25px;" size="20">
                </span>
              <span class="item-two">
                     <label>资金:</label>
-                   <input id="zj" name="khzj"  class="easyui-validatebox textbox" required="false" missingMessage="不能为空"  style="height: 25px;" size="20">
+                   <input id="zj" name="khzj"  class="easyui-validatebox textbox" required="true" missingMessage="不能为空" validType="intOrFloat"  style="height: 25px;" size="20">
                </span>
     </div>
     <div class="fitem">
         <label class="item-one">住址:</label>
-        <input id="address" name="khdz" class="easyui-validatebox textbox address" required="false"  missingMessage="不能为空" size="54" style="height: 25px;">
+        <input id="address" name="khdz" class="easyui-validatebox textbox address" required="true"  missingMessage="不能为空" size="54" style="height: 25px;">
     </div>
     <div class="fitem">
         <label>备注:</label>
-        <input id="bz" name="bz" size="54" class="easyui-validatebox textbox" required="true"   style="height: 25px;">
+        <input id="bz" name="bz" size="54" class="easyui-validatebox textbox" required="true" missingMessage="不能为空"   style="height: 25px;">
     </div>
 
 </form>
@@ -113,6 +113,12 @@
                 return /^[1-9]\d{4,9}$/i.test(value);
             },
             message: 'QQ号码格式不正确'
+        },
+        intOrFloat : {// 验证整数或小数
+            validator : function(value) {
+                return /^\d+(\.\d+)?$/i.test(value);
+            },
+            message : '请输入数字，并确保格式正确'
         }
 
     });
@@ -130,7 +136,7 @@
     });
     if(rows[0].khxb==0){
         $('input:radio[name=khxb]')[0].checked = true;
-    }else if(rows[0].sex==1){
+    }else if(rows[0].khxb==1){
         $('input:radio[name=khxb]')[1].checked = true;
     }else{
         $('input:radio[name=khxb]')[2].checked = true;

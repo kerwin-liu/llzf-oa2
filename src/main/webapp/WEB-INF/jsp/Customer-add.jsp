@@ -25,7 +25,7 @@
     <div class="fitem">
             <span class="item-one">
                 <label>姓名:</label>
-                <input name="khmc" class="easyui-validatebox textbox " missingMessage="不能为空" validType="CHS"  required="true" size="20" style="height: 25px;">
+                <input name="khmc" class="easyui-validatebox textbox " missingMessage="不能为空" required="true" size="20" style="height: 25px;">
             </span>
         <span class="item-two">
                 <label>性别:</label>
@@ -70,7 +70,7 @@
                </span>
         <span class="item-two">
                     <label>资金:</label>
-                   <input name="khzj"  class="easyui-validatebox textbox" style="height: 25px;" size="20">
+                   <input name="khzj"  class="easyui-validatebox textbox"  validType="intOrFloat" style="height: 25px;" size="20">
                </span>
     </div>
     <div class="fitem">
@@ -115,6 +115,12 @@
                 return /^[1-9]\d{4,9}$/i.test(value);
             },
             message: 'QQ号码格式不正确'
+        },
+        intOrFloat : {// 验证整数或小数
+            validator : function(value) {
+                return /^\d+(\.\d+)?$/i.test(value);
+            },
+            message : '请输入数字，并确保格式正确'
         }
 
     });
