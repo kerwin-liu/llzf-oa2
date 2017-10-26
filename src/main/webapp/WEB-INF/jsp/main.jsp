@@ -240,7 +240,7 @@ option00 = {
         type : 'bar',
         data : [ {
             name : '',
-            value : 70,
+            value : 30,
             itemStyle : {
                 normal : {
                     label : {
@@ -467,9 +467,9 @@ option03 = {
 
 
 
-myCharts01.setOption(option00);
-option00.title.text="本周  新加客户-追踪信息 统计";
-myCharts02.setOption(option00);
+/*myCharts01.setOption(option00);*/
+/*option00.title.text="本周  新加客户-追踪信息 统计";
+myCharts02.setOption(option00);*/
 myCharts03.setOption(option03);
 
 $(function(){
@@ -477,12 +477,62 @@ $(function(){
        url:'/user/get',
        dataType:'json',
        success:function(data){
-        console.log(data);
         $("#name").html(data.date.name);
        }
-   })
-
+   });
+    khday();
+    khmonth();
+    khweek();
 });
+
+
+function khday(){
+    $.ajax({
+        url:'/statistics/today',
+        type:'POST',
+        dataType:'json',
+        success:function(data){
+            if(data.code==200){
+                option00.title.text="当天  新加客户-追踪信息 统计";
+                option00.series[0].data[0].value=data.date.khCount;
+                option00.series[0].data[1].value=data.date.zzCount;
+                myCharts01.setOption(option00);
+            }else{
+                tip(data.msg);
+            }
+        }
+    })
+}
+
+
+function khweek(){
+    $.ajax({
+        url:'/statistics/week',
+        type:'POST',
+        dataType:'json',
+        success:function(data){
+            if(data.code==200){
+                option00.title.text="本周  新加客户-追踪信息 统计";
+                option00.series[0].data[0].value=data.date.khCount;
+                option00.series[0].data[1].value=data.date.zzCount;
+                myCharts02.setOption(option00);
+            }else{
+                tip(data.msg);
+            }
+        }
+    })
+}
+
+function khmonth(){
+    $.ajax({
+        url:'/statistics/todayList',
+        type:'POST',
+        dataType:'json',
+        success:function(data){
+            console.log(data);
+        }
+    })
+}
 
 </script>
 </html>

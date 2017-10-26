@@ -94,21 +94,20 @@ public class StatisticsController extends BaseController {
         User sessionUser = (User) request.getSession().getAttribute("user");
         Long role = userService.selectRole(sessionUser);
         //权限：员工只能查看自己的，主管只能查看本部门的，管理员查看全部的
-        Statistics statistics = new Statistics();
         List<Statistics> list= new ArrayList<>();
         if (role.compareTo(3L) == 0) {
             list = clientService.counttodayListByUserId(sessionUser.getId());
-            writeCommonDataResponse(response, "200", "查询成功", statistics);
+            writeCommonDataResponse(response, "200", "查询成功", list);
             return;
         }
         if (role.compareTo(2L) == 0) {
             list = clientService.counttodayListByDepartmentId(sessionUser.getId());
-            writeCommonDataResponse(response, "200", "查询成功", statistics);
+            writeCommonDataResponse(response, "200", "查询成功", list);
             return;
         }
         if (role.compareTo(1L) == 0) {
             list = clientService.counttodayList();
-            writeCommonDataResponse(response, "200", "查询成功", statistics);
+            writeCommonDataResponse(response, "200", "查询成功", list);
             return;
         }
     }

@@ -242,7 +242,7 @@ public class ClientServiceImpl implements ClientService {
                     break;
                 }
             }
-
+            list.add(statistics);
         }
         return list;
     }
