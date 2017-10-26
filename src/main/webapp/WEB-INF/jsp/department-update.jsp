@@ -26,7 +26,7 @@
     <div class="fitem">
             <span class="item-one">
                 <label>部门:</label>
-               <input id="name" name="name" class="easyui-validatebox textbox" missingMessage="不能为空" validType="CHS" required="true" size="20">
+               <input id="name" name="name" class="easyui-validatebox textbox" missingMessage="不能为空" validType="CHS" required="true" size="20" style="height: 25px;">
             </span>
 
     </div>

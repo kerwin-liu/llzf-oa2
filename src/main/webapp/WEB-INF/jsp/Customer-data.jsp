@@ -110,7 +110,7 @@
             QQ:<input id="qq" type="text" style="width:80px;"/>
             日期:<input id="timeStart" type="text" name="historySearchTime" readonly="readonly" style="width:80px;"/>
             至 <input id="timeEnd" type="text" name="nowSearchTime" style="width:80px;"/>
-            负责人：<input id="employee1" name="mem" />
+            负责人：<input id="employee1" name="mem" style="width:80px;" />
             <a id="btn8" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
         </div>
 
@@ -162,7 +162,7 @@
                 {field: 'khsjh', title: '手机号', width: 100, align: 'center'},
                 {field: 'khsfzh', title: '身份证号', width: 100, align: 'center'},
                 {field: 'khwx', title: '微信号', width: 100, align: 'center'},
-                {field: 'khwxnc', title: '微信名', width: 100, align: 'center'},
+                {field: 'khwxnc', title: '微信名', width: 100, align: 'center',hidden:true},
                 {field: 'khqq', title: 'QQ号', width: 100, align: 'center'},
                 {field: 'khlx', title: '客户类型', width: 80, align: 'center',formatter:function(value, row, index){
                   var type="";
@@ -197,7 +197,10 @@
                 {field: 'cjsj', title: '归档日期', width: 180, align: 'center',formatter:function(value, row, index){
                 var time = new Date(value);
                 return date2str(time,'yyyy-MM-dd hh:mm:ss');
-                }}
+                }},
+                {field: 'qqnc', title: 'QQ昵称', width: 100, align: 'center',hidden:true},
+                {field: 'zj', title: '资金', width: 100, align: 'center',hidden:true},
+                {field: 'address', title: '地址', width: 100, align: 'center',hidden:true}
             ]]
         }).datagrid("getPager").pagination({
             onBeforeRefresh : function(pageNumber, pageSize) {
@@ -257,8 +260,9 @@
 
         });
         $("#btn12").click(function(){
-            tbdata(1,30);
-            $("#dg").datagrid("load");
+            window.history.go(-1);
+           /* tbdata(1,30);
+            $("#dg").datagrid("load");*/
         });
 
         $("#btn10").click(function(){
@@ -353,7 +357,7 @@ function updata(){
     if(rows.length>1||rows.length==0){
         tip("请选择一条数据进行修改");
     }else{
-        createwindow("修改客户", "/pages/Customer-update",600,320);
+        createwindow("修改客户", "/pages/Customer-update",600,350);
     }
 }
 

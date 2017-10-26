@@ -29,48 +29,57 @@
             </span>
         <span class="item-two">
                 <label>性别:</label>
-                <input type="radio" class="sex" id="sex0" name="khxb" value="0" checked>男
+                <input type="radio" class="sex" id="sex0" name="khxb" value="0">男
                 <input type="radio" class="sex" id="sex1" name="khxb" value="1">女
+                <input type="radio" class="sex" id="sex2" name="khxb" value="2" checked>未知
             </span>
     </div>
     <div class="fitem">
-          <span class="item-one">
-                 <label>手机:</label>
-              <input name="khsjh"  class="easyui-validatebox textbox"  missingMessage="不能为空" validType="CHS" required="true" style="height: 25px;" size="20">
-            </span>
-        <span class="item-two">
-                <label>微信号:</label>
-               <input name="khwx"  class="easyui-validatebox textbox" required="true" style="height: 25px;" size="20">
-           </span>
+        <label>身份证:</label>
+        <input value="" name="khsfzh" size="54" class="easyui-validatebox textbox" style="height: 25px;">
     </div>
     <div class="fitem">
-           <span class="item-one">
-                <label>微信名:</label>
-                <input name="khwxnc" class="easyui-validatebox textbox" required="true" style="height: 25px;" size="20">
-           </span>
-        <span class="item-two">
-                 <label>QQ号:</label>
-                <input name="khqq"  class="easyui-validatebox textbox" required="true" style="height: 25px;" size="20">
-            </span>
-    </div>
-    <div class="fitem">
-           <span class="item-one">
+         <span class="item-one">
                 <label>客户类型:</label>
-                 <select class="easyui-combobox" name="khlx" class="easyui-validatebox" size="20" width="50">
+                 <select class="easyui-combobox" name="khlx" class="easyui-validatebox"  missingMessage="不能为空" validType="CHS" required="true" size="20" width="50">
                     <option value="1" selected>一般客户</option>
                     <option value="2">潜力客户</option>
                      <option value="3">意客客户</option>
                      <option value="4">未有兴趣客户</option>
                 </select>
            </span>
+          <span class="item-two">
+                 <label>手机:</label>
+              <input name="khsjh"  class="easyui-validatebox textbox"  missingMessage="不能为空" validType="CHS" required="true" style="height: 25px;" size="20">
+            </span>
     </div>
     <div class="fitem">
-        <label>身份证:</label>
-        <input value="12134356" name="khsfzh" size="55" class="" required="true" style="height: 25px;">
+        <span class="item-one">
+                 <label>QQ:</label>
+                <input name="khqq"  class="easyui-validatebox textbox" required="true"missingMessage="不能为空" validType="CHS"  style="height: 25px;" size="20">
+            </span>
+        <span class="item-two">
+                <label>QQ昵称:</label>
+                <input name="qqnc" class="easyui-validatebox textbox" style="height: 25px;" size="20">
+           </span>
+    </div>
+    <div class="fitem">
+            <span class="item-one">
+                    <label>微信:</label>
+                   <input name="khwx"  class="easyui-validatebox textbox" style="height: 25px;" size="20">
+               </span>
+        <span class="item-two">
+                    <label>资金:</label>
+                   <input name="zj"  class="easyui-validatebox textbox" style="height: 25px;" size="20">
+               </span>
+    </div>
+    <div class="fitem">
+        <label class="item-one">住址:</label>
+        <input name="address" class="easyui-validatebox textbox address" size="54" style="height: 25px;">
     </div>
     <div class="fitem">
         <label>备注:</label>
-        <input name="bz" size="55" style="height: 25px;">
+        <input name="bz" size="54" class="easyui-validatebox textbox" style="height: 25px;">
     </div>
 </form>
 <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
