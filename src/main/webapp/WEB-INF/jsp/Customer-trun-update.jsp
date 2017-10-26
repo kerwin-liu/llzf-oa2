@@ -67,7 +67,7 @@
                </span>
              <span class="item-two">
                     <label>资金:</label>
-                   <input id="khzj" name="khzj"  class="easyui-validatebox textbox" required="false" missingMessage="不能为空"  style="height: 25px;" size="20">
+                   <input id="zj" name="khzj"  class="easyui-validatebox textbox" required="false" missingMessage="不能为空"  style="height: 25px;" size="20">
                </span>
     </div>
     <div class="fitem">
@@ -140,14 +140,13 @@
     $("#khmc").val(rows[0].khmc);
     $("#khsjh").val(rows[0].khsjh);
     $("#khwx").val(rows[0].khwx);
-    $("#zj").val(rows[0].zj);
-    $("#address").val(rows[0].address);
+    $("#zj").val(rows[0].khzj);
+    $("#address").val(rows[0].khdz);
     $("#khwxnc").val(rows[0].khwxnc);
 
     $("#khqq").val(rows[0].khqq);
-    $("#qqnc").val(rows[0].qqnc);
+    $("#qqnc").val(rows[0].khqqnc);
 
-    $("#khqqnc").val(rows[0].khqqnc);
     $("#khsfzh").val(rows[0].khsfzh);
     $("#bz").val(rows[0].bz);
     if(rows[0].khxb==0){
@@ -174,7 +173,8 @@
                             success: function (data) {
                                 console.log(data);
                                 if (data.code == 200) {
-                                    tbdata();
+                                    tip(data.msg);
+                                    tbdata(1,30);
                                 } else {
                                     tip(data.msg);
                                 }

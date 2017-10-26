@@ -26,7 +26,7 @@
     <div class="fitem">
             <span class="item-one">
                 <label>姓名:</label>
-                <input id="khmc" name="khmc" class="easyui-validatebox textbox " missingMessage="不能为空" required="true" size="20" style="height: 25px;">
+                <input id="khmc" name="khmc" class="easyui-validatebox textbox " missingMessage="不能为空" validType="CHS" required="true" size="20" style="height: 25px;">
             </span>
         <span class="item-two">
                 <label>性别:</label>
@@ -57,7 +57,7 @@
             </span>
         <span class="item-two">
                 <label>QQ昵称:</label>
-                <input id="qqnc" name="khqqnc" class="easyui-validatebox textbox" style="height: 25px;" size="20">
+                <input id="khqqnc" name="khqqnc" class="easyui-validatebox textbox" style="height: 25px;" size="20">
            </span>
     </div>
     <div class="fitem">

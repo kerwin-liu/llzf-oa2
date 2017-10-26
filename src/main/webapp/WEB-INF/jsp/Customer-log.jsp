@@ -25,13 +25,13 @@
 }
 </style>
 <div style="width: 49%;height: 98%;float: left;border: 0px solid red">
-    <div style="width: 60%;height: 10%;border: 0px solid red;margin-left: 15%;line-height: 38px;font-size: 20px;color: #949494;text-align: center;font-family: 'Microsoft Yahei', '微软雅黑';font-weight: 800">
+    <div style="width: 60%;height: 10%;border-bottom: 2px solid #949494;margin-left: 15%;line-height: 38px;font-size: 20px;color: #949494;text-align: center;font-family: 'Microsoft Yahei', '微软雅黑';font-weight: 800">
         客户信息
     </div>
     <div style="width: 100%;height: 89%;border: 0px solid red">
         <input id="ids" style="display: none;"/>
-        <table class="table" border="0" style="height: 80%">
-            <tr style="width: 100%">
+        <table class="table" border="0" style="height: 90%">
+            <tr style="width: 100%;">
                 <td style="width: 27%">业务员:</td>
                 <td style="width:25%;" colspan="3">
                     <input id="mem" style="border: 0px; width:230px"></td>
@@ -52,7 +52,7 @@
                 <td>QQ:</td>
                 <td> <input style="width: 50px;border: 0px" id="qqs" type="text"/> </td>
                 <td>客户类型:</td>
-                <td><input style="width: 50px;border: 0px" id="types" type="text"/> </td>
+                <td><input style="width: 60px;border: 0px" id="types" type="text"/> </td>
             </tr>
 
             <tr>
@@ -69,7 +69,7 @@
 </div>
 <div style="width: 49%;height: 98%;float: left;border: 0px solid red;margin-left: 10px">
 <div style="width: 100%;height: 24%;font-size: 18px">
-    服务信息:<textarea cols="36" style="resize: none"  readonly="readonly"></textarea>
+    服务信息:<textarea id="servermsg" cols="36" style="resize: none" ></textarea>
 </div>
     <div style="width: 100%;height: 70%">
         <textarea id="logs" cols="36" rows="13"  style="resize: none" readonly="readonly"></textarea>
@@ -141,7 +141,28 @@
 
     });
     $("#add-bt1").click(function(){
-        createwindow2("添加信息", "/pages/Customer-log-add",400,220);
+        var value = $("#servermsg").val();
+        var khId = $("#ids").val();
+        if (value){
+            $.ajax({
+                url:'/clientLog/save',
+                type:'POST',
+                dataType:'json',
+                data:{"khId":khId,"zznr":value},
+                success:function(data){
+                    if(data.code==200){
+
+                    }else{
+                        tip(data.msg);
+                    }
+                }
+            })
+        }else {
+            tip("请在服务信息框中,添加服务信息！！！");
+        }
+
+
+        //createwindow2("添加信息", "/pages/Customer-log-add",400,220);
     });
 
     function createwindow2(title, addurl,width,height) {
