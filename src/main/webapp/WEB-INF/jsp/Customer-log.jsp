@@ -9,7 +9,14 @@
 <html style="width: 100%;height: 100%">
 <head>
     <title></title>
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.5.1/demo/demo.css">
+    <script type="text/javascript" src="../../js/jquery.js"></script>
+    <%--<script type="text/javascript" src="../../js/jquery.easyui.min.js"></script>--%>
 
+    <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
 </head>
 <body>
 <style type="text/css">
@@ -24,6 +31,7 @@
     text-align: center;
 }
 </style>
+
 <div style="width: 49%;height: 98%;float: left;border: 0px solid red">
     <div style="width: 60%;height: 10%;border-bottom: 2px solid #949494;margin-left: 15%;line-height: 38px;font-size: 20px;color: #949494;text-align: center;font-family: 'Microsoft Yahei', '微软雅黑';font-weight: 800">
         客户信息
@@ -76,8 +84,10 @@
 
        </table>
     </div>
-    <div style="width: 30%;height: 6%;margin-left: 40%">
+    <div style="width: 90%;height: 6%;">
         <a id="add-bt1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加信息</a>
+        <a id="cancel-bt2" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除</a>
+        <a id="cancel-bt3" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">一键删除</a>
     </div>
 </div>
 <div id="dd"></div>
@@ -131,7 +141,7 @@
         rownumbers: true,
         columns: [[
             {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
-            {field: 'czsj', title: '时间', width: 50, align: 'center',formatter:function(value, row, index){
+            {field: 'cjsj', title: '时间', width: 50, align: 'center',formatter:function(value, row, index){
                 var time = new Date(value);
                 return date2str(time,'yyyy-MM-dd hh:mm:ss');
             }},
@@ -143,8 +153,7 @@
        type:'POST',
        dataType:'json',
        success:function(data){
-           console.log(data);
-           $("#zztb").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
+           $("#zztb").datagrid("loadData",{total:data.date.length,rows:data.date});
        }
     });
 
@@ -159,7 +168,15 @@
                 data:{"khId":khId,"zznr":value},
                 success:function(data){
                     if(data.code==200){
-
+                        $.ajax({
+                            url:'/clientLog/getAll/'+$("#ids").val(),
+                            type:'POST',
+                            dataType:'json',
+                            success:function(data){
+                                $("#zztb").datagrid("loadData",{total:data.date.length,rows:data.date});
+                            }
+                        });
+                        $("#servermsg").val("");
                     }else{
                         tip(data.msg);
                     }
@@ -168,6 +185,74 @@
         }else {
             tip("请在服务信息框中,添加服务信息！！！");
         }
+    });
+    $("#cancel-bt2").click(function(){
+        var rows = $("#zztb").datagrid("getSelections");
+        if(rows.length==0){
+            tip("请选择至少一条数据进行删除");
+        }else {
+            var ids=[];
+            for (var i=0;i<rows.length;i++){
+                ids.push(rows[i].khId);
+            }
+            $.messager.confirm('确定', '你确定要删除吗?', function (r) {
+                if (r) {
+                    $.post('/clientLog/batchDelete/', {"ids": JSON.stringify(ids)}, function (result) {
+                        //alert(result);
+                        if (result.code == 200) {
+                            console.log(result);
+                            var str = result.msg + "\r" + "删除失败列表：" + "\r";
+                            if (result.date != null && result.date.length > 0) {
+                                var json = {};
+                                for (var i = 0; i < result.date.length; i++) {
+                                    var nameList = json[result.date[i].error];
+                                    if (typeof(nameList) == "undefined") {
+                                        nameList = [];
+                                    }
+                                    nameList.push(result.date[i].name);
+                                    var s = "原因：" + result.date[i].error + "\r" + "删除失败人员：" + nameList + "\r";
+                                    str += s
+                                }
+                                alert(str);
+                            } else {
+                                alert(result.msg);
+                            }
+                            $.ajax({
+                                url:'/clientLog/getAll/'+$("#ids").val(),
+                                type:'POST',
+                                dataType:'json',
+                                success:function(data){
+                                    $("#zztb").datagrid("loadData",{total:data.date.length,rows:data.date});
+                                }
+                            });
+//                            $('#dg').datagrid('reload');	// reload the user data
+                        } else {
+                            $.messager.show({	// show error message
+                                title: '错误',
+                                msg: result.msg
+                            });
+                        }
+                    }, 'json');
+                }})
+        }
+    });
+    $("#cancel-bt3").click(function(){
+       $.ajax({
+           url:'/clientLog/deleteAll/'+$("#ids").val(),
+           type:'POST',
+           dataType:'json',
+           success:function(data){
+               tip(data.msg);
+               $.ajax({
+                   url:'/clientLog/getAll/'+$("#ids").val(),
+                   type:'POST',
+                   dataType:'json',
+                   success:function(data){
+                       $("#zztb").datagrid("loadData",{total:data.date.length,rows:data.date});
+                   }
+               });
+           }
+       })
     });
 </script>
 </body>

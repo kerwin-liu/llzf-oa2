@@ -53,7 +53,7 @@ function createTrunWindow(title, addurl,width,height) {
     height = height?height:400;
     if(width=="100%" || height=="100%"){
         width = window.top.document.body.offsetWidth;
-        height =window.top.document.body.offsetHeight-100;
+        height =window.top.document.body.offsetHeight-200;
     }
     var dd = $("#dd");
     if(dd.length==0){
