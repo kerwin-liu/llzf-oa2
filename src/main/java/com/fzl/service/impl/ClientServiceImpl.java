@@ -43,6 +43,10 @@ public class ClientServiceImpl implements ClientService {
         List<Client> listFalse = new ArrayList<>();
         for (Client client : list) {
             try {
+                ClientMember clientMember =new ClientMember();
+                clientMember.setKhId(client.getKhId());
+                clientMember.setMemberId(client.getMemberId());
+                clientMemberMapper.insertSelective(clientMember);
                 int i = clientMapper.insertSelective(client);
             } catch (Exception e) {
                 listFalse.add(client);
