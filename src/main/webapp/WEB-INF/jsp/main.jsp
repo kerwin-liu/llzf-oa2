@@ -83,7 +83,7 @@
                     <td style="width: 45%">
                         姓名：
                     </td>
-                    <td>
+                    <td id="name">
                         Admin
                     </td>
                 </tr>
@@ -91,7 +91,7 @@
                     <td>
                         手机号：
                     </td>
-                    <td>
+                    <td id="sjh">
 
                     </td>
                 </tr>
@@ -99,7 +99,7 @@
                     <td>
                         微信号：
                     </td>
-                    <td>
+                    <td id="wx">
 
                     </td>
                 </tr>
@@ -107,15 +107,15 @@
                     <td>
                         QQ：
                     </td>
-                    <td>
+                    <td id="qq">
 
                     </td>
                 </tr>
                 <tr>
                     <td>
-                       职位：
+                       部门：
                     </td>
-                    <td>
+                    <td id="mem">
 
                     </td>
                 </tr>
@@ -471,5 +471,18 @@ myCharts01.setOption(option00);
 option00.title.text="本周  新加客户-追踪信息 统计";
 myCharts02.setOption(option00);
 myCharts03.setOption(option03);
+
+$(function(){
+   $.ajax({
+       url:'/user/get',
+       dataType:'json',
+       success:function(data){
+        console.log(data);
+        $("#name").html(data.date.name);
+       }
+   })
+
+});
+
 </script>
 </html>

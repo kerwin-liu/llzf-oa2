@@ -397,7 +397,7 @@
             AND #{end} >= cl.cjsj
           ) b
     </select>
-    <select id="countToday"resultMap="Statistics" parameterType="com.fzl.pojo.Qo.CountQo">
+    <select id="countToday" resultMap="Statistics" parameterType="com.fzl.pojo.Qo.CountQo">
                SELECT * FROM
       (SELECT COUNT(1) khCount
           FROM `client` c LEFT JOIN `member_department` md ON c.member_id = md.member_id

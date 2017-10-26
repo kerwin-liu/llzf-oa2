@@ -19,6 +19,8 @@
     <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../../js/tools.js"></script>
+    <script type="text/javascript" src="../../js/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="../../js/dataformat.js"></script>
     <style type="text/css">
         #from {
             margin: 0;
@@ -53,17 +55,22 @@
     </style>
 </head>
 <body>
-<div class="datagrid-toolbar" style="height: 27px;width: 100%;border: 0px solid red;">
+<div class="datagrid-toolbar" style="height: 31px;width: 100%;border: 0px solid red;">
 
         <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
-            类型:<select id="type" style="width:80px;"></select>
-            产品:<select id="c" style="width:80px;"></select>
+            客户类型:<select id="type" style="width:80px;">
+            <option value="1">一般客户</option>
+            <option value="2">潜力客户</option>
+            <option value="3">意客客户</option>
+            <option value="4">未有兴趣客户</option>
+        </select>
             姓名：<input id="name" type="text" style="width:80px;"/>
-            手机:<input type="text" style="width:80px;"/>
-            QQ:<input type="text" style="width:80px;"/>
-            日期:<input type="text" style="width:80px;"/> 至 <input type="text" style="width:80px;"/>
-            负责人： <a id="btn7" href="" class="easyui-linkbutton" data-options="iconCls:''">点击选择</a>
-            <a id="btn8" href="" class="easyui-linkbutton" data-options="iconCls:'icon-search'">选择</a>
+            手机:<input id = "phone" type="text" style="width:80px;"/>
+            QQ:<input id="qq" type="text" style="width:80px;"/>
+            日期:<input id="timeStart" type="text" name="historySearchTime" readonly="readonly" style="width:80px;"/>
+            至 <input id="timeEnd" type="text" name="nowSearchTime" style="width:80px;"/>
+            负责人：<input id="employee1" name="mem" style="width:80px;" />
+            <a id="btn1" href="" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
         </div>
 
 
@@ -74,24 +81,48 @@
 </body>
 <script type="text/javascript">
     $(function(){
+        var myDate = new Date();
+        var historyTimeString= date2str(getBeforeTimeByMinute(myDate,-60),'yyyy-MM-dd hh:mm:ss'),
+            nowTimeString= date2str(myDate,'yyyy-MM-dd hh:mm:ss');
+        // $("input[name='historySearchTime']").val(historyTimeString);
+        $("input[name='historySearchTime']").attr("class","Wdate").attr("style","height:20px;width:140px;").click(function(){WdatePicker({
+            dateFmt:'yyyy-MM-dd HH:mm:ss',
+        });});
+        //$("input[name='nowSearchTime']").val(nowTimeString);
+        $("input[name='nowSearchTime']").attr("class","Wdate").attr("style","height:20px;width:140px;").click(function(){WdatePicker({
+            dateFmt:'yyyy-MM-dd HH:mm:ss',
+        });
+        });
         $("#dg").datagrid({
-            title:'成交客户',
+            title:'本地客户',
             singleSelect: false,
             fitColumns: true,
             fit: true,
-            rownumbers: true,
             remoteSort: false,
-
+            pagination: true,
+            pageNumber:1,
+            pageSize:10,
+            pageList : [10,20,30],
+            rownumbers: true,
             columns: [[
                 {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
-                {field: 'clientId', title: '编号', width: 50, align: 'center'},
-                {field: 'name', title: '姓名', width: 100, align: 'center'},
-                {field: 'sex', title: '性别', width: 100, align: 'center'},
-                {field: 'phone', title: '手机号', width: 100, align: 'center'},
-                {field: 'weixin', title: '微信号', width: 100, align: 'center'},
-                {field: 'qqqnc', title: '微信名', width: 100, align: 'center'},
-                {field: 'qq', title: 'QQ号', width: 100, align: 'center'},
-                {field: 'type', title: '客户类型', width: 60, align: 'center',formatter:function(value, row, index){
+                {field: 'khId', title: '编号', width: 50, align: 'center',hidden:true},
+                {field: 'khmc', title: '姓名', width: 100, align: 'center'},
+                {field: 'khxb', title: '性别', width: 100, align: 'center',formatter:function(value, row, index){
+                    var type="";
+                    if(value==0){
+                        type="男";
+                    }
+                    if(value==1){
+                        type="女";
+                    }
+                    return type;}},
+                {field: 'khsjh', title: '手机号', width: 100, align: 'center'},
+                {field: 'khsfzh', title: '身份证号', width: 100, align: 'center'},
+                {field: 'khwx', title: '微信号', width: 100, align: 'center'},
+                {field: 'khwxnc', title: '微信名', width: 100, align: 'center',hidden:true},
+                {field: 'khqq', title: 'QQ号', width: 100, align: 'center'},
+                {field: 'khlx', title: '客户类型', width: 80, align: 'center',formatter:function(value, row, index){
                     var type="";
                     if(value==1){
                         type="一般客户";
@@ -100,41 +131,152 @@
                         type="潜力客户";
                     }
                     if(value==3){
-                        type="意客客户";
+                        type="意向客户";
                     }
                     if(value==4){
                         type="未有兴趣客户";
                     }
                     return type;
                 }},
-                {field: 'memerId', title: '负责人', width: 100, align: 'center'},
-                {field: 'remark', title: '备注', width: 100, align: 'center'},
-                {field: 'time', title: '归档日期', width: 150, align: 'center',formatter:function(value, row, index){
+                {field: 'memberId', title: '负责人', width: 100, align: 'center',hidden:true},
+                {field: 'name', title: '负责人', width: 100, align: 'center'},
+                {field: 'bz', title: '备注', width: 100, align: 'center'},
+                {field: 'cjsj', title: '归档日期', width: 180, align: 'center',formatter:function(value, row, index){
                     var time = new Date(value);
                     return date2str(time,'yyyy-MM-dd hh:mm:ss');
                 }},
-                {
-                    field: 'obj', title: '操作', align: 'center', width: 28, formatter: function (value, row, index) {
-                    return "<a id='de' onclick=deletes('" + row.ID + "')>删除</a>";
-                }
-                }
+                {field: 'qqnc', title: 'QQ昵称', width: 100, align: 'center',hidden:true},
+                {field: 'zj', title: '资金', width: 100, align: 'center',hidden:true},
+                {field: 'address', title: '地址', width: 100, align: 'center',hidden:true}
             ]]
+        }).datagrid("getPager").pagination({
+            onBeforeRefresh : function(pageNumber, pageSize) {
+//				var $getPager = $("#dg").datagrid('getPager');
+//	            var $pagination = $($getPager).pagination("options");
+//            	$pagination.pageNumber = 1;
+            },
+            onRefresh : function(pageNumber, pageSize) {
+
+            },
+            onChangePageSize:function(pageSize){
+                var $getPager = $("#dg").datagrid('getPager');
+                var $pagination = $($getPager).pagination("options");
+                tbdata(1,pageSize);
+            },
+            onSelectPage : function(pageNumber, pageSize) {
+                var gridOpts = $('#dg').datagrid('options');
+                gridOpts.pageNumber = pageNumber;
+                gridOpts.pageSize = pageSize;
+                findDataByWhere("dg", pageNumber, pageSize);
+            }
+        });
+        $('#dg').datagrid('getPager').pagination({
+            pageSize:30,
+            pageList:[30,50,100],
+            beforePageText : '',
+            afterPageText : '/{pages}',
+            displayMsg : '{from}-{to}共{total}条',
+            showPageList : true,
+            showRefresh : true
         });
         $(".datagrid-toolbar").insertBefore(".datagrid-view");
-        /*$("#btn1").click(function(){
-            createwindow("添加客户", "/pages/Customer-add",600,340);
-        });*/
-        tbdata();
+        tbdata(1,30);
+        select1();
+        $("#btn1").click(function(){
+            var name=$("#name").val(),
+                phone=$("#phone").val(),
+                type=$("#type").val(),
+                qq=$("#qq").val(),
+                timeStart=$("#timeStart").val(),
+                timeEnd=$("#timeEnd").val(),
+                clientId=$("#employee1").val();
+            var data={"khcjlx":0};
+            if(clientId){
+                data["memberId"]=clientId;
+            }
+            if(type){
+                data["khlx"]=type;
+            }
+            if(name){
+                data["khmc"]=name;
+            }
+            if(phone){
+                data["khsjh"]=phone;
+            }
+            if(qq){
+                data["khqq"]=qq;
+            }if(timeStart){
+                data["cjsjQ"]=timeStart;
+            }if(timeEnd){
+                data["cjsjZ"]=timeEnd;
+            }
+
+          console.log(data);
+            $.ajax({
+                url:'/client/getList?pageIndex=1&pageSize=30',
+                type:'POST',//OR GET
+                data:data,
+                dataType:'json',
+                success:function(data){
+                    console.log(data);
+                    $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
+                }
+            })
         });
-function tbdata(){
-    $.ajax({
-        url:'/client/queryAllIpAs2',
-        dataType:'json',
-        success:function(data){
-            console.log(data);
-            $("#dg").datagrid({total:data.date.length,rows:data.date});
+
+    });
+    function findDataByWhere(id, pageNumber, pageSize) {
+        var content="{";
+        $tbody = $("#"+id+"");
+        $tbody.find(':input, select').each(function(i){
+            var $this = $(this), name = $this.attr('id'), val = $this.val();
+            content += '"'+name+'":"'+val+'",';
+        });
+        content=content.substring(0,content.length-1);
+        content+="}";
+        var pages = '{"page":' +  pageNumber + ', "rows":' + pageSize + '}';
+        if (pageNumber.length == 0 || pageSize == 0) {
+            pages = '';
         }
-    })
-}
+        tbdata(pageNumber,pageSize);
+    }
+    function select1(){
+        var url="/member/getAll";
+        $.ajax({
+            url:url,
+            type:'POST',//OR GET
+            dataType:'json',
+            success:function(data){
+                if(data.code==200){
+                    var value = data.date,
+                        d=[];
+                    for (var i=0;i<value.length;i++){
+                        d.push({"id":value[i].memberId,"text":value[i].name});
+                    }
+                    d[0].selected=true;
+                    $("#employee1").combobox({
+                        valueField:'id',
+                        textField:'text',
+                        data:d
+                    });
+                }else{
+                    tip(data.msg);
+                }
+            }
+        })
+    }
+
+    function tbdata(pageIndex,pageSize){
+        var d = {"khcjlx":1};
+        $.ajax({
+            url:'/client/getList?pageIndex='+pageIndex+'&pageSize='+pageSize,
+            type: "POST",
+            dataType:'json',
+            data:d,
+            success:function(data){
+                $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
+            }
+        });
+    }
 </script>
 </html>

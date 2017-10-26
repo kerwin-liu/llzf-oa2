@@ -36,12 +36,12 @@
     </div>
     <div class="fitem">
         <label>身份证:</label>
-        <input value="" name="khsfzh" size="54" class="easyui-validatebox textbox" style="height: 25px;">
+        <input value="" name="khsfzh" size="54" class="easyui-validatebox textbox" validType="n16-18" style="height: 25px;">
     </div>
     <div class="fitem">
          <span class="item-one">
                 <label>客户类型:</label>
-                 <select class="easyui-combobox" name="khlx" class="easyui-validatebox"  missingMessage="不能为空" validType="CHS" required="true" size="20" width="50">
+                 <select class="easyui-combobox" name="khlx" class="easyui-validatebox"   missingMessage="不能为空" validType="CHS" required="true" size="20" width="50">
                     <option value="1" selected>一般客户</option>
                     <option value="2">潜力客户</option>
                      <option value="3">意客客户</option>
@@ -50,13 +50,13 @@
            </span>
           <span class="item-two">
                  <label>手机:</label>
-              <input name="khsjh"  class="easyui-validatebox textbox"  missingMessage="不能为空" validType="CHS" required="true" style="height: 25px;" size="20">
+              <input name="khsjh"  class="easyui-validatebox textbox"  missingMessage="不能为空" validType="m" required="true" style="height: 25px;" size="20">
             </span>
     </div>
     <div class="fitem">
         <span class="item-one">
                  <label>QQ:</label>
-                <input name="khqq"  class="easyui-validatebox textbox" required="true"missingMessage="不能为空" validType="CHS"  style="height: 25px;" size="20">
+                <input name="khqq"  class="easyui-validatebox textbox" required="true"missingMessage="不能为空" validType="n"  style="height: 25px;" size="20">
             </span>
         <span class="item-two">
                 <label>QQ昵称:</label>

@@ -182,17 +182,6 @@
                 }},
                 {field: 'memberId', title: '负责人', width: 100, align: 'center',hidden:true},
                 {field: 'name', title: '负责人', width: 100, align: 'center'},
-                {field: 'ip', title: '是否成交', width: 100, align: 'center',formatter:function(value, row, index){
-                    var type="";
-                    if(value==1){
-                        type="未成交";
-                    }
-                    if(value==2){
-                        type="已成交";
-                    }
-
-                    return type;
-                }},
                 {field: 'bz', title: '备注', width: 100, align: 'center'},
                 {field: 'cjsj', title: '归档日期', width: 180, align: 'center',formatter:function(value, row, index){
                 var time = new Date(value);
@@ -234,35 +223,53 @@
         });
 
         $(".datagrid-toolbar").insertBefore(".datagrid-view");
+        //添加客户
         $("#btn1").click(function(){
             createwindow("添加客户", "/pages/Customer-add",600,350);
         });
-
+        //修改客户
         $("#btn2").click(function(){
             updata();
         });
+        //成交客户
         $("#btn3").click(function(){
             truns();
         });
+        //
         $("#btn4").click(function(){
             trace();
         });
+        //删除客户
         $("#btn5").click(function(){
             deletes();
         });
+        //导出
        $("#btn6").click(function(){
             exports();
         });
+       //导入
         $("#btn9").click(function(){
             imports();
         });
+        //转入客户
         $("#btn11").click(function(){
-
+            var data={"byzd":1};
+            $.ajax({
+                url:'/client/getList?pageIndex=1&pageSize=30',
+                type:'POST',//OR GET
+                data:data,
+                dataType:'json',
+                success:function(data){
+                    console.log(data);
+                    $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
+                }
+            })
         });
+        //
         $("#btn12").click(function(){
-            window.history.go(-1);
-           /* tbdata(1,30);
-            $("#dg").datagrid("load");*/
+           /* window.history.go(-1);*/
+           tbdata(1,30);
+            $("#dg").datagrid("load");
         });
 
         $("#btn10").click(function(){
@@ -281,10 +288,29 @@
                 timeStart=$("#timeStart").val(),
                 timeEnd=$("#timeEnd").val(),
                 clientId=$("#employee1").val();
-            var data={"khlx":type,"khmc":name,"khsjh":phone,"khqq":qq,"timeStart":timeStart,"timeEnd":timeEnd,"clientId":clientId};
-            console.log(data);
+            var data={"khcjlx":0};
+            if(clientId){
+                data["memberId"]=clientId;
+            }
+            if(type){
+                data["khlx"]=type;
+            }
+            if(name){
+                data["khmc"]=name;
+            }
+            if(phone){
+                data["khsjh"]=phone;
+            }
+            if(qq){
+                data["khqq"]=qq;
+            }if(timeStart){
+                data["cjsjQ"]=timeStart;
+            }if(timeEnd){
+                data["cjsjZ"]=timeEnd;
+            }
+
             $.ajax({
-                url:'/client/sqlMoHu',
+                url:'/client/getList?pageIndex=1&pageSize=30',
                 type:'POST',//OR GET
                 data:data,
                 dataType:'json',
@@ -375,25 +401,41 @@ function deletes(){
     if(rows.length==0){
         tip("请至少选择一条数据进行删除");
     }else{
-        var id="";
+        var ids=[];
         for (var i=0;i<rows.length;i++){
-            id +=rows[i].clientId+",";
+            ids.push(rows[i].khId);
         }
-        id = id.substring(0,id.length-1);
-        var url="/client/batchDelete/"+id;
         $.messager.confirm('确定', '你确定要删除吗?', function (r) {
             if (r) {
-                $.ajax({
-                    url: url,
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.code == 200) {
-                            tbdata();
-                        } else {
-                            tip(data.msg);
+                $.post('/client/batchDelete/', {"ids":JSON.stringify(ids)}, function (result) {
+                    //alert(result);
+                    if (result.code == 200) {
+                        console.log(result);
+                        var str=result.msg+"\r"+"删除失败列表："+"\r";
+                        if(result.date!=null && result.date.length>0){
+                            var json={};
+                            for(var i=0;i<result.date.length;i++){
+                                var nameList=json[result.date[i].error];
+                                if(typeof(nameList)=="undefined"){
+                                    nameList=[];
+                                }
+                                nameList.push(result.date[i].name);
+                                var s="原因："+result.date[i].error+"\r"+"删除失败人员："+nameList+"\r";
+                                str+=s
+                            }
+                            alert(str);
+                        }else{
+                            alert(result.msg);
                         }
+                        tbdata(1,30);
+//                            $('#dg').datagrid('reload');	// reload the user data
+                    } else {
+                        $.messager.show({	// show error message
+                            title: '错误',
+                            msg: result.msg
+                        });
                     }
-                });
+                }, 'json');
             }
         });
     }
@@ -405,7 +447,8 @@ function imports(){
 
 function exports(){
     $.ajax({
-        url:'/client/exportExcel',
+        url:'/client/queryToExcel',
+        type:'POST',
         dataType:'json',
         success:function(data){
             tip(data.msg);
@@ -428,10 +471,12 @@ function exports(){
         tbdata(pageNumber,pageSize)
     }
     function tbdata(pageIndex,pageSize){
+        var d = {"khcjlx":0};
         $.ajax({
             url:'/client/getList?pageIndex='+pageIndex+'&pageSize='+pageSize,
             type: "POST",
             dataType:'json',
+            data:d,
             success:function(data){
                 $("#dg").datagrid("loadData",{total:data.date.totalCount,rows:data.date.result});
             }

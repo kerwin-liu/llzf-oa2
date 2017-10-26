@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             type2 = "<li class=\"gongwen\"><div class=\"nav-header\"><a id=\"index1\" href=\"/member/index\" target=\"iframe\" class=\"ue-clear\"><span>员工管理</span></a></div></li>",
             type3 = "<li class=\"nav-info\"><div class=\"nav-header\"><a id=\"index3\"  href=\"/customerController/customer\" target=\"iframe\" class=\"ue-clear\"><span>客户管理</span></a></div></li>",
             type4 = "<li style='display: none;' class=\"konwledge\"><div class=\"nav-header\"><a href=\"/user/changePsd\" target=\"iframe\" class=\"ue-clear\"><span>密码修改</span></a></div></li>",
-            type5 = "<li class=\"agency\"><div class=\"nav-header\"><a href=\"/pages/Customer-allot\" target=\"iframe\" class=\"ue-clear\"><span>移交客户</span></a></div></li>",
+           // type5 = "<li class=\"agency\"><div class=\"nav-header\"><a href=\"/pages/Customer-allot\" target=\"iframe\" class=\"ue-clear\"><span>移交客户</span></a></div></li>",
             type6 = "<li class=\"email\"><div class=\"nav-header\"><a href=\"/pages/Customer-knockdown\" target=\"iframe\" class=\"ue-clear\"><span>成交客户</span></a></div></li>",
             type7 = "<li class=\"email\"><div class=\"nav-header\"><a href=\"/pages/department\" target=\"iframe\" class=\"ue-clear\"><span>部门管理</span></a></div></li>";
 
@@ -144,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   classes.append(type2);
                   classes.append(type3);
                   classes.append(type4);
-                  classes.append(type5);
+                 // classes.append(type5);
                   classes.append(type6);
                   classes.append(type7);
                     var a = document.getElementById("index");
@@ -156,7 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 if(data.date.id==2){
                     classes.append(type2);
                     classes.append(type3);
-                    classes.append(type5);
+                   // classes.append(type5);
                     classes.append(type6);
                     var a = document.getElementById("index1");
                     a.href="/pages/main";
