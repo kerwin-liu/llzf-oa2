@@ -168,6 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 if(data.date.id==3){
                     classes.append(type1);
                     classes.append(type3);
+                    classes.append(type6);
                     var a = document.getElementById("index");
                     a.href="/pages/main";
                     a.click("return false");

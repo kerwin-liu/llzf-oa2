@@ -430,7 +430,7 @@
         WHERE
         cjsj>=#{start} AND #{end}> cjsj
         <if test="memberId != null and memberId !='' ">
-            AND cm.member_id = #{memberId}
+            AND c.member_id = #{memberId}
         </if>
         <if test="departmentId != null and departmentId !='' ">
             AND md.department_id = #{departmentId}
