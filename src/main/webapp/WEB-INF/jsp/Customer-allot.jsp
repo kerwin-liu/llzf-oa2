@@ -169,13 +169,18 @@
             $.ajax({
                url:'/client/batchZy',
                type:'POST',
+                contentType: "application/json; charset=utf-8",
                dataType:'json',
-               data:JSON.stringify(data),
-                // //data:data,
+               data:JSON.stringify({"list":data}),
                success:function(datas){
-                console.log(datas);
+                if(data.code==200){
+                    tip(data.msg);
+                    tbdata(1,30);
+                }else{
+                    tip(data.msg);
+                }
                }
-           })
+           });
         });
 
         //$(".datagrid-toolbar").insertBefore(".datagrid-view");

@@ -91,7 +91,7 @@ public class ClientLogController extends BaseController {
             if("1".equals(clientLogQo.getKhcjlx())){
                 client.setCjsj(new Date());
             }
-            client.setByzd(clientLogQo.getByzd());
+            client.setByzd("0");
             clientMapper.updateByPrimaryKeySelective(client);
         }
         writeResponse(response, "200", "新增追踪信息成功");

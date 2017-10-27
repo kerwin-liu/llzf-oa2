@@ -154,19 +154,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 }
                 //主管
                 if(data.date.id==2){
+                    classes.append(type1);
                     classes.append(type2);
                     classes.append(type3);
                    // classes.append(type5);
                     classes.append(type6);
-                    var a = document.getElementById("index1");
+                    var a = document.getElementById("index");
                     a.href="/pages/main";
                     a.click("return false");
                     $("#index1").href="#";
                 }
                 //业务员
                 if(data.date.id==3){
+                    classes.append(type1);
                     classes.append(type3);
-                    var a = document.getElementById("index3");
+                    var a = document.getElementById("index");
                     a.href="/pages/main";
                     a.click("return false");
                     $("#index3").href="#";

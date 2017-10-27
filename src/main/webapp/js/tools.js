@@ -203,7 +203,7 @@ function closeObj(obj) {
 
 function tip(text){
     $.messager.show({
-        title: '错误',
+        title: '提示',
         msg: text
     });
 }

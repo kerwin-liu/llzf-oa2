@@ -168,7 +168,9 @@
             var j=$.parseJSON(text);
 
             if(j.code==200){
-                $.messager.confirm('确定', '你确定要成交吗?', function (r) {
+
+                createnewwindow('成交客户','/pages/Customer-trun-log',700,520);
+               /* $.messager.confirm('确定', '你确定要成交吗?', function (r) {
                     if (r) {
                         var  d = {"khId": $("#khId").val(),"khcjlx":1};
                         $.ajax({
@@ -187,7 +189,7 @@
                             }
                         });
                     }
-                });
+                });*/
             }
 
         }

@@ -111,14 +111,14 @@
 
                     </td>
                 </tr>
-                <tr>
+               <%-- <tr>
                     <td>
                        部门：
                     </td>
                     <td id="mem">
 
                     </td>
-                </tr>
+                </tr>--%>
             </table>
 
         </div>
@@ -327,8 +327,8 @@ option03 = {
     xAxis : [
         {
             type : 'category',
-            splitNumber :30,
-            boundaryGap : true,
+            splitNumber :7,
+            boundaryGap : false,
             axisLine : {
                 show : true,
                 lineStyle:{
@@ -470,14 +470,26 @@ option03 = {
 /*myCharts01.setOption(option00);*/
 /*option00.title.text="本周  新加客户-追踪信息 统计";
 myCharts02.setOption(option00);*/
-myCharts03.setOption(option03);
 
 $(function(){
    $.ajax({
-       url:'/user/get',
+       url:'/member/getOne',
+       type:'POST',
        dataType:'json',
        success:function(data){
+          // console.log(data);
         $("#name").html(data.date.name);
+        $("#sjh").html(data.date.phone);
+        $("#wx").html(data.date.wexin);
+        $("#qq").html(data.date.qq);
+        $.ajax({
+            url:"/department/getAll",
+            dataType:'json',
+            success:function(data) {
+               // console.log(data);
+            }
+        });
+        //$("#mem").html(data.date.memberId);
        }
    });
     khday();
@@ -529,7 +541,21 @@ function khmonth(){
         type:'POST',
         dataType:'json',
         success:function(data){
-            console.log(data);
+            if(data.code==200){
+                var value=data.date;
+                var x=[],y1=[],y2=[];
+                for(var i=0;i<value.length;i++){
+                    x.push(value[i].tjrq);
+                    y1.push(value[i].khCount);
+                    y2.push(value[i].zzCount);
+                }
+                option03.xAxis[0].data=x;
+                option03.series[0].data=y1;
+                option03.series[1].data=y2;
+                myCharts03.setOption(option03);
+            }else{
+                tip(data.msg);
+            }
         }
     })
 }

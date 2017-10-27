@@ -33,6 +33,7 @@
 </style>
 
 <div style="width: 49%;height: 98%;float: left;border: 0px solid red">
+
     <div style="width: 60%;height: 10%;border-bottom: 2px solid #949494;margin-left: 15%;line-height: 38px;font-size: 20px;color: #949494;text-align: center;font-family: 'Microsoft Yahei', '微软雅黑';font-weight: 800">
         客户信息
     </div>
@@ -85,9 +86,7 @@
        </table>
     </div>
     <div style="width: 90%;height: 6%;">
-        <a id="add-bt1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加信息</a>
-        <a id="cancel-bt2" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除</a>
-        <a id="cancel-bt3" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">一键删除</a>
+        <a id="add-bt1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">确认成交</a>
     </div>
 </div>
 <div id="dd"></div>
@@ -160,13 +159,12 @@
     $("#add-bt1").click(function(){
         var value = $("#servermsg").val();
         var khId = $("#ids").val();
-        var byzd = row[0].byzd;
         if (value){
             $.ajax({
                 url:'/clientLog/save',
                 type:'POST',
                 dataType:'json',
-                data:{"khId":khId,"zznr":value,"byzd":byzd},
+                data:{"khId":khId,"zznr":value,"khcjlx":1},
                 success:function(data){
                     if(data.code==200){
                         $.ajax({
@@ -178,11 +176,26 @@
                             }
                         });
                         $("#servermsg").val("");
+                        var  d = {"khId": khId,"khcjlx":1};
+                        $.ajax({
+                            url: "/client/update",
+                            type:'POST',
+                            dataType: 'json',
+                            data:d,
+                            success: function (data) {
+                                console.log(data);
+                                if (data.code == 200) {
+                                    tip(data.msg);
+                                } else {
+                                    tip(data.msg);
+                                }
+                            }
+                        });
                     }else{
                         tip(data.msg);
                     }
                 }
-            })
+            });
         }else {
             tip("请在服务信息框中,添加服务信息！！！");
         }
@@ -255,6 +268,18 @@
            }
        })
     });
+    $('#hidden_frame').load(function(){
+        var text=$(this).contents().find("body").text();
+        // 根据后台返回值处理结果
+        try {
+            var j = $.parseJSON(text);
+            alert(j.msg);
+        } catch (e){
+
+        }
+
+    });
+
 </script>
 </body>
 </html>
