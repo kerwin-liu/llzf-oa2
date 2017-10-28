@@ -99,19 +99,19 @@
         <a id="btn12" href="#" class="easyui-linkbutton"  style="margin-left: 12%" data-options="iconCls:'icon-undo'">返回</a>
     </div>
         <div style="width: 97%;height: 25px;float: left;margin-left: 2%;margin-top: 0.3%;border: 0px solid red">
-            客户类型:<select id="type" style="width:80px;">
+            客户类型:<select id="khlx" style="width:80px;">
             <option value=""></option>
             <option value="1">一般客户</option>
             <option value="2">潜力客户</option>
             <option value="3">意客客户</option>
             <option value="4">未有兴趣客户</option>
         </select>
-            姓名：<input id="name" type="text" style="width:80px;"/>
-            手机:<input id = "phone" type="text" style="width:80px;"/>
-            QQ:<input id="qq" type="text" style="width:80px;"/>
-            日期:<input id="timeStart" type="text" name="historySearchTime" readonly="readonly" style="width:80px;"/>
-            至 <input id="timeEnd" type="text" name="nowSearchTime" style="width:80px;"/>
-            负责人：<input id="employee1" name="mem" style="width:80px;" />
+            姓名：<input id="khmc" type="text" style="width:80px;"/>
+            手机:<input id = "khsjh" type="text" style="width:80px;"/>
+            QQ:<input id="khqq" type="text" style="width:80px;"/>
+            日期:<input id="cjsjQ" type="text" name="historySearchTime" readonly="readonly" style="width:80px;"/>
+            至 <input id="cjsjZ" type="text" name="nowSearchTime" style="width:80px;"/>
+            负责人：<input id="memberId" name="mem" style="width:80px;" />
             <a id="btn8" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
         </div>
 
@@ -122,6 +122,7 @@
 </div>
 </body>
 <script type="text/javascript">
+    var his = [],index=0;
     $(function(){
         var myDate = new Date();
         var historyTimeString= date2str(getBeforeTimeByMinute(myDate,-60),'yyyy-MM-dd hh:mm:ss'),
@@ -168,7 +169,7 @@
                 {field: 'khwx', title: '微信号', width: 100, align: 'center'},
                 {field: 'khwxnc', title: '微信名', width: 100, align: 'center',hidden:true},
                 {field: 'khqq', title: 'QQ号', width: 100, align: 'center'},
-                {field: 'khqqnc', title: 'QQ昵称', width: 100, align: 'center'},
+                {field: 'khqqnc', title: '昵称', width: 100, align: 'center'},
                 {field: 'khlx', title: '客户类型', width: 80, align: 'center',formatter:function(value, row, index){
                     var type="";
                     if(value==1){
@@ -270,17 +271,42 @@
         });
         //
         $("#btn12").click(function(){
-            history.go(-1);
-           /* $("#type").val("");
-           $("#phone").val();
-            $("#type").val();
-            $("#qq").val();
-            $("#timeStart").val();
-            $("#timeEnd").val();
-            $("#employee1").val();
+           /* history.go(-1);*/
+           if(index==0){
+               $("#khlx").val("");
+               $("#khmc").val("");
+               $("#khsjh").val("");
+               $("#khqq").val("");
+               $("#cjsjQ").val("");
+               $("#cjsjZ").val("");
+               $("#_easyui_textbox_input1").val("");
+               $("#memberId").combobox("unselect",$("#memberId").val());
+               tbdata(1,30);
+           }else{
+               his.splice(index,1);
+               index = index-1;
+               if(index==0){
+                   $("#khlx").val("");
+                   $("#khmc").val("");
+                   $("#khsjh").val("");
+                   $("#khqq").val("");
+                   $("#cjsjQ").val("");
+                   $("#cjsjZ").val("");
+                   $("#_easyui_textbox_input1").val("");
+                   $("#memberId").combobox("unselect",$("#memberId").val());
+                   tbdata(1,30);
+               }else {
+                   for (var key in his[index - 1]) {
+                       console.log(key == "memberId");
+                       if (key == "memberId") {
+                           $("#memberId").combobox("select", his[index - 1][key]);
+                       } else {
+                           $("#" + key).val(his[index - 1][key]);
+                       }
+                   }
+               }
+           }
             tbdata(1,30);
-            $("#dg").datagrid("load");
-            $("#btn6").attr("href","/client/queryToExcel?khcjlx=0");*/
         });
 
         $("#btn10").click(function(){
@@ -292,6 +318,35 @@
             }
         });
         $("#btn8").click(function(){
+            var name=$("#khmc").val(),
+                phone=$("#khsjh").val(),
+                type=$("#khlx").val(),
+                qq=$("#khqq").val(),
+                timeStart=$("#cjsjQ").val(),
+                timeEnd=$("#cjsjZ").val(),
+                clientId=$("#memberId").val();
+            var data={};
+            if(clientId){
+                data["memberId"]=clientId;
+            }
+            if(type){
+                data["khlx"]=type;
+            }
+            if(name){
+                data["khmc"]=name;
+            }
+            if(phone){
+                data["khsjh"]=phone;
+            }
+            if(qq){
+                data["khqq"]=qq;
+            }if(timeStart){
+                data["cjsjQ"]=timeStart;
+            }if(timeEnd){
+                data["cjsjZ"]=timeEnd;
+            }
+            his.push(data);
+            index =index+1;
             tbdata(1,30);
             exports();
         });
@@ -312,7 +367,7 @@
                     for (var i=0;i<value.length;i++){
                         d.push({"id":value[i].memberId,"text":value[i].name});
                     }
-                    $("#employee1").combobox({
+                    $("#memberId").combobox({
                         valueField:'id',
                         textField:'text',
                         data:d
@@ -347,7 +402,7 @@ function trace(){
     if(rows.length>1||rows.length==0){
         tip("请选择一条数据进行修改");
     }else{
-        createnewwindow("客户追踪", "/pages/Customer-log",700,520);
+        createnewwindow("客户追踪", "/pages/Customer-log",800,520);
     }
 }
 
@@ -401,13 +456,13 @@ function imports(){
 }
 
 function exports(){
-    var name=$("#name").val(),
-        phone=$("#phone").val(),
-        type=$("#type").val(),
-        qq=$("#qq").val(),
-        timeStart=$("#timeStart").val(),
-        timeEnd=$("#timeEnd").val(),
-        clientId=$("#employee1").val();
+    var name=$("#khmc").val(),
+        phone=$("#khsjh").val(),
+        type=$("#khlx").val(),
+        qq=$("#khqq").val(),
+        timeStart=$("#cjsjQ").val(),
+        timeEnd=$("#cjsjZ").val(),
+        clientId=$("#memberId").val();
     var data={"khcjlx":0};
     if(clientId){
         data["memberId"]=clientId;
@@ -452,13 +507,13 @@ function exports(){
         tbdata(pageNumber,pageSize)
     }
     function tbdata(pageIndex,pageSize){
-        var name=$("#name").val(),
-            phone=$("#phone").val(),
-            type=$("#type").val(),
-            qq=$("#qq").val(),
-            timeStart=$("#timeStart").val(),
-            timeEnd=$("#timeEnd").val(),
-            clientId=$("#employee1").val();
+        var name=$("#khmc").val(),
+            phone=$("#khsjh").val(),
+            type=$("#khlx").val(),
+            qq=$("#khqq").val(),
+            timeStart=$("#cjsjQ").val(),
+            timeEnd=$("#cjsjZ").val(),
+            clientId=$("#memberId").val();
         var data={"khcjlx":0};
         if(clientId){
             data["memberId"]=clientId;

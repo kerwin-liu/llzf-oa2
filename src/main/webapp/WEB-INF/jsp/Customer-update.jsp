@@ -56,7 +56,7 @@
                 <input id="khqq" name="khqq"  class="easyui-validatebox textbox" style="height: 25px;" size="20">
             </span>
         <span class="item-two">
-                <label>QQ昵称:</label>
+                <label>昵称:</label>
                 <input id="khqqnc" name="khqqnc" class="easyui-validatebox textbox" style="height: 25px;" size="20">
            </span>
     </div>
@@ -66,7 +66,7 @@
                    <input id="khwx" name="khwx"  class="easyui-validatebox textbox" style="height: 25px;" size="20">
                </span>
              <span class="item-two">
-                    <label>资金:</label>
+                    <label>资金(万):</label>
                    <input id="zj" name="khzj"  class="easyui-validatebox textbox"  validType="intOrFloat" style="height: 25px;" size="20">
                </span>
     </div>

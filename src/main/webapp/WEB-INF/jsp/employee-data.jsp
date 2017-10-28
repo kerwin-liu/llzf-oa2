@@ -130,6 +130,7 @@
 
 <script type="text/javascript">
     var data_url= '/member/getList';
+    var his=[],index=0;
     $(function () {
         var myDate = new Date();
         var historyTimeString= date2str(getBeforeTimeByMinute(myDate,-60),'yyyy-MM-dd hh:mm:ss'),
@@ -308,6 +309,8 @@
             data["phone"]=$("#phone-search").val();
             data['number']=$("#number-search").val();
             data["card"]=$("#card-search").val();
+            his.push(data);
+            index = index+1;
             $.ajax({
                 url: '/member/getList?pageIndex=1&pageSize=30',
                 type: "POST",
@@ -323,9 +326,45 @@
         });
 
         $("#btn11").click(function(){
-            window.history.go(-1);
-        });
+           /* window.history.go(-1);*/
+            if(index==0){
+                $("#name-search").val("");
+                $("#phone-search").val("");
+                $("#number-search").val("");
+                $("#card-search").val("");
+            }else{
+                his.splice(index,1);
+                index = index-1;
+                if(index==0){
+                    $("#name-search").val("");
+                    $("#phone-search").val("");
+                    $("#number-search").val("");
+                    $("#card-search").val("");
+                }else {
+                    for (var key in his[index - 1]) {
+                            $("#" + key+"-search").val(his[index - 1][key]);
+                    }
+                }
+            }
+            var data={};
+            data["name"]=$("#name-search").val();
+            data["phone"]=$("#phone-search").val();
+            data['number']=$("#number-search").val();
+            data["card"]=$("#card-search").val();
+            $.ajax({
+                url: '/member/getList?pageIndex=1&pageSize=30',
+                type: "POST",
+                dataType: 'json',
+                data:data,
+                success: function (data) {
+                    if (data.code == 200) {
+                        console.log(data.date.result);
+                        $("#dg").datagrid("loadData", {total: data.date.totalCount, rows: data.date.result});
+                    }
+                }
+            });
 
+        });
 
     });
 
