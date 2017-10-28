@@ -32,7 +32,7 @@
 }
 </style>
 
-<div style="width: 49%;height: 98%;float: left;border: 0px solid red">
+<div style="height: 98%;float: left;border: 0px solid red">
     <div style="width: 60%;height: 10%;border-bottom: 2px solid #949494;margin-left: 15%;line-height: 38px;font-size: 20px;color: #949494;text-align: center;font-family: 'Microsoft Yahei', '微软雅黑';font-weight: 800">
         客户信息
     </div>
@@ -46,36 +46,44 @@
             </tr>
             <tr>
                 <td style="width:15%;">客户姓名:</td>
-                <td style="width:15%;"> <input style="width: 50px;border: 0px" id="names" type="text"/></td>
+                <td style="width:15%;"> <input style="width: 50px;border: 1px" id="names" type="text"/></td>
+
+            </tr>
+            <tr>
                 <td style="width:25%;">客户手机:</td>
-                <td style="width:25%;"><input style="width: 100px;border: 0px" id="phones" type="text"/></td>
+                <td style="width:25%;"><input style="width: 100px;border: 1px" id="phones" type="text"/></td>
             </tr>
             <tr>
                 <td>微信号:</td>
-                <td><input style="width: 50px;border: 0px" id="weixins" type="text"/> </td>
+                <td><input style="width: 50px;border: 1px" id="weixins" type="text"/> </td>
+
+            </tr>
+            <tr>
                 <td>微信名:</td>
-                <td><input style="width: 50px;border: 0px" id="qqqncs" type="text"/></td>
+                <td><input style="width: 50px;border: 1px" id="qqqncs" type="text"/></td>
             </tr>
             <tr>
                 <td>QQ:</td>
-                <td> <input style="width: 50px;border: 0px" id="qqs" type="text"/> </td>
-                <td>客户类型:</td>
-                <td><input style="width: 60px;border: 0px" id="types" type="text"/> </td>
-            </tr>
+                <td> <input style="width: 50px;border: 1px" id="qqs" type="text"/> </td>
 
+            </tr>
+            <tr>
+                <td>客户类型:</td>
+                <td><input style="width: 60px;border: 1px" id="types" type="text"/> </td>
+            </tr>
             <tr>
                 <td>归档日期:</td>
-                <td colspan="3"><input style="width: 146px;border: 0px" id="times" type="text"/> </td>
+                <td colspan="3"><input style="width: 146px;border: 1px" id="times" type="text"/> </td>
             </tr>
             <tr>
                 <td>备注:</td>
-                <td colspan="3"><input style="width: 50px;border: 0px" id="remarks" type="text"/></td>
+                <td colspan="3"><input style="width: 50px;border: 1px" id="remarks" type="text"/></td>
             </tr>
         </table>
 
     </div>
 </div>
-<div style="width: 49%;height: 98%;float: left;border: 0px solid red;margin-left: 10px">
+<div style="width: 53%;height: 98%;float: left;border: 0px solid red;margin-left: 10px">
 <div style="width: 100%;height: 24%;font-size: 18px">
     服务信息:<textarea id="servermsg" cols="36" style="resize: none" ></textarea>
 </div>
@@ -141,7 +149,7 @@
         rownumbers: true,
         columns: [[
             {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
-            {field: 'cjsj', title: '时间', width: 50, align: 'center',formatter:function(value, row, index){
+            {field: 'cjsj', title: '时间', width: 80, align: 'center',formatter:function(value, row, index){
                 var time = new Date(value);
                 return date2str(time,'yyyy-MM-dd hh:mm:ss');
             }},
@@ -196,7 +204,6 @@
             for (var i=0;i<rows.length;i++){
                 ids.push(rows[i].zzId);
             }
-
             $.messager.confirm('确定', '你确定要删除吗?', function (r) {
                 if (r) {
                     $.post('/clientLog/batchDelete/', {"ids": JSON.stringify(ids)}, function (result) {

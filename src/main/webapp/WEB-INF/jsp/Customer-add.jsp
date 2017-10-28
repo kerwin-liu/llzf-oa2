@@ -36,7 +36,7 @@
     </div>
     <div class="fitem">
         <label>身份证:</label>
-        <input value="" name="khsfzh" size="54" class="easyui-validatebox textbox" class="easyui-validatebox textbox" validType="idcard"  style="height: 25px;">
+        <input value="" name="khsfzh" size="54" class="easyui-validatebox textbox" class="easyui-validatebox textbox"   style="height: 25px;">
     </div>
     <div class="fitem">
          <span class="item-one">
@@ -56,20 +56,20 @@
     <div class="fitem">
         <span class="item-one">
                  <label>QQ:</label>
-                <input name="khqq"  class="easyui-validatebox textbox" required="true"missingMessage="不能为空" validType="qq"  style="height: 25px;" size="20">
+                <input name="khqq"  class="easyui-validatebox textbox"  style="height: 25px;" size="20">
             </span>
         <span class="item-two">
-                <label>QQ昵称:</label>
+                <label>昵称:</label>
                 <input name="qqnc" class="easyui-validatebox textbox" style="height: 25px;" size="20">
            </span>
     </div>
     <div class="fitem">
             <span class="item-one">
-                    <label>微信:</label>
+                   <label>微信:</label>
                    <input name="khwx"  class="easyui-validatebox textbox" style="height: 25px;" size="20">
                </span>
         <span class="item-two">
-                    <label>资金:</label>
+                    <label>资金(万):</label>
                    <input name="khzj"  class="easyui-validatebox textbox"  validType="intOrFloat" style="height: 25px;" size="20">
                </span>
     </div>

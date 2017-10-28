@@ -193,6 +193,7 @@ function closeObj(obj) {
 		var c = $(from[i]).children("#dd");
 		if(c.length==0){
 			closeObj($(from[i].parentNode));
+
 		}else{
 			c.dialog('close');
 			return;
