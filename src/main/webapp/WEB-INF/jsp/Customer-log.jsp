@@ -46,30 +46,30 @@
             </tr>
             <tr>
                 <td style="width:15%;">客户姓名:</td>
-                <td style="width:15%;"> <input style="width: 50px;border: 0px" id="names" type="text"/></td>
+                <td style="width:15%;"> <input style="width: 50px;border: 1px" id="names" type="text"/></td>
                 <td style="width:25%;">客户手机:</td>
-                <td style="width:25%;"><input style="width: 100px;border: 0px" id="phones" type="text"/></td>
+                <td style="width:25%;"><input style="width: 100px;border: 1px" id="phones" type="text"/></td>
             </tr>
             <tr>
                 <td>微信号:</td>
-                <td><input style="width: 50px;border: 0px" id="weixins" type="text"/> </td>
+                <td><input style="width: 50px;border: 1px" id="weixins" type="text"/> </td>
                 <td>微信名:</td>
-                <td><input style="width: 50px;border: 0px" id="qqqncs" type="text"/></td>
+                <td><input style="width: 50px;border: 1px" id="qqqncs" type="text"/></td>
             </tr>
             <tr>
                 <td>QQ:</td>
-                <td> <input style="width: 50px;border: 0px" id="qqs" type="text"/> </td>
+                <td> <input style="width: 50px;border: 1px" id="qqs" type="text"/> </td>
                 <td>客户类型:</td>
-                <td><input style="width: 60px;border: 0px" id="types" type="text"/> </td>
+                <td><input style="width: 60px;border: 1px" id="types" type="text"/> </td>
             </tr>
 
             <tr>
                 <td>归档日期:</td>
-                <td colspan="3"><input style="width: 146px;border: 0px" id="times" type="text"/> </td>
+                <td colspan="3"><input style="width: 146px;border: 1px" id="times" type="text"/> </td>
             </tr>
             <tr>
                 <td>备注:</td>
-                <td colspan="3"><input style="width: 50px;border: 0px" id="remarks" type="text"/></td>
+                <td colspan="3"><input style="width: 50px;border: 1px" id="remarks" type="text"/></td>
             </tr>
         </table>
 
@@ -196,7 +196,6 @@
             for (var i=0;i<rows.length;i++){
                 ids.push(rows[i].zzId);
             }
-
             $.messager.confirm('确定', '你确定要删除吗?', function (r) {
                 if (r) {
                     $.post('/clientLog/batchDelete/', {"ids": JSON.stringify(ids)}, function (result) {

@@ -270,7 +270,8 @@
         });
         //
         $("#btn12").click(function(){
-            $("#type").val("");
+            history.go(-1);
+           /* $("#type").val("");
            $("#phone").val();
             $("#type").val();
             $("#qq").val();
@@ -279,7 +280,7 @@
             $("#employee1").val();
             tbdata(1,30);
             $("#dg").datagrid("load");
-            $("#btn6").attr("href","/client/queryToExcel?khcjlx=0");
+            $("#btn6").attr("href","/client/queryToExcel?khcjlx=0");*/
         });
 
         $("#btn10").click(function(){
@@ -297,6 +298,7 @@
         tbdata(1,30);
         select1();
         });
+
     function select1(){
         var url="/member/getAll";
         $.ajax({
@@ -433,20 +435,6 @@ function exports(){
         data["cjsjZ"]=timeEnd;
         $("#btn6").attr("href",$("#btn6").attr("href")+"&cjsjZ="+timeEnd);
     }
-
-
-    /* $(this).attr("href","/client/queryToExcel");*/
-   /* $.get('');*/
-   /* $.ajax({
-        url:'/client/queryToExcel',
-        dataType:'json',
-        data:data,
-        success:function(data){
-            console.log(data);
-        },
-        error:function(data){
-        }
-    })*/
 }
     function findDataByWhere(id, pageNumber, pageSize) {
         var content="{";
