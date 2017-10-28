@@ -67,10 +67,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Pages<ClientVo> selectPagesByMemberId(ClientQo clientQo, Long userId) {
         //仅仅查询自己名下的客户
-        PageHelper.startPage(clientQo.getPageIndex(), clientQo.getPageSize());
         //查询用户的员工号
         Member member = memberMapper.queryMemberByuserid(userId);
         clientQo.setMemberId(member.getMemberId());
+        PageHelper.startPage(clientQo.getPageIndex(), clientQo.getPageSize());
         List<ClientVo> list = clientMapper.selectClientVosByclientQo(clientQo);
         Page<ClientVo> page = (Page<ClientVo>) list;
         return new Pages<>(page.getStartRow(), page.getTotal(), page.getPageSize(), list);
@@ -78,11 +78,11 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Pages<ClientVo> selectPagesByClientVo(ClientQo clientQo, Long userId) {
-        //仅仅查询自己部门的客户
-        PageHelper.startPage(clientQo.getPageIndex(), clientQo.getPageSize());
         //查询主管的部门号
         Department department = departmentMapper.queryDepartmentByUserId(userId);
         clientQo.setDepartmentId(department.getId());
+        //仅仅查询自己部门的客户
+        PageHelper.startPage(clientQo.getPageIndex(), clientQo.getPageSize());
         List<ClientVo> list = clientMapper.selectClientVosByclientQo(clientQo);
         Page<ClientVo> page = (Page<ClientVo>) list;
         return new Pages<>(page.getStartRow(), page.getTotal(), page.getPageSize(), list);

@@ -290,7 +290,7 @@
     m.jjlxrsj,
     m.sugx
     FROM member m LEFT JOIN user_member um ON m.member_id= um.member_id
-    WHERE um.user_id =#{id};
+    WHERE um.user_id =#{id}
   </select>
 
   <select id="queryMemberByNo" resultMap="BaseResultMap" parameterType="java.lang.String">
