@@ -263,9 +263,8 @@ public class ClientController extends BaseController {
                 {"khcjlx", "成交类型"},
                 {"strkhcjsj", "成交时间"},
                 {"khqq", "客户QQ"},
-                {"khqqnc", "客户QQ昵称"},
+                {"khqqnc", "客户昵称"},
                 {"khwx", "客户微信"},
-                {"khwxnc", "客户微信昵称"},
                 {"bz", "备注"},
                 {"strcjsj", "创建时间"},
                 {"name", "负责人"}
