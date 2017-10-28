@@ -43,7 +43,12 @@
     <div class="fitem">
          <span class="item-one">
                 <label>客户类型:</label>
-               <input name="khlx" id="khlx" class="easyui-combobox" missingMessage="不能为空" validType="CHS" required="true" size="20" width="50"/>
+               <select id="khlxs" name="khlx">
+                    <option value="1">一般客户</option>
+                    <option value="2">潜力客户</option>
+                     <option value="3">意客客户</option>
+                     <option value="4">未有兴趣客户</option>
+                </select>
            </span>
         <span class="item-two">
                  <label>手机:</label>
@@ -128,12 +133,7 @@
              {"id":2,"text":"潜力客户"},
              {"id":3,"text":"意向客户"},
              {"id":4,"text":"未有兴趣客户"}];
-    map[(rows[0].khlx)*1-1].selected=true;
-    $('#khlx').combobox({
-        valueField:'id',
-        textField:'text',
-        data:map
-    });
+    $("#khlxs").find("option[value='"+rows[0].khlx+"']").attr("selected",true);
     if(rows[0].khxb==0){
         $('input:radio[name=khxb]')[0].checked = true;
     }else if(rows[0].khxb==1){

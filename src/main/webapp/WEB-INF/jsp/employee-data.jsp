@@ -155,11 +155,11 @@
             pageList : [10,20,30],
             rownumbers: true,
             columns: [[
-                {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
-                {field: 'memberId', title: 'ID', checkbox: true, width: 50, align: 'center', hidden: 'true'},
-                {field: 'number', title: '编号', width: 100, align: 'center'},
-                {field: 'name', title: '姓名', width: 100, align: 'center'},
-                {field: 'sex', title: '性别', width: 100, align: 'center',formatter:function(value, row, index){
+                {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'left'},
+                {field: 'memberId', title: 'ID', checkbox: true, width: 50, align: 'left', hidden: 'true'},
+                {field: 'number', title: '编号', width: 100, align: 'left'},
+                {field: 'name', title: '姓名', width: 100, align: 'left'},
+                {field: 'sex', title: '性别', width: 100, align: 'left',formatter:function(value, row, index){
                     var sex="";
                     if(row.sex==0){
                         sex="男";
@@ -168,12 +168,12 @@
                     }
                     return sex;
                 }},
-                {field: 'phone', title: '手机号', width: 100, align: 'center'},
-                {field: 'wexin', title: '微信号', width: 100, align: 'center'},
-                {field: 'qq', title: 'QQ号', width: 100, align: 'center'},
-                {field: 'qqnc', title: 'QQ昵称', width: 100, align: 'center'},
-                {field: 'card', title: '身份证号', width: 100, align: 'center'},
-                {field: 'open', title: '状态', width: 100, align: 'center',formatter:function(value, row, index){
+                {field: 'phone', title: '手机号', width: 100, align: 'left'},
+                {field: 'wexin', title: '微信号', width: 100, align: 'left'},
+                {field: 'qq', title: 'QQ号', width: 100, align: 'left'},
+                {field: 'qqnc', title: 'QQ昵称', width: 100, align: 'left'},
+                {field: 'card', title: '身份证号', width: 100, align: 'left'},
+                {field: 'open', title: '状态', width: 100, align: 'left',formatter:function(value, row, index){
                     var open="";
                     if(row.open==0){
                         open="未开通";
@@ -182,16 +182,16 @@
                     }
                     return open;
                 }},
-                {field: 'groupName', title: '部门', width: 100, align: 'center'},
-                {field: 'permissions', title: '权限',align: 'center',hidden: 'true'},
-                {field: 'groups', title: '部门id', align: 'center',hidden: 'true'},
-                {field: 'address', title: '地址', align: 'center',hidden: 'true'},
-                {field: 'remark', title: '备注', align: 'center',hidden: 'true'},
-                {field: 'wexin', title: '微信', align: 'center',hidden: 'true'},
-                {field: 'wPhone', title: '绑定手机', align: 'center',hidden: 'true'},
-                {field: 'jjlxr', title: '紧急联系人', align: 'center',hidden: 'true'},
-                {field: 'jjlxrsj', title: '紧急联系人手机号', align: 'center',hidden: 'true'},
-                {field: 'sugx', title: '所属关系', align: 'center',hidden: 'true'}
+                {field: 'groupName', title: '部门', width: 100, align: 'left'},
+              /*  {field: 'permissions', title: '权限',align: 'left',hidden: 'true'},
+                {field: 'groups', title: '部门id', align: 'left',hidden: 'true'},
+                {field: 'address', title: '地址', align: 'left',hidden: 'true'},
+                {field: 'remark', title: '备注', align: 'left',hidden: 'true'},
+                {field: 'wexin', title: '微信', align: 'left',hidden: 'true'},
+                {field: 'wPhone', title: '绑定手机', align: 'left',hidden: 'true'},
+                {field: 'jjlxr', title: '紧急联系人', align: 'left',hidden: 'true'},
+                {field: 'jjlxrsj', title: '紧急联系人手机号', align: 'left',hidden: 'true'},
+                {field: 'sugx', title: '所属关系', align: 'left',hidden: 'true'}*/
             ]]
         }).datagrid("getPager").pagination({
             onBeforeRefresh : function(pageNumber, pageSize) {

@@ -43,42 +43,42 @@
             <tr style="width: 100%;">
                 <td style="width: 27%">业务员:</td>
                 <td style="width:25%;" colspan="3">
-                    <input id="mem" style="border: 1px solid #949494;border-radius: 5px;  width:130px"></td>
+                    <input id="mem" style="border: 1px solid #949494;height: 25px;border-radius: 5px;  width:130px"></td>
             </tr>
             <tr>
                 <td style="width:15%;">客户姓名:</td>
-                <td style="width:15%;"> <input style="width: 130px;border: 1px solid #949494;border-radius: 5px;" id="names" type="text"/></td>
+                <td style="width:15%;"> <input style="width: 130px;height: 25px;border: 1px solid #949494;border-radius: 5px;" id="names" type="text"/></td>
 
             </tr>
             <tr>
                 <td style="width:25%;">客户手机:</td>
-                <td style="width:25%;"><input style="width: 130px;border: 1px solid #949494;border-radius: 5px;" id="phones" type="text"/></td>
+                <td style="width:25%;"><input style="width: 130px;height: 25px;border: 1px solid #949494;border-radius: 5px;" id="phones" type="text"/></td>
             </tr>
             <tr>
                 <td>微信号:</td>
-                <td><input style="width: 130px;border: 1px solid #949494;border-radius: 5px;" id="weixins" type="text"/> </td>
+                <td><input style="width: 130px;height: 25px;border: 1px solid #949494;border-radius: 5px;" id="weixins" type="text"/> </td>
 
             </tr>
             <tr>
                 <td>微信名:</td>
-                <td><input style="width: 130px;border: 1px solid #949494;border-radius: 5px;" id="qqqncs" type="text"/></td>
+                <td><input style="width: 130px;height: 25px;border: 1px solid #949494;border-radius: 5px;" id="qqqncs" type="text"/></td>
             </tr>
             <tr>
                 <td>QQ:</td>
-                <td> <input style="width: 130px;border: 0px" id="qqs" type="text"/> </td>
+                <td> <input style="width: 130px;height: 25px;border: 0px" id="qqs" type="text"/> </td>
 
             </tr>
             <tr>
                 <td>客户类型:</td>
-                <td><input style="width: 130px;border: 1px solid #949494;border-radius: 5px;" id="types" type="text"/> </td>
+                <td><input style="width: 130px;height: 25px;border: 1px solid #949494;border-radius: 5px;" id="types" type="text"/> </td>
             </tr>
             <tr>
                 <td>归档日期:</td>
-                <td colspan="3"><input style="width: 146px;border: 1px solid #949494;border-radius: 5px;" id="times" type="text"/> </td>
+                <td colspan="3"><input style="width: 146px;height: 25px;border: 1px solid #949494;border-radius: 5px;" id="times" type="text"/> </td>
             </tr>
             <tr>
                 <td>备注:</td>
-                <td colspan="3"><input style="width: 130px;border: 1px solid #949494;border-radius: 5px;" id="remarks" type="text"/></td>
+                <td colspan="3"><input style="width: 130px;height: 25px;border: 1px solid #949494;border-radius: 5px;" id="remarks" type="text"/></td>
             </tr>
         </table>
 
@@ -152,7 +152,10 @@
                 var time = new Date(value);
                 return date2str(time,'yyyy-MM-dd hh:mm:ss');
             }},
-            {field: 'zznr', title: '追踪信息', width: 100, align: 'center'}
+            {field: 'zznr', title: '追踪信息', width: 100, align: 'center',formatter:function(value, row, index){
+
+                return "<div  id=\"textdata\" onmousemove=\"test(event,'" + value + "') \"  onmouseout=\"test1()\">"+value+"</div>";
+            }}
             ]]
     });
    $.ajax({
@@ -288,7 +291,13 @@
         }
 
     });
-
+    function test(event, value) {
+        var ss = event || window.event;
+        $("#servermsg").text(value);
+    }
+    function test1() {
+        $("#servermsg").text("");
+    }
 </script>
 </body>
 </html>

@@ -41,8 +41,8 @@
     <div class="fitem">
          <span class="item-one">
                 <label>客户类型:</label>
-                 <select class="easyui-combobox" name="khlx" class="easyui-validatebox"   missingMessage="不能为空" validType="CHS" required="true" size="20" width="50">
-                    <option value="1" selected>一般客户</option>
+                 <select  name="khlx">
+                    <option value="1">一般客户</option>
                     <option value="2">潜力客户</option>
                      <option value="3">意客客户</option>
                      <option value="4">未有兴趣客户</option>
