@@ -4,18 +4,19 @@ package com.fzl.pojo.Qo;
  * Created by kerwin.liu on 2017/10/16.
  */
 public class MemberQo extends BaseQuery{
-    private Integer number;
+    private String number;
     private String name;
     private String phone;
     private String card;
     private String timeStart;
     private String timeEnd;
     private Long departmentId;
-    public Integer getNumber() {
+
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
