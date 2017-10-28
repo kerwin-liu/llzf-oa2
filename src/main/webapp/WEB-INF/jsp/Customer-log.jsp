@@ -194,8 +194,9 @@
         }else {
             var ids=[];
             for (var i=0;i<rows.length;i++){
-                ids.push(rows[i].khId);
+                ids.push(rows[i].zzId);
             }
+
             $.messager.confirm('确定', '你确定要删除吗?', function (r) {
                 if (r) {
                     $.post('/clientLog/batchDelete/', {"ids": JSON.stringify(ids)}, function (result) {
