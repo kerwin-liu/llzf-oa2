@@ -128,6 +128,7 @@
              {"id":2,"text":"潜力客户"},
              {"id":3,"text":"意向客户"},
              {"id":4,"text":"未有兴趣客户"}];
+    console.log(rows[0].khmc);
     map[(rows[0].khlx)*1-1].selected=true;
     $('#khlx').combobox({
         valueField:'id',
@@ -149,8 +150,6 @@
     $("#address").val(rows[0].khdz);
     $("#khwxnc").val(rows[0].khwxnc);
     $("#khqq").val(rows[0].khqq);
-    $("#qqnc").val(rows[0].qqnc);
-
     $("#khqqnc").val(rows[0].khqqnc);
     $("#khsfzh").val(rows[0].khsfzh);
     $("#bz").val(rows[0].bz);

@@ -32,52 +32,52 @@
 }
 </style>
 
-<div style="height: 98%;float: left;border: 0px solid red">
+<div style="width: 42%;height: 98%;float: left;border: 0px solid red">
     <div style="width: 60%;height: 10%;border-bottom: 2px solid #949494;margin-left: 15%;line-height: 38px;font-size: 20px;color: #949494;text-align: center;font-family: 'Microsoft Yahei', '微软雅黑';font-weight: 800">
         客户信息
     </div>
     <div style="width: 100%;height: 89%;border: 0px solid red">
         <input id="ids" style="display: none;"/>
         <table class="table" border="0" style="height: 90%">
-            <tr style="width: 100%;">
+            <tr style="width: 70%;">
                 <td style="width: 27%">业务员:</td>
                 <td style="width:25%;" colspan="3">
-                    <input id="mem" style="border: 0px; width:230px"></td>
+                    <input id="mem" style="border: 1px solid #949494;border-radius: 5px; width:130px"></td>
             </tr>
             <tr>
                 <td style="width:15%;">客户姓名:</td>
-                <td style="width:15%;"> <input style="width: 50px;border: 1px" id="names" type="text"/></td>
+                <td style="width:15%;"> <input style="width: 130px;border: 1px solid #949494;border-radius: 5px; " id="names" type="text"/></td>
 
             </tr>
             <tr>
                 <td style="width:25%;">客户手机:</td>
-                <td style="width:25%;"><input style="width: 100px;border: 1px" id="phones" type="text"/></td>
+                <td style="width:25%;"><input style="width: 130px;border: 1px solid #949494;border-radius: 5px; " id="phones" type="text"/></td>
             </tr>
             <tr>
                 <td>微信号:</td>
-                <td><input style="width: 50px;border: 1px" id="weixins" type="text"/> </td>
+                <td><input style="width: 130px;border: 1px solid #949494;border-radius: 5px; " id="weixins" type="text"/> </td>
 
             </tr>
             <tr>
                 <td>微信名:</td>
-                <td><input style="width: 50px;border: 1px" id="qqqncs" type="text"/></td>
+                <td><input style="width: 130px;border: 1px solid #949494;border-radius: 5px; " id="qqqncs" type="text"/></td>
             </tr>
             <tr>
                 <td>QQ:</td>
-                <td> <input style="width: 50px;border: 1px" id="qqs" type="text"/> </td>
+                <td> <input style="width: 130px;border: 1px solid #949494;border-radius: 5px; " id="qqs" type="text"/> </td>
 
             </tr>
             <tr>
                 <td>客户类型:</td>
-                <td><input style="width: 60px;border: 1px" id="types" type="text"/> </td>
+                <td><input style="width: 130px;border: 1px solid #949494;border-radius: 5px; " id="types" type="text"/> </td>
             </tr>
             <tr>
                 <td>归档日期:</td>
-                <td colspan="3"><input style="width: 146px;border: 1px" id="times" type="text"/> </td>
+                <td colspan="3"><input style="width: 146px;border: 1px solid #949494;border-radius: 5px; " id="times" type="text"/> </td>
             </tr>
             <tr>
                 <td>备注:</td>
-                <td colspan="3"><input style="width: 50px;border: 1px" id="remarks" type="text"/></td>
+                <td colspan="3"><input style="width: 130px;border: 1px solid #949494;border-radius: 5px; " id="remarks" type="text"/></td>
             </tr>
         </table>
 

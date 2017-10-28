@@ -106,12 +106,12 @@
             <option value="3">意客客户</option>
             <option value="4">未有兴趣客户</option>
         </select>
-            姓名：<input id="khmc" type="text" style="width:80px;"/>
-            手机:<input id = "khsjh" type="text" style="width:80px;"/>
-            QQ:<input id="khqq" type="text" style="width:80px;"/>
-            日期:<input id="cjsjQ" type="text" name="historySearchTime" readonly="readonly" style="width:80px;"/>
-            至 <input id="cjsjZ" type="text" name="nowSearchTime" style="width:80px;"/>
-            负责人：<input id="memberId" name="mem" style="width:80px;" />
+            姓名：<input id="khmc-search" type="text" style="width:80px;"/>
+            手机:<input id = "khsjh-search" type="text" style="width:80px;"/>
+            QQ:<input id="khqq-search" type="text" style="width:80px;"/>
+            日期:<input id="cjsjQ-search" type="text" name="historySearchTime" readonly="readonly" style="width:80px;"/>
+            至 <input id="cjsjZ-search" type="text" name="nowSearchTime" style="width:80px;"/>
+            负责人：<input id="memberId-search" name="mem" style="width:80px;" />
             <a id="btn8" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
         </div>
 
@@ -149,10 +149,10 @@
             pageList : [10,20,30],
             rownumbers: true,
             columns: [[
-                {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
-                {field: 'khId', title: '编号', width: 50, align: 'center',hidden:true},
-                {field: 'khmc', title: '姓名', width: 100, align: 'center'},
-                {field: 'khxb', title: '性别', width: 100, align: 'center',formatter:function(value, row, index){
+                {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'left'},
+                {field: 'khId', title: '编号', width: 50, align: 'left',hidden:true},
+                {field: 'khmc', title: '姓名', width: 100, align: 'left'},
+                {field: 'khxb', title: '性别', width: 50, align: 'left',formatter:function(value, row, index){
                     var type="";
                     if(value==0){
                         type="男";
@@ -164,13 +164,13 @@
                         type="未知";
                     }
                     return type;}},
-                {field: 'khsjh', title: '手机号', width: 100, align: 'center'},
-                {field: 'khsfzh', title: '身份证号', width: 100, align: 'center'},
-                {field: 'khwx', title: '微信号', width: 100, align: 'center'},
-                {field: 'khwxnc', title: '微信名', width: 100, align: 'center',hidden:true},
-                {field: 'khqq', title: 'QQ号', width: 100, align: 'center'},
-                {field: 'khqqnc', title: '昵称', width: 100, align: 'center'},
-                {field: 'khlx', title: '客户类型', width: 80, align: 'center',formatter:function(value, row, index){
+                {field: 'khsjh', title: '手机号', width: 150, align: 'left'},
+                {field: 'khsfzh', title: '身份证号', width: 100, align: 'left'},
+                {field: 'khwx', title: '微信号', width: 100, align: 'left'},
+                {field: 'khwxnc', title: '微信名', width: 100, align: 'left',hidden:true},
+                {field: 'khqq', title: 'QQ号', width: 100, align: 'left'},
+                {field: 'khqqnc', title: '昵称', width: 100, align: 'left'},
+                {field: 'khlx', title: '客户类型', width: 80, align: 'left',formatter:function(value, row, index){
                     var type="";
                     if(value==1){
                         type="一般客户";
@@ -186,12 +186,12 @@
                     }
                     return type;
                 }},
-                {field: 'memberId', title: '负责人', width: 100, align: 'center',hidden:true},
-                {field: 'name', title: '负责人', width: 100, align: 'center'},
-                {field: 'bz', title: '备注', width: 100, align: 'center'},
-                {field: 'khzj', title: '资金', width: 100, align: 'center'},
-                {field: 'khdz', title: '地址', width: 100, align: 'center'},
-                {field: 'cjsj', title: '归档日期', width: 180, align: 'center',formatter:function(value, row, index){
+                {field: 'memberId', title: '负责人', width: 100, align: 'left',hidden:true},
+                {field: 'name', title: '负责人', width: 100, align: 'left'},
+                {field: 'bz', title: '备注', width: 100, align: 'left'},
+                {field: 'khzj', title: '资金', width: 100, align: 'left'},
+                {field: 'khdz', title: '地址', width: 100, align: 'left'},
+                {field: 'cjsj', title: '归档日期', width: 180, align: 'left',formatter:function(value, row, index){
                     var time = new Date(value);
                     return date2str(time,'yyyy-MM-dd hh:mm:ss');
                 }}
@@ -273,35 +273,35 @@
         $("#btn12").click(function(){
            /* history.go(-1);*/
            if(index==0){
-               $("#khlx").val("");
-               $("#khmc").val("");
-               $("#khsjh").val("");
-               $("#khqq").val("");
-               $("#cjsjQ").val("");
-               $("#cjsjZ").val("");
+               $("#khlx-search").val("");
+               $("#khmc-search").val("");
+               $("#khsjh-search").val("");
+               $("#khqq-search").val("");
+               $("#cjsjQ-search").val("");
+               $("#cjsjZ-search").val("");
                $("#_easyui_textbox_input1").val("");
-               $("#memberId").combobox("unselect",$("#memberId").val());
+               $("#memberId-search").combobox("unselect",$("#memberId").val());
                tbdata(1,30);
            }else{
                his.splice(index,1);
                index = index-1;
                if(index==0){
-                   $("#khlx").val("");
-                   $("#khmc").val("");
-                   $("#khsjh").val("");
-                   $("#khqq").val("");
-                   $("#cjsjQ").val("");
-                   $("#cjsjZ").val("");
+                   $("#khlx-search").val("");
+                   $("#khmc-search").val("");
+                   $("#khsjh-search").val("");
+                   $("#khqq-search").val("");
+                   $("#cjsjQ-search").val("");
+                   $("#cjsjZ-search").val("");
                    $("#_easyui_textbox_input1").val("");
-                   $("#memberId").combobox("unselect",$("#memberId").val());
+                   $("#memberId-search").combobox("unselect",$("#memberId").val());
                    tbdata(1,30);
                }else {
                    for (var key in his[index - 1]) {
                        console.log(key == "memberId");
                        if (key == "memberId") {
-                           $("#memberId").combobox("select", his[index - 1][key]);
+                           $("#memberId-search").combobox("select", his[index - 1][key]);
                        } else {
-                           $("#" + key).val(his[index - 1][key]);
+                           $("#" + key+"-search").val(his[index - 1][key]);
                        }
                    }
                }

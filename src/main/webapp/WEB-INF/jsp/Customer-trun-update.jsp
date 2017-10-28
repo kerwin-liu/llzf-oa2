@@ -169,7 +169,7 @@
 
             if(j.code==200){
 
-                createnewwindow('成交客户','/pages/Customer-trun-log',700,520);
+                createnewwindow('成交客户','/pages/Customer-trun-log',800,520);
                /* $.messager.confirm('确定', '你确定要成交吗?', function (r) {
                     if (r) {
                         var  d = {"khId": $("#khId").val(),"khcjlx":1};

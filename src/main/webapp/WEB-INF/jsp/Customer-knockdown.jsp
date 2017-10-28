@@ -166,10 +166,10 @@
             pageList : [10,20,30],
             rownumbers: true,
             columns: [[
-                {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'center'},
-                {field: 'khId', title: '编号', width: 50, align: 'center',hidden:true},
-                {field: 'khmc', title: '姓名', width: 100, align: 'center'},
-                {field: 'khxb', title: '性别', width: 100, align: 'center',formatter:function(value, row, index){
+                {field : 'IDs',title : 'IDs',checkbox : true,width : 8,align : 'left'},
+                {field: 'khId', title: '编号', width: 50, align: 'left',hidden:true},
+                {field: 'khmc', title: '姓名', width: 100, align: 'left'},
+                {field: 'khxb', title: '性别', width: 50, align: 'left',formatter:function(value, row, index){
                     var type="";
                     if(value==0){
                         type="男";
@@ -178,13 +178,13 @@
                         type="女";
                     }
                     return type;}},
-                {field: 'khsjh', title: '手机号', width: 100, align: 'center'},
-                {field: 'khsfzh', title: '身份证号', width: 100, align: 'center'},
-                {field: 'khwx', title: '微信号', width: 100, align: 'center'},
-                {field: 'khwxnc', title: '微信名', width: 100, align: 'center',hidden:true},
-                {field: 'khqq', title: 'QQ号', width: 100, align: 'center'},
-                {field: 'khqqnc', title: '昵称', width: 100, align: 'center'},
-                {field: 'khlx', title: '客户类型', width: 80, align: 'center',hidden:true,formatter:function(value, row, index){
+                {field: 'khsjh', title: '手机号', width: 150, align: 'left'},
+                {field: 'khsfzh', title: '身份证号', width: 100, align: 'left'},
+                {field: 'khwx', title: '微信号', width: 100, align: 'left'},
+                {field: 'khwxnc', title: '微信名', width: 100, align: 'left',hidden:true},
+                {field: 'khqq', title: 'QQ号', width: 100, align: 'left'},
+                {field: 'khqqnc', title: '昵称', width: 100, align: 'left'},
+                {field: 'khlx', title: '客户类型', width: 80, align: 'left',hidden:true,formatter:function(value, row, index){
                     var type="";
                     if(value==1){
                         type="一般客户";
@@ -200,12 +200,12 @@
                     }
                     return type;
                 }},
-                {field: 'memberId', title: '负责人', width: 100, align: 'center',hidden:true},
-                {field: 'name', title: '负责人', width: 100, align: 'center'},
-                {field: 'bz', title: '备注', width: 100, align: 'center'},
-                {field: 'khzj', title: '资金', width: 100, align: 'center'},
-                {field: 'khdz', title: '地址', width: 100, align: 'center'},
-                {field: 'cjsj', title: '归档日期', width: 180, align: 'center',formatter:function(value, row, index){
+                {field: 'memberId', title: '负责人', width: 100, align: 'left',hidden:true},
+                {field: 'name', title: '负责人', width: 100, align: 'left'},
+                {field: 'bz', title: '备注', width: 100, align: 'left'},
+                {field: 'khzj', title: '资金', width: 100, align: 'left'},
+                {field: 'khdz', title: '地址', width: 100, align: 'left'},
+                {field: 'cjsj', title: '归档日期', width: 180, align: 'left',formatter:function(value, row, index){
                     var time = new Date(value);
                     return date2str(time,'yyyy-MM-dd hh:mm:ss');
                 }}
